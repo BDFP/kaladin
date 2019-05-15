@@ -27,7 +27,7 @@
 
   (reload!)
 
-  (big-bang3d initial-state
+  (big-bang3d (initial-state)
               #:on-draw  draw
               #:on-frame on-frame
               #:on-key   on-key

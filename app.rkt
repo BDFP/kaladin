@@ -7,14 +7,16 @@
 (provide on-frame)
 
 (require pict3d
-         pict3d/universe)
+         pict3d/universe
+         struct-update)
 
 (current-material (material #:ambient 0.01
                             #:diffuse 0.39
                             #:specular 0.6
                             #:roughness 0.2))
 
-(struct game-state (position))
+(struct game-state (position) #:transparent)
+(define-struct-updaters game-state)
 
 (define initial-state (lambda () (game-state origin)))
 
@@ -46,8 +48,7 @@
 
 
 (define (on-frame s n t)
-  (println (game-state-position (s)))
-  s)
+  (game-state-position-set s (pos 4 0 0)))
 
 
 (define (on-key s n t k)
