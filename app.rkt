@@ -26,16 +26,18 @@
 
 
 (define (lights+camera s)
-  (combine (light (pos 0 1 2) (emitted "Thistle"))
-           (light (pos 0 -1 -2) (emitted "PowderBlue"))
+  (combine (light (pos 2 2 0) (emitted "Thistle"))
+           (light (pos -2 2 0) (emitted "PowderBlue"))
 	   (basis 'camera (find-δv s))))
 
 
 (define (rotate-object obj t)
-  (rotate-z (rotate-y (rotate-x obj
-                                (/ t 11))
-                      (/ t 13))
-            (/ t 17)))
+  ;; (rotate-z (rotate-y (rotate-x obj
+  ;;                               (/ t 11))
+  ;;                     (/ t 13))
+  ;;           (/ t 17))
+  obj
+  )
 
 (define (make-cube t pos)
   (if (and (= (pos-x pos) 0)
@@ -52,10 +54,11 @@
                        (list origin
                              (pos 4 0 0)
                              (pos 0 4 0)
-                             (pos 0 0 4)
+                             ;; (pos 0 0 4)
                              (pos -4 0 0)
-                             (pos 0 -4 0)
-                             (pos 0 0 -4)))
+                             ;; (pos 0 -4 0)
+                             ;; (pos 0 0 -4)
+			     ))
            (lights+camera s)))
 
 
