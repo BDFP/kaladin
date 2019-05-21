@@ -12,7 +12,7 @@
   (ffi-lib "libassimp.so")
   #:make-c-id convention:hyphen->camelcase)
 
-(define-cstruct _ai-vector-3D
+(define-cstruct _ai-vector3D
   ([x _double]
    [y _double]
    [z _double]))
@@ -74,19 +74,19 @@
   ([primitive-types _int]
    [num-vertices _int]
    [num-faces _int]
-   [vertices _ai-vector-3D-pointer]
-   [normals _ai-vector-3D-pointer]
-   [tangents _ai-vector-3D-pointer]
-   [bit-tangents _ai-vector-3D-pointer]
+   [vertices _ai-vector3D-pointer]
+   [normals _ai-vector3D-pointer]
+   [tangents _ai-vector3D-pointer]
+   [bit-tangents _ai-vector3D-pointer]
    [colors (_array _ai-color-4d-pointer *ai-max-number-of-color-sets*)]
-   [texture-coords (_array _ai-vector-3D-pointer
+   [texture-coords (_array _ai-vector3D-pointer
 			   *ai-max-number-of-texturecoords*)]
    [num-uv-components (_array _int *ai-max-number-of-texturecoords*)]
    [faces _ai-face-pointer]
    [num-bones _int]
    [bones _pointer]
    [material-index _int]
-   [name _string]
+   [name _ai-string]
    [num-anim-meshes _int]
    [anim-meshes _pointer]
    [method _int]))
@@ -97,7 +97,7 @@
   ([flags _int]
    [root-node _ai-node-pointer]
    [num-meshes _int]
-   [meshes _mesh-array]
+   [meshes _pointer]
    [num-materials _int]
    [materials _pointer]
    [num-animations _int]
@@ -110,7 +110,23 @@
    [cameras _pointer]))
 
 
-(define-assimp ai-import-file (_fun _string _int -> _ai-scene-pointer)
+(define-assimp ai-import-file (_fun _string _int -> _ai-scene-pointer/null)
   #:c-id aiImportFile)
 
-(define a  (array-ref (ai-scene-meshes (ai-import-file "turret.obj" 1)) 0))
+(define scene (ai-import-file "turret.obj" 1))
+
+(define num-meshes (ai-scene-num-meshes scene))
+(printf "num meshes ~a \n" num-meshes)
+
+(define mesh (ptr-ref (ai-scene-meshes scene)
+		      _ai-mesh-pointer
+		      0))
+
+(define vs (ai-mesh-num-vertices mesh))
+
+(for/list ([v (in-range vs)])
+	  (let ([vec (ptr-ref (ai-mesh-vertices mesh) _ai-vector3D v)])
+	    (list
+	     (ai-vector3D-x vec)
+	     (ai-vector3D-y vec)
+	     (ai-vector3D-z vec))))
