@@ -1,0 +1,3 @@
+[submodule "srfi"]
+	path = srfi
+	url = https://github.com/chclock/srfi
