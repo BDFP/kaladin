@@ -1,11 +1,12 @@
-(load-shared-object "libvulkan.so")
+(define v (load-shared-object "libvulkan.so"))
 
 (library (vulkan)
-  (export )
+  (export make-vulkan-instance)
   
   (import (scheme)
 	  (srfi s78)
-	  (cstring))
+	  (cstring)
+	  (glfw basic))
 
   (define-ftype enum int)
 
@@ -134,7 +135,30 @@
      [engine-version int]
      [api-version int]))
 
-  (define (make-instance app-name)
+  (define-ftype vk-instance-create-info
+    (struct
+     [structure-type vk-structure-type]
+     [next uptr]
+     [flags int]
+     [application-info (* vk-application-info)]
+     [enabled-layer-count int]
+     [enabled-layer-names uptr]
+     [enabled-extension-count int]
+     [enabled-extension-names uptr]))
+
+  (define vk-create-instance
+    (foreign-procedure "vkCreateInstance"
+		       ((* vk-instance-create-info) void* void*)
+		       int))
+
+  
+  (define vk-enumerate-instance-extension-properties
+    (foreign-procedure "vkEnumerateInstanceExtensionProperties"
+		       (uptr uptr uptr)
+		       int))
+  
+
+  (define (make-application-info app-name)
     (let ((app-info (make-foreign-object vk-application-info))
 	  (vk-version 4194304))
 
@@ -157,14 +181,53 @@
 		  (engine-version) app-info vk-version)
 
       (ftype-set! vk-application-info
-		  (api-version) app-info vk-version)))
+		  (api-version) app-info vk-version)
+
+      app-info))
+
+  (define (make-instance-create-info app-info-ptr)
+    (let* ((create-info (make-foreign-object vk-instance-create-info))
+	   (instance (make-foreign-object void*))
+	   (extension-count (make-foreign-object unsigned-32)))
+
+      (ftype-set! vk-instance-create-info
+		  (structure-type)
+		  create-info
+		  vk-structure-type-instance-create-info)
+
+      (ftype-set! vk-instance-create-info
+		  (application-info)
+		  create-info
+		  app-info-ptr)
+      
+      (let ((extensions (glfw-get-required-instance-extensions extension-count)))
+
+	(ftype-set! vk-instance-create-info (enabled-extension-count)
+		    create-info
+		    (ftype-ref unsigned-32 () extension-count))
+	
+	(ftype-set! vk-instance-create-info
+		    (enabled-extension-names)
+		    create-info
+		    extensions)
+
+	(ftype-set! vk-instance-create-info
+		    (enabled-layer-count)
+		    create-info
+		    0)
+
+	(display create-info)
+
+	(let ((in (vk-create-instance create-info
+				      (ftype-pointer-address (make-ftype-pointer void* 0))
+				      (ftype-pointer-address instance))))
+	  (display in)
+
+	  instance))))
 
   
-  (define vk-enumerate-instance-extension-properties
-    (foreign-procedure "vkEnumerateInstanceExtensionProperties"
-		       (uptr uptr uptr)
-		       int))
-
+  (define (make-vulkan-instance app-name)
+    (make-instance-create-info (make-application-info app-name)))
 
   (define get-extension-count
     (lambda ()
