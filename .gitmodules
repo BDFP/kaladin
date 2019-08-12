@@ -1,3 +1,6 @@
 [submodule "lib/srfi"]
 	path = lib/srfi
 	url = https://github.com/chclock/srfi
+[submodule "lib/chez-glfw"]
+	path = lib/chez-glfw
+	url = https://github.com/shakdwipeea/chez-glfw
