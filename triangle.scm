@@ -1,7 +1,6 @@
 (library-directories '("lib/chez-srfi"
 		       "lib/chez-glfw/"
 		       "lib/chez-glfw/lyonesse/"
-		       "lib/chez-vk/lib/"
 		       "."))
 
 
@@ -10,8 +9,7 @@
 (import (scheme)
 	(glfw basic)
 	(glfw constants)
-	(vulkan)
-	(vk ftype))
+	(vulkan))
 
 (define (init-vulkan)
   (make-vulkan-instance "asas"))
