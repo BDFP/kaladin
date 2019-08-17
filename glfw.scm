@@ -1,6 +1,8 @@
 (import :std/foreign)
+(include "strings.scm")
 
 (export #t)
+
 
 (begin-ffi (glfw-init
 	    glfw-window-hint
@@ -24,8 +26,10 @@
     (pointer (struct "GLFWwindow")) "glfwCreateWindow")
 
   (define-c-lambda glfw-get-required-instance-extensions
-    ((pointer unsigned-int32)) (pointer (pointer char))
-    "___return (glfwGetRequiredInstanceExtensions(___arg1));")
+    ((pointer unsigned-int32)) char**
+    "glfwGetRequiredInstanceExtensions")
+
+
 
   (define-c-lambda make-int32
     () (pointer unsigned-int32)

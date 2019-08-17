@@ -5,8 +5,7 @@
 
 (defbuild-script
   `((gxc: "glfw.scm"
-	  "-cc-options" ,(pkg-config-cflags "glfw3")
-	  "-ld-options" ,(pkg-config-libs "glfw3"))
+	  "-ld-options" "-lglfw")
     (gxc: "vulkan.scm"
 	  "-ld-options" "-lvulkan")
     (gxc: "app.scm")))
