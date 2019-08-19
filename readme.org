@@ -1,0 +1,12 @@
+* Kaladin 
+
+** Build
+
++ Run ./build.ss
+
++ Start repl 
+
+#+BEGIN_SRC gxi
+(import :kaladin/app)
+(main)
+#+END_SRC
