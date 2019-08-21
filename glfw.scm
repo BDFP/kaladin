@@ -9,31 +9,42 @@
 	    glfw-create-window
 	    glfw-get-required-instance-extensions
 	    make-int32
-	    read-int32-ptr)
-  
-  (c-declare "#define GLFW_INCLUDE_NONE
+	    read-int32-ptr
+	    glfw-window-should-close
+	    glfw-poll-events
+	    glfw-destroy-window
+	    glfw-terminate)
+	   
+	   (c-declare "#define GLFW_INCLUDE_NONE
               #include <GLFW/glfw3.h>")
-  
-  (define-c-lambda glfw-init () bool "glfwInit")
-  
-  (define-c-lambda glfw-window-hint (int int) void "glfwWindowHint")
 
-  (define-c-lambda glfw-create-window (int
-				       int
-				       char-string
-				       (pointer (struct "GLFWmonitor"))
-				       (pointer (struct "GLFWwindow")))
-    (pointer (struct "GLFWwindow")) "glfwCreateWindow")
+	   (c-define-type window* (pointer (struct "GLFWwindow")))
 
-  (define-c-lambda glfw-get-required-instance-extensions
-    ((pointer unsigned-int32)) char**
-    "glfwGetRequiredInstanceExtensions")
+	   (c-define-type monitor* (pointer (struct "GLFWmonitor")))
+	   
+	   (define-c-lambda glfw-init () bool "glfwInit")
+	   
+	   (define-c-lambda glfw-window-hint (int int) void "glfwWindowHint")
 
+	   (define-c-lambda glfw-create-window (int int char-string monitor* window*)
+	     (pointer (struct "GLFWwindow")) "glfwCreateWindow")
 
+	   (define-c-lambda glfw-destroy-window (window*) void
+	     "glfwDestroyWindow")
 
-  (define-c-lambda make-int32
-    () (pointer unsigned-int32)
-    " 
+	   (define-c-lambda glfw-terminate () void "glfwTerminate")
+
+	   (define-c-lambda glfw-get-required-instance-extensions
+	     ((pointer unsigned-int32)) char** "glfwGetRequiredInstanceExtensions")
+
+	   (define-c-lambda glfw-window-should-close (window*) int "glfwWindowShouldClose")
+
+	   (define-c-lambda glfw-poll-events () void "glfwPollEvents")
+	   
+
+	   (define-c-lambda make-int32
+	     () (pointer unsigned-int32)
+	     " 
  uint32_t* res = malloc (sizeof (uint32_t));
  if (res)
  {
@@ -41,5 +52,9 @@
  }
  ___return (res);")
 
-  (define-c-lambda read-int32-ptr ((pointer unsigned-int32)) unsigned-int32
-    "___return (*___arg1);"))
+	   (define-c-lambda read-int32-ptr ((pointer unsigned-int32)) unsigned-int32
+	     "___return (*___arg1);"))
+
+(define (destroy-glfw window)
+  (glfw-destroy-window window)
+  (glfw-terminate))

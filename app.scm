@@ -1,6 +1,5 @@
 (import :kaladin/vulkan
-	:kaladin/glfw
-	)
+	:kaladin/glfw)
 
 (export #t)
 
@@ -19,15 +18,19 @@
 (define application-name "app")
 (define engine-name "kaldin")
 
-(define (init-vulkan)
-  (let* ((extension-count (make-int32))
-	 (extensions (glfw-get-required-instance-extensions extension-count)))
-    (make-vk-instance application-name
-		      engine-name
-		      extensions
-		      extension-count)))
+(define validation-layers '("VK_LAYER_KHRONOS_validation"))
 
+
+(define (game-loop window)
+  (if (not (= (glfw-window-should-close window) 0))
+    (begin (glfw-poll-events)
+	   (game-loop window))
+    #f))
 
 (define (main)
-  (init-window)
-  (init-vulkan))
+  (let ((window  (init-window))
+	(vulkan  (make-vulkan-instance)))
+    (game-loop window)
+    ;; (destroy-vulkan vulkan)
+    ;; (destroy-glfw window)
+    ))
