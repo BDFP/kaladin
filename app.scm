@@ -13,7 +13,8 @@
     (glfw-init)
     (glfw-window-hint GLFW_CLIENT_API GLFW_NO_API)
     (glfw-window-hint GLFW_RESIZABLE GLFW_FALSE)
-    (glfw-create-window 800 600 "Vulkan" #f #f)))
+    (glfw-create-window 800 600 "Vulkan" #f #f)
+    ))
 
 (define application-name "app")
 (define engine-name "kaldin")
@@ -22,7 +23,7 @@
 
 
 (define (game-loop window)
-  (if (not (= (glfw-window-should-close window) 0))
+  (if (= (glfw-window-should-close window) 0)
     (begin (glfw-poll-events)
 	   (game-loop window))
     #f))
@@ -31,6 +32,5 @@
   (let ((window  (init-window))
 	(vulkan  (make-vulkan-instance)))
     (game-loop window)
-    ;; (destroy-vulkan vulkan)
-    ;; (destroy-glfw window)
-    ))
+    (destroy-vulkan vulkan)
+    (destroy-glfw window)))

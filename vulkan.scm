@@ -12,6 +12,9 @@
 	    create-debug-utils
 	    destroy-debug-utils
 	    make-debug-utils-messenger-create-info
+	    pack-1-char
+	    load-vk-instance
+	    foo
 	    )
 	   
 	   (c-declare
@@ -20,6 +23,8 @@
 	    #include <vulkan/vulkan.h>
 	    #include <stdio.h>
 
+	    VkInstance instance;
+	    VkDebugUtilsMessengerEXT debugMessenger;
 c-declare-end
 	    )	   
 
@@ -35,17 +40,23 @@ c-declare-end
 	   (c-define-type vk-debug-utils-messenger-create-info
 			  (struct "VkDebugUtilsMessengerCreateInfoEXT"))
 
+	   (c-define-type vk-debug-utils-messenger-create-info*
+			  (pointer vk-debug-utils-messenger-create-info))
+
+	   (define-c-lambda make-vk-instance
+	     () (pointer vk-instance-t*)
+	     "VkInstance *vkInstance = NULL; 
+              ___return(vkInstance);")
 
 
-
-	   (define-c-lambda make-vk-instance 
+	   (define-c-lambda load-vk-instance 
 	     (char-string char-string
 			  char**
 			  (pointer unsigned-int32)
 			  char**
 			  unsigned-int32
 			  vk-debug-utils-messenger-create-info)
-	     (pointer vk-instance-t*)
+	     void
 #<<c-lambda-end
     VkApplicationInfo app_info = {
         .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
@@ -66,19 +77,24 @@ c-declare-end
 	.pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&___arg7
 };
 
-    VkInstance instance;
+
     vkCreateInstance(&create_info, NULL, &instance);
 
-    ___return (&instance);
+    ___return;
 c-lambda-end
 )
+
+	   (define-c-lambda foo ((pointer vk-instance-t*)) vk-instance-t*
+			    "___return (*___arg1);")
+	   
 	   (c-define-type vk-allocation-cb*
 			  (pointer (struct "VkAllocationCallbacks")))
 	   
 	   (define-c-lambda vk-destroy-instance
-	     ((pointer vk-instance-t*)
-	      vk-allocation-cb*) void
-	      "vkDestroyInstance(*___arg1, ___arg2); ___return;")
+	     () void
+	     "
+              vkDestroyInstance(instance, NULL); 
+              ___return;")
 
 	   ;; validation layers
 	   (c-define-type vk-debug-utils-messenger
@@ -107,43 +123,35 @@ c-lambda-end
 vulkan-debug-callback-c
 )
 
-	   (define-c-lambda create-debug-utils-messenger	     () (pointer vk-debug-utils-messenger-t*)
-	     "VkDebugUtilsMessengerEXT debugMessenger;
-              ___return (&debugMessenger);")
 
 	   (define-c-lambda create-debug-utils
-	     ((pointer vk-instance-t*)
-	      vk-debug-utils-messenger-create-info
-	      vk-allocation-cb*) int
+	     (vk-debug-utils-messenger-create-info)
+	     int
 #<<lambda
 PFN_vkCreateDebugUtilsMessengerEXT func =
-(PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(___arg1, "vkCreateDebugUtilsMessengerEXT");
-VkDebugUtilsMessengerEXT debugMessenger;
+(PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
 if (func != 0) {
-	       func(*___arg1, &___arg2, ___arg3, &debugMessenger);
-    ___return (&debugMessenger);
-} else {
-    ___return (VK_ERROR_EXTENSION_NOT_PRESENT);
-}     
+	       func(instance, &___arg1, NULL, &debugMessenger);
+		   }
+  ___return (&debugMessenger);
 lambda
 )
 
 	   (define-c-lambda destroy-debug-utils
-	     ((pointer vk-instance-t*)
-	      (pointer vk-debug-utils-messenger-t*)
-	      vk-allocation-cb*) void
+	     () void
 #<<lambda
 PFN_vkDestroyDebugUtilsMessengerEXT func =
-(PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(___arg1, "vkDestroyDebugUtilsMessengerEXT");
+(PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
 if (func != 0) {
-    func(*___arg1, *___arg2, ___arg3);
+    func(instance, debugMessenger,NULL);
 }
 ___return;
 lambda
 )
 
 	   (define-c-lambda make-debug-utils-messenger-create-info 
-	     ()  vk-debug-utils-messenger-create-info
+	     ()
+	     vk-debug-utils-messenger-create-info
 #<<c-lambda-end
 	     VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
 
@@ -170,6 +178,8 @@ c-lambda-end
 
 (defstruct vulkan-info (instance debug-messenger))
 
+(define in #f)
+
 (def (make-vulkan-instance
       application-name: (application-name "kaladin-app")
       engine-name: (engine-name "kaladin"))
@@ -177,24 +187,28 @@ c-lambda-end
 	 (extensions
 	  (glfw-get-required-instance-extensions extension-count))
 	 (create-info (make-debug-utils-messenger-create-info))
-	 (instance (make-vk-instance application-name
-			       engine-name
-			       extensions
-			       extension-count
-			       validation-layers
-			       1
-			       create-info))
-	 (messenger     (create-debug-utils instance
-    			create-info
-    			#f)))
+	 (instance
+	  (load-vk-instance application-name
+			    engine-name
+			    extensions
+			    extension-count
+			    validation-layers
+			    1
+			    create-info))
+	 (messenger     (create-debug-utils create-info))
+	 )
+    (display "Instance:")
+    (display instance)
+    (display "\n a: ")
+    (display messenger)
 
     (make-vulkan-info instance messenger)))
 
 
 (define (destroy-vulkan vk-info)
-  (destroy-debug-utils (vulkan-info-instance vk-info)
-  		       (vulkan-info-debug-messenger
-  			vk-info)
-  		       #f)
-  (vk-destroy-instance (vulkan-info-instance vk-info)
-  		       #f))
+  (display  "\n destroy \n instance: " )
+  (display (vulkan-info-instance vk-info))
+  (destroy-debug-utils )
+  (vk-destroy-instance
+			)
+  (display "after deaft"))
