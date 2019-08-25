@@ -10,11 +10,11 @@ A roadmap of features to come
 
 ** Glfw
 
-- [ ] bindings to open window
+- [X] bindings to open window
 
 ** Vulkan
 
-- [ ] instance creation
+- [X] instance creation
 - [ ] validation layers
 - [ ] enumerate devices / device families
 - [ ] ... _other vulkan stuff_

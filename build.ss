@@ -8,4 +8,5 @@
 	  "-ld-options" "-lglfw")
     (gxc: "vulkan.scm"
 	  "-ld-options" "-lvulkan")
+    (gxc: "vulkan-test.scm")
     (gxc: "app.scm")))
