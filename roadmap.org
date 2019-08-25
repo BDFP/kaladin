@@ -1,0 +1,30 @@
+* Kaladin
+
+A roadmap of features to come
+
+** Project level
+
+- [ ] Watch and test cycle
+- [ ] Ci setup for running tests on all platform(s) supported
+
+
+** Glfw
+
+- [ ] bindings to open window
+
+** Vulkan
+
+- [ ] instance creation
+- [ ] validation layers
+- [ ] enumerate devices / device families
+- [ ] ... _other vulkan stuff_
+
+** Rendering
+
+- [ ] Load gltf model
+- [ ] use physically based rendering techniques
+- [ ] look into raytracing
+
+** Immediate mode gui
+
+- [ ] Eval ways to render a ui with the engine
