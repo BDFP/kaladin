@@ -13,6 +13,8 @@
 	    create-debug-utils!
 	    destroy-debug-utils!
 	    make-debug-utils-messenger-create-info
+	    get-instance-layer-count
+	    get-instance-layers
 	    pack-1-char)
   
   (c-declare
@@ -117,8 +119,13 @@ vulkan-debug-callback-c
 
   (define-c-lambda get-instance-layer-count () int
     "uint32_t layerCount;
-              vkEnumerateInstanceLayerProperties(&layerCount, NULL);
-              ___return (layerCount);")
+     vkEnumerateInstanceLayerProperties(&layerCount, NULL);
+     ___return (layerCount);")
+
+  (define-c-lambda get-instance-layers (int) char**
+    "char** instance_layers;
+     vkEnumerateInstanceLayerProperties(NULL, &instance_layers);
+     ___return (instance_layers);")
 
 
   (define-c-lambda create-debug-utils!
@@ -171,7 +178,14 @@ lambda
 c-lambda-end
     ))
 
-(define validation-layers (list "VK_LAYER_KHRONOS_validation"))
+
+;; VK_LAYER_LUNARG_standard_validation that bulks all standard
+;; validation layers in a big meta-layer. Enabling this layer
+;; ensures that all official validation layers will going to
+;; be keen on trying to catch any mistake the application makes
+;; in the use of Vulkan
+
+(define validation-layers (list "VK_LAYER_LUNARG_standard_validation"))
 
 (defstruct vulkan-info (instance debug-messenger))
 
