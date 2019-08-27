@@ -8,4 +8,10 @@
 	      (test-case "vulkan instance creation"
 			 (init-vulkan-instance!)
 			 (destroy-vulkan-instance!)
-			 (check 1 => 1))))
+			 (check 1 => 1))
+
+	      (test-case "physical device presence"
+			 (init-vulkan-instance!)
+			 (check (< 0 (get-physical-devices))
+				=> #t)
+			 (destroy-vulkan-instance!))))

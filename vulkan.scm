@@ -4,7 +4,8 @@
 (include "strings.scm")
 
 (export init-vulkan-instance!
-	destroy-vulkan-instance!)
+	destroy-vulkan-instance!
+	get-physical-devices)
 
 (begin-ffi (vk-application-info
 	    init-vulkan!
@@ -15,7 +16,8 @@
 	    make-debug-utils-messenger-create-info
 	    get-instance-layer-count
 	    get-instance-layers
-	    pack-1-char)
+	    pack-1-char
+	    vk-get-physical-devices)
   
   (c-declare
 #<<c-declare-end
@@ -26,10 +28,28 @@
    VkInstance instance;
    VkDebugUtilsMessengerEXT debugMessenger;
 c-declare-end
-   )	   
+)
 
-  (c-define-type vk-application-info (struct "VkApplicationInfo"))
-  (c-define-type vk-instance-create-info (struct "VkInstanceCreateInfo"))
+  ;;;;;;;;;;;;;;;;;;;;;;;
+  ;; memory management ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;
+
+
+  (define-c-lambda malloc (unsigned-int32) void "malloc")
+
+  (define-c-lambda free ((pointer "void")) void "free")
+
+  
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; vulkan instance types ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  (c-define-type vk-application-info
+		 (struct "VkApplicationInfo"))
+  
+  (c-define-type vk-instance-create-info
+		 (struct "VkInstanceCreateInfo"))
 
   (c-define-type vk-instance (struct "VkInstance"))
 
@@ -44,7 +64,7 @@ c-declare-end
 		 (pointer vk-debug-utils-messenger-create-info))
 
 
-  (define-c-lambda init-vulkan! 
+  (define-c-lambda init-vulkan!
     (char-string char-string
 		 char**
 		 (pointer unsigned-int32)
@@ -54,29 +74,29 @@ c-declare-end
     void
  #<<c-lambda-end
     VkApplicationInfo app_info = {
-				  .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
-					 .pApplicationName = ___arg1,
-					 .applicationVersion = 0x010000,
-					 .pEngineName = ___arg2,
-					 .engineVersion = 0x010000,
-					 .apiVersion = VK_API_VERSION_1_0,
-					 };
+      .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
+      .pApplicationName = ___arg1,
+      .applicationVersion = 0x010000,
+      .pEngineName = ___arg2,
+      .engineVersion = 0x010000,
+      .apiVersion = VK_API_VERSION_1_0,
+};
 
     VkInstanceCreateInfo create_info = {
-					.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
-					       .pApplicationInfo = &app_info,
-					       .enabledExtensionCount = *___arg4,
-					       .ppEnabledExtensionNames = ___arg3,
-					       .enabledLayerCount = ___arg6,
-					       .ppEnabledLayerNames = ___arg5,
-					       .pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&___arg7};
+      .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+      .pApplicationInfo = &app_info,
+      .enabledExtensionCount = *___arg4,
+      .ppEnabledExtensionNames = ___arg3,
+      .enabledLayerCount = ___arg6,
+      .ppEnabledLayerNames = ___arg5,
+      .pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&___arg7};
 
 
     vkCreateInstance(&create_info, NULL, &instance);
 
     ___return;
 c-lambda-end
-    )
+)
   
   (c-define-type vk-allocation-cb*
 		 (pointer (struct "VkAllocationCallbacks")))
@@ -94,7 +114,8 @@ c-lambda-end
   (c-define-type vk-debug-utils-messenger*
 		 (pointer vk-debug-utils-messenger))
 
-  (c-define-type vk-debug-utils-messenger-t* (pointer (struct "VkDebugUtilsMessengerEXT_T")))
+  (c-define-type vk-debug-utils-messenger-t*
+		 (pointer (struct "VkDebugUtilsMessengerEXT_T")))
 
   (c-define (vulkan-debug-callback str) (char-string) void
 	    "vulkan_callback" ""
@@ -135,11 +156,11 @@ vulkan-debug-callback-c
     PFN_vkCreateDebugUtilsMessengerEXT func =
     (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
     if (func != 0) {
-		   func(instance, &debugMessenger, NULL, &debugMessenger);
-		       }
+	func(instance, &debugMessenger, NULL, &debugMessenger);
+    }
     ___return;
 lambda
-    )
+)
 
   (define-c-lambda destroy-debug-utils!
     () void
@@ -147,8 +168,8 @@ lambda
     PFN_vkDestroyDebugUtilsMessengerEXT func =
     (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
     if (func != 0) {
-		   func(instance, debugMessenger,NULL);
-		       }
+      func(instance, debugMessenger,NULL);
+}
     ___return;
 lambda
     )
@@ -164,19 +185,38 @@ lambda
 
     createInfo.messageSeverity =
     VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | 
-             VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT |
+    VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT |
     VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
     
     createInfo.messageType =
     VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT    | 
-             VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
+    VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
     VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
     
     createInfo.pfnUserCallback = debugCallback;
 
     ___return (createInfo);
 c-lambda-end
-    ))
+)
+
+  ;;;;;;;;;;;;;;;;;;;;;;
+  ;; Physical Devices ;;
+  ;;;;;;;;;;;;;;;;;;;;;;
+
+  (c-define-type vk-physical-device* (pointer (struct "VkPhysicalDevice_T")))
+
+  (c-define-type vk-queue-family-props
+		 (struct "VkQueueFamilyProperties"))
+
+  (define-c-lambda vk-get-physical-devices
+    ((pointer unsigned-int32) (pointer vk-physical-device*))
+    void
+    "
+vkEnumeratePhysicalDevices(instance, ___arg1, ___arg2);
+___return;")
+
+  )
+
 
 
 ;; VK_LAYER_LUNARG_standard_validation that bulks all standard
@@ -185,7 +225,8 @@ c-lambda-end
 ;; be keen on trying to catch any mistake the application makes
 ;; in the use of Vulkan
 
-(define validation-layers (list "VK_LAYER_LUNARG_standard_validation"))
+(define validation-layers
+  (list "VK_LAYER_LUNARG_standard_validation"))
 
 (defstruct vulkan-info (instance debug-messenger))
 
@@ -217,3 +258,9 @@ c-lambda-end
 (define (destroy-vulkan-instance!)
   (destroy-debug-utils!)
   (vk-destroy-instance))
+
+
+(define (get-physical-devices)
+  (let ((device-count (make-int32)))
+    (vk-get-physical-devices device-count #f)
+    (read-int32-ptr device-count)))
