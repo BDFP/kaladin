@@ -2,10 +2,9 @@
 (import :kaladin/glfw)
 
 (include "strings.scm")
+(include "ctypes.scm")
 
-(export init-vulkan-instance!
-	destroy-vulkan-instance!
-	get-physical-devices)
+(export #t)
 
 (begin-ffi (vk-application-info
 	    init-vulkan!
@@ -16,8 +15,10 @@
 	    make-debug-utils-messenger-create-info
 	    get-instance-layer-count
 	    get-instance-layers
-	    pack-1-char
-	    vk-get-physical-devices)
+	    vk-get-physical-devices
+	    malloc-physical-device*
+	    vk-get-device-family-props
+	    first-c)
   
   (c-declare
 #<<c-declare-end
@@ -29,16 +30,6 @@
    VkDebugUtilsMessengerEXT debugMessenger;
 c-declare-end
 )
-
-  ;;;;;;;;;;;;;;;;;;;;;;;
-  ;; memory management ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;
-
-
-  (define-c-lambda malloc (unsigned-int32) void "malloc")
-
-  (define-c-lambda free ((pointer "void")) void "free")
-
   
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -203,17 +194,34 @@ c-lambda-end
   ;; Physical Devices ;;
   ;;;;;;;;;;;;;;;;;;;;;;
 
-  (c-define-type vk-physical-device* (pointer (struct "VkPhysicalDevice_T")))
+  (c-define-type vk-physical-device (pointer (struct "VkPhysicalDevice_T")))
 
   (c-define-type vk-queue-family-props
 		 (struct "VkQueueFamilyProperties"))
 
+  ;; takes size as argument
+  (define-c-lambda malloc-physical-device*
+    (unsigned-int32) (pointer vk-physical-device)
+    "___return (malloc(___arg1 * sizeof(VkPhysicalDevice*)));")
+
+  (define-c-lambda first-c
+    ((pointer (pointer (struct "VkPhysicalDevice_T"))))
+    (pointer (struct "VkPhysicalDevice_T"))
+    "___return (*___arg1);")
+
   (define-c-lambda vk-get-physical-devices
-    ((pointer unsigned-int32) (pointer vk-physical-device*))
+    ((pointer unsigned-int32) (pointer vk-physical-device))
     void
     "
 vkEnumeratePhysicalDevices(instance, ___arg1, ___arg2);
 ___return;")
+
+  (define-c-lambda vk-get-device-family-props
+    (vk-physical-device
+     (pointer unsigned-int32)
+     (pointer vk-queue-family-props))
+    void
+    "vkGetPhysicalDeviceQueueFamilyProperties")
 
   )
 
@@ -263,4 +271,7 @@ ___return;")
 (define (get-physical-devices)
   (let ((device-count (make-int32)))
     (vk-get-physical-devices device-count #f)
-    (read-int32-ptr device-count)))
+    (let ((devices (malloc-physical-device*
+		    (read-int32-ptr device-count))))
+      (vk-get-physical-devices device-count devices)
+      devices)))
