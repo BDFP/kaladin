@@ -10,8 +10,11 @@
 			 (destroy-vulkan-instance!)
 			 (check 1 => 1))
 
-	      (test-case "physical device presence"
+	      
+	      (test-case "valid physical device presence"
 			 (init-vulkan-instance!)
-			 (check (< 0 (get-physical-devices))
+			 (check (< 0 (cdr
+				      (get-physical-devices)))
 				=> #t)
+			 (get-vulkan-physical-device)
 			 (destroy-vulkan-instance!))))

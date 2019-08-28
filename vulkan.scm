@@ -1,5 +1,6 @@
-(import :std/foreign)
-(import :kaladin/glfw)
+(import :std/foreign
+	:kaladin/glfw
+	:gerbil/gambit)
 
 (include "strings.scm")
 (include "ctypes.scm")
@@ -18,7 +19,11 @@
 	    vk-get-physical-devices
 	    malloc-physical-device*
 	    vk-get-device-family-props
-	    first-c)
+	    first-physical-device
+	    malloc-queue-family*
+	    first-family-properties
+	    vk-queue-family-queue-count
+	    vk-queue-family-queue-flags)
   
   (c-declare
 #<<c-declare-end
@@ -194,27 +199,44 @@ c-lambda-end
   ;; Physical Devices ;;
   ;;;;;;;;;;;;;;;;;;;;;;
 
-  (c-define-type vk-physical-device (pointer (struct "VkPhysicalDevice_T")))
+  (c-define-type vk-physical-device (pointer
+				     (struct "VkPhysicalDevice_T")))
 
   (c-define-type vk-queue-family-props
 		 (struct "VkQueueFamilyProperties"))
+
+  (define-c-lambda vk-queue-family-queue-count
+    (vk-queue-family-props)  unsigned-int32
+    "___return (___arg1.queueCount);")
+
+   (define-c-lambda vk-queue-family-queue-flags
+     (vk-queue-family-props) int
+     "___return (___arg1.queueFlags);")
 
   ;; takes size as argument
   (define-c-lambda malloc-physical-device*
     (unsigned-int32) (pointer vk-physical-device)
     "___return (malloc(___arg1 * sizeof(VkPhysicalDevice*)));")
 
-  (define-c-lambda first-c
-    ((pointer (pointer (struct "VkPhysicalDevice_T"))))
-    (pointer (struct "VkPhysicalDevice_T"))
-    "___return (*___arg1);")
+  (define-c-lambda malloc-queue-family*
+    (unsigned-int32) (pointer vk-queue-family-props)
+    "___return (malloc(___arg1 * sizeof(VkQueueFamilyProperties)));")
 
+  (define-c-lambda first-physical-device
+    ((pointer vk-physical-device))
+    vk-physical-device
+    "___return (*___arg1);")
+  
   (define-c-lambda vk-get-physical-devices
     ((pointer unsigned-int32) (pointer vk-physical-device))
     void
     "
 vkEnumeratePhysicalDevices(instance, ___arg1, ___arg2);
 ___return;")
+
+  (define-c-lambda first-family-properties
+    ((pointer vk-queue-family-props)) vk-queue-family-props
+    "___return (*___arg1);")
 
   (define-c-lambda vk-get-device-family-props
     (vk-physical-device
@@ -224,6 +246,18 @@ ___return;")
     "vkGetPhysicalDeviceQueueFamilyProperties")
 
   )
+
+;; (define-syntax firstc
+;;   (syntax-rules ()
+;;     ((_ ptr type)
+;;      (begin (module Abc
+;; 	      (import :std/foreign)
+	      
+;; 	      (begin-ffi (fir)
+;; 		(define-c-lambda fir ((pointer type)) type
+;; 		  "___return (*___arg1);"))
+;; 	      (fir ptr))))))
+
 
 
 
@@ -235,6 +269,8 @@ ___return;")
 
 (define validation-layers
   (list "VK_LAYER_LUNARG_standard_validation"))
+
+(define *vk-queue-graphics-bit* #x00000001)
 
 (defstruct vulkan-info (instance debug-messenger))
 
@@ -268,10 +304,29 @@ ___return;")
   (vk-destroy-instance))
 
 
-(define (get-physical-devices)
-  (let ((device-count (make-int32)))
-    (vk-get-physical-devices device-count #f)
-    (let ((devices (malloc-physical-device*
-		    (read-int32-ptr device-count))))
-      (vk-get-physical-devices device-count devices)
-      devices)))
+(define (is-device-valid? family-props)
+  (and (< 0 (vk-queue-family-queue-count family-props))
+     (bitwise-and (vk-queue-family-queue-flags family-props)
+		  *vk-queue-graphics-bit*)))
+
+(define (get-queue-families device)
+  (make-cvector (lambda (count queue-families)
+		  (vk-get-device-family-props device
+					      count
+					      queue-families))
+		malloc-queue-family*))
+
+(define get-physical-devices
+  (lambda ()
+    (make-cvector vk-get-physical-devices malloc-physical-device*)))
+
+;; device to use
+;; will check the device which is usable
+(define (get-vulkan-physical-device)
+  (let* ((device (first-physical-device
+		  (car (get-physical-devices))))
+	(family-props (first-family-properties
+		       (car (get-queue-families device)))))
+    (if (is-device-valid? family-props)
+      device
+      #f)))
