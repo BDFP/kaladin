@@ -23,7 +23,12 @@
 	    malloc-queue-family*
 	    first-family-properties
 	    vk-queue-family-queue-count
-	    vk-queue-family-queue-flags)
+	    vk-queue-family-queue-flags
+	    make-vk-device-queue-create-info
+	    make-vk-device-create-info
+	    vk-create-device
+	    make-vk-physical-device-features
+	    malloc-vk-device)
   
   (c-declare
 #<<c-declare-end
@@ -245,6 +250,77 @@ ___return;")
     void
     "vkGetPhysicalDeviceQueueFamilyProperties")
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Logical device c interface ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  (c-define-type vk-device-queue-create-info (struct "VkDeviceQueueCreateInfo"))
+
+  (c-define-type vk-device-queue-create-info*
+		 (pointer vk-device-queue-create-info))
+
+  (c-define-type vk-device-create-info (struct "VkDeviceCreateInfo"))
+
+  (c-define-type vk-device-create-info* (pointer vk-device-create-info))
+
+  (c-define-type vk-physical-device-features (struct "VkPhysicalDeviceFeatures"))
+
+  (c-define-type vk-physical-device-features*
+		 (pointer vk-physical-device-features))
+
+  (c-define-type vk-device (pointer (struct "VkDevice_T")))
+
+  (c-define-type vk-device* (pointer vk-device))
+
+  (define-c-lambda malloc-vk-device () vk-device*
+    "___return (malloc(sizeof (VkDevice)));")
+
+  ;; can be called as
+  ;; (make-vk-device-queue-create-info #f 0 0 1 (make-float 1.0))
+  (define-c-lambda make-vk-device-queue-create-info
+    (void* int int int float*) vk-device-queue-create-info*
+    "
+VkDeviceQueueCreateInfo *queueCreateInfo = malloc(sizeof(VkDeviceQueueCreateInfo));
+queueCreateInfo->sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+queueCreateInfo->pNext = ___arg1;
+queueCreateInfo->flags = ___arg2;
+queueCreateInfo->queueFamilyIndex = ___arg3;
+queueCreateInfo->queueCount = ___arg4;
+queueCreateInfo->pQueuePriorities = ___arg5;
+___return (queueCreateInfo);
+")
+
+  (define-c-lambda make-vk-physical-device-features
+    () vk-physical-device-features*
+    "
+        VkPhysicalDeviceFeatures* deviceFeatures = malloc(sizeof(VkPhysicalDeviceFeatures));
+        ___return (deviceFeatures);
+")
+
+  (define-c-lambda make-vk-device-create-info
+    (void* int int vk-device-queue-create-info* int char** int char**
+	   vk-physical-device-features*) vk-device-create-info*
+"
+VkDeviceCreateInfo *deviceCreateInfo = malloc(sizeof(VkDeviceCreateInfo));
+deviceCreateInfo->sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+deviceCreateInfo->pNext = ___arg1;
+deviceCreateInfo->flags = ___arg2;
+deviceCreateInfo->queueCreateInfoCount = ___arg3;
+deviceCreateInfo->pQueueCreateInfos = ___arg4;
+deviceCreateInfo->enabledLayerCount = ___arg5;
+deviceCreateInfo->ppEnabledLayerNames = ___arg6;
+deviceCreateInfo->enabledExtensionCount = ___arg7;
+deviceCreateInfo->ppEnabledExtensionNames = ___arg8;
+deviceCreateInfo->pEnabledFeatures = ___arg9;
+___return (deviceCreateInfo);
+")
+
+  (define-c-lambda vk-create-device
+    (vk-physical-device vk-device-create-info* vk-allocation-cb*
+			 vk-device*)
+    int 
+    "vkCreateDevice")
+  
   )
 
 ;; (define-syntax firstc
@@ -303,6 +379,9 @@ ___return;")
   (destroy-debug-utils!)
   (vk-destroy-instance))
 
+;;;;;;;;;;;;;;;;;;;;;;
+;; Physical device  ;;
+;;;;;;;;;;;;;;;;;;;;;;
 
 (define (is-device-valid? family-props)
   (and (< 0 (vk-queue-family-queue-count family-props))
@@ -325,8 +404,27 @@ ___return;")
 (define (get-vulkan-physical-device)
   (let* ((device (first-physical-device
 		  (car (get-physical-devices))))
-	(family-props (first-family-properties
-		       (car (get-queue-families device)))))
+	 (family-props (first-family-properties
+			(car (get-queue-families device)))))
     (if (is-device-valid? family-props)
       device
       #f)))
+
+;;;;;;;;;;;;;;;;;;;;
+;; Logical Device ;;
+;;;;;;;;;;;;;;;;;;;;
+
+
+(define (make-vulkan-device)
+  (let* ((queue-info (make-vk-device-queue-create-info #f 0 0 1 (make-float 1.0)))
+	 (device-info (make-vk-device-create-info #f 0 1 queue-info 1 validation-layers 0 () (make-vk-physical-device-features)))
+	 (device (malloc-vk-device))
+	 (o (vk-create-device (get-vulkan-physical-device)
+		      device-info
+		      #f
+		      device)))
+    (display "\nesult is ")
+    (display o)
+    (display "\n")
+    
+    device))

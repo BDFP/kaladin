@@ -17,4 +17,9 @@
 				      (get-physical-devices)))
 				=> #t)
 			 (get-vulkan-physical-device)
+			 (destroy-vulkan-instance!))
+
+	      (test-case "create logical device"
+			 (init-vulkan-instance!)
+			 (make-vulkan-device)
 			 (destroy-vulkan-instance!))))
