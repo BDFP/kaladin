@@ -1,13 +1,21 @@
 (import :std/foreign
+	:std/iter
 	:gerbil/gambit)
+
+(include "ctypes.scm")
 
 (export #t)
 
-
-
 (begin-ffi (inotify-init
 	    inotify-add-watch
-	    read-string)
+	    inotify-event-mask
+	    inotify-event-name
+	    inotify-event-name-length
+	    inotify-event-struct-size
+	    read-string
+	    buffer-length
+	    ptr->inotify-event
+	    make-void*)
 
   (c-declare "#include<sys/inotify.h>
               #include <unistd.h>
@@ -15,16 +23,37 @@
 
   (c-define-type inotify-event (struct "inotify_event"))
 
+  (define-c-lambda inotify-event-struct-size () int
+    "___return (sizeof(struct inotify_event));")
+
+  (define-c-lambda inotify-event-mask ((pointer inotify-event)) unsigned-int32
+    "___return (___arg1->mask);")
+
+  (define-c-lambda inotify-event-name ((pointer inotify-event)) char-string
+    "___return (___arg1->name);")
+
+  
+  (define-c-lambda inotify-event-name-length
+    ((pointer inotify-event)) unsigned-int32
+    "___return (___arg1->len);")
+
   (define-c-lambda inotify-init () int "inotify_init")
 
-  (define-c-lambda inotify-add-watch (int char-string int) int "inotify_add_watch")
+  (define-c-lambda inotify-add-watch (int char-string int) int
+    "inotify_add_watch")
 
-  (define-c-lambda read-string (int)  "
-#define BUF_LEN 10 * (sizeof(struct inotify_event) + NAME_MAX + 1)
-char val[BUF_LEN];
-read(___arg1, val, BUF_LEN);
-___return (val);")
+  (define-c-lambda ptr->inotify-event (void*) (pointer inotify-event)
+    "___return (___arg1);")
 
+  (define-c-lambda make-void* () void* "___return (malloc (sizeof(void*)));")
+
+  (define-c-lambda move-void* (void* int) void* "___return (___arg1 + ___arg2);")
+
+  (define-c-lambda read-string (int void* int) int  "read")
+
+  (define-c-lambda buffer-length
+    () int
+    "___return (10 * (sizeof(struct inotify_event) + NAME_MAX + 1));")
   )
 
 ;;;;;;;;;;;;;;;;;;;;
@@ -74,16 +103,37 @@ ___return (val);")
 				    in-create      in-delete-self   in-move-self))
 
 
-(define-syntax when
-(syntax-rules ()
-  ((when condition exp ...)
-   (if condition
-     (begin exp ...)))))
-
-
 (define (add-watch)
   (let ((fd (inotify-init)))
     (inotify-add-watch fd (current-directory) in-all-events)
     fd))
 
-;; (display (add-watch))
+;; returns a generator which can read inotify_events from buffer
+(define (inotify-buffer-reader buffer length)
+  (let loop ((i 0)
+	     (evs ()))
+    (if (< i length)
+      (let ((event (ptr->inotify-event buffer)))	
+	(loop (+ i
+		 (inotify-event-struct-size)
+		 (inotify-event-name-length event))
+	      (cons event evs)))
+      evs)))
+
+(define (inotify-event-generator inotify-fd)
+  (lambda ()
+    (let lp ()
+      (let* ((buf (make-void*))
+	     (length (read-string inotify-fd buf (buffer-length))))
+	(yield (inotify-buffer-reader buf length))
+	(lp)))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Usage:						       ;;
+;; 							       ;;
+;; > (import :std/coroutine)				       ;;
+;; > (def c (coroutine (inotify-event-generator (add-watch)))) ;;
+;; > (continue c)					       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
