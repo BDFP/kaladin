@@ -23,9 +23,9 @@
 
 (define (game-loop window)
   (if (= (glfw-window-should-close window) 0)
-    (begin (glfw-poll-events)
-	   (game-loop window))
-    #f))
+      (begin (glfw-poll-events)
+	     (game-loop window))
+      #f))
 
 (define (main)
   (let ((window  (init-window)))
