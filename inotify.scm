@@ -1,5 +1,8 @@
 (import :std/foreign
 	:std/iter
+	:std/event
+	:std/coroutine
+	:std/actor
 	:gerbil/gambit)
 
 (include "ctypes.scm")
@@ -128,7 +131,6 @@
 	(yield (inotify-buffer-reader buf length))
 	(lp)))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Usage:						       ;;
 ;; 							       ;;
@@ -137,3 +139,23 @@
 ;; > (continue c)					       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+(defproto file-change-stream
+  stream: (start-watch N))
+
+(define (inotify-change-stream)
+  (define (stream dest N k)
+    (let lp ((n 0)
+	     (inotify-coroutine (coroutine
+				 (inotify-event-generator (add-watch)))))
+      (if (< n N)
+	(begin (!!yield dest (continue inotify-coroutine) k)
+	       (!!sync dest k)
+	       (<- ((!continue k) (lp (1+ n) inotify-coroutine))
+		   ((!close k) (!!end dest k))
+		   ((!abort k) (void))))
+	(!!end dest k))))
+  (let lp ()
+    (<- ((!file-change-stream.start-watch N k)
+	 (spawn stream @source N k)
+	 (lp)))))

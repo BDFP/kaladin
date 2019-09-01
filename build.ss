@@ -9,6 +9,7 @@
 		   (gxc: "vulkan.scm"
 			 "-ld-options" "-lvulkan")
 		   (gxc: "vulkan-test.scm")
+		   (gxc: "inotify.scm")
 		   (gxc: "test-runner.scm")
 		   (exe: "app")))
 
