@@ -159,3 +159,13 @@
     (<- ((!file-change-stream.start-watch N k)
 	 (spawn stream @source N k)
 	 (lp)))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Usage:								       ;;
+;; 									       ;;
+;; > (def t (spawn inotify-change-stream))				       ;;
+;; > (let ((values inp close) (!!pipe (!!file-change-stream.start-watch t 5))) ;;
+;;     (for (x inp)							       ;;
+;;       (displayln x)))						       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
