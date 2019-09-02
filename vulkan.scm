@@ -31,7 +31,9 @@
 	    malloc-vk-surface
 	    glfw-create-window-surface
 	    glfw-destroy-surface
-	    vk-physical-device-surface-support?)
+	    vk-physical-device-surface-support?
+	    vk-get-device-queue
+	    malloc-vk-queue*)
   
   (c-declare
    "
@@ -351,6 +353,16 @@ ___return (deviceCreateInfo);
     int
     "VkSurfaceKHR* surface = ___arg3;
 ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___arg4));")
+
+
+  (c-define-type vk-queue* (pointer (pointer (struct "VkQueue_T"))))
+
+  (define-c-lambda malloc-vk-queue* () vk-queue* "___return (malloc(sizeof(VkQueue*)));")
+  
+  (define-c-lambda vk-get-device-queue
+    (vk-device* unsigned-int32 unsigned-int32  vk-queue*) void
+    "vkGetDeviceQueue (*___arg1, ___arg2, ___arg3, ___arg4);
+     ___return;")
   
   )
 
@@ -425,12 +437,15 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 ;; Physical device  ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
-(define (is-device-valid? device family-props)
+(define (is-device-valid? device family-props surface)
   (and
     (< 0 (vk-queue-family-queue-count family-props))
     (bitwise-and (vk-queue-family-queue-flags family-props)
 		 *vk-queue-graphics-bit*)
-    (vk-physical-device-surface-support? device)))
+    (let (support?  (make-int32))
+      (vk-physical-device-surface-support? device 0 surface support?)
+      (displayln "support is " support?)
+      (= (read-int32-ptr support?) 1))))
 
 
 (define (get-queue-families device)
@@ -446,11 +461,11 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 
 ;; device to use
 ;; will check the device which is usable
-(define (get-vulkan-physical-device)
+(define (get-vulkan-physical-device surface)
   (let* ((device (first-physical-device (car (get-physical-devices))))
 	 (family-props (first-family-properties
 			(car (get-queue-families device)))))
-    (if (is-device-valid? device family-props)
+    (if (is-device-valid? device family-props surface)
       device
       #f)))
 
@@ -459,22 +474,27 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 ;;;;;;;;;;;;;;;;;;;;
 
 
-(define (make-vulkan-device)
+(define (make-vulkan-device surface)
   (let* ((queue-info (make-vk-device-queue-create-info #f 0 0 1 (make-float 1.0)))
 	 (device-info (make-vk-device-create-info #f 0 1 queue-info 1 validation-layers 0 () (make-vk-physical-device-features)))
 	 (device (malloc-vk-device)))
     (wrap-vulkan (lambda ()
-		   (vk-create-device (get-vulkan-physical-device)
+		   (vk-create-device (get-vulkan-physical-device surface)
 				     device-info
 				     #f
 				     device)))
+    (displayln "Device is " device)
     device))
 
 
 (define (init-vulkan! glfw-window)
   (init-vulkan-instance!)
   (set! *vk-surface* (malloc-vk-surface))
-  (wrap-vulkan (lambda () (glfw-create-window-surface glfw-window #f *vk-surface*))))
+  (wrap-vulkan (lambda () (glfw-create-window-surface glfw-window #f *vk-surface*)))
+  (let (queue (malloc-vk-queue*))
+    (vk-get-device-queue (make-vulkan-device *vk-surface*) 0 0 queue)
+    (displayln "queue is " queue)
+    queue))
 
 (define close-vulkan!
   (lambda ()
