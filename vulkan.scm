@@ -1,14 +1,13 @@
 (import :std/foreign
-	:kaladin/glfw
 	:gerbil/gambit)
 
-(include "strings.scm")
+(include "glfw.scm")
 (include "ctypes.scm")
 
 (export #t)
 
 (begin-ffi (vk-application-info
-	    init-vulkan!
+	    init_vulkan!
 	    vk-destroy-instance
 	    create-debug-utils-messenger
 	    create-debug-utils!
@@ -28,17 +27,19 @@
 	    make-vk-device-create-info
 	    vk-create-device
 	    make-vk-physical-device-features
-	    malloc-vk-device)
+	    malloc-vk-device
+	    malloc-vk-surface
+	    glfw-create-window-surface
+	    glfw-destroy-surface)
   
   (c-declare
-#<<c-declare-end
-   
+   "
    #include <vulkan/vulkan.h>
    #include <stdio.h>
 
    VkInstance instance;
    VkDebugUtilsMessengerEXT debugMessenger;
-c-declare-end
+"
 )
   
 
@@ -65,7 +66,7 @@ c-declare-end
 		 (pointer vk-debug-utils-messenger-create-info))
 
 
-  (define-c-lambda init-vulkan!
+  (define-c-lambda init_vulkan!
     (char-string char-string
 		 char**
 		 (pointer unsigned-int32)
@@ -73,31 +74,31 @@ c-declare-end
 		 unsigned-int32
 		 vk-debug-utils-messenger-create-info)
     void
- #<<c-lambda-end
+#<<c-lambda-end
     VkApplicationInfo app_info = {
-      .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
-      .pApplicationName = ___arg1,
-      .applicationVersion = 0x010000,
-      .pEngineName = ___arg2,
-      .engineVersion = 0x010000,
-      .apiVersion = VK_API_VERSION_1_0,
-};
+				  .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
+					 .pApplicationName = ___arg1,
+					 .applicationVersion = 0x010000,
+					 .pEngineName = ___arg2,
+					 .engineVersion = 0x010000,
+					 .apiVersion = VK_API_VERSION_1_0,
+					 };
 
     VkInstanceCreateInfo create_info = {
-      .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
-      .pApplicationInfo = &app_info,
-      .enabledExtensionCount = *___arg4,
-      .ppEnabledExtensionNames = ___arg3,
-      .enabledLayerCount = ___arg6,
-      .ppEnabledLayerNames = ___arg5,
-      .pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&___arg7};
+					.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+					       .pApplicationInfo = &app_info,
+					       .enabledExtensionCount = *___arg4,
+					       .ppEnabledExtensionNames = ___arg3,
+					       .enabledLayerCount = ___arg6,
+					       .ppEnabledLayerNames = ___arg5,
+					       .pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&___arg7};
 
 
     vkCreateInstance(&create_info, NULL, &instance);
 
     ___return;
 c-lambda-end
-)
+    )
   
   (c-define-type vk-allocation-cb*
 		 (pointer (struct "VkAllocationCallbacks")))
@@ -128,13 +129,13 @@ c-lambda-end
   (c-declare 
 #<<vulkan-debug-callback-c
    static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
-     VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, 
-     VkDebugUtilsMessageTypeFlagsEXT messageType, 
-     const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
-     void* pUserData) {
-         vulkan_callback(pCallbackData->pMessage);
-         return VK_FALSE;
-}
+						       VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, 
+											      VkDebugUtilsMessageTypeFlagsEXT messageType, 
+											      const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+											      void* pUserData) {
+														vulkan_callback(pCallbackData->pMessage);
+															       return VK_FALSE;
+															       }
 
 vulkan-debug-callback-c
 )
@@ -153,24 +154,25 @@ vulkan-debug-callback-c
   (define-c-lambda create-debug-utils!
     ()
     void
- #<<lambda
+#<<lambda
     PFN_vkCreateDebugUtilsMessengerEXT func =
     (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
     if (func != 0) {
-	func(instance, &debugMessenger, NULL, &debugMessenger);
-    }
+		   func(instance, &debugMessenger, NULL, &debugMessenger);
+		       }
     ___return;
 lambda
-)
+    )
 
+  
   (define-c-lambda destroy-debug-utils!
     () void
- #<<lambda
+#<<lambda
     PFN_vkDestroyDebugUtilsMessengerEXT func =
     (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
     if (func != 0) {
-      func(instance, debugMessenger,NULL);
-}
+		   func(instance, debugMessenger,NULL);
+		       }
     ___return;
 lambda
     )
@@ -178,7 +180,7 @@ lambda
   (define-c-lambda make-debug-utils-messenger-create-info 
     ()
     vk-debug-utils-messenger-create-info
- #<<c-lambda-end
+#<<c-lambda-end
     VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
 
     createInfo.sType =
@@ -198,7 +200,7 @@ lambda
 
     ___return (createInfo);
 c-lambda-end
-)
+    )
 
   ;;;;;;;;;;;;;;;;;;;;;;
   ;; Physical Devices ;;
@@ -214,9 +216,9 @@ c-lambda-end
     (vk-queue-family-props)  unsigned-int32
     "___return (___arg1.queueCount);")
 
-   (define-c-lambda vk-queue-family-queue-flags
-     (vk-queue-family-props) int
-     "___return (___arg1.queueFlags);")
+  (define-c-lambda vk-queue-family-queue-flags
+    (vk-queue-family-props) int
+    "___return (___arg1.queueFlags);")
 
   ;; takes size as argument
   (define-c-lambda malloc-physical-device*
@@ -300,7 +302,7 @@ ___return (queueCreateInfo);
   (define-c-lambda make-vk-device-create-info
     (void* int int vk-device-queue-create-info* int char** int char**
 	   vk-physical-device-features*) vk-device-create-info*
-"
+	   "
 VkDeviceCreateInfo *deviceCreateInfo = malloc(sizeof(VkDeviceCreateInfo));
 deviceCreateInfo->sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 deviceCreateInfo->pNext = ___arg1;
@@ -317,9 +319,31 @@ ___return (deviceCreateInfo);
 
   (define-c-lambda vk-create-device
     (vk-physical-device vk-device-create-info* vk-allocation-cb*
-			 vk-device*)
+			vk-device*)
     int 
     "vkCreateDevice")
+
+  ;;;;;;;;;;;;;;;;;;;;
+  ;; Window Surface ;;
+  ;;;;;;;;;;;;;;;;;;;;
+
+  (c-define-type vk-surface (struct "VkSurfaceKHR"))
+  (c-define-type vk-surface* (pointer vk-surface))
+
+  (define-c-lambda malloc-vk-surface () vk-surface*
+    "___return (malloc(sizeof(VkSurfaceKHR)));")
+
+  (define-c-lambda glfw-create-window-surface
+    (window* vk-allocation-cb* (pointer vk-surface))
+    int
+    "___return (glfwCreateWindowSurface(instance, ___arg1, ___arg2, ___arg3));")
+
+  (define-c-lambda glfw-destroy-surface
+    (vk-surface* vk-allocation-cb*) void
+    "VkSurfaceKHR* surface = ___arg1;
+     vkDestroySurfaceKHR(instance, *surface, ___arg2);
+     ___return;"
+    )
   
   )
 
@@ -365,7 +389,7 @@ ___return (deviceCreateInfo);
 	 (create-info (if enable-validation-layer?
 			(make-debug-utils-messenger-create-info)
 			#f)))
-    (init-vulkan! application-name
+    (init_vulkan! application-name
 		  engine-name
 		  extensions
 		  extension-count
@@ -420,11 +444,32 @@ ___return (deviceCreateInfo);
 	 (device-info (make-vk-device-create-info #f 0 1 queue-info 1 validation-layers 0 () (make-vk-physical-device-features)))
 	 (device (malloc-vk-device))
 	 (o (vk-create-device (get-vulkan-physical-device)
-		      device-info
-		      #f
-		      device)))
+			      device-info
+			      #f
+			      device)))
     (display "\nesult is ")
     (display o)
     (display "\n")
     
     device))
+
+(define *vk-success* 0)
+
+(define *vk-surface* #f)
+
+(define (wrap-vulkan f)
+  (let (result (f))
+    (if (= result *vk-success*)
+      result
+      (raise 'vulkan-call-failed))))
+
+(define (init-vulkan! glfw-window)
+  (init-vulkan-instance!)
+  (set! *vk-surface* (malloc-vk-surface))
+  (wrap-vulkan (lambda () (glfw-create-window-surface glfw-window #f *vk-surface*))))
+
+(define close-vulkan!
+  (lambda ()
+    (displayln "destroying now" *vk-surface*)
+    (glfw-destroy-surface *vk-surface* #f)
+    (destroy-vulkan-instance!)))

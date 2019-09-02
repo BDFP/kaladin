@@ -1,9 +1,9 @@
-(import :std/foreign)
-(include "strings.scm")
-(include "ctypes.scm")
+(import :std/foreign
+	:kaladin/ctypes)
+
+(include "cstrings.ss")
 
 (export #t)
-
 
 (begin-ffi (glfw-init
 	    glfw-window-hint
@@ -12,7 +12,8 @@
 	    glfw-window-should-close
 	    glfw-poll-events
 	    glfw-destroy-window
-	    glfw-terminate)
+	    glfw-terminate
+	    window*)
   
   (c-declare "#define GLFW_INCLUDE_NONE
               #include <GLFW/glfw3.h>")

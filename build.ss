@@ -1,13 +1,10 @@
 #!/usr/bin/env gxi
 
 (import :std/build-script
-	:std/make
-	)
+	:std/make)
 
-(def build-spec  `((gxc: "glfw.scm"
-			 "-ld-options" "-lglfw")
-		   (gxc: "vulkan.scm"
-			 "-ld-options" "-lvulkan")
+(def build-spec  `((gxc: "vulkan.scm"
+			 "-ld-options" "-lvulkan -lglfw")
 		   (gxc: "vulkan-test.scm")
 		   (gxc: "inotify.scm")
 		   (gxc: "test-runner.scm")

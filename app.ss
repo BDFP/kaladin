@@ -1,5 +1,4 @@
-(import :kaladin/vulkan
-	:kaladin/glfw)
+(import :kaladin/vulkan)
 
 (export #t)
 
@@ -29,7 +28,7 @@
 
 (define (main)
   (let ((window  (init-window)))
-    (init-vulkan-instance!)
+    (init-vulkan! window)
     (game-loop window)
-    (destroy-vulkan-instance!)
+    (close-vulkan!)
     (destroy-glfw window)))
