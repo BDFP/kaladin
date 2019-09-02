@@ -30,7 +30,8 @@
 	    malloc-vk-device
 	    malloc-vk-surface
 	    glfw-create-window-surface
-	    glfw-destroy-surface)
+	    glfw-destroy-surface
+	    vk-physical-device-surface-support?)
   
   (c-declare
    "
@@ -344,6 +345,12 @@ ___return (deviceCreateInfo);
      vkDestroySurfaceKHR(instance, *surface, ___arg2);
      ___return;"
     )
+
+  (define-c-lambda vk-physical-device-surface-support?
+    (vk-physical-device unsigned-int32 vk-surface* (pointer unsigned-int32))
+    int
+    "VkSurfaceKHR* surface = ___arg3;
+___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___arg4));")
   
   )
 
@@ -376,6 +383,17 @@ ___return (deviceCreateInfo);
 
 (define in #f)
 
+(define *vk-success* 0)
+
+(define *vk-surface* #f)
+
+(define (wrap-vulkan f)
+  (let (result (f))
+    (if (= result *vk-success*)
+      result
+      (raise 'vulkan-call-failed))))
+
+
 (def (init-vulkan-instance!
       application-name: (application-name "kaladin-app")
       engine-name: (engine-name "kaladin")
@@ -407,10 +425,13 @@ ___return (deviceCreateInfo);
 ;; Physical device  ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
-(define (is-device-valid? family-props)
-  (and (< 0 (vk-queue-family-queue-count family-props))
-     (bitwise-and (vk-queue-family-queue-flags family-props)
-		  *vk-queue-graphics-bit*)))
+(define (is-device-valid? device family-props)
+  (and
+    (< 0 (vk-queue-family-queue-count family-props))
+    (bitwise-and (vk-queue-family-queue-flags family-props)
+		 *vk-queue-graphics-bit*)
+    (vk-physical-device-surface-support? device)))
+
 
 (define (get-queue-families device)
   (make-cvector (lambda (count queue-families)
@@ -426,11 +447,10 @@ ___return (deviceCreateInfo);
 ;; device to use
 ;; will check the device which is usable
 (define (get-vulkan-physical-device)
-  (let* ((device (first-physical-device
-		  (car (get-physical-devices))))
+  (let* ((device (first-physical-device (car (get-physical-devices))))
 	 (family-props (first-family-properties
 			(car (get-queue-families device)))))
-    (if (is-device-valid? family-props)
+    (if (is-device-valid? device family-props)
       device
       #f)))
 
@@ -442,26 +462,14 @@ ___return (deviceCreateInfo);
 (define (make-vulkan-device)
   (let* ((queue-info (make-vk-device-queue-create-info #f 0 0 1 (make-float 1.0)))
 	 (device-info (make-vk-device-create-info #f 0 1 queue-info 1 validation-layers 0 () (make-vk-physical-device-features)))
-	 (device (malloc-vk-device))
-	 (o (vk-create-device (get-vulkan-physical-device)
-			      device-info
-			      #f
-			      device)))
-    (display "\nesult is ")
-    (display o)
-    (display "\n")
-    
+	 (device (malloc-vk-device)))
+    (wrap-vulkan (lambda ()
+		   (vk-create-device (get-vulkan-physical-device)
+				     device-info
+				     #f
+				     device)))
     device))
 
-(define *vk-success* 0)
-
-(define *vk-surface* #f)
-
-(define (wrap-vulkan f)
-  (let (result (f))
-    (if (= result *vk-success*)
-      result
-      (raise 'vulkan-call-failed))))
 
 (define (init-vulkan! glfw-window)
   (init-vulkan-instance!)
