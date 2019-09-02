@@ -15,6 +15,7 @@
 
 (def srcdir (path-normalize (path-directory (this-source-file))))
 
+
 (define (main . args)
   (make srcdir: srcdir
 	bindir: srcdir
@@ -24,5 +25,6 @@
 	depgraph: (make-depgraph/spec build-spec)
 	prefix: "kaladin"
 	build-spec)
-  (eval `(begin (import :kaladin/test-runner)
-		(run-all-tests))))
+  ;; (eval `(begin (import :kaladin/test-runner)
+  ;; 		(run-all-tests-with-watch)))
+  )

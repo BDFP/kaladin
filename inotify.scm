@@ -150,17 +150,16 @@
 	     (inotify-coroutine (coroutine
 				 (inotify-event-generator (add-watch)))))
       (if (< n N)
-	(begin (!!yield dest (continue inotify-coroutine) k)
-	       (!!sync dest k)
-	       (<- ((!continue k) (lp (1+ n) inotify-coroutine))
-		   ((!close k) (!!end dest k))
-		   ((!abort k) (void))))
-	(!!end dest k))))
+	  (begin (!!yield dest (continue inotify-coroutine) k)
+		 (!!sync dest k)
+		 (<- ((!continue k) (lp (1+ n) inotify-coroutine))
+		     ((!close k) (!!end dest k))
+		     ((!abort k) (void))))
+	  (!!end dest k))))
   (let lp ()
     (<- ((!file-change-stream.start-watch N k)
-	 (spawn stream @source N k)
-	 (lp)))))
-
+	(spawn stream @source N k)
+	(lp)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Usage:								       ;;
