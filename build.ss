@@ -12,7 +12,6 @@
 
 (def srcdir (path-normalize (path-directory (this-source-file))))
 
-
 (define (main . args)
   (make srcdir: srcdir
 	bindir: srcdir

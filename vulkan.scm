@@ -33,7 +33,8 @@
 	    glfw-destroy-surface
 	    vk-physical-device-surface-support?
 	    vk-get-device-queue
-	    malloc-vk-queue*)
+	    malloc-vk-queue*
+	    nth-family-property)
   
   (c-declare
    "
@@ -248,6 +249,10 @@ ___return;")
     ((pointer vk-queue-family-props)) vk-queue-family-props
     "___return (*___arg1);")
 
+  (define-c-lambda nth-family-property
+    (int (pointer vk-queue-family-props)) vk-queue-family-props
+    "___return (*(___arg2 + ___arg1));")
+
   (define-c-lambda vk-get-device-family-props
     (vk-physical-device
      (pointer unsigned-int32)
@@ -437,14 +442,18 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 ;; Physical device  ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
+
+;; we are picking up queue family which has *both* drawing and
+;; presentation support.
 (define (is-device-valid? device family-props surface)
   (and
     (< 0 (vk-queue-family-queue-count family-props))
+    
     (bitwise-and (vk-queue-family-queue-flags family-props)
 		 *vk-queue-graphics-bit*)
+    
     (let (support?  (make-int32))
       (vk-physical-device-surface-support? device 0 surface support?)
-      (displayln "support is " support?)
       (= (read-int32-ptr support?) 1))))
 
 
@@ -459,15 +468,24 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
   (lambda ()
     (make-cvector vk-get-physical-devices malloc-physical-device*)))
 
+
 ;; device to use
 ;; will check the device which is usable
 (define (get-vulkan-physical-device surface)
   (let* ((device (first-physical-device (car (get-physical-devices))))
-	 (family-props (first-family-properties
-			(car (get-queue-families device)))))
-    (if (is-device-valid? device family-props surface)
-      device
-      #f)))
+	 ;; car gives us the pt cdr will contain count
+	 (family-vector (get-queue-families device)))
+    (define  (choose-queue-family i)
+      (cond
+       ((= i (cdr family-vector)) #f)
+
+       ;; see the note for this function
+       ((is-device-valid? device
+			  (nth-family-property i (car family-vector))
+			  surface) (cons device i))
+
+       (else (choose-queue-family (1+ i)))))
+    (choose-queue-family 0)))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Logical Device ;;
@@ -477,24 +495,28 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 (define (make-vulkan-device surface)
   (let* ((queue-info (make-vk-device-queue-create-info #f 0 0 1 (make-float 1.0)))
 	 (device-info (make-vk-device-create-info #f 0 1 queue-info 1 validation-layers 0 () (make-vk-physical-device-features)))
+	 
 	 (device (malloc-vk-device)))
-    (wrap-vulkan (lambda ()
-		   (vk-create-device (get-vulkan-physical-device surface)
-				     device-info
-				     #f
-				     device)))
-    (displayln "Device is " device)
-    device))
+    (with ([physical-device . index] (get-vulkan-physical-device surface))
+      (wrap-vulkan (lambda ()
+		     (vk-create-device physical-device
+				       device-info
+				       #f
+				       device)))
+      (displayln "Device is " device)
+      (cons device index))))
 
 
 (define (init-vulkan! glfw-window)
   (init-vulkan-instance!)
   (set! *vk-surface* (malloc-vk-surface))
   (wrap-vulkan (lambda () (glfw-create-window-surface glfw-window #f *vk-surface*)))
-  (let (queue (malloc-vk-queue*))
-    (vk-get-device-queue (make-vulkan-device *vk-surface*) 0 0 queue)
+  (with ((queue (malloc-vk-queue*))
+	 ([logical-device . device-index] (make-vulkan-device *vk-surface*)))
+    (vk-get-device-queue logical-device device-index device-index queue)
     (displayln "queue is " queue)
     queue))
+
 
 (define close-vulkan!
   (lambda ()
