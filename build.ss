@@ -5,6 +5,8 @@
 
 (def build-spec  `((gxc: "vulkan.scm"
 			 "-ld-options" "-lvulkan -lglfw")
+		   ;; (gxc: "vulkan-auto"
+		   ;; 	 "-ld-options" "-lvulkan -lglfw")
 		   (gxc: "vulkan-test.scm")
 		   (gxc: "inotify.scm")
 		   (gxc: "test-runner.scm")

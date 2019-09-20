@@ -1,5 +1,6 @@
 (import :std/xml
-	:gerbil/gambit/ports)
+	:gerbil/gambit/ports
+	:std/srfi/13)
 
 (export #t)
 
@@ -78,24 +79,38 @@
 						   name+type))))))))
 
 (define (gen-ffi-for-structs types)
-  (let (struct+members (map (lambda (type)
-			      (let ((name (cadar ((sxpath '(@ name)) type)))
-				    (members (map get-name+type
-						  ((sxpath '(member)) type))))
-				(cons name members)))
-			    (get-types-of-category "struct" types)))
-    (make-ffi-code (map car struct+members)
+  (let* ((struct+members (map (lambda (type)
+				(let ((name (cadar ((sxpath '(@ name)) type)))
+				      (members (map get-name+type
+						    ((sxpath '(member)) type))))
+				  (cons name members)))
+			      (get-types-of-category "struct" types)))
+	 (struct-names (map car struct+members)))
+    (make-ffi-code (append struct-names
+			   ;; add pointer types
+			   (map (lambda (n) (string-append n "*")) struct-names)) 
 		   (lambda (sym)
-		     `((c-define-type ,sym
-				      (struct ,(symbol->string sym)))
+		     (let (type-name (symbol->string sym))
+		       (if (string-suffix? "*" type-name)
+			 `((c-define-type ,(string->symbol type-name)
+					  (pointer ,(string->symbol
+						     (string-drop-right type-name 1)))))
+			 `((c-define-type ,sym
+					  (struct ,(symbol->string sym))))))))))
 
-		       (c-define-type ,(string->symbol (string-append (symbol->string sym)
-								      "*"))
-				      (pointer (struct ,sym))))))))
+(define make-ffi-module (lambda ()
+			  `((import :std/foreign)
+			    (include "glfw.scm")
+			    (include "ctypes.scm")
+			    
+			    (export #t)
+			    
+			    ,(gen-ffi-for-handle types)
+			    ,(gen-ffi-for-basetype types)
+			    ,(gen-ffi-for-structs types))))
 
 (define (main . args) 
-  (displayln (list (gen-ffi-for-handle types)
-		   (gen-ffi-for-basetype types)
-		   (gen-ffi-for-structs types))))
+  (call-with-output-file "vulkan-auto.ss"
+    (lambda (out) (map (lambda (c) (write c out)) (make-ffi-module)))))
 
 
