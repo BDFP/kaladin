@@ -6,6 +6,17 @@
 
 (export #t)
 
+;; (begin-syntax (define (make-nth-symbol type)
+;; 		(stx-identifier #'type "nth-" type)))
+;; (defsyntax (nth stx)
+;;   (syntax-case stx ()
+;;     ((nth ptr-type)
+;;      (with-syntax ((nth-symbol (make-nth-symbol #'ptr-type)))
+;;        #'(define-c-lambda nth-symbol
+;; 	   (int ptr-type) ptr-type
+;; 	   "___return (___arg2 + ___arg1);")))))
+
+
 (begin-ffi (vk-application-info
 	    init_vulkan!
 	    vk-destroy-instance
@@ -34,7 +45,11 @@
 	    vk-physical-device-surface-support?
 	    vk-get-device-queue
 	    malloc-vk-queue*
-	    nth-family-property)
+	    nth-family-property
+	    vk-enumerate-device-extension-props
+	    malloc-vk-extension-props*
+	    ;; vk-extension-prop-name
+	    nth-vk-extension-props*)
   
   (c-declare
    "
@@ -44,7 +59,7 @@
    VkInstance instance;
    VkDebugUtilsMessengerEXT debugMessenger;
 "
-)
+   )
   
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -142,7 +157,7 @@ c-lambda-end
 															       }
 
 vulkan-debug-callback-c
-)
+											      )
 
   (define-c-lambda get-instance-layer-count () int
     "uint32_t layerCount;
@@ -162,8 +177,8 @@ vulkan-debug-callback-c
     PFN_vkCreateDebugUtilsMessengerEXT func =
     (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
     if (func != 0) {
-		   func(instance, &debugMessenger, NULL, &debugMessenger);
-		       }
+		    func(instance, &debugMessenger, NULL, &debugMessenger);
+			}
     ___return;
 lambda
     )
@@ -175,8 +190,8 @@ lambda
     PFN_vkDestroyDebugUtilsMessengerEXT func =
     (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
     if (func != 0) {
-		   func(instance, debugMessenger,NULL);
-		       }
+		    func(instance, debugMessenger,NULL);
+			}
     ___return;
 lambda
     )
@@ -241,9 +256,8 @@ c-lambda-end
   (define-c-lambda vk-get-physical-devices
     ((pointer unsigned-int32) (pointer vk-physical-device))
     void
-    "
-vkEnumeratePhysicalDevices(instance, ___arg1, ___arg2);
-___return;")
+    "vkEnumeratePhysicalDevices(instance, ___arg1, ___arg2);
+     ___return;")
 
   (define-c-lambda first-family-properties
     ((pointer vk-queue-family-props)) vk-queue-family-props
@@ -338,6 +352,8 @@ ___return (deviceCreateInfo);
   (c-define-type vk-surface (struct "VkSurfaceKHR"))
   (c-define-type vk-surface* (pointer vk-surface))
 
+  ;; (c-define-type vk-surface-capabilities )
+
   (define-c-lambda malloc-vk-surface () vk-surface*
     "___return (malloc(sizeof(VkSurfaceKHR)));")
 
@@ -368,19 +384,43 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
     (vk-device* unsigned-int32 unsigned-int32  vk-queue*) void
     "vkGetDeviceQueue (*___arg1, ___arg2, ___arg3, ___arg4);
      ___return;")
-  
+
+  ;;;;;;;;;;;;;;;
+  ;; Swapchain ;;
+  ;;;;;;;;;;;;;;;
+
+  (c-define-type vk-extension-props (struct "VkExtensionProperties"))
+
+  (c-define-type vk-extension-props* (pointer vk-extension-props))
+
+  ;; (nth vk-extension-props*)
+
+  (define-c-lambda vk-extension-prop-name (vk-extension-props*) char-string
+    "___return (___arg1->extensionName);")
+
+  (define-c-lambda malloc-vk-extension-props* (int) vk-extension-props*
+    "___return (malloc(___arg1 * sizeof(VkExtensionProperties*)));")
+
+  (define-c-lambda vk-enumerate-device-extension-props
+    (vk-physical-device  (pointer char) (pointer unsigned-int32) vk-extension-props*)
+    int
+    "vkEnumerateDeviceExtensionProperties")
+
+  ;; (define-c-lambda vk-get-physical-device-surface-capibilities
+  ;;   (vk-physical-device vk-surface ))
   )
 
-;; (define-syntax firstc
-;;   (syntax-rules ()
-;;     ((_ ptr type)
-;;      (begin (module Abc
-;; 	      (import :std/foreign)
-	      
-;; 	      (begin-ffi (fir)
-;; 		(define-c-lambda fir ((pointer type)) type
-;; 		  "___return (*___arg1);"))
-;; 	      (fir ptr))))))
+
+(define-syntax firstc
+		 (syntax-rules ()
+		   ((_ ptr type)
+		    (begin (module Abc
+			     (import :std/foreign)
+			     
+			     (begin-ffi (fir)
+			       (define-c-lambda fir ((pointer type)) type
+				 "___return (*___arg1);"))
+			     (fir ptr))))))
 
 
 
@@ -393,6 +433,8 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 
 (define validation-layers
   (list "VK_LAYER_LUNARG_standard_validation"))
+
+(define device-extensions (list "VK_KHR_swapchain"))
 
 (define *vk-queue-graphics-bit* #x00000001)
 
@@ -441,6 +483,14 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Physical device  ;;
 ;;;;;;;;;;;;;;;;;;;;;;
+
+(define (get-extensions physical-device)
+  (make-cvector (lambda (count* extension-props*)
+		  (vk-enumerate-device-extension-props physical-device
+						       #f
+						       count*
+						       extension-props*))
+		malloc-vk-extension-props*))
 
 
 ;; we are picking up queue family which has *both* drawing and
@@ -503,8 +553,10 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 				       device-info
 				       #f
 				       device)))
-      (displayln "Device is " device)
+      
+      (displayln "Extension is " device)
       (cons device index))))
+
 
 
 (define (init-vulkan! glfw-window)

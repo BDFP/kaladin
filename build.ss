@@ -8,7 +8,8 @@
 		   (gxc: "vulkan-test.scm")
 		   (gxc: "inotify.scm")
 		   (gxc: "test-runner.scm")
-		   (exe: "app")))
+		   (exe: "app")
+		   (exe: "ffi")))
 
 (def srcdir (path-normalize (path-directory (this-source-file))))
 
