@@ -1,6 +1,8 @@
 (import :std/xml
 	:gerbil/gambit/ports
-	:std/srfi/13)
+	:std/srfi/13
+	:std/format
+	:kaladin/pprint)
 
 (export #t)
 
@@ -78,6 +80,29 @@
 				      ,(cdr (assoc (symbol->string sym)
 						   name+type))))))))
 
+(define (gen-getter-for-struct struct-type-name members)
+  (map (lambda (member-name-with-type)
+	 (let* ((member-name (car member-name-with-type))
+		(member-type (cdr member-name-with-type))
+		(lambda-name (string->symbol (string-append struct-type-name
+						       member-name))))
+	   `(define-c-lambda ,lambda-name
+	      (,(string->symbol (string-append struct-type-name "*")))
+	      ,(string->symbol member-type)
+	      ,(string-append "___return (___arg1->" member-name ");"))))
+       (or members '())))
+
+
+(define (gen-struct-types type-name members)
+  (if (string-suffix? "*" type-name)
+    `((c-define-type ,(string->symbol type-name)
+		     (pointer ,(string->symbol
+				(string-drop-right type-name 1))))))
+  (append (gen-getter-for-struct type-name members)
+	  `((c-define-type ,(string->symbol type-name)
+			   (struct ,type-name)))))
+
+
 (define (gen-ffi-for-structs types)
   (let* ((struct+members (map (lambda (type)
 				(let ((name (cadar ((sxpath '(@ name)) type)))
@@ -91,12 +116,8 @@
 			   (map (lambda (n) (string-append n "*")) struct-names)) 
 		   (lambda (sym)
 		     (let (type-name (symbol->string sym))
-		       (if (string-suffix? "*" type-name)
-			 `((c-define-type ,(string->symbol type-name)
-					  (pointer ,(string->symbol
-						     (string-drop-right type-name 1)))))
-			 `((c-define-type ,sym
-					  (struct ,(symbol->string sym))))))))))
+		       (gen-struct-types type-name
+					 (assget type-name struct+members)))))))
 
 (define make-ffi-module (lambda ()
 			  `((import :std/foreign)
@@ -107,10 +128,11 @@
 			    
 			    ,(gen-ffi-for-handle types)
 			    ,(gen-ffi-for-basetype types)
-			    ,(gen-ffi-for-structs types))))
+			    ,(gen-ffi-for-structs types)
+			    )))
 
-(define (main . args) 
+(define (main . args)
   (call-with-output-file "vulkan-auto.ss"
-    (lambda (out) (map (lambda (c) (write c out)) (make-ffi-module)))))
+    (lambda (out) (display (pretty-print-lisp-form (make-ffi-module)) out))))
 
 

@@ -10,6 +10,7 @@
 		   (gxc: "vulkan-test.scm")
 		   (gxc: "inotify.scm")
 		   (gxc: "test-runner.scm")
+		   (gxc: "pprint")
 		   (exe: "app")
 		   (exe: "ffi")))
 
