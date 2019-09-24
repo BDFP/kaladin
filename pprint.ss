@@ -325,8 +325,7 @@
         (remove-from-res (- i 1)))))
 
 (define (linearize-pp-result lst)
- (apply string-append
-  (map as-string lst)))
+ (append-strings (map as-string lst)))
 
 (define (add-white-space single-lining?)
   (if single-lining? 
