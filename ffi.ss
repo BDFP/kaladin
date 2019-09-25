@@ -1,7 +1,8 @@
 (import :std/xml
-	:gerbil/gambit/ports
 	:std/srfi/13
 	:std/format
+	:std/misc/list
+	:gerbil/gambit/ports
 	:kaladin/pprint)
 
 (export #t)
@@ -22,15 +23,33 @@
 
 
 (define make-ffi-code
-  (lambda (c-types types-ffi-lambda)
-    (foldl (lambda (name ffi-code)
-	     (let ((sym (string->symbol name))
-		   (exports (cadr ffi-code)))
-	       (append (list (car ffi-code) (cons sym exports))
-		       (append (cddr ffi-code)
-			       (types-ffi-lambda sym)))))
-	   '(begin-ffi ())
-	   c-types)))
+  (case-lambda
+    ((c-types types-ffi-lambda)
+     (make-ffi-code c-types types-ffi-lambda identity))
+
+    ((c-types types-ffi-lambda lambda-ffi-lambda) 
+     (let (make-ffi (lambda (sym code-for-sym ffi-code)
+		      (let (exports (cadr ffi-code))
+			(append (list (car ffi-code)
+				      (cons sym exports))
+				(append (cddr ffi-code)
+					code-for-sym)))))
+       (foldl (lambda (sym-info+type ffi-code)
+		(with ([sym-info . type] sym-info+type)
+		  (case type
+		    ((type) (make-ffi (string->symbol sym-info)
+				      (types-ffi-lambda (string->symbol sym-info))
+				      ffi-code))
+		    
+		    ((lambda) (make-ffi (assget 'symbol sym-info)
+				   (lambda-ffi-lambda  sym-info)
+				   ffi-code)))))
+	      '(begin-ffi ())
+	      (cond
+	       ((alist? c-types) c-types)
+	       ;; if an alist is not passed we assume only types are being
+	       ;; generated 
+	       (else (map (lambda (t) (cons t 'type)) c-types))))))))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; vulkan ffi gen ;;
@@ -59,7 +78,7 @@
 
 
 (define (gen-ffi-for-handle types)
-  (make-ffi-code (get-type-names-of-category "handle" types) 
+  (make-ffi-code (get-type-names-of-category "handle" types)
 		 (lambda (sym)
 		   ;; making no difference b/w
 		   ;; non-dispatchable-handle and dispatchable
@@ -80,28 +99,33 @@
 				      ,(cdr (assoc (symbol->string sym)
 						   name+type))))))))
 
-(define (gen-getter-for-struct struct-type-name members)
+
+(define (gen-getter-names struct-type-name members)
   (map (lambda (member-name-with-type)
-	 (let* ((member-name (car member-name-with-type))
-		(member-type (cdr member-name-with-type))
-		(lambda-name (string->symbol (string-append struct-type-name
-						       member-name))))
-	   `(define-c-lambda ,lambda-name
-	      (,(string->symbol (string-append struct-type-name "*")))
-	      ,(string->symbol member-type)
-	      ,(string-append "___return (___arg1->" member-name ");"))))
+	 (with ([member-name . member-type] member-name-with-type)
+	   (list (cons 'symbol (string->symbol (string-append struct-type-name
+							      member-name)))
+		 (cons 'member-name member-name)
+		 (cons 'struct-name struct-type-name))))
        (or members '())))
+
+(define (gen-getter-lambda symbol-info-alist members)
+  (let (member-name (assget 'member-name symbol-info-alist))
+    `((define-c-lambda ,(assget 'symbol symbol-info-alist)
+	 (,(string->symbol (string-append (assget 'struct-name
+						  symbol-info-alist)
+					  "*")))
+	 ,(string->symbol (assget member-name members))
+	 ,(string-append "___return (___arg1->" member-name ");")))))
 
 
 (define (gen-struct-types type-name members)
   (if (string-suffix? "*" type-name)
     `((c-define-type ,(string->symbol type-name)
 		     (pointer ,(string->symbol
-				(string-drop-right type-name 1))))))
-  (append (gen-getter-for-struct type-name members)
-	  `((c-define-type ,(string->symbol type-name)
-			   (struct ,type-name)))))
-
+				(string-drop-right type-name 1)))))
+    `((c-define-type ,(string->symbol type-name)
+		     (struct ,type-name)))))
 
 (define (gen-ffi-for-structs types)
   (let* ((struct+members (map (lambda (type)
@@ -110,14 +134,34 @@
 						    ((sxpath '(member)) type))))
 				  (cons name members)))
 			      (get-types-of-category "struct" types)))
-	 (struct-names (map car struct+members)))
-    (make-ffi-code (append struct-names
+	 
+	 (struct-names (map car struct+members))
+
+	 ;; getter-names (((getter-name . struct-name) . lambda) ...)
+	 (getter-names (foldl
+			 (lambda (struct-name acc)
+			   (append acc
+				   (gen-getter-names struct-name
+						     (assget struct-name
+							     struct+members))))
+			 '()
+			 struct-names)))
+    (make-ffi-code (append (map (lambda (s) (cons s 'type)) struct-names)
 			   ;; add pointer types
-			   (map (lambda (n) (string-append n "*")) struct-names)) 
+			   (map (lambda (n)
+				  (cons (string-append n "*") 'type))
+				struct-names)
+			   (map (lambda (n)(cons n 'lambda)) getter-names))
+		   ;; types ffi lambda
 		   (lambda (sym)
 		     (let (type-name (symbol->string sym))
 		       (gen-struct-types type-name
-					 (assget type-name struct+members)))))))
+					 (assget type-name struct+members))))
+		   ;; lambda ffi lambda
+		   (lambda (sym-info-alist)
+		     (gen-getter-lambda sym-info-alist
+				   (assget (assget 'struct-name sym-info-alist)
+					   struct+members))))))
 
 (define make-ffi-module (lambda ()
 			  `((import :std/foreign)
@@ -128,11 +172,13 @@
 			    
 			    ,(gen-ffi-for-handle types)
 			    ,(gen-ffi-for-basetype types)
-			    ,(gen-ffi-for-structs types)
-			    )))
+			    ,(gen-ffi-for-structs types))))
 
 (define (main . args)
   (call-with-output-file "vulkan-auto.ss"
-    (lambda (out) (display (pretty-print-lisp-form (make-ffi-module)) out))))
+    (lambda (out) (map (lambda (st)
+		    (display (pretty-print-lisp-form st) out)
+		    (newline out))
+		  (make-ffi-module)))))
 
 
