@@ -72,6 +72,9 @@
 (define (get-type-names types)
   (map cadr ((sxpath '(name)) types)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ffi for handle types ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (get-type-names-of-category category types)
   (get-type-names (get-types-of-category category types)))
@@ -91,6 +94,10 @@
   (cons (cadar ((sxpath '(name)) type))
 	(cadar ((sxpath '(type)) type))))
 
+;;;;;;;;;;;;;;;;;;;;;;;
+;; ffi for basetypes ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
 (define (gen-ffi-for-basetype types)
   (let (name+type (map get-name+type (get-types-of-category "basetype" types)))
     (make-ffi-code (map car name+type)
@@ -99,6 +106,27 @@
 				      ,(cdr (assoc (symbol->string sym)
 						   name+type))))))))
 
+
+(define (gen-ffi-for-platform-integers)
+  ;; some performance impacts here
+  (make-ffi-code '("int32_t" "int64_t" "uint64_t" "uint32_t" "uint8_t"
+		   "uint16_t")
+		 (lambda (sym)
+		   `((c-define-type ,sym int)))))
+
+;;;;;;;;;;;;;;;;;;;
+;; ffi for enums ;;
+;;;;;;;;;;;;;;;;;;;
+
+(define (gen-ffi-for-enums types)
+  (make-ffi-code (map (lambda (t) (cadar ((sxpath '(@ name)) t)))
+		      (get-types-of-category "enum" types))
+		 (lambda (sym)
+		   `((c-define-type ,sym int)))))
+
+;;;;;;;;;;;;;;;;;;;;;
+;; ffi for structs ;;
+;;;;;;;;;;;;;;;;;;;;;
 
 (define (gen-getter-names struct-type-name members)
   (map (lambda (member-name-with-type)
@@ -163,6 +191,11 @@
 				   (assget (assget 'struct-name sym-info-alist)
 					   struct+members))))))
 
+
+;;;;;;;;;;;;;;;;;;
+;; combine ffi  ;;
+;;;;;;;;;;;;;;;;;;
+
 (define make-ffi-module (lambda ()
 			  `((import :std/foreign)
 			    (include "glfw.scm")
@@ -172,7 +205,13 @@
 			    
 			    ,(gen-ffi-for-handle types)
 			    ,(gen-ffi-for-basetype types)
+			    ,(gen-ffi-for-platform-integers)
+			    ,(gen-ffi-for-enums types)
 			    ,(gen-ffi-for-structs types))))
+
+;;;;;;;;;;
+;; main ;;
+;;;;;;;;;;
 
 (define (main . args)
   (call-with-output-file "vulkan-auto.ss"
