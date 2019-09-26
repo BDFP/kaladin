@@ -114,6 +114,23 @@
 		 (lambda (sym)
 		   `((c-define-type ,sym int)))))
 
+;;;;;;;;;;;;;;;;;;;;;
+;; ffi for bitmask ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(define (gen-ffi-for-bitmask types)
+  (let (bitmask-types (map (lambda (t)
+			     (cadar 
+			      ;; append works like or
+			      ;; here () is treated as #f
+			      ;; since both of them return list
+			      (append  ((sxpath '(name)) t)
+				       ((sxpath '(@ name)) t))))
+			   (get-types-of-category "bitmask" types)))
+    (make-ffi-code bitmask-types
+		   (lambda (sym)
+		     `((c-define-type ,sym int))))))
+
 ;;;;;;;;;;;;;;;;;;;
 ;; ffi for enums ;;
 ;;;;;;;;;;;;;;;;;;;
@@ -245,10 +262,11 @@
 			    
 			    ,(gen-ffi-for-handle types)
 			    ,(gen-ffi-for-basetype types)
+			    ,(gen-ffi-for-bitmask types)
 			    ,(gen-ffi-for-platform-integers)
 			    ,(gen-ffi-for-enums types)
-			    ,(gen-ffi-for-func-ptr types)
-			    ,(gen-ffi-for-structs types))))
+			    ,(gen-ffi-for-structs types)
+			    ,(gen-ffi-for-func-ptr types))))
 
 ;;;;;;;;;;
 ;; main ;;
