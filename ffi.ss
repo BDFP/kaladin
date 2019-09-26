@@ -124,6 +124,46 @@
 		 (lambda (sym)
 		   `((c-define-type ,sym int)))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ffi for funcpointer ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (gen-ffi-for-func-ptr types)
+  (let (name+function-info-alist
+	(map
+	  (lambda (t)
+	    (list (cons 'name
+			(cadar ((sxpath '(name)) t)))
+		  
+		  (cons 'argument-types
+			((sxpath '(type)) t))
+		  
+		  (cons 'return-type (cadr
+				      (string-split (car ((sxpath '((*text* 1))) t))
+						    #\space)))))
+	  (get-types-of-category "funcpointer" types)))
+    (make-ffi-code (map cdar name+function-info-alist)
+		   (lambda (sym)
+		     (let* ((function-info (assget (cons 'name (symbol->string sym))
+						   name+function-info-alist))
+			    (arg-types (map (lambda (t)
+					      (let (arg-type (string->symbol (cadr t)))
+						(if (equal? arg-type 'void)
+						  (list 'pointer arg-type)
+						  arg-type)))
+					    (assget 'argument-types function-info)))
+			    (ret-type (let (type (assget 'return-type function-info))
+					(cond
+					 ((string-suffix? "*" type)
+					  (list 'pointer
+						(string->symbol
+						 (string-drop-right type 1))))
+
+					 (else (string->symbol type))))))
+		     `((c-define-type ,sym
+				      (function ,arg-types ,ret-type))))))))
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ffi for structs ;;
 ;;;;;;;;;;;;;;;;;;;;;
@@ -207,6 +247,7 @@
 			    ,(gen-ffi-for-basetype types)
 			    ,(gen-ffi-for-platform-integers)
 			    ,(gen-ffi-for-enums types)
+			    ,(gen-ffi-for-func-ptr types)
 			    ,(gen-ffi-for-structs types))))
 
 ;;;;;;;;;;
