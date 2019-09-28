@@ -153,19 +153,20 @@
 (define (gen-ffi-for-func-ptr function-info)
   (make-ffi-code (list (assget 'name function-info))
 		 (lambda (sym)
-		   (let* ((arg-types (map (lambda (t)
+		   (let ((arg-types (map (lambda (t)
 					    (let (arg-type (string->symbol (cadr t)))
 					      (if (equal? arg-type 'void)
 						(list 'pointer arg-type)
 						arg-type)))
 					  (assget 'argument-types function-info)))
+
 			  (ret-type (let (type (assget 'return-type function-info))
 				      (cond
 				       ((string-suffix? "*" type)
 					(list 'pointer
 					      (string->symbol
 					       (string-drop-right type 1))))
-
+				       
 				       (else (string->symbol type))))))
 		     `((c-define-type ,sym
 				      (function ,arg-types ,ret-type)))))))
@@ -174,7 +175,7 @@
   (cadar ((sxpath '(name)) type)))
 
 (define (gen-tagged-ffi-for-func-ptrs types)
-  (let (define function-info-alist
+  (let (function-info-alist
 	(map (lambda (t)
 	       (list (cons 'name (get-func-ptr-name-from-type t))
 		     
@@ -192,6 +193,43 @@
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ffi for structs ;;
 ;;;;;;;;;;;;;;;;;;;;;
+
+;; malloc fns
+
+(define (gen-malloc-info struct-name)
+  (list (cons 'symbol (string->symbol (string-append "make-" struct-name)))
+	(cons 'struct-name struct-name)))
+
+(define (malloc-function-definition struct-name members)
+  (let* ((malloc-var-name (string-downcase (string-drop struct-name 2)))
+	 (setter-definition (lambda (setter-name arg-index)
+			      (string-append malloc-var-name "->" setter-name "="
+					     "___arg" (number->string arg-index) ";"))))
+    (string-join (append (list
+			  (string-append struct-name
+					 " *" malloc-var-name
+					 " = malloc(sizeof(" struct-name "));"))
+			 (cdr (foldl (lambda (m index+setters)
+				       (with ([index . setters] index+setters)
+					 (let (index1 (1+ index))
+					   (cons index1
+						 (append setters
+							 (list (setter-definition (car m)
+										  index1)))))))
+				     (cons 0 '())
+				     members))
+			 (list (string-append "___return (" malloc-var-name ");")))
+		 "\n")))
+
+
+(define (gen-malloc-lambda malloc-lambda-info members)
+  (let* ((struct-name (assget 'struct-name malloc-lambda-info))
+	 (return-type (string->symbol (string-append struct-name "*"))))
+    `((define-c-lambda ,(assget 'symbol malloc-lambda-info)
+	,(map (lambda (m) (string->symbol (cdr m))) members) ,return-type
+	,(malloc-function-definition struct-name members)))))
+
+;; getters
 
 (define (gen-getter-names struct-type-name members)
   (map (lambda (member-name-with-type)
@@ -212,6 +250,8 @@
 	,(string-append "___return (___arg1->" member-name ");")))))
 
 
+
+
 (define (gen-struct-types type-name members)
   (if (string-suffix? "*" type-name)
     `((c-define-type ,(string->symbol type-name)
@@ -224,15 +264,21 @@
 (define (gen-ffi-for-struct struct-name members)
   (make-ffi-code (append (list (cons struct-name 'type)
 			       (cons (string-append struct-name "*") 'type))
+
 			 (map (lambda (n) (cons n 'lambda))
-			      (gen-getter-names struct-name members)))
+			      (gen-getter-names struct-name members))
+			 
+			 (list (cons (gen-malloc-info struct-name) 'lambda)))
 		 ;; types ffi lambda
 		 (lambda (sym)
 		   (let (type-name (symbol->string sym))
 		     (gen-struct-types type-name members)))
 		 ;; lambda ffi lambda
 		 (lambda (sym-info-alist)
-		   (gen-getter-lambda sym-info-alist members))))
+		   ;; member is only present for getters
+		   (if (assget 'member sym-info-alist)
+		     (gen-getter-lambda sym-info-alist members)
+		     (gen-malloc-lambda sym-info-alist members)))))
 
 (define (get-struct-name-from-type type)
   (cadar ((sxpath '(@ name)) type)))
@@ -259,9 +305,12 @@
 ;;;;;;;;;;;;;;;;;;
 
 ;; (define (take n xs)
-;;   (if (or (zero? n) (null? xs))
-;;       (list)
-;;       (cons (car xs) (take (- n 1) (cdr xs)))))
+;;   (cond
+;;    ((or (zero? n)
+;; 	(null? xs)) (list))
+;;    (else (cons (car xs)
+;; 	       (take (- n 1) (cdr xs))))))
+
 
 ;; there are deps b/w func ptrs and structs so we generate them
 ;; as they appear in the types
