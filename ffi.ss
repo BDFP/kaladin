@@ -174,7 +174,7 @@
   (cadar ((sxpath '(name)) type)))
 
 (define (gen-tagged-ffi-for-func-ptrs types)
-  (let (function-info-alist
+  (let (define function-info-alist
 	(map (lambda (t)
 	       (list (cons 'name (get-func-ptr-name-from-type t))
 		     
@@ -258,27 +258,27 @@
 ;; combine ffi  ;;
 ;;;;;;;;;;;;;;;;;;
 
-(define (take n xs)
-  (if (or (zero? n) (null? xs))
-      (list)
-      (cons (car xs) (take (- n 1) (cdr xs)))))
+;; (define (take n xs)
+;;   (if (or (zero? n) (null? xs))
+;;       (list)
+;;       (cons (car xs) (take (- n 1) (cdr xs)))))
 
 ;; there are deps b/w func ptrs and structs so we generate them
 ;; as they appear in the types
 (define (combine-structs-with-func-ptrs types)
-  (take 2 (let ((structs-ffi (gen-tagged-ffi-for-structs types))
-	      (func-ptrs-ffi (gen-tagged-ffi-for-func-ptrs types)))
-	  (filter identity
-		  (map (lambda (type)
-			 (case (get-category-from-type type)
-			   (("struct")
-			    (assget (get-struct-name-from-type type) structs-ffi))
-			   
-			   (("funcpointer")
-			    (assget (get-func-ptr-name-from-type type) func-ptrs-ffi))
-			   
-			   (else #f)))
-		       types)))))
+  (let ((structs-ffi (gen-tagged-ffi-for-structs types))
+	(func-ptrs-ffi (gen-tagged-ffi-for-func-ptrs types)))
+    (filter identity
+	    (map (lambda (type)
+		   (case (get-category-from-type type)
+			      (("struct")
+			       (assget (get-struct-name-from-type type) structs-ffi))
+			      
+			      (("funcpointer")
+			       (assget (get-func-ptr-name-from-type type) func-ptrs-ffi))
+			      
+			      (else #f)))
+		 types))))
 
 
 (define make-ffi-module (lambda ()
@@ -290,12 +290,12 @@
 			    
 			    
 			    ,@(append
-			     (list (gen-ffi-for-handle types))
-			     (list (gen-ffi-for-basetype types))
-			     (list (gen-ffi-for-bitmask types))
-			     (list (gen-ffi-for-platform-integers))
-			     (list (gen-ffi-for-enums types))
-			     (combine-structs-with-func-ptrs types)))))
+			       (list (gen-ffi-for-handle types))
+			       (list (gen-ffi-for-basetype types))
+			       (list (gen-ffi-for-bitmask types))
+			       (list (gen-ffi-for-platform-integers))
+			       (list (gen-ffi-for-enums types))
+			       (combine-structs-with-func-ptrs types)))))
 
 ;;;;;;;;;;
 ;; main ;;
