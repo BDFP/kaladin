@@ -1,7 +1,8 @@
 (import :std/xml
-	:std/srfi/13
 	:std/format
 	:std/misc/list
+	:std/srfi/1
+	:std/srfi/13
 	:gerbil/gambit/ports
 	:kaladin/pprint)
 
@@ -226,7 +227,11 @@
   (let* ((struct-name (assget 'struct-name malloc-lambda-info))
 	 (return-type (string->symbol (string-append struct-name "*"))))
     `((define-c-lambda ,(assget 'symbol malloc-lambda-info)
-	,(map (lambda (m) (string->symbol (cdr m))) members) ,return-type
+	,(map (lambda (m) (let (arg-type (string->symbol (cdr m)))
+		       (cond
+			((equal? arg-type 'void) '(pointer void))
+			(else arg-type))))
+	      members) ,return-type
 	,(malloc-function-definition struct-name members)))))
 
 ;; getters
@@ -276,7 +281,7 @@
 		 ;; lambda ffi lambda
 		 (lambda (sym-info-alist)
 		   ;; member is only present for getters
-		   (if (assget 'member sym-info-alist)
+		   (if (assget 'member-name sym-info-alist)
 		     (gen-getter-lambda sym-info-alist members)
 		     (gen-malloc-lambda sym-info-alist members)))))
 
@@ -304,30 +309,61 @@
 ;; combine ffi  ;;
 ;;;;;;;;;;;;;;;;;;
 
-;; (define (take n xs)
-;;   (cond
-;;    ((or (zero? n)
-;; 	(null? xs)) (list))
-;;    (else (cons (car xs)
-;; 	       (take (- n 1) (cdr xs))))))
+(define (take n xs)
+  (cond
+   ((or (zero? n)
+	(null? xs)) (list))
+   (else (cons (car xs)
+	       (take (- n 1) (cdr xs))))))
+
+;; finds an element satisfying pred? in xs and
+;; returns a list which contains thate element
+;; at the end
+(define (move-element-to-last pred? xs)
+  (let (x (find pred? xs))
+    (append (remove x xs) (list x))))
+
+;; (move-element-to-last (lambda (m) (equal? m 3)) (list 1 2 3 4))
+
+(define (order-dependent-types struct-and-fpointer-types)
+  (delete-duplicates
+   (foldl (lambda (type ordered-types)
+	    (append ordered-types
+		    ;; add members first
+		    (map cadr (append ((sxpath '(member type)) type)
+				      ((sxpath '(type)) type)))
+		    ;; then the current type
+		    (list (cadar (append ((sxpath '(@ name)) type)
+					 ((sxpath '(name)) type))))))
+	  '()
+	  struct-and-fpointer-types)))
 
 
-;; there are deps b/w func ptrs and structs so we generate them
-;; as they appear in the types
-(define (combine-structs-with-func-ptrs types)
+(define (gen-tagged-ffi types)
   (let ((structs-ffi (gen-tagged-ffi-for-structs types))
 	(func-ptrs-ffi (gen-tagged-ffi-for-func-ptrs types)))
     (filter identity
 	    (map (lambda (type)
 		   (case (get-category-from-type type)
-			      (("struct")
-			       (assget (get-struct-name-from-type type) structs-ffi))
-			      
-			      (("funcpointer")
-			       (assget (get-func-ptr-name-from-type type) func-ptrs-ffi))
-			      
-			      (else #f)))
+		     (("struct")
+		      (assoc (get-struct-name-from-type type)
+			     structs-ffi))
+		     
+		     (("funcpointer")
+		      (assoc (get-func-ptr-name-from-type type)
+			     func-ptrs-ffi))
+		     
+		     (else #f)))
 		 types))))
+
+;; there are deps b/w func ptrs and structs so we generate them
+;; as they appear in the types
+(define (combine-structs-with-func-ptrs types)
+  (let ((type-order (order-dependent-types
+		     (append (get-types-of-category "struct" types)
+			     (get-types-of-category "funcpointer" types))))
+	(tagged-ffi (gen-tagged-ffi types)))
+    (filter identity (map (lambda (type) (assget type tagged-ffi)) type-order))))
 
 
 (define make-ffi-module (lambda ()
