@@ -45,7 +45,11 @@
 		    ((lambda) (make-ffi (assget 'symbol sym-info)
 				   (lambda-ffi-lambda  sym-info)
 				   ffi-code)))))
-	      '(begin-ffi ())
+	      '(begin-ffi ()
+		 (c-declare "   
+#include <vulkan/vulkan.h> 
+#include <stdio.h>
+"))
 	      (cond
 	       ((alist? c-types) c-types)
 	       ;; if an alist is not passed we assume only types are being
@@ -285,6 +289,37 @@
 		     (gen-getter-lambda sym-info-alist members)
 		     (gen-malloc-lambda sym-info-alist members)))))
 
+
+;; usually defined in platform specific header files
+(define (external-types types)
+  (map (lambda (t) (cadar ((sxpath '(@ name)) t)))
+       (filter (lambda (t)
+		 (let (header ((sxpath '(@ requires)) t))
+		   (and (not (null? header))
+		      (not (null? ((sxpath '(@ name)) t)))
+		      (not (equal? (cadar header) "vk_platform")))))
+	       types)))
+
+(define (gen-ffi-for-opaque-structs types)
+  (make-ffi-code (append '("ANativeWindow" "AHardwareBuffer" "CAMetalLayer")
+			 (external-types types))
+		 (lambda (sym)
+		   `((c-define-type ,sym (struct ,(symbol->string sym)))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ffi for union types ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (gen-ffi-for-unions types)
+  (make-ffi-code (map cadr
+		      ((sxpath '(@ name)) (get-types-of-category "union" types)))
+		 (lambda (sym)
+		   `((c-define-type ,sym (union ,(symbol->string sym)))))))
+
+;;;;;;;;;;;;;;;;
+;; tagged ffi ;;
+;;;;;;;;;;;;;;;;
+
 (define (get-struct-name-from-type type)
   (cadar ((sxpath '(@ name)) type)))
 
@@ -325,18 +360,54 @@
 
 ;; (move-element-to-last (lambda (m) (equal? m 3)) (list 1 2 3 4))
 
+(define (get-members-from-type type)
+  (map cadr (append ((sxpath '(member type)) type)
+		    ((sxpath '(type)) type))))
+
+(define (get-type-name type)
+  (cadar (append ((sxpath '(@ name)) type)
+		 ((sxpath '(name)) type))))
+
+
+(get-members-from-type (car (get-types-of-category "funcpointer" types)))
+
+(define (get-all-member-deps type struct-and-fpointer-types)
+  (let (type-names (map get-type-name struct-and-fpointer-types))
+    (define (f type)
+      (let ((type-name (get-type-name type))
+	    (members (get-members-from-type type)))
+	(concatenate
+	 (map (lambda (m)
+		(if (and (member m type-names)
+			 (not (equal? m type-name)))
+		  (let (member-type
+			(filter (lambda (a)
+				  (not (null?
+					(append
+					 ((sxpath `(@ (equal? (name ,m)))) a)
+					 ((sxpath `((equal? (name ,m)))) a)))))
+				struct-and-fpointer-types))
+		    (displayln ":member type:" member-type)
+		    (if (not (null? member-type))
+		      (cons m (f (car member-type)))
+		      (list)))
+		  (list)))
+	      members))))
+    (reverse (f type))))
+
+(define type #f)
+
 (define (order-dependent-types struct-and-fpointer-types)
-  (delete-duplicates
-   (foldl (lambda (type ordered-types)
-	    (append ordered-types
+  (foldl (lambda (type ordered-types)
+	   (set! type type)
+	   (delete-duplicates
+	    (append ordered-types 
 		    ;; add members first
-		    (map cadr (append ((sxpath '(member type)) type)
-				      ((sxpath '(type)) type)))
+		    (get-all-member-deps type struct-and-fpointer-types)
 		    ;; then the current type
-		    (list (cadar (append ((sxpath '(@ name)) type)
-					 ((sxpath '(name)) type))))))
-	  '()
-	  struct-and-fpointer-types)))
+		    (list (get-type-name type)))))
+	 '()
+	 struct-and-fpointer-types))
 
 
 (define (gen-tagged-ffi types)
@@ -373,13 +444,14 @@
 			    
 			    (export #t)
 			    
-			    
 			    ,@(append
 			       (list (gen-ffi-for-handle types))
 			       (list (gen-ffi-for-basetype types))
 			       (list (gen-ffi-for-bitmask types))
 			       (list (gen-ffi-for-platform-integers))
 			       (list (gen-ffi-for-enums types))
+			       (list (gen-ffi-for-unions types))
+			       (list (gen-ffi-for-opaque-structs types))
 			       (combine-structs-with-func-ptrs types)))))
 
 ;;;;;;;;;;
