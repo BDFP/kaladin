@@ -23,6 +23,14 @@
 		(cons line contents)))))))
 
 
+(define (make-ptr-symbol sym)
+  (string->symbol (string-append (symbol->string sym) "*")))
+
+
+(define (make-ptr-code sym)
+  `((c-define-type ,(make-ptr-symbol sym)
+		   (pointer ,sym))))
+
 (define make-ffi-code
   (case-lambda
     ((c-types types-ffi-lambda)
@@ -32,17 +40,19 @@
      (let (make-ffi (lambda (sym code-for-sym ffi-code)
 		      (let (exports (cadr ffi-code))
 			(append (list (car ffi-code)
-				      (cons sym exports))
-				(append (cddr ffi-code)
-					code-for-sym)))))
+				      (append sym exports))
+				(append (cddr ffi-code) code-for-sym)))))
        (foldl (lambda (sym-info+type ffi-code)
 		(with ([sym-info . type] sym-info+type)
 		  (case type
-		    ((type) (make-ffi (string->symbol sym-info)
-				      (types-ffi-lambda (string->symbol sym-info))
-				      ffi-code))
+		    ((type) (let (sym (string->symbol sym-info))
+			      (make-ffi (list sym (make-ptr-symbol sym))
+					(append
+					 (types-ffi-lambda (string->symbol sym-info))
+					 (make-ptr-code sym))
+					ffi-code)))
 		    
-		    ((lambda) (make-ffi (assget 'symbol sym-info)
+		    ((lambda) (make-ffi (list (assget 'symbol sym-info))
 				   (lambda-ffi-lambda  sym-info)
 				   ffi-code)))))
 	      '(begin-ffi ()
@@ -89,19 +99,32 @@
   (get-type-names (get-types-of-category category types)))
 
 
+;; `((c-define-type ,(string->symbol type-name)
+;; 		     (pointer ,(string->symbol (string-drop-right type-name 1)))))
+
+(define (gen-handle-types type-name)
+  `((c-define-type ,(string->symbol type-name)
+		     (pointer
+		      (struct ,(string-append type-name "_T"))))))
+
 (define (gen-ffi-for-handle types)
-  (make-ffi-code (get-type-names-of-category "handle" types)
-		 (lambda (sym)
-		   ;; making no difference b/w
-		   ;; non-dispatchable-handle and dispatchable
-		   `((c-define-type ,sym
-				    (pointer
-				     (struct ,(string-append (symbol->string sym) "_T"))))))))
+  (let (handle-types (get-type-names-of-category "handle" types))
+    (make-ffi-code handle-types
+		   (lambda (sym)
+		     ;; making no difference b/w
+		     ;; non-dispatchable-handle and dispatchable
+		     (gen-handle-types (symbol->string sym))))))
 
 
 (define (get-name+type type)
-  (cons (cadar ((sxpath '(name)) type))
-	(cadar ((sxpath '(type)) type))))
+  (let* ((return-type (cadar ((sxpath '(type)) type)))
+	 (type-info (map string-trim-both ((sxpath '(*text*)) type)))
+	 (ptr-type (if (or (member "*" type-info)
+			   (string-contains (string-concatenate type-info) "["))
+		     (string-append return-type "*")
+		     return-type)))
+    (cons (cadar ((sxpath '(name)) type))
+	  ptr-type)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; ffi for basetypes ;;
@@ -116,12 +139,23 @@
 						   name+type))))))))
 
 
+(define base-integer-types '("int32_t" "int64_t" "uint64_t" "uint32_t" "uint8_t" "uint16_t"))
+
 (define (gen-ffi-for-platform-integers)
   ;; some performance impacts here
-  (make-ffi-code '("int32_t" "int64_t" "uint64_t" "uint32_t" "uint8_t"
-		   "uint16_t")
+  (make-ffi-code base-integer-types
 		 (lambda (sym)
 		   `((c-define-type ,sym int)))))
+
+
+;; (define (gen-char-type)
+;;   (make-ffi-code (list "char")
+;; 		 (lambda (sym)
+;; 		   `((c-define-type ,sym char-string)))))
+
+(define (gen-base-pointer-types)
+  '(begin-ffi (char*)
+     (c-define-type char* (pointer char))))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ffi for bitmask ;;
@@ -240,13 +274,13 @@
 
 ;; getters
 
-(define (gen-getter-names struct-type-name members)
+(define (gen-getter-names struct-name members)
   (map (lambda (member-name-with-type)
 	 (with ([member-name . member-type] member-name-with-type)
-	   (list (cons 'symbol (string->symbol (string-append struct-type-name
+	   (list (cons 'symbol (string->symbol (string-append struct-name
 							      member-name)))
 		 (cons 'member-name member-name)
-		 (cons 'struct-name struct-type-name))))
+		 (cons 'struct-name struct-name))))
        (or members '())))
 
 (define (gen-getter-lambda symbol-info-alist members)
@@ -272,7 +306,8 @@
 
 (define (gen-ffi-for-struct struct-name members)
   (make-ffi-code (append (list (cons struct-name 'type)
-			       (cons (string-append struct-name "*") 'type))
+			       ;; (cons (string-append struct-name "*") 'type)
+			       )
 
 			 (map (lambda (n) (cons n 'lambda))
 			      (gen-getter-names struct-name members))
@@ -369,8 +404,6 @@
 		 ((sxpath '(name)) type))))
 
 
-(get-members-from-type (car (get-types-of-category "funcpointer" types)))
-
 (define (get-all-member-deps type struct-and-fpointer-types)
   (let (type-names (map get-type-name struct-and-fpointer-types))
     (define (f type)
@@ -387,7 +420,7 @@
 					 ((sxpath `(@ (equal? (name ,m)))) a)
 					 ((sxpath `((equal? (name ,m)))) a)))))
 				struct-and-fpointer-types))
-		    (displayln ":member type:" member-type)
+		    ;; (displayln ":member type:" member-type)
 		    (if (not (null? member-type))
 		      (cons m (f (car member-type)))
 		      (list)))
@@ -449,6 +482,7 @@
 			       (list (gen-ffi-for-basetype types))
 			       (list (gen-ffi-for-bitmask types))
 			       (list (gen-ffi-for-platform-integers))
+			       (list (gen-base-pointer-types))
 			       (list (gen-ffi-for-enums types))
 			       (list (gen-ffi-for-unions types))
 			       (list (gen-ffi-for-opaque-structs types))
