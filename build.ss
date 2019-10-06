@@ -3,11 +3,9 @@
 (import :std/build-script
 	:std/make)
 
-(def build-spec  `((gxc: "vulkan.scm"
-			 "-ld-options" "-lvulkan -lglfw")
-		   (gxc: "vulkan-auto"
+(def build-spec  `((gxc: "vulkan-auto"
 		   	 "-ld-options" "-lvulkan -lglfw")
-		   (gxc: "vulkan-test.scm")
+ 		   (gxc: "vulkan-test.scm")
 		   (gxc: "inotify.scm")
 		   (gxc: "test-runner.scm")
 		   (gxc: "pprint")
