@@ -4,6 +4,7 @@
 	:std/srfi/1
 	:std/srfi/13
 	:gerbil/gambit/ports
+	:gerbil/gambit/bits
 	:kaladin/pprint)
 
 (export #t)
@@ -85,7 +86,7 @@
 
 (define vulkan-xml (read-xml (file->string "vk.xml")))
 (define types ((sxpath '(registry types type)) vulkan-xml))
-(define enums ((sxpath '(registry enums)) vulkan-xml))
+(define enums ((sxpath '(registry enums enum)) vulkan-xml))
 (define extensions ((sxpath '(registry extensions extension)) vulkan-xml))
 (define commands ((sxpath '(registry commands command)) vulkan-xml))
 
@@ -210,6 +211,45 @@
 		      (get-types-of-category "enum" types))
 		 (lambda (sym)
 		   `((c-define-type ,sym int)))))
+
+
+(define (c-hex->scheme-hex hex-val)
+  (string->number (cond
+		   ((string-contains hex-val "0x")
+		    (string-append "#x" (string-drop hex-val 2)))
+
+		   (else hex-val))))
+
+(define (number-potential? s)
+  (or (string-contains s "0x")
+      (string->number s)))
+
+(define (gen-enum-consts enums)
+  (filter (lambda (d) (not (null? d)))
+	  (map (lambda (e)
+		 (let ((name   (cadar ((sxpath '(@ name)) e)))
+		       (value  ((sxpath '(@ value)) e))
+		       (bitpos ((sxpath '(@ bitpos)) e))
+		       (alias  ((sxpath '(@ alias)) e)))
+		   (cond
+		    ((and (not (null? value))
+			  (number-potential? (cadar value)))
+		     (list 'define
+			   (string->symbol name)
+			   (c-hex->scheme-hex (cadar value))))
+
+		    ;; todo check for bitpos > 32
+		    ((not (null? bitpos))
+		     (list 'define (string->symbol name)
+			   (arithmetic-shift 1 (string->number (cadar bitpos)))))
+
+		    ;; todo this may refer to float or long types which have not been
+		    ;; converted yet
+		    ;; ((not (null? alias))
+		    ;;  (list 'define (string->symbol name) (string->symbol (cadar alias))))
+
+		    (else (list)))))
+	       enums)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -565,6 +605,7 @@
 			    (export #t)
 			    
 			    ,@(append
+			       (gen-enum-consts enums)
 			       (list (gen-ffi-for-handle types))
 			       (list (gen-ffi-for-basetype types))
 			       (list (gen-ffi-for-bitmask types))

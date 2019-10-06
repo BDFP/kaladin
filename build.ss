@@ -7,8 +7,8 @@
 		   	 "-ld-options" "-lvulkan ")
 		   (gxc: "vulkan.scm"
 		   	 "-ld-options" "-lvulkan -lglfw")
-		   ;; (gxc: "inotify.scm")
-		   ;; (gxc: "test-runner.scm")
+		   (gxc: "inotify.scm")
+		   (gxc: "test-runner.scm")
 		   (gxc: "pprint")
 		   (exe: "ffi")))
 
