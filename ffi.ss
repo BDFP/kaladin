@@ -22,6 +22,15 @@
 	    (lp (read-line input-port)
 		(cons line contents)))))))
 
+(define (arr->ptr-member-type-name arr-type-name)
+  (cond
+   ((string-contains arr-type-name "[]")
+    (string-append (string-drop-right arr-type-name 2) "*"))
+
+   (else arr-type-name)))
+
+;; (arr->ptr-member-type-name "float[]")
+
 
 (define (make-ptr-symbol sym)
   (string->symbol (string-append (symbol->string sym) "*")))
@@ -57,8 +66,9 @@
 				   ffi-code)))))
 	      '(begin-ffi ()
 		 (c-declare "   
-#include <vulkan/vulkan.h> 
 #include <stdio.h>
+#include <string.h>
+#include <vulkan/vulkan.h> 
 "))
 	      (cond
 	       ((alist? c-types) c-types)
@@ -74,6 +84,15 @@
 (define vulkan-xml (read-xml (file->string "vk.xml")))
 (define types ((sxpath '(registry types type)) vulkan-xml))
 (define enums ((sxpath '(registry enums)) vulkan-xml))
+(define extensions ((sxpath '(registry extensions extension)) vulkan-xml))
+
+
+(define platform-specific-type-names
+  (concatenate (map (lambda (ext)
+		      (map cadr ((sxpath '(require type @ name)) ext)))
+		    (filter (lambda (ext) 
+			       (not (null? ((sxpath '(@ platform)) ext))))
+			    extensions))))
 
 (define (get-category-from-type type)
   (let (cat ((sxpath '(@ category)) type))
@@ -119,10 +138,14 @@
 (define (get-name+type type)
   (let* ((return-type (cadar ((sxpath '(type)) type)))
 	 (type-info (map string-trim-both ((sxpath '(*text*)) type)))
-	 (ptr-type (if (or (member "*" type-info)
-			   (string-contains (string-concatenate type-info) "["))
-		     (string-append return-type "*")
-		     return-type)))
+	 (ptr-type (cond
+		    ((member "*" type-info)
+		     (string-append return-type "*"))
+
+		    ((string-contains (string-concatenate type-info) "[")
+		     (string-append return-type "[]"))
+		     
+		    (else return-type))))
     (cons (cadar ((sxpath '(name)) type))
 	  ptr-type)))
 
@@ -239,33 +262,44 @@
   (list (cons 'symbol (string->symbol (string-append "make-" struct-name)))
 	(cons 'struct-name struct-name)))
 
+(define (setter-definition malloc-var-name member arg-index)
+  (with* (([setter-name . type] member)
+	  (struct-member (string-append malloc-var-name "->" setter-name))
+	  (arg (string-append "___arg" (number->string arg-index))))
+    (if (string-suffix? "[]" type)
+      (string-append "memcpy(" struct-member "," arg "," "sizeof(" arg "));")
+      (string-append  struct-member "=" arg ";"))))
+
+
 (define (malloc-function-definition struct-name members)
-  (let* ((malloc-var-name (string-downcase (string-drop struct-name 2)))
-	 (setter-definition (lambda (setter-name arg-index)
-			      (string-append malloc-var-name "->" setter-name "="
-					     "___arg" (number->string arg-index) ";"))))
+  (let ((malloc-var-name (string-downcase (string-drop struct-name 2))))
     (string-join (append (list
 			  (string-append struct-name
 					 " *" malloc-var-name
 					 " = malloc(sizeof(" struct-name "));"))
-			 (cdr (foldl (lambda (m index+setters)
-				       (with ([index . setters] index+setters)
-					 (let (index1 (1+ index))
-					   (cons index1
-						 (append setters
-							 (list (setter-definition (car m)
-										  index1)))))))
-				     (cons 0 '())
-				     members))
+			 (cdr
+			  (foldl
+			   (lambda (m index+setters)
+			     (with ([index . setters] index+setters)
+				   (let (index1 (1+ index))
+				     (cons index1
+					   (append setters
+						   (list
+						    (setter-definition malloc-var-name
+								       m
+								       index1)))))))
+			   (cons 0 '())
+			   members))
 			 (list (string-append "___return (" malloc-var-name ");")))
 		 "\n")))
 
+;; (displayln (malloc-function-definition struct-name members))
 
 (define (gen-malloc-lambda malloc-lambda-info members)
   (let* ((struct-name (assget 'struct-name malloc-lambda-info))
 	 (return-type (string->symbol (string-append struct-name "*"))))
     `((define-c-lambda ,(assget 'symbol malloc-lambda-info)
-	,(map (lambda (m) (let (arg-type (string->symbol (cdr m)))
+	,(map (lambda (m) (let (arg-type (string->symbol (arr->ptr-member-type-name (cdr m))))
 		       (cond
 			((equal? arg-type 'void) '(pointer void))
 			(else arg-type))))
@@ -289,7 +323,7 @@
 	(,(string->symbol (string-append (assget 'struct-name
 						 symbol-info-alist)
 					 "*")))
-	,(string->symbol (assget member-name members))
+	,(string->symbol (arr->ptr-member-type-name (assget member-name members)))
 	,(string-append "___return (___arg1->" member-name ");")))))
 
 
@@ -360,12 +394,16 @@
 
 ;; returns an alist of struct-name . ffi-code
 (define (gen-tagged-ffi-for-structs types)
-  (let* ((struct+members (map (lambda (type)
+  (let* ((struct-types (filter (lambda (t)
+				 (not (member (get-struct-name-from-type t)
+					    platform-specific-type-names)))
+			       (get-types-of-category "struct" types)))
+	 (struct+members (map (lambda (type)
 				(let ((name (get-struct-name-from-type type))
 				      (members (map get-name+type
 						    ((sxpath '(member)) type))))
 				  (cons name members)))
-			      (get-types-of-category "struct" types)))
+			      struct-types))
 	 
 	 (struct-names (map car struct+members)))
     (map (lambda (struct-name)
