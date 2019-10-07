@@ -4,12 +4,12 @@
 	:std/make)
 
 (def build-spec  `((gxc: "vulkan-auto"
+		   	 "-ld-options" "-lvulkan ")
+		   (gxc: "vulkan.scm"
 		   	 "-ld-options" "-lvulkan -lglfw")
- 		   (gxc: "vulkan-test.scm")
-		   (gxc: "inotify.scm")
-		   (gxc: "test-runner.scm")
+		   ;; (gxc: "inotify.scm")
+		   ;; (gxc: "test-runner.scm")
 		   (gxc: "pprint")
-		   (exe: "app")
 		   (exe: "ffi")))
 
 (def srcdir (path-normalize (path-directory (this-source-file))))
