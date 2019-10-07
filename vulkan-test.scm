@@ -1,14 +1,14 @@
-;; (import :std/test
-;; 	:kaladin/vulkan)
+(import :std/test
+	:kaladin/vulkan)
 
-;; (export vulkan-test)
+(export vulkan-test)
 
-;; (define vulkan-test
-;;   (test-suite "vulkan driver tests"
-;; 	      (test-case "vulkan instance creation"
-;; 			 (init-vulkan-instance!)
-;; 			 (destroy-vulkan-instance!)
-;; 			 (check 1 => 1))
+(define vulkan-test
+  (test-suite "vulkan driver tests1"
+	      (test-case "vulkan instance creation"
+			 (init-vulkan-instance!)
+			 (destroy-vulkan-instance!)
+			 (check 1 => 1))
 
 	      
 	      ;; (test-case "valid physical device presence"

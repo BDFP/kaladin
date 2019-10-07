@@ -621,6 +621,13 @@
 ;; main ;;
 ;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; todo				 ;;
+;; 				 ;;
+;; * char* => char-string	 ;;
+;; * remove (include "glfw.scm") ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define (main . args)
   (call-with-output-file "vulkan-auto.ss"
     (lambda (out) (map (lambda (st)

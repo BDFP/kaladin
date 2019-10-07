@@ -49,7 +49,11 @@
 	    vk-enumerate-device-extension-props
 	    malloc-vk-extension-props*
 	    ;; vk-extension-prop-name
-	    nth-vk-extension-props*)
+	    nth-vk-extension-props*
+	    PFN_vkInternalAllocationNotification
+	    VkAndroidSurfaceCreateInfoKHRsType
+	    VkAndroidSurfaceCreateInfoKHR
+	    VkAndroidSurfaceCreateInfoKHR*)
   
   (c-declare
    "
@@ -60,7 +64,7 @@
    VkDebugUtilsMessengerEXT debugMessenger;
 "
    )
-  
+
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; vulkan instance types ;;
@@ -306,7 +310,7 @@ c-lambda-end
     "
 VkDeviceQueueCreateInfo *queueCreateInfo = malloc(sizeof(VkDeviceQueueCreateInfo));
 queueCreateInfo->sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-queueCreateInfo->pNext = ___arg1;
+queueCreateInfo->pNext = ___arg1; 
 queueCreateInfo->flags = ___arg2;
 queueCreateInfo->queueFamilyIndex = ___arg3;
 queueCreateInfo->queueCount = ___arg4;
@@ -408,6 +412,14 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 
   ;; (define-c-lambda vk-get-physical-device-surface-capibilities
   ;;   (vk-physical-device vk-surface ))
+   (c-define-type VkStructureType int)
+  (c-define-type VkAndroidSurfaceCreateInfoKHR (struct "VkAndroidSurfaceCreateInfoKHR"))
+  (c-define-type VkAndroidSurfaceCreateInfoKHR* (pointer VkAndroidSurfaceCreateInfoKHR))
+  (define-c-lambda
+    VkAndroidSurfaceCreateInfoKHRsType
+    (VkAndroidSurfaceCreateInfoKHR*)
+    VkStructureType
+    "___return (___arg1->sType);")
   )
 
 
@@ -440,6 +452,9 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
 
 (defstruct vulkan-info (instance debug-messenger))
 
+
+
+
 (define in #f)
 
 (define *vk-success* 0)
@@ -452,10 +467,9 @@ ___return (vkGetPhysicalDeviceSurfaceSupportKHR(___arg1, ___arg2, *surface, ___a
       result
       (raise 'vulkan-call-failed))))
 
-
 (def (init-vulkan-instance!
       application-name: (application-name "kaladin-app")
-      engine-name: (engine-name "kaladin")
+      engine-name: (engine-name "kaladin1")
       enable-validation-layer?: (enable-validation-layer? #t)
       glfw-init?: (glfw-init? #t))
   (let* ((extension-count (make-int32))

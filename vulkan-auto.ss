@@ -1,6 +1,6 @@
 (import :std/foreign)
-(include "glfw.scm")
 (include "ctypes.scm")
+(include "cstrings.ss")
 (export #t)
 (define VK_MAX_PHYSICAL_DEVICE_NAME_SIZE 256)
 (define VK_UUID_SIZE 16)
@@ -1800,7 +1800,8 @@
    (c-define-type uint8_t* (pointer uint8_t))
    (c-define-type uint16_t int)
    (c-define-type uint16_t* (pointer uint16_t)))
-(begin-ffi (char*) (c-define-type char* (pointer char)))
+
+(begin-ffi (char*) (c-define-type char* char-string))
 (begin-ffi
    (VkPipelineExecutableStatisticFormatKHR
       VkPipelineExecutableStatisticFormatKHR*
@@ -5136,9 +5137,9 @@ ___return (devicecreateinfo);"))
          VkInstanceCreateFlags
          VkApplicationInfo*
          uint32_t
-         char
+         char**
          uint32_t
-         char)
+         char**)
       VkInstanceCreateInfo*
       "VkInstanceCreateInfo *instancecreateinfo = malloc(sizeof(VkInstanceCreateInfo));
 instancecreateinfo->sType=___arg1;
