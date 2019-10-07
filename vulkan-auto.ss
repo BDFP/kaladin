@@ -79,10 +79,13 @@
       VkPhysicalDevice*
       VkInstance
       VkInstance*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkInstance (pointer (struct "VkInstance_T")))
    (c-define-type VkInstance* (pointer VkInstance))
@@ -187,10 +190,13 @@
       VkBool32*
       VkSampleMask
       VkSampleMask*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSampleMask "uint32_t")
    (c-define-type VkSampleMask* (pointer VkSampleMask))
@@ -465,10 +471,13 @@
       VkQueryPoolCreateFlags*
       VkFramebufferCreateFlags
       VkFramebufferCreateFlags*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkFramebufferCreateFlags int)
    (c-define-type VkFramebufferCreateFlags* (pointer VkFramebufferCreateFlags))
@@ -849,10 +858,13 @@
       int64_t*
       int32_t
       int32_t*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type int32_t int)
    (c-define-type int32_t* (pointer int32_t))
@@ -1248,10 +1260,13 @@
       VkAttachmentStoreOp*
       VkAttachmentLoadOp
       VkAttachmentLoadOp*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkAttachmentLoadOp int)
    (c-define-type VkAttachmentLoadOp* (pointer VkAttachmentLoadOp))
@@ -1754,10 +1769,13 @@
       VkClearValue*
       VkClearColorValue
       VkClearColorValue*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkClearColorValue (union "VkClearColorValue"))
    (c-define-type VkClearColorValue* (pointer VkClearColorValue))
@@ -1816,10 +1834,13 @@
       AHardwareBuffer*
       ANativeWindow
       ANativeWindow*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type ANativeWindow (struct "ANativeWindow"))
    (c-define-type ANativeWindow* (pointer ANativeWindow))
@@ -1871,10 +1892,13 @@
       VkBaseOutStructuresType
       VkBaseOutStructure
       VkBaseOutStructure*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBaseOutStructure (struct "VkBaseOutStructure"))
    (c-define-type VkBaseOutStructure* (pointer VkBaseOutStructure))
@@ -1902,10 +1926,13 @@ ___return (baseoutstructure);"))
       VkBaseInStructuresType
       VkBaseInStructure
       VkBaseInStructure*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBaseInStructure (struct "VkBaseInStructure"))
    (c-define-type VkBaseInStructure* (pointer VkBaseInStructure))
@@ -1929,10 +1956,13 @@ baseinstructure->pNext=___arg2;
 ___return (baseinstructure);"))
 (begin-ffi
    (make-VkOffset2D VkOffset2Dy VkOffset2Dx VkOffset2D VkOffset2D*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkOffset2D (struct "VkOffset2D"))
    (c-define-type VkOffset2D* (pointer VkOffset2D))
@@ -1948,10 +1978,13 @@ offset2d->y=___arg2;
 ___return (offset2d);"))
 (begin-ffi
    (make-VkOffset3D VkOffset3Dz VkOffset3Dy VkOffset3Dx VkOffset3D VkOffset3D*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkOffset3D (struct "VkOffset3D"))
    (c-define-type VkOffset3D* (pointer VkOffset3D))
@@ -1969,10 +2002,13 @@ offset3d->z=___arg3;
 ___return (offset3d);"))
 (begin-ffi
    (make-VkExtent2D VkExtent2Dheight VkExtent2Dwidth VkExtent2D VkExtent2D*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExtent2D (struct "VkExtent2D"))
    (c-define-type VkExtent2D* (pointer VkExtent2D))
@@ -1997,10 +2033,13 @@ ___return (extent2d);"))
       VkExtent3Dwidth
       VkExtent3D
       VkExtent3D*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExtent3D (struct "VkExtent3D"))
    (c-define-type VkExtent3D* (pointer VkExtent3D))
@@ -2030,10 +2069,13 @@ ___return (extent3d);"))
       VkViewportx
       VkViewport
       VkViewport*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkViewport (struct "VkViewport"))
    (c-define-type VkViewport* (pointer VkViewport))
@@ -2065,10 +2107,13 @@ viewport->maxDepth=___arg6;
 ___return (viewport);"))
 (begin-ffi
    (make-VkRect2D VkRect2Dextent VkRect2Doffset VkRect2D VkRect2D*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkRect2D (struct "VkRect2D"))
    (c-define-type VkRect2D* (pointer VkRect2D))
@@ -2089,10 +2134,13 @@ ___return (rect2d);"))
       VkClearRectrect
       VkClearRect
       VkClearRect*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkClearRect (struct "VkClearRect"))
    (c-define-type VkClearRect* (pointer VkClearRect))
@@ -2124,10 +2172,13 @@ ___return (clearrect);"))
       VkComponentMappingr
       VkComponentMapping
       VkComponentMapping*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkComponentMapping (struct "VkComponentMapping"))
    (c-define-type VkComponentMapping* (pointer VkComponentMapping))
@@ -2170,10 +2221,13 @@ ___return (componentmapping);"))
       VkPhysicalDeviceSparsePropertiesresidencyStandard2DBlockShape
       VkPhysicalDeviceSparseProperties
       VkPhysicalDeviceSparseProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSparseProperties
@@ -2327,10 +2381,13 @@ ___return (physicaldevicesparseproperties);"))
       VkPhysicalDeviceLimitsmaxImageDimension1D
       VkPhysicalDeviceLimits
       VkPhysicalDeviceLimits*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPhysicalDeviceLimits (struct "VkPhysicalDeviceLimits"))
    (c-define-type VkPhysicalDeviceLimits* (pointer VkPhysicalDeviceLimits))
@@ -3094,10 +3151,13 @@ ___return (physicaldevicelimits);"))
       VkPhysicalDevicePropertiesapiVersion
       VkPhysicalDeviceProperties
       VkPhysicalDeviceProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPhysicalDeviceProperties (struct "VkPhysicalDeviceProperties"))
    (c-define-type VkPhysicalDeviceProperties* (pointer VkPhysicalDeviceProperties))
@@ -3175,10 +3235,13 @@ ___return (physicaldeviceproperties);"))
       VkExtensionPropertiesextensionName
       VkExtensionProperties
       VkExtensionProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExtensionProperties (struct "VkExtensionProperties"))
    (c-define-type VkExtensionProperties* (pointer VkExtensionProperties))
@@ -3208,10 +3271,13 @@ ___return (extensionproperties);"))
       VkLayerPropertieslayerName
       VkLayerProperties
       VkLayerProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkLayerProperties (struct "VkLayerProperties"))
    (c-define-type VkLayerProperties* (pointer VkLayerProperties))
@@ -3256,10 +3322,13 @@ ___return (layerproperties);"))
       VkApplicationInfosType
       VkApplicationInfo
       VkApplicationInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkApplicationInfo (struct "VkApplicationInfo"))
    (c-define-type VkApplicationInfo* (pointer VkApplicationInfo))
@@ -3313,10 +3382,13 @@ applicationinfo->apiVersion=___arg7;
 ___return (applicationinfo);"))
 (begin-ffi
    (PFN_vkInternalFreeNotification PFN_vkInternalFreeNotification*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       PFN_vkInternalFreeNotification
@@ -3328,10 +3400,13 @@ ___return (applicationinfo);"))
       (pointer PFN_vkInternalFreeNotification)))
 (begin-ffi
    (PFN_vkInternalAllocationNotification PFN_vkInternalAllocationNotification*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       PFN_vkInternalAllocationNotification
@@ -3343,19 +3418,25 @@ ___return (applicationinfo);"))
       (pointer PFN_vkInternalAllocationNotification)))
 (begin-ffi
    (PFN_vkFreeFunction PFN_vkFreeFunction*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type PFN_vkFreeFunction (function ((pointer void) (pointer void)) void))
    (c-define-type PFN_vkFreeFunction* (pointer PFN_vkFreeFunction)))
 (begin-ffi
    (PFN_vkReallocationFunction PFN_vkReallocationFunction*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       PFN_vkReallocationFunction
@@ -3365,10 +3446,13 @@ ___return (applicationinfo);"))
    (c-define-type PFN_vkReallocationFunction* (pointer PFN_vkReallocationFunction)))
 (begin-ffi
    (PFN_vkAllocationFunction PFN_vkAllocationFunction*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       PFN_vkAllocationFunction
@@ -3384,10 +3468,13 @@ ___return (applicationinfo);"))
       VkAllocationCallbackspUserData
       VkAllocationCallbacks
       VkAllocationCallbacks*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkAllocationCallbacks (struct "VkAllocationCallbacks"))
    (c-define-type VkAllocationCallbacks* (pointer VkAllocationCallbacks))
@@ -3448,10 +3535,13 @@ ___return (allocationcallbacks);"))
       VkDeviceQueueCreateInfosType
       VkDeviceQueueCreateInfo
       VkDeviceQueueCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceQueueCreateInfo (struct "VkDeviceQueueCreateInfo"))
    (c-define-type VkDeviceQueueCreateInfo* (pointer VkDeviceQueueCreateInfo))
@@ -3556,10 +3646,13 @@ ___return (devicequeuecreateinfo);"))
       VkPhysicalDeviceFeaturesrobustBufferAccess
       VkPhysicalDeviceFeatures
       VkPhysicalDeviceFeatures*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPhysicalDeviceFeatures (struct "VkPhysicalDeviceFeatures"))
    (c-define-type VkPhysicalDeviceFeatures* (pointer VkPhysicalDeviceFeatures))
@@ -3967,10 +4060,13 @@ ___return (physicaldevicefeatures);"))
       VkDeviceCreateInfosType
       VkDeviceCreateInfo
       VkDeviceCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceCreateInfo (struct "VkDeviceCreateInfo"))
    (c-define-type VkDeviceCreateInfo* (pointer VkDeviceCreateInfo))
@@ -4061,10 +4157,13 @@ ___return (devicecreateinfo);"))
       VkInstanceCreateInfosType
       VkInstanceCreateInfo
       VkInstanceCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkInstanceCreateInfo (struct "VkInstanceCreateInfo"))
    (c-define-type VkInstanceCreateInfo* (pointer VkInstanceCreateInfo))
@@ -4137,10 +4236,13 @@ ___return (instancecreateinfo);"))
       VkQueueFamilyPropertiesqueueFlags
       VkQueueFamilyProperties
       VkQueueFamilyProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkQueueFamilyProperties (struct "VkQueueFamilyProperties"))
    (c-define-type VkQueueFamilyProperties* (pointer VkQueueFamilyProperties))
@@ -4176,10 +4278,13 @@ queuefamilyproperties->minImageTransferGranularity=___arg4;
 ___return (queuefamilyproperties);"))
 (begin-ffi
    (make-VkMemoryHeap VkMemoryHeapflags VkMemoryHeapsize VkMemoryHeap VkMemoryHeap*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryHeap (struct "VkMemoryHeap"))
    (c-define-type VkMemoryHeap* (pointer VkMemoryHeap))
@@ -4207,10 +4312,13 @@ ___return (memoryheap);"))
       VkMemoryTypepropertyFlags
       VkMemoryType
       VkMemoryType*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryType (struct "VkMemoryType"))
    (c-define-type VkMemoryType* (pointer VkMemoryType))
@@ -4240,10 +4348,13 @@ ___return (memorytype);"))
       VkPhysicalDeviceMemoryPropertiesmemoryTypeCount
       VkPhysicalDeviceMemoryProperties
       VkPhysicalDeviceMemoryProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMemoryProperties
@@ -4289,10 +4400,13 @@ ___return (physicaldevicememoryproperties);"))
       VkMemoryAllocateInfosType
       VkMemoryAllocateInfo
       VkMemoryAllocateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryAllocateInfo (struct "VkMemoryAllocateInfo"))
    (c-define-type VkMemoryAllocateInfo* (pointer VkMemoryAllocateInfo))
@@ -4333,10 +4447,13 @@ ___return (memoryallocateinfo);"))
       VkMemoryRequirementssize
       VkMemoryRequirements
       VkMemoryRequirements*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryRequirements (struct "VkMemoryRequirements"))
    (c-define-type VkMemoryRequirements* (pointer VkMemoryRequirements))
@@ -4371,10 +4488,13 @@ ___return (memoryrequirements);"))
       VkSparseImageFormatPropertiesaspectMask
       VkSparseImageFormatProperties
       VkSparseImageFormatProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSparseImageFormatProperties (struct "VkSparseImageFormatProperties"))
    (c-define-type VkSparseImageFormatProperties* (pointer VkSparseImageFormatProperties))
@@ -4411,10 +4531,13 @@ ___return (sparseimageformatproperties);"))
       VkSparseImageMemoryRequirementsformatProperties
       VkSparseImageMemoryRequirements
       VkSparseImageMemoryRequirements*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSparseImageMemoryRequirements
@@ -4467,10 +4590,13 @@ ___return (sparseimagememoryrequirements);"))
       VkMappedMemoryRangesType
       VkMappedMemoryRange
       VkMappedMemoryRange*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMappedMemoryRange (struct "VkMappedMemoryRange"))
    (c-define-type VkMappedMemoryRange* (pointer VkMappedMemoryRange))
@@ -4517,10 +4643,13 @@ ___return (mappedmemoryrange);"))
       VkFormatPropertieslinearTilingFeatures
       VkFormatProperties
       VkFormatProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkFormatProperties (struct "VkFormatProperties"))
    (c-define-type VkFormatProperties* (pointer VkFormatProperties))
@@ -4557,10 +4686,13 @@ ___return (formatproperties);"))
       VkImageFormatPropertiesmaxExtent
       VkImageFormatProperties
       VkImageFormatProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageFormatProperties (struct "VkImageFormatProperties"))
    (c-define-type VkImageFormatProperties* (pointer VkImageFormatProperties))
@@ -4607,10 +4739,13 @@ ___return (imageformatproperties);"))
       VkDescriptorBufferInfobuffer
       VkDescriptorBufferInfo
       VkDescriptorBufferInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDescriptorBufferInfo (struct "VkDescriptorBufferInfo"))
    (c-define-type VkDescriptorBufferInfo* (pointer VkDescriptorBufferInfo))
@@ -4645,10 +4780,13 @@ ___return (descriptorbufferinfo);"))
       VkDescriptorImageInfosampler
       VkDescriptorImageInfo
       VkDescriptorImageInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDescriptorImageInfo (struct "VkDescriptorImageInfo"))
    (c-define-type VkDescriptorImageInfo* (pointer VkDescriptorImageInfo))
@@ -4690,10 +4828,13 @@ ___return (descriptorimageinfo);"))
       VkWriteDescriptorSetsType
       VkWriteDescriptorSet
       VkWriteDescriptorSet*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkWriteDescriptorSet (struct "VkWriteDescriptorSet"))
    (c-define-type VkWriteDescriptorSet* (pointer VkWriteDescriptorSet))
@@ -4785,10 +4926,13 @@ ___return (writedescriptorset);"))
       VkCopyDescriptorSetsType
       VkCopyDescriptorSet
       VkCopyDescriptorSet*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkCopyDescriptorSet (struct "VkCopyDescriptorSet"))
    (c-define-type VkCopyDescriptorSet* (pointer VkCopyDescriptorSet))
@@ -4872,10 +5016,13 @@ ___return (copydescriptorset);"))
       VkBufferCreateInfosType
       VkBufferCreateInfo
       VkBufferCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBufferCreateInfo (struct "VkBufferCreateInfo"))
    (c-define-type VkBufferCreateInfo* (pointer VkBufferCreateInfo))
@@ -4951,10 +5098,13 @@ ___return (buffercreateinfo);"))
       VkBufferViewCreateInfosType
       VkBufferViewCreateInfo
       VkBufferViewCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBufferViewCreateInfo (struct "VkBufferViewCreateInfo"))
    (c-define-type VkBufferViewCreateInfo* (pointer VkBufferViewCreateInfo))
@@ -5019,10 +5169,13 @@ ___return (bufferviewcreateinfo);"))
       VkImageSubresourceaspectMask
       VkImageSubresource
       VkImageSubresource*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageSubresource (struct "VkImageSubresource"))
    (c-define-type VkImageSubresource* (pointer VkImageSubresource))
@@ -5058,10 +5211,13 @@ ___return (imagesubresource);"))
       VkImageSubresourceLayersaspectMask
       VkImageSubresourceLayers
       VkImageSubresourceLayers*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageSubresourceLayers (struct "VkImageSubresourceLayers"))
    (c-define-type VkImageSubresourceLayers* (pointer VkImageSubresourceLayers))
@@ -5104,10 +5260,13 @@ ___return (imagesubresourcelayers);"))
       VkImageSubresourceRangeaspectMask
       VkImageSubresourceRange
       VkImageSubresourceRange*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageSubresourceRange (struct "VkImageSubresourceRange"))
    (c-define-type VkImageSubresourceRange* (pointer VkImageSubresourceRange))
@@ -5155,10 +5314,13 @@ ___return (imagesubresourcerange);"))
       VkMemoryBarriersType
       VkMemoryBarrier
       VkMemoryBarrier*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryBarrier (struct "VkMemoryBarrier"))
    (c-define-type VkMemoryBarrier* (pointer VkMemoryBarrier))
@@ -5205,10 +5367,13 @@ ___return (memorybarrier);"))
       VkBufferMemoryBarriersType
       VkBufferMemoryBarrier
       VkBufferMemoryBarrier*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBufferMemoryBarrier (struct "VkBufferMemoryBarrier"))
    (c-define-type VkBufferMemoryBarrier* (pointer VkBufferMemoryBarrier))
@@ -5294,10 +5459,13 @@ ___return (buffermemorybarrier);"))
       VkImageMemoryBarriersType
       VkImageMemoryBarrier
       VkImageMemoryBarrier*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageMemoryBarrier (struct "VkImageMemoryBarrier"))
    (c-define-type VkImageMemoryBarrier* (pointer VkImageMemoryBarrier))
@@ -5395,10 +5563,13 @@ ___return (imagememorybarrier);"))
       VkImageCreateInfosType
       VkImageCreateInfo
       VkImageCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageCreateInfo (struct "VkImageCreateInfo"))
    (c-define-type VkImageCreateInfo* (pointer VkImageCreateInfo))
@@ -5521,10 +5692,13 @@ ___return (imagecreateinfo);"))
       VkSubresourceLayoutoffset
       VkSubresourceLayout
       VkSubresourceLayout*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSubresourceLayout (struct "VkSubresourceLayout"))
    (c-define-type VkSubresourceLayout* (pointer VkSubresourceLayout))
@@ -5576,10 +5750,13 @@ ___return (subresourcelayout);"))
       VkImageViewCreateInfosType
       VkImageViewCreateInfo
       VkImageViewCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageViewCreateInfo (struct "VkImageViewCreateInfo"))
    (c-define-type VkImageViewCreateInfo* (pointer VkImageViewCreateInfo))
@@ -5651,10 +5828,13 @@ ___return (imageviewcreateinfo);"))
       VkBufferCopysrcOffset
       VkBufferCopy
       VkBufferCopy*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBufferCopy (struct "VkBufferCopy"))
    (c-define-type VkBufferCopy* (pointer VkBufferCopy))
@@ -5691,10 +5871,13 @@ ___return (buffercopy);"))
       VkSparseMemoryBindresourceOffset
       VkSparseMemoryBind
       VkSparseMemoryBind*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSparseMemoryBind (struct "VkSparseMemoryBind"))
    (c-define-type VkSparseMemoryBind* (pointer VkSparseMemoryBind))
@@ -5744,10 +5927,13 @@ ___return (sparsememorybind);"))
       VkSparseImageMemoryBindsubresource
       VkSparseImageMemoryBind
       VkSparseImageMemoryBind*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSparseImageMemoryBind (struct "VkSparseImageMemoryBind"))
    (c-define-type VkSparseImageMemoryBind* (pointer VkSparseImageMemoryBind))
@@ -5805,10 +5991,13 @@ ___return (sparseimagememorybind);"))
       VkSparseBufferMemoryBindInfobuffer
       VkSparseBufferMemoryBindInfo
       VkSparseBufferMemoryBindInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSparseBufferMemoryBindInfo (struct "VkSparseBufferMemoryBindInfo"))
    (c-define-type VkSparseBufferMemoryBindInfo* (pointer VkSparseBufferMemoryBindInfo))
@@ -5843,10 +6032,13 @@ ___return (sparsebuffermemorybindinfo);"))
       VkSparseImageOpaqueMemoryBindInfoimage
       VkSparseImageOpaqueMemoryBindInfo
       VkSparseImageOpaqueMemoryBindInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSparseImageOpaqueMemoryBindInfo
@@ -5885,10 +6077,13 @@ ___return (sparseimageopaquememorybindinfo);"))
       VkSparseImageMemoryBindInfoimage
       VkSparseImageMemoryBindInfo
       VkSparseImageMemoryBindInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSparseImageMemoryBindInfo (struct "VkSparseImageMemoryBindInfo"))
    (c-define-type VkSparseImageMemoryBindInfo* (pointer VkSparseImageMemoryBindInfo))
@@ -5932,10 +6127,13 @@ ___return (sparseimagememorybindinfo);"))
       VkBindSparseInfosType
       VkBindSparseInfo
       VkBindSparseInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBindSparseInfo (struct "VkBindSparseInfo"))
    (c-define-type VkBindSparseInfo* (pointer VkBindSparseInfo))
@@ -6037,10 +6235,13 @@ ___return (bindsparseinfo);"))
       VkImageCopysrcSubresource
       VkImageCopy
       VkImageCopy*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageCopy (struct "VkImageCopy"))
    (c-define-type VkImageCopy* (pointer VkImageCopy))
@@ -6088,10 +6289,13 @@ ___return (imagecopy);"))
       VkImageBlitsrcSubresource
       VkImageBlit
       VkImageBlit*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageBlit (struct "VkImageBlit"))
    (c-define-type VkImageBlit* (pointer VkImageBlit))
@@ -6135,10 +6339,13 @@ ___return (imageblit);"))
       VkBufferImageCopybufferOffset
       VkBufferImageCopy
       VkBufferImageCopy*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBufferImageCopy (struct "VkBufferImageCopy"))
    (c-define-type VkBufferImageCopy* (pointer VkBufferImageCopy))
@@ -6193,10 +6400,13 @@ ___return (bufferimagecopy);"))
       VkImageResolvesrcSubresource
       VkImageResolve
       VkImageResolve*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageResolve (struct "VkImageResolve"))
    (c-define-type VkImageResolve* (pointer VkImageResolve))
@@ -6245,10 +6455,13 @@ ___return (imageresolve);"))
       VkShaderModuleCreateInfosType
       VkShaderModuleCreateInfo
       VkShaderModuleCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkShaderModuleCreateInfo (struct "VkShaderModuleCreateInfo"))
    (c-define-type VkShaderModuleCreateInfo* (pointer VkShaderModuleCreateInfo))
@@ -6297,10 +6510,13 @@ ___return (shadermodulecreateinfo);"))
       VkDescriptorSetLayoutBindingbinding
       VkDescriptorSetLayoutBinding
       VkDescriptorSetLayoutBinding*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDescriptorSetLayoutBinding (struct "VkDescriptorSetLayoutBinding"))
    (c-define-type VkDescriptorSetLayoutBinding* (pointer VkDescriptorSetLayoutBinding))
@@ -6349,10 +6565,13 @@ ___return (descriptorsetlayoutbinding);"))
       VkDescriptorSetLayoutCreateInfosType
       VkDescriptorSetLayoutCreateInfo
       VkDescriptorSetLayoutCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorSetLayoutCreateInfo
@@ -6406,10 +6625,13 @@ ___return (descriptorsetlayoutcreateinfo);"))
       VkDescriptorPoolSizetype
       VkDescriptorPoolSize
       VkDescriptorPoolSize*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDescriptorPoolSize (struct "VkDescriptorPoolSize"))
    (c-define-type VkDescriptorPoolSize* (pointer VkDescriptorPoolSize))
@@ -6441,10 +6663,13 @@ ___return (descriptorpoolsize);"))
       VkDescriptorPoolCreateInfosType
       VkDescriptorPoolCreateInfo
       VkDescriptorPoolCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDescriptorPoolCreateInfo (struct "VkDescriptorPoolCreateInfo"))
    (c-define-type VkDescriptorPoolCreateInfo* (pointer VkDescriptorPoolCreateInfo))
@@ -6504,10 +6729,13 @@ ___return (descriptorpoolcreateinfo);"))
       VkDescriptorSetAllocateInfosType
       VkDescriptorSetAllocateInfo
       VkDescriptorSetAllocateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDescriptorSetAllocateInfo (struct "VkDescriptorSetAllocateInfo"))
    (c-define-type VkDescriptorSetAllocateInfo* (pointer VkDescriptorSetAllocateInfo))
@@ -6554,10 +6782,13 @@ ___return (descriptorsetallocateinfo);"))
       VkSpecializationMapEntryconstantID
       VkSpecializationMapEntry
       VkSpecializationMapEntry*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSpecializationMapEntry (struct "VkSpecializationMapEntry"))
    (c-define-type VkSpecializationMapEntry* (pointer VkSpecializationMapEntry))
@@ -6593,10 +6824,13 @@ ___return (specializationmapentry);"))
       VkSpecializationInfomapEntryCount
       VkSpecializationInfo
       VkSpecializationInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSpecializationInfo (struct "VkSpecializationInfo"))
    (c-define-type VkSpecializationInfo* (pointer VkSpecializationInfo))
@@ -6641,10 +6875,13 @@ ___return (specializationinfo);"))
       VkPipelineShaderStageCreateInfosType
       VkPipelineShaderStageCreateInfo
       VkPipelineShaderStageCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineShaderStageCreateInfo
@@ -6717,10 +6954,13 @@ ___return (pipelineshaderstagecreateinfo);"))
       VkComputePipelineCreateInfosType
       VkComputePipelineCreateInfo
       VkComputePipelineCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkComputePipelineCreateInfo (struct "VkComputePipelineCreateInfo"))
    (c-define-type VkComputePipelineCreateInfo* (pointer VkComputePipelineCreateInfo))
@@ -6785,10 +7025,13 @@ ___return (computepipelinecreateinfo);"))
       VkVertexInputBindingDescriptionbinding
       VkVertexInputBindingDescription
       VkVertexInputBindingDescription*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkVertexInputBindingDescription
@@ -6828,10 +7071,13 @@ ___return (vertexinputbindingdescription);"))
       VkVertexInputAttributeDescriptionlocation
       VkVertexInputAttributeDescription
       VkVertexInputAttributeDescription*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkVertexInputAttributeDescription
@@ -6880,10 +7126,13 @@ ___return (vertexinputattributedescription);"))
       VkPipelineVertexInputStateCreateInfosType
       VkPipelineVertexInputStateCreateInfo
       VkPipelineVertexInputStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineVertexInputStateCreateInfo
@@ -6954,10 +7203,13 @@ ___return (pipelinevertexinputstatecreateinfo);"))
       VkPipelineInputAssemblyStateCreateInfosType
       VkPipelineInputAssemblyStateCreateInfo
       VkPipelineInputAssemblyStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineInputAssemblyStateCreateInfo
@@ -7013,10 +7265,13 @@ ___return (pipelineinputassemblystatecreateinfo);"))
       VkPipelineTessellationStateCreateInfosType
       VkPipelineTessellationStateCreateInfo
       VkPipelineTessellationStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineTessellationStateCreateInfo
@@ -7065,10 +7320,13 @@ ___return (pipelinetessellationstatecreateinfo);"))
       VkPipelineViewportStateCreateInfosType
       VkPipelineViewportStateCreateInfo
       VkPipelineViewportStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineViewportStateCreateInfo
@@ -7147,10 +7405,13 @@ ___return (pipelineviewportstatecreateinfo);"))
       VkPipelineRasterizationStateCreateInfosType
       VkPipelineRasterizationStateCreateInfo
       VkPipelineRasterizationStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineRasterizationStateCreateInfo
@@ -7267,10 +7528,13 @@ ___return (pipelinerasterizationstatecreateinfo);"))
       VkPipelineMultisampleStateCreateInfosType
       VkPipelineMultisampleStateCreateInfo
       VkPipelineMultisampleStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineMultisampleStateCreateInfo
@@ -7358,10 +7622,13 @@ ___return (pipelinemultisamplestatecreateinfo);"))
       VkPipelineColorBlendAttachmentStateblendEnable
       VkPipelineColorBlendAttachmentState
       VkPipelineColorBlendAttachmentState*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineColorBlendAttachmentState
@@ -7442,10 +7709,13 @@ ___return (pipelinecolorblendattachmentstate);"))
       VkPipelineColorBlendStateCreateInfosType
       VkPipelineColorBlendStateCreateInfo
       VkPipelineColorBlendStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineColorBlendStateCreateInfo
@@ -7523,10 +7793,13 @@ ___return (pipelinecolorblendstatecreateinfo);"))
       VkPipelineDynamicStateCreateInfosType
       VkPipelineDynamicStateCreateInfo
       VkPipelineDynamicStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineDynamicStateCreateInfo
@@ -7581,10 +7854,13 @@ ___return (pipelinedynamicstatecreateinfo);"))
       VkStencilOpStatefailOp
       VkStencilOpState
       VkStencilOpState*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkStencilOpState (struct "VkStencilOpState"))
    (c-define-type VkStencilOpState* (pointer VkStencilOpState))
@@ -7652,10 +7928,13 @@ ___return (stencilopstate);"))
       VkPipelineDepthStencilStateCreateInfosType
       VkPipelineDepthStencilStateCreateInfo
       VkPipelineDepthStencilStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineDepthStencilStateCreateInfo
@@ -7775,10 +8054,13 @@ ___return (pipelinedepthstencilstatecreateinfo);"))
       VkGraphicsPipelineCreateInfosType
       VkGraphicsPipelineCreateInfo
       VkGraphicsPipelineCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkGraphicsPipelineCreateInfo (struct "VkGraphicsPipelineCreateInfo"))
    (c-define-type VkGraphicsPipelineCreateInfo* (pointer VkGraphicsPipelineCreateInfo))
@@ -7929,10 +8211,13 @@ ___return (graphicspipelinecreateinfo);"))
       VkPipelineCacheCreateInfosType
       VkPipelineCacheCreateInfo
       VkPipelineCacheCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPipelineCacheCreateInfo (struct "VkPipelineCacheCreateInfo"))
    (c-define-type VkPipelineCacheCreateInfo* (pointer VkPipelineCacheCreateInfo))
@@ -7979,10 +8264,13 @@ ___return (pipelinecachecreateinfo);"))
       VkPushConstantRangestageFlags
       VkPushConstantRange
       VkPushConstantRange*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPushConstantRange (struct "VkPushConstantRange"))
    (c-define-type VkPushConstantRange* (pointer VkPushConstantRange))
@@ -8021,10 +8309,13 @@ ___return (pushconstantrange);"))
       VkPipelineLayoutCreateInfosType
       VkPipelineLayoutCreateInfo
       VkPipelineLayoutCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPipelineLayoutCreateInfo (struct "VkPipelineLayoutCreateInfo"))
    (c-define-type VkPipelineLayoutCreateInfo* (pointer VkPipelineLayoutCreateInfo))
@@ -8104,10 +8395,13 @@ ___return (pipelinelayoutcreateinfo);"))
       VkSamplerCreateInfosType
       VkSamplerCreateInfo
       VkSamplerCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSamplerCreateInfo (struct "VkSamplerCreateInfo"))
    (c-define-type VkSamplerCreateInfo* (pointer VkSamplerCreateInfo))
@@ -8250,10 +8544,13 @@ ___return (samplercreateinfo);"))
       VkCommandPoolCreateInfosType
       VkCommandPoolCreateInfo
       VkCommandPoolCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkCommandPoolCreateInfo (struct "VkCommandPoolCreateInfo"))
    (c-define-type VkCommandPoolCreateInfo* (pointer VkCommandPoolCreateInfo))
@@ -8296,10 +8593,13 @@ ___return (commandpoolcreateinfo);"))
       VkCommandBufferAllocateInfosType
       VkCommandBufferAllocateInfo
       VkCommandBufferAllocateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkCommandBufferAllocateInfo (struct "VkCommandBufferAllocateInfo"))
    (c-define-type VkCommandBufferAllocateInfo* (pointer VkCommandBufferAllocateInfo))
@@ -8351,10 +8651,13 @@ ___return (commandbufferallocateinfo);"))
       VkCommandBufferInheritanceInfosType
       VkCommandBufferInheritanceInfo
       VkCommandBufferInheritanceInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkCommandBufferInheritanceInfo
@@ -8431,10 +8734,13 @@ ___return (commandbufferinheritanceinfo);"))
       VkCommandBufferBeginInfosType
       VkCommandBufferBeginInfo
       VkCommandBufferBeginInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkCommandBufferBeginInfo (struct "VkCommandBufferBeginInfo"))
    (c-define-type VkCommandBufferBeginInfo* (pointer VkCommandBufferBeginInfo))
@@ -8479,10 +8785,13 @@ ___return (commandbufferbegininfo);"))
       VkRenderPassBeginInfosType
       VkRenderPassBeginInfo
       VkRenderPassBeginInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkRenderPassBeginInfo (struct "VkRenderPassBeginInfo"))
    (c-define-type VkRenderPassBeginInfo* (pointer VkRenderPassBeginInfo))
@@ -8540,10 +8849,13 @@ ___return (renderpassbegininfo);"))
       VkClearDepthStencilValuedepth
       VkClearDepthStencilValue
       VkClearDepthStencilValue*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkClearDepthStencilValue (struct "VkClearDepthStencilValue"))
    (c-define-type VkClearDepthStencilValue* (pointer VkClearDepthStencilValue))
@@ -8572,10 +8884,13 @@ ___return (cleardepthstencilvalue);"))
       VkClearAttachmentaspectMask
       VkClearAttachment
       VkClearAttachment*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkClearAttachment (struct "VkClearAttachment"))
    (c-define-type VkClearAttachment* (pointer VkClearAttachment))
@@ -8616,10 +8931,13 @@ ___return (clearattachment);"))
       VkAttachmentDescriptionflags
       VkAttachmentDescription
       VkAttachmentDescription*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkAttachmentDescription (struct "VkAttachmentDescription"))
    (c-define-type VkAttachmentDescription* (pointer VkAttachmentDescription))
@@ -8697,10 +9015,13 @@ ___return (attachmentdescription);"))
       VkAttachmentReferenceattachment
       VkAttachmentReference
       VkAttachmentReference*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkAttachmentReference (struct "VkAttachmentReference"))
    (c-define-type VkAttachmentReference* (pointer VkAttachmentReference))
@@ -8736,10 +9057,13 @@ ___return (attachmentreference);"))
       VkSubpassDescriptionflags
       VkSubpassDescription
       VkSubpassDescription*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSubpassDescription (struct "VkSubpassDescription"))
    (c-define-type VkSubpassDescription* (pointer VkSubpassDescription))
@@ -8829,10 +9153,13 @@ ___return (subpassdescription);"))
       VkSubpassDependencysrcSubpass
       VkSubpassDependency
       VkSubpassDependency*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSubpassDependency (struct "VkSubpassDependency"))
    (c-define-type VkSubpassDependency* (pointer VkSubpassDependency))
@@ -8903,10 +9230,13 @@ ___return (subpassdependency);"))
       VkRenderPassCreateInfosType
       VkRenderPassCreateInfo
       VkRenderPassCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkRenderPassCreateInfo (struct "VkRenderPassCreateInfo"))
    (c-define-type VkRenderPassCreateInfo* (pointer VkRenderPassCreateInfo))
@@ -8985,10 +9315,13 @@ ___return (renderpasscreateinfo);"))
       VkEventCreateInfosType
       VkEventCreateInfo
       VkEventCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkEventCreateInfo (struct "VkEventCreateInfo"))
    (c-define-type VkEventCreateInfo* (pointer VkEventCreateInfo))
@@ -9023,10 +9356,13 @@ ___return (eventcreateinfo);"))
       VkFenceCreateInfosType
       VkFenceCreateInfo
       VkFenceCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkFenceCreateInfo (struct "VkFenceCreateInfo"))
    (c-define-type VkFenceCreateInfo* (pointer VkFenceCreateInfo))
@@ -9061,10 +9397,13 @@ ___return (fencecreateinfo);"))
       VkSemaphoreCreateInfosType
       VkSemaphoreCreateInfo
       VkSemaphoreCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSemaphoreCreateInfo (struct "VkSemaphoreCreateInfo"))
    (c-define-type VkSemaphoreCreateInfo* (pointer VkSemaphoreCreateInfo))
@@ -9102,10 +9441,13 @@ ___return (semaphorecreateinfo);"))
       VkQueryPoolCreateInfosType
       VkQueryPoolCreateInfo
       VkQueryPoolCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkQueryPoolCreateInfo (struct "VkQueryPoolCreateInfo"))
    (c-define-type VkQueryPoolCreateInfo* (pointer VkQueryPoolCreateInfo))
@@ -9169,10 +9511,13 @@ ___return (querypoolcreateinfo);"))
       VkFramebufferCreateInfosType
       VkFramebufferCreateInfo
       VkFramebufferCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkFramebufferCreateInfo (struct "VkFramebufferCreateInfo"))
    (c-define-type VkFramebufferCreateInfo* (pointer VkFramebufferCreateInfo))
@@ -9252,10 +9597,13 @@ ___return (framebuffercreateinfo);"))
       VkDrawIndirectCommandvertexCount
       VkDrawIndirectCommand
       VkDrawIndirectCommand*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDrawIndirectCommand (struct "VkDrawIndirectCommand"))
    (c-define-type VkDrawIndirectCommand* (pointer VkDrawIndirectCommand))
@@ -9298,10 +9646,13 @@ ___return (drawindirectcommand);"))
       VkDrawIndexedIndirectCommandindexCount
       VkDrawIndexedIndirectCommand
       VkDrawIndexedIndirectCommand*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDrawIndexedIndirectCommand (struct "VkDrawIndexedIndirectCommand"))
    (c-define-type VkDrawIndexedIndirectCommand* (pointer VkDrawIndexedIndirectCommand))
@@ -9348,10 +9699,13 @@ ___return (drawindexedindirectcommand);"))
       VkDispatchIndirectCommandx
       VkDispatchIndirectCommand
       VkDispatchIndirectCommand*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDispatchIndirectCommand (struct "VkDispatchIndirectCommand"))
    (c-define-type VkDispatchIndirectCommand* (pointer VkDispatchIndirectCommand))
@@ -9392,10 +9746,13 @@ ___return (dispatchindirectcommand);"))
       VkSubmitInfosType
       VkSubmitInfo
       VkSubmitInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSubmitInfo (struct "VkSubmitInfo"))
    (c-define-type VkSubmitInfo* (pointer VkSubmitInfo))
@@ -9474,10 +9831,13 @@ ___return (submitinfo);"))
       VkDisplayPropertiesKHRdisplay
       VkDisplayPropertiesKHR
       VkDisplayPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayPropertiesKHR (struct "VkDisplayPropertiesKHR"))
    (c-define-type VkDisplayPropertiesKHR* (pointer VkDisplayPropertiesKHR))
@@ -9541,10 +9901,13 @@ ___return (displaypropertieskhr);"))
       VkDisplayPlanePropertiesKHRcurrentDisplay
       VkDisplayPlanePropertiesKHR
       VkDisplayPlanePropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayPlanePropertiesKHR (struct "VkDisplayPlanePropertiesKHR"))
    (c-define-type VkDisplayPlanePropertiesKHR* (pointer VkDisplayPlanePropertiesKHR))
@@ -9572,10 +9935,13 @@ ___return (displayplanepropertieskhr);"))
       VkDisplayModeParametersKHRvisibleRegion
       VkDisplayModeParametersKHR
       VkDisplayModeParametersKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayModeParametersKHR (struct "VkDisplayModeParametersKHR"))
    (c-define-type VkDisplayModeParametersKHR* (pointer VkDisplayModeParametersKHR))
@@ -9603,10 +9969,13 @@ ___return (displaymodeparameterskhr);"))
       VkDisplayModePropertiesKHRdisplayMode
       VkDisplayModePropertiesKHR
       VkDisplayModePropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayModePropertiesKHR (struct "VkDisplayModePropertiesKHR"))
    (c-define-type VkDisplayModePropertiesKHR* (pointer VkDisplayModePropertiesKHR))
@@ -9636,10 +10005,13 @@ ___return (displaymodepropertieskhr);"))
       VkDisplayModeCreateInfoKHRsType
       VkDisplayModeCreateInfoKHR
       VkDisplayModeCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayModeCreateInfoKHR (struct "VkDisplayModeCreateInfoKHR"))
    (c-define-type VkDisplayModeCreateInfoKHR* (pointer VkDisplayModeCreateInfoKHR))
@@ -9686,10 +10058,13 @@ ___return (displaymodecreateinfokhr);"))
       VkDisplayPlaneCapabilitiesKHRsupportedAlpha
       VkDisplayPlaneCapabilitiesKHR
       VkDisplayPlaneCapabilitiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayPlaneCapabilitiesKHR (struct "VkDisplayPlaneCapabilitiesKHR"))
    (c-define-type VkDisplayPlaneCapabilitiesKHR* (pointer VkDisplayPlaneCapabilitiesKHR))
@@ -9775,10 +10150,13 @@ ___return (displayplanecapabilitieskhr);"))
       VkDisplaySurfaceCreateInfoKHRsType
       VkDisplaySurfaceCreateInfoKHR
       VkDisplaySurfaceCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplaySurfaceCreateInfoKHR (struct "VkDisplaySurfaceCreateInfoKHR"))
    (c-define-type VkDisplaySurfaceCreateInfoKHR* (pointer VkDisplaySurfaceCreateInfoKHR))
@@ -9866,10 +10244,13 @@ ___return (displaysurfacecreateinfokhr);"))
       VkDisplayPresentInfoKHRsType
       VkDisplayPresentInfoKHR
       VkDisplayPresentInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayPresentInfoKHR (struct "VkDisplayPresentInfoKHR"))
    (c-define-type VkDisplayPresentInfoKHR* (pointer VkDisplayPresentInfoKHR))
@@ -9923,10 +10304,13 @@ ___return (displaypresentinfokhr);"))
       VkSurfaceCapabilitiesKHRminImageCount
       VkSurfaceCapabilitiesKHR
       VkSurfaceCapabilitiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSurfaceCapabilitiesKHR (struct "VkSurfaceCapabilitiesKHR"))
    (c-define-type VkSurfaceCapabilitiesKHR* (pointer VkSurfaceCapabilitiesKHR))
@@ -10011,10 +10395,13 @@ ___return (surfacecapabilitieskhr);"))
       VkSurfaceFormatKHRformat
       VkSurfaceFormatKHR
       VkSurfaceFormatKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSurfaceFormatKHR (struct "VkSurfaceFormatKHR"))
    (c-define-type VkSurfaceFormatKHR* (pointer VkSurfaceFormatKHR))
@@ -10058,10 +10445,13 @@ ___return (surfaceformatkhr);"))
       VkSwapchainCreateInfoKHRsType
       VkSwapchainCreateInfoKHR
       VkSwapchainCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSwapchainCreateInfoKHR (struct "VkSwapchainCreateInfoKHR"))
    (c-define-type VkSwapchainCreateInfoKHR* (pointer VkSwapchainCreateInfoKHR))
@@ -10208,10 +10598,13 @@ ___return (swapchaincreateinfokhr);"))
       VkPresentInfoKHRsType
       VkPresentInfoKHR
       VkPresentInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPresentInfoKHR (struct "VkPresentInfoKHR"))
    (c-define-type VkPresentInfoKHR* (pointer VkPresentInfoKHR))
@@ -10278,10 +10671,13 @@ presentinfokhr->pResults=___arg8;
 ___return (presentinfokhr);"))
 (begin-ffi
    (PFN_vkDebugReportCallbackEXT PFN_vkDebugReportCallbackEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       PFN_vkDebugReportCallbackEXT
@@ -10305,10 +10701,13 @@ ___return (presentinfokhr);"))
       VkDebugReportCallbackCreateInfoEXTsType
       VkDebugReportCallbackCreateInfoEXT
       VkDebugReportCallbackCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDebugReportCallbackCreateInfoEXT
@@ -10360,10 +10759,13 @@ ___return (debugreportcallbackcreateinfoext);"))
       VkValidationFlagsEXTsType
       VkValidationFlagsEXT
       VkValidationFlagsEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkValidationFlagsEXT (struct "VkValidationFlagsEXT"))
    (c-define-type VkValidationFlagsEXT* (pointer VkValidationFlagsEXT))
@@ -10407,10 +10809,13 @@ ___return (validationflagsext);"))
       VkValidationFeaturesEXTsType
       VkValidationFeaturesEXT
       VkValidationFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkValidationFeaturesEXT (struct "VkValidationFeaturesEXT"))
    (c-define-type VkValidationFeaturesEXT* (pointer VkValidationFeaturesEXT))
@@ -10468,10 +10873,13 @@ ___return (validationfeaturesext);"))
       VkPipelineRasterizationStateRasterizationOrderAMDsType
       VkPipelineRasterizationStateRasterizationOrderAMD
       VkPipelineRasterizationStateRasterizationOrderAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineRasterizationStateRasterizationOrderAMD
@@ -10512,10 +10920,13 @@ ___return (pipelinerasterizationstaterasterizationorderamd);"))
       VkDebugMarkerObjectNameInfoEXTsType
       VkDebugMarkerObjectNameInfoEXT
       VkDebugMarkerObjectNameInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDebugMarkerObjectNameInfoEXT
@@ -10570,10 +10981,13 @@ ___return (debugmarkerobjectnameinfoext);"))
       VkDebugMarkerObjectTagInfoEXTsType
       VkDebugMarkerObjectTagInfoEXT
       VkDebugMarkerObjectTagInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDebugMarkerObjectTagInfoEXT (struct "VkDebugMarkerObjectTagInfoEXT"))
    (c-define-type VkDebugMarkerObjectTagInfoEXT* (pointer VkDebugMarkerObjectTagInfoEXT))
@@ -10633,10 +11047,13 @@ ___return (debugmarkerobjecttaginfoext);"))
       VkDebugMarkerMarkerInfoEXTsType
       VkDebugMarkerMarkerInfoEXT
       VkDebugMarkerMarkerInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDebugMarkerMarkerInfoEXT (struct "VkDebugMarkerMarkerInfoEXT"))
    (c-define-type VkDebugMarkerMarkerInfoEXT* (pointer VkDebugMarkerMarkerInfoEXT))
@@ -10677,10 +11094,13 @@ ___return (debugmarkermarkerinfoext);"))
       VkDedicatedAllocationImageCreateInfoNVsType
       VkDedicatedAllocationImageCreateInfoNV
       VkDedicatedAllocationImageCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDedicatedAllocationImageCreateInfoNV
@@ -10719,10 +11139,13 @@ ___return (dedicatedallocationimagecreateinfonv);"))
       VkDedicatedAllocationBufferCreateInfoNVsType
       VkDedicatedAllocationBufferCreateInfoNV
       VkDedicatedAllocationBufferCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDedicatedAllocationBufferCreateInfoNV
@@ -10762,10 +11185,13 @@ ___return (dedicatedallocationbuffercreateinfonv);"))
       VkDedicatedAllocationMemoryAllocateInfoNVsType
       VkDedicatedAllocationMemoryAllocateInfoNV
       VkDedicatedAllocationMemoryAllocateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDedicatedAllocationMemoryAllocateInfoNV
@@ -10811,10 +11237,13 @@ ___return (dedicatedallocationmemoryallocateinfonv);"))
       VkExternalImageFormatPropertiesNVimageFormatProperties
       VkExternalImageFormatPropertiesNV
       VkExternalImageFormatPropertiesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExternalImageFormatPropertiesNV
@@ -10862,10 +11291,13 @@ ___return (externalimageformatpropertiesnv);"))
       VkExternalMemoryImageCreateInfoNVsType
       VkExternalMemoryImageCreateInfoNV
       VkExternalMemoryImageCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExternalMemoryImageCreateInfoNV
@@ -10904,10 +11336,13 @@ ___return (externalmemoryimagecreateinfonv);"))
       VkExportMemoryAllocateInfoNVsType
       VkExportMemoryAllocateInfoNV
       VkExportMemoryAllocateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExportMemoryAllocateInfoNV (struct "VkExportMemoryAllocateInfoNV"))
    (c-define-type VkExportMemoryAllocateInfoNV* (pointer VkExportMemoryAllocateInfoNV))
@@ -10942,10 +11377,13 @@ ___return (exportmemoryallocateinfonv);"))
       VkDeviceGeneratedCommandsFeaturesNVXsType
       VkDeviceGeneratedCommandsFeaturesNVX
       VkDeviceGeneratedCommandsFeaturesNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGeneratedCommandsFeaturesNVX
@@ -10988,10 +11426,13 @@ ___return (devicegeneratedcommandsfeaturesnvx);"))
       VkDeviceGeneratedCommandsLimitsNVXsType
       VkDeviceGeneratedCommandsLimitsNVX
       VkDeviceGeneratedCommandsLimitsNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGeneratedCommandsLimitsNVX
@@ -11054,10 +11495,13 @@ ___return (devicegeneratedcommandslimitsnvx);"))
       VkIndirectCommandsTokenNVXtokenType
       VkIndirectCommandsTokenNVX
       VkIndirectCommandsTokenNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkIndirectCommandsTokenNVX (struct "VkIndirectCommandsTokenNVX"))
    (c-define-type VkIndirectCommandsTokenNVX* (pointer VkIndirectCommandsTokenNVX))
@@ -11093,10 +11537,13 @@ ___return (indirectcommandstokennvx);"))
       VkIndirectCommandsLayoutTokenNVXtokenType
       VkIndirectCommandsLayoutTokenNVX
       VkIndirectCommandsLayoutTokenNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkIndirectCommandsLayoutTokenNVX
@@ -11144,10 +11591,13 @@ ___return (indirectcommandslayouttokennvx);"))
       VkIndirectCommandsLayoutCreateInfoNVXsType
       VkIndirectCommandsLayoutCreateInfoNVX
       VkIndirectCommandsLayoutCreateInfoNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkIndirectCommandsLayoutCreateInfoNVX
@@ -11218,10 +11668,13 @@ ___return (indirectcommandslayoutcreateinfonvx);"))
       VkCmdProcessCommandsInfoNVXsType
       VkCmdProcessCommandsInfoNVX
       VkCmdProcessCommandsInfoNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkCmdProcessCommandsInfoNVX (struct "VkCmdProcessCommandsInfoNVX"))
    (c-define-type VkCmdProcessCommandsInfoNVX* (pointer VkCmdProcessCommandsInfoNVX))
@@ -11323,10 +11776,13 @@ ___return (cmdprocesscommandsinfonvx);"))
       VkCmdReserveSpaceForCommandsInfoNVXsType
       VkCmdReserveSpaceForCommandsInfoNVX
       VkCmdReserveSpaceForCommandsInfoNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkCmdReserveSpaceForCommandsInfoNVX
@@ -11385,10 +11841,13 @@ ___return (cmdreservespaceforcommandsinfonvx);"))
       VkObjectTableCreateInfoNVXsType
       VkObjectTableCreateInfoNVX
       VkObjectTableCreateInfoNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkObjectTableCreateInfoNVX (struct "VkObjectTableCreateInfoNVX"))
    (c-define-type VkObjectTableCreateInfoNVX* (pointer VkObjectTableCreateInfoNVX))
@@ -11480,10 +11939,13 @@ ___return (objecttablecreateinfonvx);"))
       VkObjectTableEntryNVXtype
       VkObjectTableEntryNVX
       VkObjectTableEntryNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkObjectTableEntryNVX (struct "VkObjectTableEntryNVX"))
    (c-define-type VkObjectTableEntryNVX* (pointer VkObjectTableEntryNVX))
@@ -11512,10 +11974,13 @@ ___return (objecttableentrynvx);"))
       VkObjectTablePipelineEntryNVXtype
       VkObjectTablePipelineEntryNVX
       VkObjectTablePipelineEntryNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkObjectTablePipelineEntryNVX (struct "VkObjectTablePipelineEntryNVX"))
    (c-define-type VkObjectTablePipelineEntryNVX* (pointer VkObjectTablePipelineEntryNVX))
@@ -11551,10 +12016,13 @@ ___return (objecttablepipelineentrynvx);"))
       VkObjectTableDescriptorSetEntryNVXtype
       VkObjectTableDescriptorSetEntryNVX
       VkObjectTableDescriptorSetEntryNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkObjectTableDescriptorSetEntryNVX
@@ -11599,10 +12067,13 @@ ___return (objecttabledescriptorsetentrynvx);"))
       VkObjectTableVertexBufferEntryNVXtype
       VkObjectTableVertexBufferEntryNVX
       VkObjectTableVertexBufferEntryNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkObjectTableVertexBufferEntryNVX
@@ -11642,10 +12113,13 @@ ___return (objecttablevertexbufferentrynvx);"))
       VkObjectTableIndexBufferEntryNVXtype
       VkObjectTableIndexBufferEntryNVX
       VkObjectTableIndexBufferEntryNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkObjectTableIndexBufferEntryNVX
@@ -11691,10 +12165,13 @@ ___return (objecttableindexbufferentrynvx);"))
       VkObjectTablePushConstantEntryNVXtype
       VkObjectTablePushConstantEntryNVX
       VkObjectTablePushConstantEntryNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkObjectTablePushConstantEntryNVX
@@ -11742,10 +12219,13 @@ ___return (objecttablepushconstantentrynvx);"))
       VkPhysicalDeviceFeatures2sType
       VkPhysicalDeviceFeatures2
       VkPhysicalDeviceFeatures2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPhysicalDeviceFeatures2 (struct "VkPhysicalDeviceFeatures2"))
    (c-define-type VkPhysicalDeviceFeatures2* (pointer VkPhysicalDeviceFeatures2))
@@ -11777,10 +12257,13 @@ ___return (physicaldevicefeatures2);"))
    (make-VkPhysicalDeviceFeatures2KHR
       VkPhysicalDeviceFeatures2KHR
       VkPhysicalDeviceFeatures2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPhysicalDeviceFeatures2KHR (struct "VkPhysicalDeviceFeatures2KHR"))
    (c-define-type VkPhysicalDeviceFeatures2KHR* (pointer VkPhysicalDeviceFeatures2KHR))
@@ -11797,10 +12280,13 @@ ___return (physicaldevicefeatures2khr);"))
       VkPhysicalDeviceProperties2sType
       VkPhysicalDeviceProperties2
       VkPhysicalDeviceProperties2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPhysicalDeviceProperties2 (struct "VkPhysicalDeviceProperties2"))
    (c-define-type VkPhysicalDeviceProperties2* (pointer VkPhysicalDeviceProperties2))
@@ -11832,10 +12318,13 @@ ___return (physicaldeviceproperties2);"))
    (make-VkPhysicalDeviceProperties2KHR
       VkPhysicalDeviceProperties2KHR
       VkPhysicalDeviceProperties2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceProperties2KHR
@@ -11856,10 +12345,13 @@ ___return (physicaldeviceproperties2khr);"))
       VkFormatProperties2sType
       VkFormatProperties2
       VkFormatProperties2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkFormatProperties2 (struct "VkFormatProperties2"))
    (c-define-type VkFormatProperties2* (pointer VkFormatProperties2))
@@ -11889,10 +12381,13 @@ formatproperties2->formatProperties=___arg3;
 ___return (formatproperties2);"))
 (begin-ffi
    (make-VkFormatProperties2KHR VkFormatProperties2KHR VkFormatProperties2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkFormatProperties2KHR (struct "VkFormatProperties2KHR"))
    (c-define-type VkFormatProperties2KHR* (pointer VkFormatProperties2KHR))
@@ -11909,10 +12404,13 @@ ___return (formatproperties2khr);"))
       VkImageFormatProperties2sType
       VkImageFormatProperties2
       VkImageFormatProperties2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageFormatProperties2 (struct "VkImageFormatProperties2"))
    (c-define-type VkImageFormatProperties2* (pointer VkImageFormatProperties2))
@@ -11944,10 +12442,13 @@ ___return (imageformatproperties2);"))
    (make-VkImageFormatProperties2KHR
       VkImageFormatProperties2KHR
       VkImageFormatProperties2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageFormatProperties2KHR (struct "VkImageFormatProperties2KHR"))
    (c-define-type VkImageFormatProperties2KHR* (pointer VkImageFormatProperties2KHR))
@@ -11968,10 +12469,13 @@ ___return (imageformatproperties2khr);"))
       VkPhysicalDeviceImageFormatInfo2sType
       VkPhysicalDeviceImageFormatInfo2
       VkPhysicalDeviceImageFormatInfo2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceImageFormatInfo2
@@ -12037,10 +12541,13 @@ ___return (physicaldeviceimageformatinfo2);"))
    (make-VkPhysicalDeviceImageFormatInfo2KHR
       VkPhysicalDeviceImageFormatInfo2KHR
       VkPhysicalDeviceImageFormatInfo2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceImageFormatInfo2KHR
@@ -12061,10 +12568,13 @@ ___return (physicaldeviceimageformatinfo2khr);"))
       VkQueueFamilyProperties2sType
       VkQueueFamilyProperties2
       VkQueueFamilyProperties2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkQueueFamilyProperties2 (struct "VkQueueFamilyProperties2"))
    (c-define-type VkQueueFamilyProperties2* (pointer VkQueueFamilyProperties2))
@@ -12096,10 +12606,13 @@ ___return (queuefamilyproperties2);"))
    (make-VkQueueFamilyProperties2KHR
       VkQueueFamilyProperties2KHR
       VkQueueFamilyProperties2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkQueueFamilyProperties2KHR (struct "VkQueueFamilyProperties2KHR"))
    (c-define-type VkQueueFamilyProperties2KHR* (pointer VkQueueFamilyProperties2KHR))
@@ -12116,10 +12629,13 @@ ___return (queuefamilyproperties2khr);"))
       VkPhysicalDeviceMemoryProperties2sType
       VkPhysicalDeviceMemoryProperties2
       VkPhysicalDeviceMemoryProperties2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMemoryProperties2
@@ -12155,10 +12671,13 @@ ___return (physicaldevicememoryproperties2);"))
    (make-VkPhysicalDeviceMemoryProperties2KHR
       VkPhysicalDeviceMemoryProperties2KHR
       VkPhysicalDeviceMemoryProperties2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMemoryProperties2KHR
@@ -12179,10 +12698,13 @@ ___return (physicaldevicememoryproperties2khr);"))
       VkSparseImageFormatProperties2sType
       VkSparseImageFormatProperties2
       VkSparseImageFormatProperties2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSparseImageFormatProperties2
@@ -12218,10 +12740,13 @@ ___return (sparseimageformatproperties2);"))
    (make-VkSparseImageFormatProperties2KHR
       VkSparseImageFormatProperties2KHR
       VkSparseImageFormatProperties2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSparseImageFormatProperties2KHR
@@ -12246,10 +12771,13 @@ ___return (sparseimageformatproperties2khr);"))
       VkPhysicalDeviceSparseImageFormatInfo2sType
       VkPhysicalDeviceSparseImageFormatInfo2
       VkPhysicalDeviceSparseImageFormatInfo2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSparseImageFormatInfo2
@@ -12315,10 +12843,13 @@ ___return (physicaldevicesparseimageformatinfo2);"))
    (make-VkPhysicalDeviceSparseImageFormatInfo2KHR
       VkPhysicalDeviceSparseImageFormatInfo2KHR
       VkPhysicalDeviceSparseImageFormatInfo2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSparseImageFormatInfo2KHR
@@ -12339,10 +12870,13 @@ ___return (physicaldevicesparseimageformatinfo2khr);"))
       VkPhysicalDevicePushDescriptorPropertiesKHRsType
       VkPhysicalDevicePushDescriptorPropertiesKHR
       VkPhysicalDevicePushDescriptorPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDevicePushDescriptorPropertiesKHR
@@ -12382,10 +12916,13 @@ ___return (physicaldevicepushdescriptorpropertieskhr);"))
       VkConformanceVersionKHRmajor
       VkConformanceVersionKHR
       VkConformanceVersionKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkConformanceVersionKHR (struct "VkConformanceVersionKHR"))
    (c-define-type VkConformanceVersionKHR* (pointer VkConformanceVersionKHR))
@@ -12429,10 +12966,13 @@ ___return (conformanceversionkhr);"))
       VkPhysicalDeviceDriverPropertiesKHRsType
       VkPhysicalDeviceDriverPropertiesKHR
       VkPhysicalDeviceDriverPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceDriverPropertiesKHR
@@ -12489,10 +13029,13 @@ ___return (physicaldevicedriverpropertieskhr);"))
       VkRectLayerKHRoffset
       VkRectLayerKHR
       VkRectLayerKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkRectLayerKHR (struct "VkRectLayerKHR"))
    (c-define-type VkRectLayerKHR* (pointer VkRectLayerKHR))
@@ -12526,10 +13069,13 @@ ___return (rectlayerkhr);"))
       VkPresentRegionKHRrectangleCount
       VkPresentRegionKHR
       VkPresentRegionKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPresentRegionKHR (struct "VkPresentRegionKHR"))
    (c-define-type VkPresentRegionKHR* (pointer VkPresentRegionKHR))
@@ -12559,10 +13105,13 @@ ___return (presentregionkhr);"))
       VkPresentRegionsKHRsType
       VkPresentRegionsKHR
       VkPresentRegionsKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPresentRegionsKHR (struct "VkPresentRegionsKHR"))
    (c-define-type VkPresentRegionsKHR* (pointer VkPresentRegionsKHR))
@@ -12604,10 +13153,13 @@ ___return (presentregionskhr);"))
       VkPhysicalDeviceVariablePointersFeaturessType
       VkPhysicalDeviceVariablePointersFeatures
       VkPhysicalDeviceVariablePointersFeatures*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceVariablePointersFeatures
@@ -12649,10 +13201,13 @@ ___return (physicaldevicevariablepointersfeatures);"))
    (make-VkPhysicalDeviceVariablePointersFeaturesKHR
       VkPhysicalDeviceVariablePointersFeaturesKHR
       VkPhysicalDeviceVariablePointersFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceVariablePointersFeaturesKHR
@@ -12670,10 +13225,13 @@ ___return (physicaldevicevariablepointersfeatureskhr);"))
    (make-VkPhysicalDeviceVariablePointerFeaturesKHR
       VkPhysicalDeviceVariablePointerFeaturesKHR
       VkPhysicalDeviceVariablePointerFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceVariablePointerFeaturesKHR
@@ -12691,10 +13249,13 @@ ___return (physicaldevicevariablepointerfeatureskhr);"))
    (make-VkPhysicalDeviceVariablePointerFeatures
       VkPhysicalDeviceVariablePointerFeatures
       VkPhysicalDeviceVariablePointerFeatures*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceVariablePointerFeatures
@@ -12715,10 +13276,13 @@ ___return (physicaldevicevariablepointerfeatures);"))
       VkExternalMemoryPropertiesexternalMemoryFeatures
       VkExternalMemoryProperties
       VkExternalMemoryProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExternalMemoryProperties (struct "VkExternalMemoryProperties"))
    (c-define-type VkExternalMemoryProperties* (pointer VkExternalMemoryProperties))
@@ -12752,10 +13316,13 @@ ___return (externalmemoryproperties);"))
    (make-VkExternalMemoryPropertiesKHR
       VkExternalMemoryPropertiesKHR
       VkExternalMemoryPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExternalMemoryPropertiesKHR (struct "VkExternalMemoryPropertiesKHR"))
    (c-define-type VkExternalMemoryPropertiesKHR* (pointer VkExternalMemoryPropertiesKHR))
@@ -12772,10 +13339,13 @@ ___return (externalmemorypropertieskhr);"))
       VkPhysicalDeviceExternalImageFormatInfosType
       VkPhysicalDeviceExternalImageFormatInfo
       VkPhysicalDeviceExternalImageFormatInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExternalImageFormatInfo
@@ -12811,10 +13381,13 @@ ___return (physicaldeviceexternalimageformatinfo);"))
    (make-VkPhysicalDeviceExternalImageFormatInfoKHR
       VkPhysicalDeviceExternalImageFormatInfoKHR
       VkPhysicalDeviceExternalImageFormatInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExternalImageFormatInfoKHR
@@ -12835,10 +13408,13 @@ ___return (physicaldeviceexternalimageformatinfokhr);"))
       VkExternalImageFormatPropertiessType
       VkExternalImageFormatProperties
       VkExternalImageFormatProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExternalImageFormatProperties
@@ -12874,10 +13450,13 @@ ___return (externalimageformatproperties);"))
    (make-VkExternalImageFormatPropertiesKHR
       VkExternalImageFormatPropertiesKHR
       VkExternalImageFormatPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExternalImageFormatPropertiesKHR
@@ -12900,10 +13479,13 @@ ___return (externalimageformatpropertieskhr);"))
       VkPhysicalDeviceExternalBufferInfosType
       VkPhysicalDeviceExternalBufferInfo
       VkPhysicalDeviceExternalBufferInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExternalBufferInfo
@@ -12955,10 +13537,13 @@ ___return (physicaldeviceexternalbufferinfo);"))
    (make-VkPhysicalDeviceExternalBufferInfoKHR
       VkPhysicalDeviceExternalBufferInfoKHR
       VkPhysicalDeviceExternalBufferInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExternalBufferInfoKHR
@@ -12979,10 +13564,13 @@ ___return (physicaldeviceexternalbufferinfokhr);"))
       VkExternalBufferPropertiessType
       VkExternalBufferProperties
       VkExternalBufferProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExternalBufferProperties (struct "VkExternalBufferProperties"))
    (c-define-type VkExternalBufferProperties* (pointer VkExternalBufferProperties))
@@ -13014,10 +13602,13 @@ ___return (externalbufferproperties);"))
    (make-VkExternalBufferPropertiesKHR
       VkExternalBufferPropertiesKHR
       VkExternalBufferPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExternalBufferPropertiesKHR (struct "VkExternalBufferPropertiesKHR"))
    (c-define-type VkExternalBufferPropertiesKHR* (pointer VkExternalBufferPropertiesKHR))
@@ -13038,10 +13629,13 @@ ___return (externalbufferpropertieskhr);"))
       VkPhysicalDeviceIDPropertiessType
       VkPhysicalDeviceIDProperties
       VkPhysicalDeviceIDProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPhysicalDeviceIDProperties (struct "VkPhysicalDeviceIDProperties"))
    (c-define-type VkPhysicalDeviceIDProperties* (pointer VkPhysicalDeviceIDProperties))
@@ -13097,10 +13691,13 @@ ___return (physicaldeviceidproperties);"))
    (make-VkPhysicalDeviceIDPropertiesKHR
       VkPhysicalDeviceIDPropertiesKHR
       VkPhysicalDeviceIDPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceIDPropertiesKHR
@@ -13121,10 +13718,13 @@ ___return (physicaldeviceidpropertieskhr);"))
       VkExternalMemoryImageCreateInfosType
       VkExternalMemoryImageCreateInfo
       VkExternalMemoryImageCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExternalMemoryImageCreateInfo
@@ -13160,10 +13760,13 @@ ___return (externalmemoryimagecreateinfo);"))
    (make-VkExternalMemoryImageCreateInfoKHR
       VkExternalMemoryImageCreateInfoKHR
       VkExternalMemoryImageCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExternalMemoryImageCreateInfoKHR
@@ -13184,10 +13787,13 @@ ___return (externalmemoryimagecreateinfokhr);"))
       VkExternalMemoryBufferCreateInfosType
       VkExternalMemoryBufferCreateInfo
       VkExternalMemoryBufferCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExternalMemoryBufferCreateInfo
@@ -13223,10 +13829,13 @@ ___return (externalmemorybuffercreateinfo);"))
    (make-VkExternalMemoryBufferCreateInfoKHR
       VkExternalMemoryBufferCreateInfoKHR
       VkExternalMemoryBufferCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExternalMemoryBufferCreateInfoKHR
@@ -13247,10 +13856,13 @@ ___return (externalmemorybuffercreateinfokhr);"))
       VkExportMemoryAllocateInfosType
       VkExportMemoryAllocateInfo
       VkExportMemoryAllocateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExportMemoryAllocateInfo (struct "VkExportMemoryAllocateInfo"))
    (c-define-type VkExportMemoryAllocateInfo* (pointer VkExportMemoryAllocateInfo))
@@ -13282,10 +13894,13 @@ ___return (exportmemoryallocateinfo);"))
    (make-VkExportMemoryAllocateInfoKHR
       VkExportMemoryAllocateInfoKHR
       VkExportMemoryAllocateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExportMemoryAllocateInfoKHR (struct "VkExportMemoryAllocateInfoKHR"))
    (c-define-type VkExportMemoryAllocateInfoKHR* (pointer VkExportMemoryAllocateInfoKHR))
@@ -13303,10 +13918,13 @@ ___return (exportmemoryallocateinfokhr);"))
       VkImportMemoryFdInfoKHRsType
       VkImportMemoryFdInfoKHR
       VkImportMemoryFdInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImportMemoryFdInfoKHR (struct "VkImportMemoryFdInfoKHR"))
    (c-define-type VkImportMemoryFdInfoKHR* (pointer VkImportMemoryFdInfoKHR))
@@ -13347,10 +13965,13 @@ ___return (importmemoryfdinfokhr);"))
       VkMemoryFdPropertiesKHRsType
       VkMemoryFdPropertiesKHR
       VkMemoryFdPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryFdPropertiesKHR (struct "VkMemoryFdPropertiesKHR"))
    (c-define-type VkMemoryFdPropertiesKHR* (pointer VkMemoryFdPropertiesKHR))
@@ -13386,10 +14007,13 @@ ___return (memoryfdpropertieskhr);"))
       VkMemoryGetFdInfoKHRsType
       VkMemoryGetFdInfoKHR
       VkMemoryGetFdInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryGetFdInfoKHR (struct "VkMemoryGetFdInfoKHR"))
    (c-define-type VkMemoryGetFdInfoKHR* (pointer VkMemoryGetFdInfoKHR))
@@ -13430,10 +14054,13 @@ ___return (memorygetfdinfokhr);"))
       VkPhysicalDeviceExternalSemaphoreInfosType
       VkPhysicalDeviceExternalSemaphoreInfo
       VkPhysicalDeviceExternalSemaphoreInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExternalSemaphoreInfo
@@ -13469,10 +14096,13 @@ ___return (physicaldeviceexternalsemaphoreinfo);"))
    (make-VkPhysicalDeviceExternalSemaphoreInfoKHR
       VkPhysicalDeviceExternalSemaphoreInfoKHR
       VkPhysicalDeviceExternalSemaphoreInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExternalSemaphoreInfoKHR
@@ -13495,10 +14125,13 @@ ___return (physicaldeviceexternalsemaphoreinfokhr);"))
       VkExternalSemaphorePropertiessType
       VkExternalSemaphoreProperties
       VkExternalSemaphoreProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExternalSemaphoreProperties (struct "VkExternalSemaphoreProperties"))
    (c-define-type VkExternalSemaphoreProperties* (pointer VkExternalSemaphoreProperties))
@@ -13546,10 +14179,13 @@ ___return (externalsemaphoreproperties);"))
    (make-VkExternalSemaphorePropertiesKHR
       VkExternalSemaphorePropertiesKHR
       VkExternalSemaphorePropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExternalSemaphorePropertiesKHR
@@ -13570,10 +14206,13 @@ ___return (externalsemaphorepropertieskhr);"))
       VkExportSemaphoreCreateInfosType
       VkExportSemaphoreCreateInfo
       VkExportSemaphoreCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExportSemaphoreCreateInfo (struct "VkExportSemaphoreCreateInfo"))
    (c-define-type VkExportSemaphoreCreateInfo* (pointer VkExportSemaphoreCreateInfo))
@@ -13605,10 +14244,13 @@ ___return (exportsemaphorecreateinfo);"))
    (make-VkExportSemaphoreCreateInfoKHR
       VkExportSemaphoreCreateInfoKHR
       VkExportSemaphoreCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkExportSemaphoreCreateInfoKHR
@@ -13632,10 +14274,13 @@ ___return (exportsemaphorecreateinfokhr);"))
       VkImportSemaphoreFdInfoKHRsType
       VkImportSemaphoreFdInfoKHR
       VkImportSemaphoreFdInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImportSemaphoreFdInfoKHR (struct "VkImportSemaphoreFdInfoKHR"))
    (c-define-type VkImportSemaphoreFdInfoKHR* (pointer VkImportSemaphoreFdInfoKHR))
@@ -13694,10 +14339,13 @@ ___return (importsemaphorefdinfokhr);"))
       VkSemaphoreGetFdInfoKHRsType
       VkSemaphoreGetFdInfoKHR
       VkSemaphoreGetFdInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSemaphoreGetFdInfoKHR (struct "VkSemaphoreGetFdInfoKHR"))
    (c-define-type VkSemaphoreGetFdInfoKHR* (pointer VkSemaphoreGetFdInfoKHR))
@@ -13738,10 +14386,13 @@ ___return (semaphoregetfdinfokhr);"))
       VkPhysicalDeviceExternalFenceInfosType
       VkPhysicalDeviceExternalFenceInfo
       VkPhysicalDeviceExternalFenceInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExternalFenceInfo
@@ -13777,10 +14428,13 @@ ___return (physicaldeviceexternalfenceinfo);"))
    (make-VkPhysicalDeviceExternalFenceInfoKHR
       VkPhysicalDeviceExternalFenceInfoKHR
       VkPhysicalDeviceExternalFenceInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExternalFenceInfoKHR
@@ -13803,10 +14457,13 @@ ___return (physicaldeviceexternalfenceinfokhr);"))
       VkExternalFencePropertiessType
       VkExternalFenceProperties
       VkExternalFenceProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExternalFenceProperties (struct "VkExternalFenceProperties"))
    (c-define-type VkExternalFenceProperties* (pointer VkExternalFenceProperties))
@@ -13854,10 +14511,13 @@ ___return (externalfenceproperties);"))
    (make-VkExternalFencePropertiesKHR
       VkExternalFencePropertiesKHR
       VkExternalFencePropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExternalFencePropertiesKHR (struct "VkExternalFencePropertiesKHR"))
    (c-define-type VkExternalFencePropertiesKHR* (pointer VkExternalFencePropertiesKHR))
@@ -13874,10 +14534,13 @@ ___return (externalfencepropertieskhr);"))
       VkExportFenceCreateInfosType
       VkExportFenceCreateInfo
       VkExportFenceCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExportFenceCreateInfo (struct "VkExportFenceCreateInfo"))
    (c-define-type VkExportFenceCreateInfo* (pointer VkExportFenceCreateInfo))
@@ -13909,10 +14572,13 @@ ___return (exportfencecreateinfo);"))
    (make-VkExportFenceCreateInfoKHR
       VkExportFenceCreateInfoKHR
       VkExportFenceCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkExportFenceCreateInfoKHR (struct "VkExportFenceCreateInfoKHR"))
    (c-define-type VkExportFenceCreateInfoKHR* (pointer VkExportFenceCreateInfoKHR))
@@ -13932,10 +14598,13 @@ ___return (exportfencecreateinfokhr);"))
       VkImportFenceFdInfoKHRsType
       VkImportFenceFdInfoKHR
       VkImportFenceFdInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImportFenceFdInfoKHR (struct "VkImportFenceFdInfoKHR"))
    (c-define-type VkImportFenceFdInfoKHR* (pointer VkImportFenceFdInfoKHR))
@@ -13994,10 +14663,13 @@ ___return (importfencefdinfokhr);"))
       VkFenceGetFdInfoKHRsType
       VkFenceGetFdInfoKHR
       VkFenceGetFdInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkFenceGetFdInfoKHR (struct "VkFenceGetFdInfoKHR"))
    (c-define-type VkFenceGetFdInfoKHR* (pointer VkFenceGetFdInfoKHR))
@@ -14040,10 +14712,13 @@ ___return (fencegetfdinfokhr);"))
       VkPhysicalDeviceMultiviewFeaturessType
       VkPhysicalDeviceMultiviewFeatures
       VkPhysicalDeviceMultiviewFeatures*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMultiviewFeatures
@@ -14091,10 +14766,13 @@ ___return (physicaldevicemultiviewfeatures);"))
    (make-VkPhysicalDeviceMultiviewFeaturesKHR
       VkPhysicalDeviceMultiviewFeaturesKHR
       VkPhysicalDeviceMultiviewFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMultiviewFeaturesKHR
@@ -14116,10 +14794,13 @@ ___return (physicaldevicemultiviewfeatureskhr);"))
       VkPhysicalDeviceMultiviewPropertiessType
       VkPhysicalDeviceMultiviewProperties
       VkPhysicalDeviceMultiviewProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMultiviewProperties
@@ -14161,10 +14842,13 @@ ___return (physicaldevicemultiviewproperties);"))
    (make-VkPhysicalDeviceMultiviewPropertiesKHR
       VkPhysicalDeviceMultiviewPropertiesKHR
       VkPhysicalDeviceMultiviewPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMultiviewPropertiesKHR
@@ -14190,10 +14874,13 @@ ___return (physicaldevicemultiviewpropertieskhr);"))
       VkRenderPassMultiviewCreateInfosType
       VkRenderPassMultiviewCreateInfo
       VkRenderPassMultiviewCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkRenderPassMultiviewCreateInfo
@@ -14259,10 +14946,13 @@ ___return (renderpassmultiviewcreateinfo);"))
    (make-VkRenderPassMultiviewCreateInfoKHR
       VkRenderPassMultiviewCreateInfoKHR
       VkRenderPassMultiviewCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkRenderPassMultiviewCreateInfoKHR
@@ -14293,10 +14983,13 @@ ___return (renderpassmultiviewcreateinfokhr);"))
       VkSurfaceCapabilities2EXTsType
       VkSurfaceCapabilities2EXT
       VkSurfaceCapabilities2EXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSurfaceCapabilities2EXT (struct "VkSurfaceCapabilities2EXT"))
    (c-define-type VkSurfaceCapabilities2EXT* (pointer VkSurfaceCapabilities2EXT))
@@ -14403,10 +15096,13 @@ ___return (surfacecapabilities2ext);"))
       VkDisplayPowerInfoEXTsType
       VkDisplayPowerInfoEXT
       VkDisplayPowerInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayPowerInfoEXT (struct "VkDisplayPowerInfoEXT"))
    (c-define-type VkDisplayPowerInfoEXT* (pointer VkDisplayPowerInfoEXT))
@@ -14441,10 +15137,13 @@ ___return (displaypowerinfoext);"))
       VkDeviceEventInfoEXTsType
       VkDeviceEventInfoEXT
       VkDeviceEventInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceEventInfoEXT (struct "VkDeviceEventInfoEXT"))
    (c-define-type VkDeviceEventInfoEXT* (pointer VkDeviceEventInfoEXT))
@@ -14479,10 +15178,13 @@ ___return (deviceeventinfoext);"))
       VkDisplayEventInfoEXTsType
       VkDisplayEventInfoEXT
       VkDisplayEventInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayEventInfoEXT (struct "VkDisplayEventInfoEXT"))
    (c-define-type VkDisplayEventInfoEXT* (pointer VkDisplayEventInfoEXT))
@@ -14517,10 +15219,13 @@ ___return (displayeventinfoext);"))
       VkSwapchainCounterCreateInfoEXTsType
       VkSwapchainCounterCreateInfoEXT
       VkSwapchainCounterCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSwapchainCounterCreateInfoEXT
@@ -14561,10 +15266,13 @@ ___return (swapchaincountercreateinfoext);"))
       VkPhysicalDeviceGroupPropertiessType
       VkPhysicalDeviceGroupProperties
       VkPhysicalDeviceGroupProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceGroupProperties
@@ -14612,10 +15320,13 @@ ___return (physicaldevicegroupproperties);"))
    (make-VkPhysicalDeviceGroupPropertiesKHR
       VkPhysicalDeviceGroupPropertiesKHR
       VkPhysicalDeviceGroupPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceGroupPropertiesKHR
@@ -14637,10 +15348,13 @@ ___return (physicaldevicegrouppropertieskhr);"))
       VkMemoryAllocateFlagsInfosType
       VkMemoryAllocateFlagsInfo
       VkMemoryAllocateFlagsInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryAllocateFlagsInfo (struct "VkMemoryAllocateFlagsInfo"))
    (c-define-type VkMemoryAllocateFlagsInfo* (pointer VkMemoryAllocateFlagsInfo))
@@ -14678,10 +15392,13 @@ ___return (memoryallocateflagsinfo);"))
    (make-VkMemoryAllocateFlagsInfoKHR
       VkMemoryAllocateFlagsInfoKHR
       VkMemoryAllocateFlagsInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryAllocateFlagsInfoKHR (struct "VkMemoryAllocateFlagsInfoKHR"))
    (c-define-type VkMemoryAllocateFlagsInfoKHR* (pointer VkMemoryAllocateFlagsInfoKHR))
@@ -14700,10 +15417,13 @@ ___return (memoryallocateflagsinfokhr);"))
       VkBindBufferMemoryInfosType
       VkBindBufferMemoryInfo
       VkBindBufferMemoryInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBindBufferMemoryInfo (struct "VkBindBufferMemoryInfo"))
    (c-define-type VkBindBufferMemoryInfo* (pointer VkBindBufferMemoryInfo))
@@ -14745,10 +15465,13 @@ bindbuffermemoryinfo->memoryOffset=___arg5;
 ___return (bindbuffermemoryinfo);"))
 (begin-ffi
    (make-VkBindBufferMemoryInfoKHR VkBindBufferMemoryInfoKHR VkBindBufferMemoryInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBindBufferMemoryInfoKHR (struct "VkBindBufferMemoryInfoKHR"))
    (c-define-type VkBindBufferMemoryInfoKHR* (pointer VkBindBufferMemoryInfoKHR))
@@ -14766,10 +15489,13 @@ ___return (bindbuffermemoryinfokhr);"))
       VkBindBufferMemoryDeviceGroupInfosType
       VkBindBufferMemoryDeviceGroupInfo
       VkBindBufferMemoryDeviceGroupInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkBindBufferMemoryDeviceGroupInfo
@@ -14811,10 +15537,13 @@ ___return (bindbuffermemorydevicegroupinfo);"))
    (make-VkBindBufferMemoryDeviceGroupInfoKHR
       VkBindBufferMemoryDeviceGroupInfoKHR
       VkBindBufferMemoryDeviceGroupInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkBindBufferMemoryDeviceGroupInfoKHR
@@ -14837,10 +15566,13 @@ ___return (bindbuffermemorydevicegroupinfokhr);"))
       VkBindImageMemoryInfosType
       VkBindImageMemoryInfo
       VkBindImageMemoryInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBindImageMemoryInfo (struct "VkBindImageMemoryInfo"))
    (c-define-type VkBindImageMemoryInfo* (pointer VkBindImageMemoryInfo))
@@ -14882,10 +15614,13 @@ bindimagememoryinfo->memoryOffset=___arg5;
 ___return (bindimagememoryinfo);"))
 (begin-ffi
    (make-VkBindImageMemoryInfoKHR VkBindImageMemoryInfoKHR VkBindImageMemoryInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBindImageMemoryInfoKHR (struct "VkBindImageMemoryInfoKHR"))
    (c-define-type VkBindImageMemoryInfoKHR* (pointer VkBindImageMemoryInfoKHR))
@@ -14905,10 +15640,13 @@ ___return (bindimagememoryinfokhr);"))
       VkBindImageMemoryDeviceGroupInfosType
       VkBindImageMemoryDeviceGroupInfo
       VkBindImageMemoryDeviceGroupInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkBindImageMemoryDeviceGroupInfo
@@ -14962,10 +15700,13 @@ ___return (bindimagememorydevicegroupinfo);"))
    (make-VkBindImageMemoryDeviceGroupInfoKHR
       VkBindImageMemoryDeviceGroupInfoKHR
       VkBindImageMemoryDeviceGroupInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkBindImageMemoryDeviceGroupInfoKHR
@@ -14988,10 +15729,13 @@ ___return (bindimagememorydevicegroupinfokhr);"))
       VkDeviceGroupRenderPassBeginInfosType
       VkDeviceGroupRenderPassBeginInfo
       VkDeviceGroupRenderPassBeginInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGroupRenderPassBeginInfo
@@ -15039,10 +15783,13 @@ ___return (devicegrouprenderpassbegininfo);"))
    (make-VkDeviceGroupRenderPassBeginInfoKHR
       VkDeviceGroupRenderPassBeginInfoKHR
       VkDeviceGroupRenderPassBeginInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGroupRenderPassBeginInfoKHR
@@ -15063,10 +15810,13 @@ ___return (devicegrouprenderpassbegininfokhr);"))
       VkDeviceGroupCommandBufferBeginInfosType
       VkDeviceGroupCommandBufferBeginInfo
       VkDeviceGroupCommandBufferBeginInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGroupCommandBufferBeginInfo
@@ -15102,10 +15852,13 @@ ___return (devicegroupcommandbufferbegininfo);"))
    (make-VkDeviceGroupCommandBufferBeginInfoKHR
       VkDeviceGroupCommandBufferBeginInfoKHR
       VkDeviceGroupCommandBufferBeginInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGroupCommandBufferBeginInfoKHR
@@ -15131,10 +15884,13 @@ ___return (devicegroupcommandbufferbegininfokhr);"))
       VkDeviceGroupSubmitInfosType
       VkDeviceGroupSubmitInfo
       VkDeviceGroupSubmitInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceGroupSubmitInfo (struct "VkDeviceGroupSubmitInfo"))
    (c-define-type VkDeviceGroupSubmitInfo* (pointer VkDeviceGroupSubmitInfo))
@@ -15196,10 +15952,13 @@ ___return (devicegroupsubmitinfo);"))
    (make-VkDeviceGroupSubmitInfoKHR
       VkDeviceGroupSubmitInfoKHR
       VkDeviceGroupSubmitInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceGroupSubmitInfoKHR (struct "VkDeviceGroupSubmitInfoKHR"))
    (c-define-type VkDeviceGroupSubmitInfoKHR* (pointer VkDeviceGroupSubmitInfoKHR))
@@ -15217,10 +15976,13 @@ ___return (devicegroupsubmitinfokhr);"))
       VkDeviceGroupBindSparseInfosType
       VkDeviceGroupBindSparseInfo
       VkDeviceGroupBindSparseInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceGroupBindSparseInfo (struct "VkDeviceGroupBindSparseInfo"))
    (c-define-type VkDeviceGroupBindSparseInfo* (pointer VkDeviceGroupBindSparseInfo))
@@ -15258,10 +16020,13 @@ ___return (devicegroupbindsparseinfo);"))
    (make-VkDeviceGroupBindSparseInfoKHR
       VkDeviceGroupBindSparseInfoKHR
       VkDeviceGroupBindSparseInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGroupBindSparseInfoKHR
@@ -15283,10 +16048,13 @@ ___return (devicegroupbindsparseinfokhr);"))
       VkDeviceGroupPresentCapabilitiesKHRsType
       VkDeviceGroupPresentCapabilitiesKHR
       VkDeviceGroupPresentCapabilitiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGroupPresentCapabilitiesKHR
@@ -15331,10 +16099,13 @@ ___return (devicegrouppresentcapabilitieskhr);"))
       VkImageSwapchainCreateInfoKHRsType
       VkImageSwapchainCreateInfoKHR
       VkImageSwapchainCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageSwapchainCreateInfoKHR (struct "VkImageSwapchainCreateInfoKHR"))
    (c-define-type VkImageSwapchainCreateInfoKHR* (pointer VkImageSwapchainCreateInfoKHR))
@@ -15370,10 +16141,13 @@ ___return (imageswapchaincreateinfokhr);"))
       VkBindImageMemorySwapchainInfoKHRsType
       VkBindImageMemorySwapchainInfoKHR
       VkBindImageMemorySwapchainInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkBindImageMemorySwapchainInfoKHR
@@ -15422,10 +16196,13 @@ ___return (bindimagememoryswapchaininfokhr);"))
       VkAcquireNextImageInfoKHRsType
       VkAcquireNextImageInfoKHR
       VkAcquireNextImageInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkAcquireNextImageInfoKHR (struct "VkAcquireNextImageInfoKHR"))
    (c-define-type VkAcquireNextImageInfoKHR* (pointer VkAcquireNextImageInfoKHR))
@@ -15486,10 +16263,13 @@ ___return (acquirenextimageinfokhr);"))
       VkDeviceGroupPresentInfoKHRsType
       VkDeviceGroupPresentInfoKHR
       VkDeviceGroupPresentInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceGroupPresentInfoKHR (struct "VkDeviceGroupPresentInfoKHR"))
    (c-define-type VkDeviceGroupPresentInfoKHR* (pointer VkDeviceGroupPresentInfoKHR))
@@ -15537,10 +16317,13 @@ ___return (devicegrouppresentinfokhr);"))
       VkDeviceGroupDeviceCreateInfosType
       VkDeviceGroupDeviceCreateInfo
       VkDeviceGroupDeviceCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceGroupDeviceCreateInfo (struct "VkDeviceGroupDeviceCreateInfo"))
    (c-define-type VkDeviceGroupDeviceCreateInfo* (pointer VkDeviceGroupDeviceCreateInfo))
@@ -15578,10 +16361,13 @@ ___return (devicegroupdevicecreateinfo);"))
    (make-VkDeviceGroupDeviceCreateInfoKHR
       VkDeviceGroupDeviceCreateInfoKHR
       VkDeviceGroupDeviceCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGroupDeviceCreateInfoKHR
@@ -15602,10 +16388,13 @@ ___return (devicegroupdevicecreateinfokhr);"))
       VkDeviceGroupSwapchainCreateInfoKHRsType
       VkDeviceGroupSwapchainCreateInfoKHR
       VkDeviceGroupSwapchainCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceGroupSwapchainCreateInfoKHR
@@ -15647,10 +16436,13 @@ ___return (devicegroupswapchaincreateinfokhr);"))
       VkDescriptorUpdateTemplateEntrydstBinding
       VkDescriptorUpdateTemplateEntry
       VkDescriptorUpdateTemplateEntry*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorUpdateTemplateEntry
@@ -15704,10 +16496,13 @@ ___return (descriptorupdatetemplateentry);"))
    (make-VkDescriptorUpdateTemplateEntryKHR
       VkDescriptorUpdateTemplateEntryKHR
       VkDescriptorUpdateTemplateEntryKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorUpdateTemplateEntryKHR
@@ -15735,10 +16530,13 @@ ___return (descriptorupdatetemplateentrykhr);"))
       VkDescriptorUpdateTemplateCreateInfosType
       VkDescriptorUpdateTemplateCreateInfo
       VkDescriptorUpdateTemplateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorUpdateTemplateCreateInfo
@@ -15825,10 +16623,13 @@ ___return (descriptorupdatetemplatecreateinfo);"))
    (make-VkDescriptorUpdateTemplateCreateInfoKHR
       VkDescriptorUpdateTemplateCreateInfoKHR
       VkDescriptorUpdateTemplateCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorUpdateTemplateCreateInfoKHR
@@ -15844,10 +16645,13 @@ ___return (descriptorupdatetemplatecreateinfo);"))
 ___return (descriptorupdatetemplatecreateinfokhr);"))
 (begin-ffi
    (make-VkXYColorEXT VkXYColorEXTy VkXYColorEXTx VkXYColorEXT VkXYColorEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkXYColorEXT (struct "VkXYColorEXT"))
    (c-define-type VkXYColorEXT* (pointer VkXYColorEXT))
@@ -15875,10 +16679,13 @@ ___return (xycolorext);"))
       VkHdrMetadataEXTsType
       VkHdrMetadataEXT
       VkHdrMetadataEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkHdrMetadataEXT (struct "VkHdrMetadataEXT"))
    (c-define-type VkHdrMetadataEXT* (pointer VkHdrMetadataEXT))
@@ -15964,10 +16771,13 @@ ___return (hdrmetadataext);"))
       VkDisplayNativeHdrSurfaceCapabilitiesAMDsType
       VkDisplayNativeHdrSurfaceCapabilitiesAMD
       VkDisplayNativeHdrSurfaceCapabilitiesAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDisplayNativeHdrSurfaceCapabilitiesAMD
@@ -16006,10 +16816,13 @@ ___return (displaynativehdrsurfacecapabilitiesamd);"))
       VkSwapchainDisplayNativeHdrCreateInfoAMDsType
       VkSwapchainDisplayNativeHdrCreateInfoAMD
       VkSwapchainDisplayNativeHdrCreateInfoAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSwapchainDisplayNativeHdrCreateInfoAMD
@@ -16046,10 +16859,13 @@ ___return (swapchaindisplaynativehdrcreateinfoamd);"))
       VkRefreshCycleDurationGOOGLErefreshDuration
       VkRefreshCycleDurationGOOGLE
       VkRefreshCycleDurationGOOGLE*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkRefreshCycleDurationGOOGLE (struct "VkRefreshCycleDurationGOOGLE"))
    (c-define-type VkRefreshCycleDurationGOOGLE* (pointer VkRefreshCycleDurationGOOGLE))
@@ -16074,10 +16890,13 @@ ___return (refreshcycledurationgoogle);"))
       VkPastPresentationTimingGOOGLEpresentID
       VkPastPresentationTimingGOOGLE
       VkPastPresentationTimingGOOGLE*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPastPresentationTimingGOOGLE
@@ -16127,10 +16946,13 @@ ___return (pastpresentationtiminggoogle);"))
       VkPresentTimeGOOGLEpresentID
       VkPresentTimeGOOGLE
       VkPresentTimeGOOGLE*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPresentTimeGOOGLE (struct "VkPresentTimeGOOGLE"))
    (c-define-type VkPresentTimeGOOGLE* (pointer VkPresentTimeGOOGLE))
@@ -16160,10 +16982,13 @@ ___return (presenttimegoogle);"))
       VkPresentTimesInfoGOOGLEsType
       VkPresentTimesInfoGOOGLE
       VkPresentTimesInfoGOOGLE*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPresentTimesInfoGOOGLE (struct "VkPresentTimesInfoGOOGLE"))
    (c-define-type VkPresentTimesInfoGOOGLE* (pointer VkPresentTimesInfoGOOGLE))
@@ -16203,10 +17028,13 @@ ___return (presenttimesinfogoogle);"))
       VkViewportWScalingNVxcoeff
       VkViewportWScalingNV
       VkViewportWScalingNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkViewportWScalingNV (struct "VkViewportWScalingNV"))
    (c-define-type VkViewportWScalingNV* (pointer VkViewportWScalingNV))
@@ -16237,10 +17065,13 @@ ___return (viewportwscalingnv);"))
       VkPipelineViewportWScalingStateCreateInfoNVsType
       VkPipelineViewportWScalingStateCreateInfoNV
       VkPipelineViewportWScalingStateCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineViewportWScalingStateCreateInfoNV
@@ -16292,10 +17123,13 @@ ___return (pipelineviewportwscalingstatecreateinfonv);"))
       VkViewportSwizzleNVx
       VkViewportSwizzleNV
       VkViewportSwizzleNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkViewportSwizzleNV (struct "VkViewportSwizzleNV"))
    (c-define-type VkViewportSwizzleNV* (pointer VkViewportSwizzleNV))
@@ -16341,10 +17175,13 @@ ___return (viewportswizzlenv);"))
       VkPipelineViewportSwizzleStateCreateInfoNVsType
       VkPipelineViewportSwizzleStateCreateInfoNV
       VkPipelineViewportSwizzleStateCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineViewportSwizzleStateCreateInfoNV
@@ -16399,10 +17236,13 @@ ___return (pipelineviewportswizzlestatecreateinfonv);"))
       VkPhysicalDeviceDiscardRectanglePropertiesEXTsType
       VkPhysicalDeviceDiscardRectanglePropertiesEXT
       VkPhysicalDeviceDiscardRectanglePropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceDiscardRectanglePropertiesEXT
@@ -16444,10 +17284,13 @@ ___return (physicaldevicediscardrectanglepropertiesext);"))
       VkPipelineDiscardRectangleStateCreateInfoEXTsType
       VkPipelineDiscardRectangleStateCreateInfoEXT
       VkPipelineDiscardRectangleStateCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineDiscardRectangleStateCreateInfoEXT
@@ -16509,10 +17352,13 @@ ___return (pipelinediscardrectanglestatecreateinfoext);"))
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVXsType
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
@@ -16551,10 +17397,13 @@ ___return (physicaldevicemultiviewperviewattributespropertiesnvx);"))
       VkInputAttachmentAspectReferencesubpass
       VkInputAttachmentAspectReference
       VkInputAttachmentAspectReference*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkInputAttachmentAspectReference
@@ -16590,10 +17439,13 @@ ___return (inputattachmentaspectreference);"))
    (make-VkInputAttachmentAspectReferenceKHR
       VkInputAttachmentAspectReferenceKHR
       VkInputAttachmentAspectReferenceKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkInputAttachmentAspectReferenceKHR
@@ -16615,10 +17467,13 @@ ___return (inputattachmentaspectreferencekhr);"))
       VkRenderPassInputAttachmentAspectCreateInfosType
       VkRenderPassInputAttachmentAspectCreateInfo
       VkRenderPassInputAttachmentAspectCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkRenderPassInputAttachmentAspectCreateInfo
@@ -16660,10 +17515,13 @@ ___return (renderpassinputattachmentaspectcreateinfo);"))
    (make-VkRenderPassInputAttachmentAspectCreateInfoKHR
       VkRenderPassInputAttachmentAspectCreateInfoKHR
       VkRenderPassInputAttachmentAspectCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkRenderPassInputAttachmentAspectCreateInfoKHR
@@ -16684,10 +17542,13 @@ ___return (renderpassinputattachmentaspectcreateinfokhr);"))
       VkPhysicalDeviceSurfaceInfo2KHRsType
       VkPhysicalDeviceSurfaceInfo2KHR
       VkPhysicalDeviceSurfaceInfo2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSurfaceInfo2KHR
@@ -16726,10 +17587,13 @@ ___return (physicaldevicesurfaceinfo2khr);"))
       VkSurfaceCapabilities2KHRsType
       VkSurfaceCapabilities2KHR
       VkSurfaceCapabilities2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSurfaceCapabilities2KHR (struct "VkSurfaceCapabilities2KHR"))
    (c-define-type VkSurfaceCapabilities2KHR* (pointer VkSurfaceCapabilities2KHR))
@@ -16764,10 +17628,13 @@ ___return (surfacecapabilities2khr);"))
       VkSurfaceFormat2KHRsType
       VkSurfaceFormat2KHR
       VkSurfaceFormat2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSurfaceFormat2KHR (struct "VkSurfaceFormat2KHR"))
    (c-define-type VkSurfaceFormat2KHR* (pointer VkSurfaceFormat2KHR))
@@ -16802,10 +17669,13 @@ ___return (surfaceformat2khr);"))
       VkDisplayProperties2KHRsType
       VkDisplayProperties2KHR
       VkDisplayProperties2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayProperties2KHR (struct "VkDisplayProperties2KHR"))
    (c-define-type VkDisplayProperties2KHR* (pointer VkDisplayProperties2KHR))
@@ -16840,10 +17710,13 @@ ___return (displayproperties2khr);"))
       VkDisplayPlaneProperties2KHRsType
       VkDisplayPlaneProperties2KHR
       VkDisplayPlaneProperties2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayPlaneProperties2KHR (struct "VkDisplayPlaneProperties2KHR"))
    (c-define-type VkDisplayPlaneProperties2KHR* (pointer VkDisplayPlaneProperties2KHR))
@@ -16878,10 +17751,13 @@ ___return (displayplaneproperties2khr);"))
       VkDisplayModeProperties2KHRsType
       VkDisplayModeProperties2KHR
       VkDisplayModeProperties2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayModeProperties2KHR (struct "VkDisplayModeProperties2KHR"))
    (c-define-type VkDisplayModeProperties2KHR* (pointer VkDisplayModeProperties2KHR))
@@ -16917,10 +17793,13 @@ ___return (displaymodeproperties2khr);"))
       VkDisplayPlaneInfo2KHRsType
       VkDisplayPlaneInfo2KHR
       VkDisplayPlaneInfo2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDisplayPlaneInfo2KHR (struct "VkDisplayPlaneInfo2KHR"))
    (c-define-type VkDisplayPlaneInfo2KHR* (pointer VkDisplayPlaneInfo2KHR))
@@ -16961,10 +17840,13 @@ ___return (displayplaneinfo2khr);"))
       VkDisplayPlaneCapabilities2KHRsType
       VkDisplayPlaneCapabilities2KHR
       VkDisplayPlaneCapabilities2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDisplayPlaneCapabilities2KHR
@@ -17003,10 +17885,13 @@ ___return (displayplanecapabilities2khr);"))
       VkSharedPresentSurfaceCapabilitiesKHRsType
       VkSharedPresentSurfaceCapabilitiesKHR
       VkSharedPresentSurfaceCapabilitiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSharedPresentSurfaceCapabilitiesKHR
@@ -17048,10 +17933,13 @@ ___return (sharedpresentsurfacecapabilitieskhr);"))
       VkPhysicalDevice16BitStorageFeaturessType
       VkPhysicalDevice16BitStorageFeatures
       VkPhysicalDevice16BitStorageFeatures*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDevice16BitStorageFeatures
@@ -17105,10 +17993,13 @@ ___return (physicaldevice16bitstoragefeatures);"))
    (make-VkPhysicalDevice16BitStorageFeaturesKHR
       VkPhysicalDevice16BitStorageFeaturesKHR
       VkPhysicalDevice16BitStorageFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDevice16BitStorageFeaturesKHR
@@ -17132,10 +18023,13 @@ ___return (physicaldevice16bitstoragefeatureskhr);"))
       VkPhysicalDeviceSubgroupPropertiessType
       VkPhysicalDeviceSubgroupProperties
       VkPhysicalDeviceSubgroupProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSubgroupProperties
@@ -17192,10 +18086,13 @@ ___return (physicaldevicesubgroupproperties);"))
       VkBufferMemoryRequirementsInfo2sType
       VkBufferMemoryRequirementsInfo2
       VkBufferMemoryRequirementsInfo2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkBufferMemoryRequirementsInfo2
@@ -17231,10 +18128,13 @@ ___return (buffermemoryrequirementsinfo2);"))
    (make-VkBufferMemoryRequirementsInfo2KHR
       VkBufferMemoryRequirementsInfo2KHR
       VkBufferMemoryRequirementsInfo2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkBufferMemoryRequirementsInfo2KHR
@@ -17255,10 +18155,13 @@ ___return (buffermemoryrequirementsinfo2khr);"))
       VkImageMemoryRequirementsInfo2sType
       VkImageMemoryRequirementsInfo2
       VkImageMemoryRequirementsInfo2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImageMemoryRequirementsInfo2
@@ -17294,10 +18197,13 @@ ___return (imagememoryrequirementsinfo2);"))
    (make-VkImageMemoryRequirementsInfo2KHR
       VkImageMemoryRequirementsInfo2KHR
       VkImageMemoryRequirementsInfo2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImageMemoryRequirementsInfo2KHR
@@ -17318,10 +18224,13 @@ ___return (imagememoryrequirementsinfo2khr);"))
       VkImageSparseMemoryRequirementsInfo2sType
       VkImageSparseMemoryRequirementsInfo2
       VkImageSparseMemoryRequirementsInfo2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImageSparseMemoryRequirementsInfo2
@@ -17357,10 +18266,13 @@ ___return (imagesparsememoryrequirementsinfo2);"))
    (make-VkImageSparseMemoryRequirementsInfo2KHR
       VkImageSparseMemoryRequirementsInfo2KHR
       VkImageSparseMemoryRequirementsInfo2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImageSparseMemoryRequirementsInfo2KHR
@@ -17381,10 +18293,13 @@ ___return (imagesparsememoryrequirementsinfo2khr);"))
       VkMemoryRequirements2sType
       VkMemoryRequirements2
       VkMemoryRequirements2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryRequirements2 (struct "VkMemoryRequirements2"))
    (c-define-type VkMemoryRequirements2* (pointer VkMemoryRequirements2))
@@ -17414,10 +18329,13 @@ memoryrequirements2->memoryRequirements=___arg3;
 ___return (memoryrequirements2);"))
 (begin-ffi
    (make-VkMemoryRequirements2KHR VkMemoryRequirements2KHR VkMemoryRequirements2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryRequirements2KHR (struct "VkMemoryRequirements2KHR"))
    (c-define-type VkMemoryRequirements2KHR* (pointer VkMemoryRequirements2KHR))
@@ -17434,10 +18352,13 @@ ___return (memoryrequirements2khr);"))
       VkSparseImageMemoryRequirements2sType
       VkSparseImageMemoryRequirements2
       VkSparseImageMemoryRequirements2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSparseImageMemoryRequirements2
@@ -17473,10 +18394,13 @@ ___return (sparseimagememoryrequirements2);"))
    (make-VkSparseImageMemoryRequirements2KHR
       VkSparseImageMemoryRequirements2KHR
       VkSparseImageMemoryRequirements2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSparseImageMemoryRequirements2KHR
@@ -17497,10 +18421,13 @@ ___return (sparseimagememoryrequirements2khr);"))
       VkPhysicalDevicePointClippingPropertiessType
       VkPhysicalDevicePointClippingProperties
       VkPhysicalDevicePointClippingProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDevicePointClippingProperties
@@ -17536,10 +18463,13 @@ ___return (physicaldevicepointclippingproperties);"))
    (make-VkPhysicalDevicePointClippingPropertiesKHR
       VkPhysicalDevicePointClippingPropertiesKHR
       VkPhysicalDevicePointClippingPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDevicePointClippingPropertiesKHR
@@ -17561,10 +18491,13 @@ ___return (physicaldevicepointclippingpropertieskhr);"))
       VkMemoryDedicatedRequirementssType
       VkMemoryDedicatedRequirements
       VkMemoryDedicatedRequirements*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryDedicatedRequirements (struct "VkMemoryDedicatedRequirements"))
    (c-define-type VkMemoryDedicatedRequirements* (pointer VkMemoryDedicatedRequirements))
@@ -17602,10 +18535,13 @@ ___return (memorydedicatedrequirements);"))
    (make-VkMemoryDedicatedRequirementsKHR
       VkMemoryDedicatedRequirementsKHR
       VkMemoryDedicatedRequirementsKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkMemoryDedicatedRequirementsKHR
@@ -17627,10 +18563,13 @@ ___return (memorydedicatedrequirementskhr);"))
       VkMemoryDedicatedAllocateInfosType
       VkMemoryDedicatedAllocateInfo
       VkMemoryDedicatedAllocateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryDedicatedAllocateInfo (struct "VkMemoryDedicatedAllocateInfo"))
    (c-define-type VkMemoryDedicatedAllocateInfo* (pointer VkMemoryDedicatedAllocateInfo))
@@ -17668,10 +18607,13 @@ ___return (memorydedicatedallocateinfo);"))
    (make-VkMemoryDedicatedAllocateInfoKHR
       VkMemoryDedicatedAllocateInfoKHR
       VkMemoryDedicatedAllocateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkMemoryDedicatedAllocateInfoKHR
@@ -17692,10 +18634,13 @@ ___return (memorydedicatedallocateinfokhr);"))
       VkImageViewUsageCreateInfosType
       VkImageViewUsageCreateInfo
       VkImageViewUsageCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageViewUsageCreateInfo (struct "VkImageViewUsageCreateInfo"))
    (c-define-type VkImageViewUsageCreateInfo* (pointer VkImageViewUsageCreateInfo))
@@ -17727,10 +18672,13 @@ ___return (imageviewusagecreateinfo);"))
    (make-VkImageViewUsageCreateInfoKHR
       VkImageViewUsageCreateInfoKHR
       VkImageViewUsageCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageViewUsageCreateInfoKHR (struct "VkImageViewUsageCreateInfoKHR"))
    (c-define-type VkImageViewUsageCreateInfoKHR* (pointer VkImageViewUsageCreateInfoKHR))
@@ -17747,10 +18695,13 @@ ___return (imageviewusagecreateinfokhr);"))
       VkPipelineTessellationDomainOriginStateCreateInfosType
       VkPipelineTessellationDomainOriginStateCreateInfo
       VkPipelineTessellationDomainOriginStateCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineTessellationDomainOriginStateCreateInfo
@@ -17786,10 +18737,13 @@ ___return (pipelinetessellationdomainoriginstatecreateinfo);"))
    (make-VkPipelineTessellationDomainOriginStateCreateInfoKHR
       VkPipelineTessellationDomainOriginStateCreateInfoKHR
       VkPipelineTessellationDomainOriginStateCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineTessellationDomainOriginStateCreateInfoKHR
@@ -17810,10 +18764,13 @@ ___return (pipelinetessellationdomainoriginstatecreateinfokhr);"))
       VkSamplerYcbcrConversionInfosType
       VkSamplerYcbcrConversionInfo
       VkSamplerYcbcrConversionInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSamplerYcbcrConversionInfo (struct "VkSamplerYcbcrConversionInfo"))
    (c-define-type VkSamplerYcbcrConversionInfo* (pointer VkSamplerYcbcrConversionInfo))
@@ -17845,10 +18802,13 @@ ___return (samplerycbcrconversioninfo);"))
    (make-VkSamplerYcbcrConversionInfoKHR
       VkSamplerYcbcrConversionInfoKHR
       VkSamplerYcbcrConversionInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSamplerYcbcrConversionInfoKHR
@@ -17876,10 +18836,13 @@ ___return (samplerycbcrconversioninfokhr);"))
       VkSamplerYcbcrConversionCreateInfosType
       VkSamplerYcbcrConversionCreateInfo
       VkSamplerYcbcrConversionCreateInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSamplerYcbcrConversionCreateInfo
@@ -17966,10 +18929,13 @@ ___return (samplerycbcrconversioncreateinfo);"))
    (make-VkSamplerYcbcrConversionCreateInfoKHR
       VkSamplerYcbcrConversionCreateInfoKHR
       VkSamplerYcbcrConversionCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSamplerYcbcrConversionCreateInfoKHR
@@ -17990,10 +18956,13 @@ ___return (samplerycbcrconversioncreateinfokhr);"))
       VkBindImagePlaneMemoryInfosType
       VkBindImagePlaneMemoryInfo
       VkBindImagePlaneMemoryInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBindImagePlaneMemoryInfo (struct "VkBindImagePlaneMemoryInfo"))
    (c-define-type VkBindImagePlaneMemoryInfo* (pointer VkBindImagePlaneMemoryInfo))
@@ -18025,10 +18994,13 @@ ___return (bindimageplanememoryinfo);"))
    (make-VkBindImagePlaneMemoryInfoKHR
       VkBindImagePlaneMemoryInfoKHR
       VkBindImagePlaneMemoryInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBindImagePlaneMemoryInfoKHR (struct "VkBindImagePlaneMemoryInfoKHR"))
    (c-define-type VkBindImagePlaneMemoryInfoKHR* (pointer VkBindImagePlaneMemoryInfoKHR))
@@ -18045,10 +19017,13 @@ ___return (bindimageplanememoryinfokhr);"))
       VkImagePlaneMemoryRequirementsInfosType
       VkImagePlaneMemoryRequirementsInfo
       VkImagePlaneMemoryRequirementsInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImagePlaneMemoryRequirementsInfo
@@ -18084,10 +19059,13 @@ ___return (imageplanememoryrequirementsinfo);"))
    (make-VkImagePlaneMemoryRequirementsInfoKHR
       VkImagePlaneMemoryRequirementsInfoKHR
       VkImagePlaneMemoryRequirementsInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImagePlaneMemoryRequirementsInfoKHR
@@ -18108,10 +19086,13 @@ ___return (imageplanememoryrequirementsinfokhr);"))
       VkPhysicalDeviceSamplerYcbcrConversionFeaturessType
       VkPhysicalDeviceSamplerYcbcrConversionFeatures
       VkPhysicalDeviceSamplerYcbcrConversionFeatures*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSamplerYcbcrConversionFeatures
@@ -18147,10 +19128,13 @@ ___return (physicaldevicesamplerycbcrconversionfeatures);"))
    (make-VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
       VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
       VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
@@ -18171,10 +19155,13 @@ ___return (physicaldevicesamplerycbcrconversionfeatureskhr);"))
       VkSamplerYcbcrConversionImageFormatPropertiessType
       VkSamplerYcbcrConversionImageFormatProperties
       VkSamplerYcbcrConversionImageFormatProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSamplerYcbcrConversionImageFormatProperties
@@ -18210,10 +19197,13 @@ ___return (samplerycbcrconversionimageformatproperties);"))
    (make-VkSamplerYcbcrConversionImageFormatPropertiesKHR
       VkSamplerYcbcrConversionImageFormatPropertiesKHR
       VkSamplerYcbcrConversionImageFormatPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSamplerYcbcrConversionImageFormatPropertiesKHR
@@ -18234,10 +19224,13 @@ ___return (samplerycbcrconversionimageformatpropertieskhr);"))
       VkTextureLODGatherFormatPropertiesAMDsType
       VkTextureLODGatherFormatPropertiesAMD
       VkTextureLODGatherFormatPropertiesAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkTextureLODGatherFormatPropertiesAMD
@@ -18278,10 +19271,13 @@ ___return (texturelodgatherformatpropertiesamd);"))
       VkConditionalRenderingBeginInfoEXTsType
       VkConditionalRenderingBeginInfoEXT
       VkConditionalRenderingBeginInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkConditionalRenderingBeginInfoEXT
@@ -18332,10 +19328,13 @@ ___return (conditionalrenderingbegininfoext);"))
       VkProtectedSubmitInfosType
       VkProtectedSubmitInfo
       VkProtectedSubmitInfo*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkProtectedSubmitInfo (struct "VkProtectedSubmitInfo"))
    (c-define-type VkProtectedSubmitInfo* (pointer VkProtectedSubmitInfo))
@@ -18370,10 +19369,13 @@ ___return (protectedsubmitinfo);"))
       VkPhysicalDeviceProtectedMemoryFeaturessType
       VkPhysicalDeviceProtectedMemoryFeatures
       VkPhysicalDeviceProtectedMemoryFeatures*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceProtectedMemoryFeatures
@@ -18412,10 +19414,13 @@ ___return (physicaldeviceprotectedmemoryfeatures);"))
       VkPhysicalDeviceProtectedMemoryPropertiessType
       VkPhysicalDeviceProtectedMemoryProperties
       VkPhysicalDeviceProtectedMemoryProperties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceProtectedMemoryProperties
@@ -18456,10 +19461,13 @@ ___return (physicaldeviceprotectedmemoryproperties);"))
       VkDeviceQueueInfo2sType
       VkDeviceQueueInfo2
       VkDeviceQueueInfo2*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceQueueInfo2 (struct "VkDeviceQueueInfo2"))
    (c-define-type VkDeviceQueueInfo2* (pointer VkDeviceQueueInfo2))
@@ -18508,10 +19516,13 @@ ___return (devicequeueinfo2);"))
       VkPipelineCoverageToColorStateCreateInfoNVsType
       VkPipelineCoverageToColorStateCreateInfoNV
       VkPipelineCoverageToColorStateCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineCoverageToColorStateCreateInfoNV
@@ -18567,10 +19578,13 @@ ___return (pipelinecoveragetocolorstatecreateinfonv);"))
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXTsType
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
@@ -18614,10 +19628,13 @@ ___return (physicaldevicesamplerfilterminmaxpropertiesext);"))
       VkSampleLocationEXTx
       VkSampleLocationEXT
       VkSampleLocationEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSampleLocationEXT (struct "VkSampleLocationEXT"))
    (c-define-type VkSampleLocationEXT* (pointer VkSampleLocationEXT))
@@ -18649,10 +19666,13 @@ ___return (samplelocationext);"))
       VkSampleLocationsInfoEXTsType
       VkSampleLocationsInfoEXT
       VkSampleLocationsInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSampleLocationsInfoEXT (struct "VkSampleLocationsInfoEXT"))
    (c-define-type VkSampleLocationsInfoEXT* (pointer VkSampleLocationsInfoEXT))
@@ -18709,10 +19729,13 @@ ___return (samplelocationsinfoext);"))
       VkAttachmentSampleLocationsEXTattachmentIndex
       VkAttachmentSampleLocationsEXT
       VkAttachmentSampleLocationsEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkAttachmentSampleLocationsEXT
@@ -18744,10 +19767,13 @@ ___return (attachmentsamplelocationsext);"))
       VkSubpassSampleLocationsEXTsubpassIndex
       VkSubpassSampleLocationsEXT
       VkSubpassSampleLocationsEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSubpassSampleLocationsEXT (struct "VkSubpassSampleLocationsEXT"))
    (c-define-type VkSubpassSampleLocationsEXT* (pointer VkSubpassSampleLocationsEXT))
@@ -18779,10 +19805,13 @@ ___return (subpasssamplelocationsext);"))
       VkRenderPassSampleLocationsBeginInfoEXTsType
       VkRenderPassSampleLocationsBeginInfoEXT
       VkRenderPassSampleLocationsBeginInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkRenderPassSampleLocationsBeginInfoEXT
@@ -18845,10 +19874,13 @@ ___return (renderpasssamplelocationsbegininfoext);"))
       VkPipelineSampleLocationsStateCreateInfoEXTsType
       VkPipelineSampleLocationsStateCreateInfoEXT
       VkPipelineSampleLocationsStateCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineSampleLocationsStateCreateInfoEXT
@@ -18897,10 +19929,13 @@ ___return (pipelinesamplelocationsstatecreateinfoext);"))
       VkPhysicalDeviceSampleLocationsPropertiesEXTsType
       VkPhysicalDeviceSampleLocationsPropertiesEXT
       VkPhysicalDeviceSampleLocationsPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSampleLocationsPropertiesEXT
@@ -18963,10 +19998,13 @@ ___return (physicaldevicesamplelocationspropertiesext);"))
       VkMultisamplePropertiesEXTsType
       VkMultisamplePropertiesEXT
       VkMultisamplePropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkMultisamplePropertiesEXT (struct "VkMultisamplePropertiesEXT"))
    (c-define-type VkMultisamplePropertiesEXT* (pointer VkMultisamplePropertiesEXT))
@@ -19001,10 +20039,13 @@ ___return (multisamplepropertiesext);"))
       VkSamplerReductionModeCreateInfoEXTsType
       VkSamplerReductionModeCreateInfoEXT
       VkSamplerReductionModeCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSamplerReductionModeCreateInfoEXT
@@ -19043,10 +20084,13 @@ ___return (samplerreductionmodecreateinfoext);"))
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXTsType
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
@@ -19090,10 +20134,13 @@ ___return (physicaldeviceblendoperationadvancedfeaturesext);"))
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXTsType
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
@@ -19164,10 +20211,13 @@ ___return (physicaldeviceblendoperationadvancedpropertiesext);"))
       VkPipelineColorBlendAdvancedStateCreateInfoEXTsType
       VkPipelineColorBlendAdvancedStateCreateInfoEXT
       VkPipelineColorBlendAdvancedStateCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineColorBlendAdvancedStateCreateInfoEXT
@@ -19219,10 +20269,13 @@ ___return (pipelinecolorblendadvancedstatecreateinfoext);"))
       VkPhysicalDeviceInlineUniformBlockFeaturesEXTsType
       VkPhysicalDeviceInlineUniformBlockFeaturesEXT
       VkPhysicalDeviceInlineUniformBlockFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceInlineUniformBlockFeaturesEXT
@@ -19271,10 +20324,13 @@ ___return (physicaldeviceinlineuniformblockfeaturesext);"))
       VkPhysicalDeviceInlineUniformBlockPropertiesEXTsType
       VkPhysicalDeviceInlineUniformBlockPropertiesEXT
       VkPhysicalDeviceInlineUniformBlockPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceInlineUniformBlockPropertiesEXT
@@ -19338,10 +20394,13 @@ ___return (physicaldeviceinlineuniformblockpropertiesext);"))
       VkWriteDescriptorSetInlineUniformBlockEXTsType
       VkWriteDescriptorSetInlineUniformBlockEXT
       VkWriteDescriptorSetInlineUniformBlockEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkWriteDescriptorSetInlineUniformBlockEXT
@@ -19386,10 +20445,13 @@ ___return (writedescriptorsetinlineuniformblockext);"))
       VkDescriptorPoolInlineUniformBlockCreateInfoEXTsType
       VkDescriptorPoolInlineUniformBlockCreateInfoEXT
       VkDescriptorPoolInlineUniformBlockCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorPoolInlineUniformBlockCreateInfoEXT
@@ -19432,10 +20494,13 @@ ___return (descriptorpoolinlineuniformblockcreateinfoext);"))
       VkPipelineCoverageModulationStateCreateInfoNVsType
       VkPipelineCoverageModulationStateCreateInfoNV
       VkPipelineCoverageModulationStateCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineCoverageModulationStateCreateInfoNV
@@ -19505,10 +20570,13 @@ ___return (pipelinecoveragemodulationstatecreateinfonv);"))
       VkImageFormatListCreateInfoKHRsType
       VkImageFormatListCreateInfoKHR
       VkImageFormatListCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImageFormatListCreateInfoKHR
@@ -19555,10 +20623,13 @@ ___return (imageformatlistcreateinfokhr);"))
       VkValidationCacheCreateInfoEXTsType
       VkValidationCacheCreateInfoEXT
       VkValidationCacheCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkValidationCacheCreateInfoEXT
@@ -19609,10 +20680,13 @@ ___return (validationcachecreateinfoext);"))
       VkShaderModuleValidationCacheCreateInfoEXTsType
       VkShaderModuleValidationCacheCreateInfoEXT
       VkShaderModuleValidationCacheCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkShaderModuleValidationCacheCreateInfoEXT
@@ -19652,10 +20726,13 @@ ___return (shadermodulevalidationcachecreateinfoext);"))
       VkPhysicalDeviceMaintenance3PropertiessType
       VkPhysicalDeviceMaintenance3Properties
       VkPhysicalDeviceMaintenance3Properties*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMaintenance3Properties
@@ -19697,10 +20774,13 @@ ___return (physicaldevicemaintenance3properties);"))
    (make-VkPhysicalDeviceMaintenance3PropertiesKHR
       VkPhysicalDeviceMaintenance3PropertiesKHR
       VkPhysicalDeviceMaintenance3PropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMaintenance3PropertiesKHR
@@ -19721,10 +20801,13 @@ ___return (physicaldevicemaintenance3propertieskhr);"))
       VkDescriptorSetLayoutSupportsType
       VkDescriptorSetLayoutSupport
       VkDescriptorSetLayoutSupport*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDescriptorSetLayoutSupport (struct "VkDescriptorSetLayoutSupport"))
    (c-define-type VkDescriptorSetLayoutSupport* (pointer VkDescriptorSetLayoutSupport))
@@ -19756,10 +20839,13 @@ ___return (descriptorsetlayoutsupport);"))
    (make-VkDescriptorSetLayoutSupportKHR
       VkDescriptorSetLayoutSupportKHR
       VkDescriptorSetLayoutSupportKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorSetLayoutSupportKHR
@@ -19780,10 +20866,13 @@ ___return (descriptorsetlayoutsupportkhr);"))
       VkPhysicalDeviceShaderDrawParametersFeaturessType
       VkPhysicalDeviceShaderDrawParametersFeatures
       VkPhysicalDeviceShaderDrawParametersFeatures*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderDrawParametersFeatures
@@ -19819,10 +20908,13 @@ ___return (physicaldeviceshaderdrawparametersfeatures);"))
    (make-VkPhysicalDeviceShaderDrawParameterFeatures
       VkPhysicalDeviceShaderDrawParameterFeatures
       VkPhysicalDeviceShaderDrawParameterFeatures*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderDrawParameterFeatures
@@ -19844,10 +20936,13 @@ ___return (physicaldeviceshaderdrawparameterfeatures);"))
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHRsType
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHR
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHR
@@ -19889,10 +20984,13 @@ ___return (physicaldeviceshaderfloat16int8featureskhr);"))
    (make-VkPhysicalDeviceFloat16Int8FeaturesKHR
       VkPhysicalDeviceFloat16Int8FeaturesKHR
       VkPhysicalDeviceFloat16Int8FeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceFloat16Int8FeaturesKHR
@@ -19929,10 +21027,13 @@ ___return (physicaldevicefloat16int8featureskhr);"))
       VkPhysicalDeviceFloatControlsPropertiesKHRsType
       VkPhysicalDeviceFloatControlsPropertiesKHR
       VkPhysicalDeviceFloatControlsPropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceFloatControlsPropertiesKHR
@@ -20085,10 +21186,13 @@ ___return (physicaldevicefloatcontrolspropertieskhr);"))
       VkPhysicalDeviceHostQueryResetFeaturesEXTsType
       VkPhysicalDeviceHostQueryResetFeaturesEXT
       VkPhysicalDeviceHostQueryResetFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceHostQueryResetFeaturesEXT
@@ -20129,10 +21233,13 @@ ___return (physicaldevicehostqueryresetfeaturesext);"))
       VkShaderResourceUsageAMDnumUsedVgprs
       VkShaderResourceUsageAMD
       VkShaderResourceUsageAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkShaderResourceUsageAMD (struct "VkShaderResourceUsageAMD"))
    (c-define-type VkShaderResourceUsageAMD* (pointer VkShaderResourceUsageAMD))
@@ -20183,10 +21290,13 @@ ___return (shaderresourceusageamd);"))
       VkShaderStatisticsInfoAMDshaderStageMask
       VkShaderStatisticsInfoAMD
       VkShaderStatisticsInfoAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkShaderStatisticsInfoAMD (struct "VkShaderStatisticsInfoAMD"))
    (c-define-type VkShaderStatisticsInfoAMD* (pointer VkShaderStatisticsInfoAMD))
@@ -20251,10 +21361,13 @@ ___return (shaderstatisticsinfoamd);"))
       VkDeviceQueueGlobalPriorityCreateInfoEXTsType
       VkDeviceQueueGlobalPriorityCreateInfoEXT
       VkDeviceQueueGlobalPriorityCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceQueueGlobalPriorityCreateInfoEXT
@@ -20295,10 +21408,13 @@ ___return (devicequeueglobalprioritycreateinfoext);"))
       VkDebugUtilsObjectNameInfoEXTsType
       VkDebugUtilsObjectNameInfoEXT
       VkDebugUtilsObjectNameInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDebugUtilsObjectNameInfoEXT (struct "VkDebugUtilsObjectNameInfoEXT"))
    (c-define-type VkDebugUtilsObjectNameInfoEXT* (pointer VkDebugUtilsObjectNameInfoEXT))
@@ -20349,10 +21465,13 @@ ___return (debugutilsobjectnameinfoext);"))
       VkDebugUtilsObjectTagInfoEXTsType
       VkDebugUtilsObjectTagInfoEXT
       VkDebugUtilsObjectTagInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDebugUtilsObjectTagInfoEXT (struct "VkDebugUtilsObjectTagInfoEXT"))
    (c-define-type VkDebugUtilsObjectTagInfoEXT* (pointer VkDebugUtilsObjectTagInfoEXT))
@@ -20412,10 +21531,13 @@ ___return (debugutilsobjecttaginfoext);"))
       VkDebugUtilsLabelEXTsType
       VkDebugUtilsLabelEXT
       VkDebugUtilsLabelEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkDebugUtilsLabelEXT (struct "VkDebugUtilsLabelEXT"))
    (c-define-type VkDebugUtilsLabelEXT* (pointer VkDebugUtilsLabelEXT))
@@ -20465,10 +21587,13 @@ ___return (debugutilslabelext);"))
       VkDebugUtilsMessengerCallbackDataEXTsType
       VkDebugUtilsMessengerCallbackDataEXT
       VkDebugUtilsMessengerCallbackDataEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDebugUtilsMessengerCallbackDataEXT
@@ -20567,10 +21692,13 @@ debugutilsmessengercallbackdataext->pObjects=___arg12;
 ___return (debugutilsmessengercallbackdataext);"))
 (begin-ffi
    (PFN_vkDebugUtilsMessengerCallbackEXT PFN_vkDebugUtilsMessengerCallbackEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       PFN_vkDebugUtilsMessengerCallbackEXT
@@ -20594,10 +21722,13 @@ ___return (debugutilsmessengercallbackdataext);"))
       VkDebugUtilsMessengerCreateInfoEXTsType
       VkDebugUtilsMessengerCreateInfoEXT
       VkDebugUtilsMessengerCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDebugUtilsMessengerCreateInfoEXT
@@ -20667,10 +21798,13 @@ ___return (debugutilsmessengercreateinfoext);"))
       VkImportMemoryHostPointerInfoEXTsType
       VkImportMemoryHostPointerInfoEXT
       VkImportMemoryHostPointerInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImportMemoryHostPointerInfoEXT
@@ -20715,10 +21849,13 @@ ___return (importmemoryhostpointerinfoext);"))
       VkMemoryHostPointerPropertiesEXTsType
       VkMemoryHostPointerPropertiesEXT
       VkMemoryHostPointerPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkMemoryHostPointerPropertiesEXT
@@ -20757,10 +21894,13 @@ ___return (memoryhostpointerpropertiesext);"))
       VkPhysicalDeviceExternalMemoryHostPropertiesEXTsType
       VkPhysicalDeviceExternalMemoryHostPropertiesEXT
       VkPhysicalDeviceExternalMemoryHostPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExternalMemoryHostPropertiesEXT
@@ -20807,10 +21947,13 @@ ___return (physicaldeviceexternalmemoryhostpropertiesext);"))
       VkPhysicalDeviceConservativeRasterizationPropertiesEXTsType
       VkPhysicalDeviceConservativeRasterizationPropertiesEXT
       VkPhysicalDeviceConservativeRasterizationPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceConservativeRasterizationPropertiesEXT
@@ -20907,10 +22050,13 @@ ___return (physicaldeviceconservativerasterizationpropertiesext);"))
       VkCalibratedTimestampInfoEXTsType
       VkCalibratedTimestampInfoEXT
       VkCalibratedTimestampInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkCalibratedTimestampInfoEXT (struct "VkCalibratedTimestampInfoEXT"))
    (c-define-type VkCalibratedTimestampInfoEXT* (pointer VkCalibratedTimestampInfoEXT))
@@ -20958,10 +22104,13 @@ ___return (calibratedtimestampinfoext);"))
       VkPhysicalDeviceShaderCorePropertiesAMDsType
       VkPhysicalDeviceShaderCorePropertiesAMD
       VkPhysicalDeviceShaderCorePropertiesAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderCorePropertiesAMD
@@ -21094,10 +22243,13 @@ ___return (physicaldeviceshadercorepropertiesamd);"))
       VkPhysicalDeviceShaderCoreProperties2AMDsType
       VkPhysicalDeviceShaderCoreProperties2AMD
       VkPhysicalDeviceShaderCoreProperties2AMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderCoreProperties2AMD
@@ -21144,10 +22296,13 @@ ___return (physicaldeviceshadercoreproperties2amd);"))
       VkPipelineRasterizationConservativeStateCreateInfoEXTsType
       VkPipelineRasterizationConservativeStateCreateInfoEXT
       VkPipelineRasterizationConservativeStateCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineRasterizationConservativeStateCreateInfoEXT
@@ -21221,10 +22376,13 @@ ___return (pipelinerasterizationconservativestatecreateinfoext);"))
       VkPhysicalDeviceDescriptorIndexingFeaturesEXTsType
       VkPhysicalDeviceDescriptorIndexingFeaturesEXT
       VkPhysicalDeviceDescriptorIndexingFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceDescriptorIndexingFeaturesEXT
@@ -21420,10 +22578,13 @@ ___return (physicaldevicedescriptorindexingfeaturesext);"))
       VkPhysicalDeviceDescriptorIndexingPropertiesEXTsType
       VkPhysicalDeviceDescriptorIndexingPropertiesEXT
       VkPhysicalDeviceDescriptorIndexingPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceDescriptorIndexingPropertiesEXT
@@ -21619,10 +22780,13 @@ ___return (physicaldevicedescriptorindexingpropertiesext);"))
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXTsType
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
@@ -21668,10 +22832,13 @@ ___return (descriptorsetlayoutbindingflagscreateinfoext);"))
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXTsType
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
@@ -21716,10 +22883,13 @@ ___return (descriptorsetvariabledescriptorcountallocateinfoext);"))
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXTsType
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
@@ -21766,10 +22936,13 @@ ___return (descriptorsetvariabledescriptorcountlayoutsupportext);"))
       VkAttachmentDescription2KHRsType
       VkAttachmentDescription2KHR
       VkAttachmentDescription2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkAttachmentDescription2KHR (struct "VkAttachmentDescription2KHR"))
    (c-define-type VkAttachmentDescription2KHR* (pointer VkAttachmentDescription2KHR))
@@ -21864,10 +23037,13 @@ ___return (attachmentdescription2khr);"))
       VkAttachmentReference2KHRsType
       VkAttachmentReference2KHR
       VkAttachmentReference2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkAttachmentReference2KHR (struct "VkAttachmentReference2KHR"))
    (c-define-type VkAttachmentReference2KHR* (pointer VkAttachmentReference2KHR))
@@ -21924,10 +23100,13 @@ ___return (attachmentreference2khr);"))
       VkSubpassDescription2KHRsType
       VkSubpassDescription2KHR
       VkSubpassDescription2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSubpassDescription2KHR (struct "VkSubpassDescription2KHR"))
    (c-define-type VkSubpassDescription2KHR* (pointer VkSubpassDescription2KHR))
@@ -22041,10 +23220,13 @@ ___return (subpassdescription2khr);"))
       VkSubpassDependency2KHRsType
       VkSubpassDependency2KHR
       VkSubpassDependency2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSubpassDependency2KHR (struct "VkSubpassDependency2KHR"))
    (c-define-type VkSubpassDependency2KHR* (pointer VkSubpassDependency2KHR))
@@ -22138,10 +23320,13 @@ ___return (subpassdependency2khr);"))
       VkRenderPassCreateInfo2KHRsType
       VkRenderPassCreateInfo2KHR
       VkRenderPassCreateInfo2KHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkRenderPassCreateInfo2KHR (struct "VkRenderPassCreateInfo2KHR"))
    (c-define-type VkRenderPassCreateInfo2KHR* (pointer VkRenderPassCreateInfo2KHR))
@@ -22234,10 +23419,13 @@ ___return (renderpasscreateinfo2khr);"))
       VkSubpassBeginInfoKHRsType
       VkSubpassBeginInfoKHR
       VkSubpassBeginInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSubpassBeginInfoKHR (struct "VkSubpassBeginInfoKHR"))
    (c-define-type VkSubpassBeginInfoKHR* (pointer VkSubpassBeginInfoKHR))
@@ -22271,10 +23459,13 @@ ___return (subpassbegininfokhr);"))
       VkSubpassEndInfoKHRsType
       VkSubpassEndInfoKHR
       VkSubpassEndInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkSubpassEndInfoKHR (struct "VkSubpassEndInfoKHR"))
    (c-define-type VkSubpassEndInfoKHR* (pointer VkSubpassEndInfoKHR))
@@ -22302,10 +23493,13 @@ ___return (subpassendinfokhr);"))
       VkVertexInputBindingDivisorDescriptionEXTbinding
       VkVertexInputBindingDivisorDescriptionEXT
       VkVertexInputBindingDivisorDescriptionEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkVertexInputBindingDivisorDescriptionEXT
@@ -22339,10 +23533,13 @@ ___return (vertexinputbindingdivisordescriptionext);"))
       VkPipelineVertexInputDivisorStateCreateInfoEXTsType
       VkPipelineVertexInputDivisorStateCreateInfoEXT
       VkPipelineVertexInputDivisorStateCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineVertexInputDivisorStateCreateInfoEXT
@@ -22387,10 +23584,13 @@ ___return (pipelinevertexinputdivisorstatecreateinfoext);"))
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXTsType
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
@@ -22432,10 +23632,13 @@ ___return (physicaldevicevertexattributedivisorpropertiesext);"))
       VkPhysicalDevicePCIBusInfoPropertiesEXTsType
       VkPhysicalDevicePCIBusInfoPropertiesEXT
       VkPhysicalDevicePCIBusInfoPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDevicePCIBusInfoPropertiesEXT
@@ -22492,10 +23695,13 @@ ___return (physicaldevicepcibusinfopropertiesext);"))
       VkCommandBufferInheritanceConditionalRenderingInfoEXTsType
       VkCommandBufferInheritanceConditionalRenderingInfoEXT
       VkCommandBufferInheritanceConditionalRenderingInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkCommandBufferInheritanceConditionalRenderingInfoEXT
@@ -22536,10 +23742,13 @@ ___return (commandbufferinheritanceconditionalrenderinginfoext);"))
       VkPhysicalDevice8BitStorageFeaturesKHRsType
       VkPhysicalDevice8BitStorageFeaturesKHR
       VkPhysicalDevice8BitStorageFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDevice8BitStorageFeaturesKHR
@@ -22591,10 +23800,13 @@ ___return (physicaldevice8bitstoragefeatureskhr);"))
       VkPhysicalDeviceConditionalRenderingFeaturesEXTsType
       VkPhysicalDeviceConditionalRenderingFeaturesEXT
       VkPhysicalDeviceConditionalRenderingFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceConditionalRenderingFeaturesEXT
@@ -22641,10 +23853,13 @@ ___return (physicaldeviceconditionalrenderingfeaturesext);"))
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHRsType
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHR
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHR
@@ -22696,10 +23911,13 @@ ___return (physicaldevicevulkanmemorymodelfeatureskhr);"))
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHRsType
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHR
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHR
@@ -22745,10 +23963,13 @@ ___return (physicaldeviceshaderatomicint64featureskhr);"))
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXTsType
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
@@ -22793,10 +24014,13 @@ ___return (physicaldevicevertexattributedivisorfeaturesext);"))
       VkQueueFamilyCheckpointPropertiesNVsType
       VkQueueFamilyCheckpointPropertiesNV
       VkQueueFamilyCheckpointPropertiesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkQueueFamilyCheckpointPropertiesNV
@@ -22836,10 +24060,13 @@ ___return (queuefamilycheckpointpropertiesnv);"))
       VkCheckpointDataNVsType
       VkCheckpointDataNV
       VkCheckpointDataNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkCheckpointDataNV (struct "VkCheckpointDataNV"))
    (c-define-type VkCheckpointDataNV* (pointer VkCheckpointDataNV))
@@ -22883,10 +24110,13 @@ ___return (checkpointdatanv);"))
       VkPhysicalDeviceDepthStencilResolvePropertiesKHRsType
       VkPhysicalDeviceDepthStencilResolvePropertiesKHR
       VkPhysicalDeviceDepthStencilResolvePropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceDepthStencilResolvePropertiesKHR
@@ -22950,10 +24180,13 @@ ___return (physicaldevicedepthstencilresolvepropertieskhr);"))
       VkSubpassDescriptionDepthStencilResolveKHRsType
       VkSubpassDescriptionDepthStencilResolveKHR
       VkSubpassDescriptionDepthStencilResolveKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSubpassDescriptionDepthStencilResolveKHR
@@ -23008,10 +24241,13 @@ ___return (subpassdescriptiondepthstencilresolvekhr);"))
       VkImageViewASTCDecodeModeEXTsType
       VkImageViewASTCDecodeModeEXT
       VkImageViewASTCDecodeModeEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageViewASTCDecodeModeEXT (struct "VkImageViewASTCDecodeModeEXT"))
    (c-define-type VkImageViewASTCDecodeModeEXT* (pointer VkImageViewASTCDecodeModeEXT))
@@ -23046,10 +24282,13 @@ ___return (imageviewastcdecodemodeext);"))
       VkPhysicalDeviceASTCDecodeFeaturesEXTsType
       VkPhysicalDeviceASTCDecodeFeaturesEXT
       VkPhysicalDeviceASTCDecodeFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceASTCDecodeFeaturesEXT
@@ -23089,10 +24328,13 @@ ___return (physicaldeviceastcdecodefeaturesext);"))
       VkPhysicalDeviceTransformFeedbackFeaturesEXTsType
       VkPhysicalDeviceTransformFeedbackFeaturesEXT
       VkPhysicalDeviceTransformFeedbackFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceTransformFeedbackFeaturesEXT
@@ -23146,10 +24388,13 @@ ___return (physicaldevicetransformfeedbackfeaturesext);"))
       VkPhysicalDeviceTransformFeedbackPropertiesEXTsType
       VkPhysicalDeviceTransformFeedbackPropertiesEXT
       VkPhysicalDeviceTransformFeedbackPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceTransformFeedbackPropertiesEXT
@@ -23254,10 +24499,13 @@ ___return (physicaldevicetransformfeedbackpropertiesext);"))
       VkPipelineRasterizationStateStreamCreateInfoEXTsType
       VkPipelineRasterizationStateStreamCreateInfoEXT
       VkPipelineRasterizationStateStreamCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineRasterizationStateStreamCreateInfoEXT
@@ -23302,10 +24550,13 @@ ___return (pipelinerasterizationstatestreamcreateinfoext);"))
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNVsType
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
@@ -23344,10 +24595,13 @@ ___return (physicaldevicerepresentativefragmenttestfeaturesnv);"))
       VkPipelineRepresentativeFragmentTestStateCreateInfoNVsType
       VkPipelineRepresentativeFragmentTestStateCreateInfoNV
       VkPipelineRepresentativeFragmentTestStateCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineRepresentativeFragmentTestStateCreateInfoNV
@@ -23386,10 +24640,13 @@ ___return (pipelinerepresentativefragmentteststatecreateinfonv);"))
       VkPhysicalDeviceExclusiveScissorFeaturesNVsType
       VkPhysicalDeviceExclusiveScissorFeaturesNV
       VkPhysicalDeviceExclusiveScissorFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceExclusiveScissorFeaturesNV
@@ -23429,10 +24686,13 @@ ___return (physicaldeviceexclusivescissorfeaturesnv);"))
       VkPipelineViewportExclusiveScissorStateCreateInfoNVsType
       VkPipelineViewportExclusiveScissorStateCreateInfoNV
       VkPipelineViewportExclusiveScissorStateCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineViewportExclusiveScissorStateCreateInfoNV
@@ -23477,10 +24737,13 @@ ___return (pipelineviewportexclusivescissorstatecreateinfonv);"))
       VkPhysicalDeviceCornerSampledImageFeaturesNVsType
       VkPhysicalDeviceCornerSampledImageFeaturesNV
       VkPhysicalDeviceCornerSampledImageFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceCornerSampledImageFeaturesNV
@@ -23520,10 +24783,13 @@ ___return (physicaldevicecornersampledimagefeaturesnv);"))
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNVsType
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
@@ -23568,10 +24834,13 @@ ___return (physicaldevicecomputeshaderderivativesfeaturesnv);"))
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNVsType
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
@@ -23610,10 +24879,13 @@ ___return (physicaldevicefragmentshaderbarycentricfeaturesnv);"))
       VkPhysicalDeviceShaderImageFootprintFeaturesNVsType
       VkPhysicalDeviceShaderImageFootprintFeaturesNV
       VkPhysicalDeviceShaderImageFootprintFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderImageFootprintFeaturesNV
@@ -23652,10 +24924,13 @@ ___return (physicaldeviceshaderimagefootprintfeaturesnv);"))
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNVsType
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
@@ -23693,10 +24968,13 @@ ___return (physicaldevicededicatedallocationimagealiasingfeaturesnv);"))
       VkShadingRatePaletteNVshadingRatePaletteEntryCount
       VkShadingRatePaletteNV
       VkShadingRatePaletteNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkShadingRatePaletteNV (struct "VkShadingRatePaletteNV"))
    (c-define-type VkShadingRatePaletteNV* (pointer VkShadingRatePaletteNV))
@@ -23727,10 +25005,13 @@ ___return (shadingratepalettenv);"))
       VkPipelineViewportShadingRateImageStateCreateInfoNVsType
       VkPipelineViewportShadingRateImageStateCreateInfoNV
       VkPipelineViewportShadingRateImageStateCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineViewportShadingRateImageStateCreateInfoNV
@@ -23782,10 +25063,13 @@ ___return (pipelineviewportshadingrateimagestatecreateinfonv);"))
       VkPhysicalDeviceShadingRateImageFeaturesNVsType
       VkPhysicalDeviceShadingRateImageFeaturesNV
       VkPhysicalDeviceShadingRateImageFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShadingRateImageFeaturesNV
@@ -23832,10 +25116,13 @@ ___return (physicaldeviceshadingrateimagefeaturesnv);"))
       VkPhysicalDeviceShadingRateImagePropertiesNVsType
       VkPhysicalDeviceShadingRateImagePropertiesNV
       VkPhysicalDeviceShadingRateImagePropertiesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShadingRateImagePropertiesNV
@@ -23886,10 +25173,13 @@ ___return (physicaldeviceshadingrateimagepropertiesnv);"))
       VkCoarseSampleLocationNVpixelX
       VkCoarseSampleLocationNV
       VkCoarseSampleLocationNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkCoarseSampleLocationNV (struct "VkCoarseSampleLocationNV"))
    (c-define-type VkCoarseSampleLocationNV* (pointer VkCoarseSampleLocationNV))
@@ -23925,10 +25215,13 @@ ___return (coarsesamplelocationnv);"))
       VkCoarseSampleOrderCustomNVshadingRate
       VkCoarseSampleOrderCustomNV
       VkCoarseSampleOrderCustomNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkCoarseSampleOrderCustomNV (struct "VkCoarseSampleOrderCustomNV"))
    (c-define-type VkCoarseSampleOrderCustomNV* (pointer VkCoarseSampleOrderCustomNV))
@@ -23971,10 +25264,13 @@ ___return (coarsesampleordercustomnv);"))
       VkPipelineViewportCoarseSampleOrderStateCreateInfoNVsType
       VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
       VkPipelineViewportCoarseSampleOrderStateCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
@@ -24030,10 +25326,13 @@ ___return (pipelineviewportcoarsesampleorderstatecreateinfonv);"))
       VkPhysicalDeviceMeshShaderFeaturesNVsType
       VkPhysicalDeviceMeshShaderFeaturesNV
       VkPhysicalDeviceMeshShaderFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMeshShaderFeaturesNV
@@ -24090,10 +25389,13 @@ ___return (physicaldevicemeshshaderfeaturesnv);"))
       VkPhysicalDeviceMeshShaderPropertiesNVsType
       VkPhysicalDeviceMeshShaderPropertiesNV
       VkPhysicalDeviceMeshShaderPropertiesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMeshShaderPropertiesNV
@@ -24217,10 +25519,13 @@ ___return (physicaldevicemeshshaderpropertiesnv);"))
       VkDrawMeshTasksIndirectCommandNVtaskCount
       VkDrawMeshTasksIndirectCommandNV
       VkDrawMeshTasksIndirectCommandNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDrawMeshTasksIndirectCommandNV
@@ -24257,10 +25562,13 @@ ___return (drawmeshtasksindirectcommandnv);"))
       VkRayTracingShaderGroupCreateInfoNVsType
       VkRayTracingShaderGroupCreateInfoNV
       VkRayTracingShaderGroupCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkRayTracingShaderGroupCreateInfoNV
@@ -24337,10 +25645,13 @@ ___return (raytracingshadergroupcreateinfonv);"))
       VkRayTracingPipelineCreateInfoNVsType
       VkRayTracingPipelineCreateInfoNV
       VkRayTracingPipelineCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkRayTracingPipelineCreateInfoNV
@@ -24447,10 +25758,13 @@ ___return (raytracingpipelinecreateinfonv);"))
       VkGeometryTrianglesNVsType
       VkGeometryTrianglesNV
       VkGeometryTrianglesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkGeometryTrianglesNV (struct "VkGeometryTrianglesNV"))
    (c-define-type VkGeometryTrianglesNV* (pointer VkGeometryTrianglesNV))
@@ -24560,10 +25874,13 @@ ___return (geometrytrianglesnv);"))
       VkGeometryAABBNVsType
       VkGeometryAABBNV
       VkGeometryAABBNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkGeometryAABBNV (struct "VkGeometryAABBNV"))
    (c-define-type VkGeometryAABBNV* (pointer VkGeometryAABBNV))
@@ -24615,10 +25932,13 @@ ___return (geometryaabbnv);"))
       VkGeometryDataNVtriangles
       VkGeometryDataNV
       VkGeometryDataNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkGeometryDataNV (struct "VkGeometryDataNV"))
    (c-define-type VkGeometryDataNV* (pointer VkGeometryDataNV))
@@ -24649,10 +25969,13 @@ ___return (geometrydatanv);"))
       VkGeometryNVsType
       VkGeometryNV
       VkGeometryNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkGeometryNV (struct "VkGeometryNV"))
    (c-define-type VkGeometryNV* (pointer VkGeometryNV))
@@ -24699,10 +26022,13 @@ ___return (geometrynv);"))
       VkAccelerationStructureInfoNVsType
       VkAccelerationStructureInfoNV
       VkAccelerationStructureInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkAccelerationStructureInfoNV (struct "VkAccelerationStructureInfoNV"))
    (c-define-type VkAccelerationStructureInfoNV* (pointer VkAccelerationStructureInfoNV))
@@ -24768,10 +26094,13 @@ ___return (accelerationstructureinfonv);"))
       VkAccelerationStructureCreateInfoNVsType
       VkAccelerationStructureCreateInfoNV
       VkAccelerationStructureCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkAccelerationStructureCreateInfoNV
@@ -24820,10 +26149,13 @@ ___return (accelerationstructurecreateinfonv);"))
       VkBindAccelerationStructureMemoryInfoNVsType
       VkBindAccelerationStructureMemoryInfoNV
       VkBindAccelerationStructureMemoryInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkBindAccelerationStructureMemoryInfoNV
@@ -24893,10 +26225,13 @@ ___return (bindaccelerationstructurememoryinfonv);"))
       VkWriteDescriptorSetAccelerationStructureNVsType
       VkWriteDescriptorSetAccelerationStructureNV
       VkWriteDescriptorSetAccelerationStructureNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkWriteDescriptorSetAccelerationStructureNV
@@ -24942,10 +26277,13 @@ ___return (writedescriptorsetaccelerationstructurenv);"))
       VkAccelerationStructureMemoryRequirementsInfoNVsType
       VkAccelerationStructureMemoryRequirementsInfoNV
       VkAccelerationStructureMemoryRequirementsInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkAccelerationStructureMemoryRequirementsInfoNV
@@ -25000,10 +26338,13 @@ ___return (accelerationstructurememoryrequirementsinfonv);"))
       VkPhysicalDeviceRayTracingPropertiesNVsType
       VkPhysicalDeviceRayTracingPropertiesNV
       VkPhysicalDeviceRayTracingPropertiesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceRayTracingPropertiesNV
@@ -25093,10 +26434,13 @@ ___return (physicaldeviceraytracingpropertiesnv);"))
       VkDrmFormatModifierPropertiesEXTdrmFormatModifier
       VkDrmFormatModifierPropertiesEXT
       VkDrmFormatModifierPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDrmFormatModifierPropertiesEXT
@@ -25136,10 +26480,13 @@ ___return (drmformatmodifierpropertiesext);"))
       VkDrmFormatModifierPropertiesListEXTsType
       VkDrmFormatModifierPropertiesListEXT
       VkDrmFormatModifierPropertiesListEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDrmFormatModifierPropertiesListEXT
@@ -25187,10 +26534,13 @@ ___return (drmformatmodifierpropertieslistext);"))
       VkPhysicalDeviceImageDrmFormatModifierInfoEXTsType
       VkPhysicalDeviceImageDrmFormatModifierInfoEXT
       VkPhysicalDeviceImageDrmFormatModifierInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceImageDrmFormatModifierInfoEXT
@@ -25248,10 +26598,13 @@ ___return (physicaldeviceimagedrmformatmodifierinfoext);"))
       VkImageDrmFormatModifierListCreateInfoEXTsType
       VkImageDrmFormatModifierListCreateInfoEXT
       VkImageDrmFormatModifierListCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImageDrmFormatModifierListCreateInfoEXT
@@ -25298,10 +26651,13 @@ ___return (imagedrmformatmodifierlistcreateinfoext);"))
       VkImageDrmFormatModifierExplicitCreateInfoEXTsType
       VkImageDrmFormatModifierExplicitCreateInfoEXT
       VkImageDrmFormatModifierExplicitCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImageDrmFormatModifierExplicitCreateInfoEXT
@@ -25352,10 +26708,13 @@ ___return (imagedrmformatmodifierexplicitcreateinfoext);"))
       VkImageDrmFormatModifierPropertiesEXTsType
       VkImageDrmFormatModifierPropertiesEXT
       VkImageDrmFormatModifierPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImageDrmFormatModifierPropertiesEXT
@@ -25394,10 +26753,13 @@ ___return (imagedrmformatmodifierpropertiesext);"))
       VkImageStencilUsageCreateInfoEXTsType
       VkImageStencilUsageCreateInfoEXT
       VkImageStencilUsageCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkImageStencilUsageCreateInfoEXT
@@ -25436,10 +26798,13 @@ ___return (imagestencilusagecreateinfoext);"))
       VkDeviceMemoryOverallocationCreateInfoAMDsType
       VkDeviceMemoryOverallocationCreateInfoAMD
       VkDeviceMemoryOverallocationCreateInfoAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkDeviceMemoryOverallocationCreateInfoAMD
@@ -25480,10 +26845,13 @@ ___return (devicememoryoverallocationcreateinfoamd);"))
       VkPhysicalDeviceFragmentDensityMapFeaturesEXTsType
       VkPhysicalDeviceFragmentDensityMapFeaturesEXT
       VkPhysicalDeviceFragmentDensityMapFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceFragmentDensityMapFeaturesEXT
@@ -25536,10 +26904,13 @@ ___return (physicaldevicefragmentdensitymapfeaturesext);"))
       VkPhysicalDeviceFragmentDensityMapPropertiesEXTsType
       VkPhysicalDeviceFragmentDensityMapPropertiesEXT
       VkPhysicalDeviceFragmentDensityMapPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceFragmentDensityMapPropertiesEXT
@@ -25590,10 +26961,13 @@ ___return (physicaldevicefragmentdensitymappropertiesext);"))
       VkRenderPassFragmentDensityMapCreateInfoEXTsType
       VkRenderPassFragmentDensityMapCreateInfoEXT
       VkRenderPassFragmentDensityMapCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkRenderPassFragmentDensityMapCreateInfoEXT
@@ -25632,10 +27006,13 @@ ___return (renderpassfragmentdensitymapcreateinfoext);"))
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXTsType
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
@@ -25674,10 +27051,13 @@ ___return (physicaldevicescalarblocklayoutfeaturesext);"))
       VkSurfaceProtectedCapabilitiesKHRsType
       VkSurfaceProtectedCapabilitiesKHR
       VkSurfaceProtectedCapabilitiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkSurfaceProtectedCapabilitiesKHR
@@ -25716,10 +27096,13 @@ ___return (surfaceprotectedcapabilitieskhr);"))
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHRsType
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
@@ -25758,10 +27141,13 @@ ___return (physicaldeviceuniformbufferstandardlayoutfeatureskhr);"))
       VkPhysicalDeviceDepthClipEnableFeaturesEXTsType
       VkPhysicalDeviceDepthClipEnableFeaturesEXT
       VkPhysicalDeviceDepthClipEnableFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceDepthClipEnableFeaturesEXT
@@ -25801,10 +27187,13 @@ ___return (physicaldevicedepthclipenablefeaturesext);"))
       VkPipelineRasterizationDepthClipStateCreateInfoEXTsType
       VkPipelineRasterizationDepthClipStateCreateInfoEXT
       VkPipelineRasterizationDepthClipStateCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineRasterizationDepthClipStateCreateInfoEXT
@@ -25850,10 +27239,13 @@ ___return (pipelinerasterizationdepthclipstatecreateinfoext);"))
       VkPhysicalDeviceMemoryBudgetPropertiesEXTsType
       VkPhysicalDeviceMemoryBudgetPropertiesEXT
       VkPhysicalDeviceMemoryBudgetPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMemoryBudgetPropertiesEXT
@@ -25898,10 +27290,13 @@ ___return (physicaldevicememorybudgetpropertiesext);"))
       VkPhysicalDeviceMemoryPriorityFeaturesEXTsType
       VkPhysicalDeviceMemoryPriorityFeaturesEXT
       VkPhysicalDeviceMemoryPriorityFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceMemoryPriorityFeaturesEXT
@@ -25940,10 +27335,13 @@ ___return (physicaldevicememorypriorityfeaturesext);"))
       VkMemoryPriorityAllocateInfoEXTsType
       VkMemoryPriorityAllocateInfoEXT
       VkMemoryPriorityAllocateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkMemoryPriorityAllocateInfoEXT
@@ -25984,10 +27382,13 @@ ___return (memorypriorityallocateinfoext);"))
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXTsType
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
@@ -26035,10 +27436,13 @@ ___return (physicaldevicebufferdeviceaddressfeaturesext);"))
    (make-VkPhysicalDeviceBufferAddressFeaturesEXT
       VkPhysicalDeviceBufferAddressFeaturesEXT
       VkPhysicalDeviceBufferAddressFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceBufferAddressFeaturesEXT
@@ -26059,10 +27463,13 @@ ___return (physicaldevicebufferaddressfeaturesext);"))
       VkBufferDeviceAddressInfoEXTsType
       VkBufferDeviceAddressInfoEXT
       VkBufferDeviceAddressInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkBufferDeviceAddressInfoEXT (struct "VkBufferDeviceAddressInfoEXT"))
    (c-define-type VkBufferDeviceAddressInfoEXT* (pointer VkBufferDeviceAddressInfoEXT))
@@ -26097,10 +27504,13 @@ ___return (bufferdeviceaddressinfoext);"))
       VkBufferDeviceAddressCreateInfoEXTsType
       VkBufferDeviceAddressCreateInfoEXT
       VkBufferDeviceAddressCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkBufferDeviceAddressCreateInfoEXT
@@ -26139,10 +27549,13 @@ ___return (bufferdeviceaddresscreateinfoext);"))
       VkPhysicalDeviceImageViewImageFormatInfoEXTsType
       VkPhysicalDeviceImageViewImageFormatInfoEXT
       VkPhysicalDeviceImageViewImageFormatInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceImageViewImageFormatInfoEXT
@@ -26182,10 +27595,13 @@ ___return (physicaldeviceimageviewimageformatinfoext);"))
       VkFilterCubicImageViewImageFormatPropertiesEXTsType
       VkFilterCubicImageViewImageFormatPropertiesEXT
       VkFilterCubicImageViewImageFormatPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkFilterCubicImageViewImageFormatPropertiesEXT
@@ -26230,10 +27646,13 @@ ___return (filtercubicimageviewimageformatpropertiesext);"))
       VkPhysicalDeviceImagelessFramebufferFeaturesKHRsType
       VkPhysicalDeviceImagelessFramebufferFeaturesKHR
       VkPhysicalDeviceImagelessFramebufferFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceImagelessFramebufferFeaturesKHR
@@ -26278,10 +27697,13 @@ ___return (physicaldeviceimagelessframebufferfeatureskhr);"))
       VkFramebufferAttachmentImageInfoKHRsType
       VkFramebufferAttachmentImageInfoKHR
       VkFramebufferAttachmentImageInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkFramebufferAttachmentImageInfoKHR
@@ -26365,10 +27787,13 @@ ___return (framebufferattachmentimageinfokhr);"))
       VkFramebufferAttachmentsCreateInfoKHRsType
       VkFramebufferAttachmentsCreateInfoKHR
       VkFramebufferAttachmentsCreateInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkFramebufferAttachmentsCreateInfoKHR
@@ -26414,10 +27839,13 @@ ___return (framebufferattachmentscreateinfokhr);"))
       VkRenderPassAttachmentBeginInfoKHRsType
       VkRenderPassAttachmentBeginInfoKHR
       VkRenderPassAttachmentBeginInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkRenderPassAttachmentBeginInfoKHR
@@ -26462,10 +27890,13 @@ ___return (renderpassattachmentbegininfokhr);"))
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXTsType
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
@@ -26505,10 +27936,13 @@ ___return (physicaldevicetexturecompressionastchdrfeaturesext);"))
       VkPhysicalDeviceCooperativeMatrixFeaturesNVsType
       VkPhysicalDeviceCooperativeMatrixFeaturesNV
       VkPhysicalDeviceCooperativeMatrixFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceCooperativeMatrixFeaturesNV
@@ -26553,10 +27987,13 @@ ___return (physicaldevicecooperativematrixfeaturesnv);"))
       VkPhysicalDeviceCooperativeMatrixPropertiesNVsType
       VkPhysicalDeviceCooperativeMatrixPropertiesNV
       VkPhysicalDeviceCooperativeMatrixPropertiesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceCooperativeMatrixPropertiesNV
@@ -26602,10 +28039,13 @@ ___return (physicaldevicecooperativematrixpropertiesnv);"))
       VkCooperativeMatrixPropertiesNVsType
       VkCooperativeMatrixPropertiesNV
       VkCooperativeMatrixPropertiesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkCooperativeMatrixPropertiesNV
@@ -26695,10 +28135,13 @@ ___return (cooperativematrixpropertiesnv);"))
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXTsType
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
@@ -26739,10 +28182,13 @@ ___return (physicaldeviceycbcrimagearraysfeaturesext);"))
       VkImageViewHandleInfoNVXsType
       VkImageViewHandleInfoNVX
       VkImageViewHandleInfoNVX*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkImageViewHandleInfoNVX (struct "VkImageViewHandleInfoNVX"))
    (c-define-type VkImageViewHandleInfoNVX* (pointer VkImageViewHandleInfoNVX))
@@ -26788,10 +28234,13 @@ ___return (imageviewhandleinfonvx);"))
       VkPipelineCreationFeedbackEXTflags
       VkPipelineCreationFeedbackEXT
       VkPipelineCreationFeedbackEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPipelineCreationFeedbackEXT (struct "VkPipelineCreationFeedbackEXT"))
    (c-define-type VkPipelineCreationFeedbackEXT* (pointer VkPipelineCreationFeedbackEXT))
@@ -26822,10 +28271,13 @@ ___return (pipelinecreationfeedbackext);"))
       VkPipelineCreationFeedbackCreateInfoEXTsType
       VkPipelineCreationFeedbackCreateInfoEXT
       VkPipelineCreationFeedbackCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineCreationFeedbackCreateInfoEXT
@@ -26880,10 +28332,13 @@ ___return (pipelinecreationfeedbackcreateinfoext);"))
       VkHeadlessSurfaceCreateInfoEXTsType
       VkHeadlessSurfaceCreateInfoEXT
       VkHeadlessSurfaceCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkHeadlessSurfaceCreateInfoEXT
@@ -26922,10 +28377,13 @@ ___return (headlesssurfacecreateinfoext);"))
       VkPhysicalDeviceCoverageReductionModeFeaturesNVsType
       VkPhysicalDeviceCoverageReductionModeFeaturesNV
       VkPhysicalDeviceCoverageReductionModeFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceCoverageReductionModeFeaturesNV
@@ -26965,10 +28423,13 @@ ___return (physicaldevicecoveragereductionmodefeaturesnv);"))
       VkPipelineCoverageReductionStateCreateInfoNVsType
       VkPipelineCoverageReductionStateCreateInfoNV
       VkPipelineCoverageReductionStateCreateInfoNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineCoverageReductionStateCreateInfoNV
@@ -27019,10 +28480,13 @@ ___return (pipelinecoveragereductionstatecreateinfonv);"))
       VkFramebufferMixedSamplesCombinationNVsType
       VkFramebufferMixedSamplesCombinationNV
       VkFramebufferMixedSamplesCombinationNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkFramebufferMixedSamplesCombinationNV
@@ -27084,10 +28548,13 @@ ___return (framebuffermixedsamplescombinationnv);"))
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTELsType
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
@@ -27125,10 +28592,13 @@ ___return (physicaldeviceshaderintegerfunctions2featuresintel);"))
       VkPerformanceValueINTELtype
       VkPerformanceValueINTEL
       VkPerformanceValueINTEL*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPerformanceValueINTEL (struct "VkPerformanceValueINTEL"))
    (c-define-type VkPerformanceValueINTEL* (pointer VkPerformanceValueINTEL))
@@ -27157,10 +28627,13 @@ ___return (performancevalueintel);"))
       VkInitializePerformanceApiInfoINTELsType
       VkInitializePerformanceApiInfoINTEL
       VkInitializePerformanceApiInfoINTEL*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkInitializePerformanceApiInfoINTEL
@@ -27199,10 +28672,13 @@ ___return (initializeperformanceapiinfointel);"))
       VkQueryPoolCreateInfoINTELsType
       VkQueryPoolCreateInfoINTEL
       VkQueryPoolCreateInfoINTEL*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkQueryPoolCreateInfoINTEL (struct "VkQueryPoolCreateInfoINTEL"))
    (c-define-type VkQueryPoolCreateInfoINTEL* (pointer VkQueryPoolCreateInfoINTEL))
@@ -27237,10 +28713,13 @@ ___return (querypoolcreateinfointel);"))
       VkPerformanceMarkerInfoINTELsType
       VkPerformanceMarkerInfoINTEL
       VkPerformanceMarkerInfoINTEL*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPerformanceMarkerInfoINTEL (struct "VkPerformanceMarkerInfoINTEL"))
    (c-define-type VkPerformanceMarkerInfoINTEL* (pointer VkPerformanceMarkerInfoINTEL))
@@ -27275,10 +28754,13 @@ ___return (performancemarkerinfointel);"))
       VkPerformanceStreamMarkerInfoINTELsType
       VkPerformanceStreamMarkerInfoINTEL
       VkPerformanceStreamMarkerInfoINTEL*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPerformanceStreamMarkerInfoINTEL
@@ -27319,10 +28801,13 @@ ___return (performancestreammarkerinfointel);"))
       VkPerformanceOverrideInfoINTELsType
       VkPerformanceOverrideInfoINTEL
       VkPerformanceOverrideInfoINTEL*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPerformanceOverrideInfoINTEL
@@ -27373,10 +28858,13 @@ ___return (performanceoverrideinfointel);"))
       VkPerformanceConfigurationAcquireInfoINTELsType
       VkPerformanceConfigurationAcquireInfoINTEL
       VkPerformanceConfigurationAcquireInfoINTEL*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPerformanceConfigurationAcquireInfoINTEL
@@ -27415,10 +28903,13 @@ ___return (performanceconfigurationacquireinfointel);"))
       VkPhysicalDeviceIndexTypeUint8FeaturesEXTsType
       VkPhysicalDeviceIndexTypeUint8FeaturesEXT
       VkPhysicalDeviceIndexTypeUint8FeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceIndexTypeUint8FeaturesEXT
@@ -27458,10 +28949,13 @@ ___return (physicaldeviceindextypeuint8featuresext);"))
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNVsType
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
@@ -27506,10 +29000,13 @@ ___return (physicaldeviceshadersmbuiltinspropertiesnv);"))
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNVsType
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNV*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
@@ -27550,10 +29047,13 @@ ___return (physicaldeviceshadersmbuiltinsfeaturesnv);"))
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXTsType
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
@@ -27604,10 +29104,13 @@ ___return (physicaldevicefragmentshaderinterlockfeaturesext);"))
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHRsType
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR
@@ -27646,10 +29149,13 @@ ___return (physicaldevicepipelineexecutablepropertiesfeatureskhr);"))
       VkPipelineInfoKHRsType
       VkPipelineInfoKHR
       VkPipelineInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPipelineInfoKHR (struct "VkPipelineInfoKHR"))
    (c-define-type VkPipelineInfoKHR* (pointer VkPipelineInfoKHR))
@@ -27687,10 +29193,13 @@ ___return (pipelineinfokhr);"))
       VkPipelineExecutablePropertiesKHRsType
       VkPipelineExecutablePropertiesKHR
       VkPipelineExecutablePropertiesKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineExecutablePropertiesKHR
@@ -27748,10 +29257,13 @@ ___return (pipelineexecutablepropertieskhr);"))
       VkPipelineExecutableInfoKHRsType
       VkPipelineExecutableInfoKHR
       VkPipelineExecutableInfoKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type VkPipelineExecutableInfoKHR (struct "VkPipelineExecutableInfoKHR"))
    (c-define-type VkPipelineExecutableInfoKHR* (pointer VkPipelineExecutableInfoKHR))
@@ -27795,10 +29307,13 @@ ___return (pipelineexecutableinfokhr);"))
       VkPipelineExecutableStatisticKHRsType
       VkPipelineExecutableStatisticKHR
       VkPipelineExecutableStatisticKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineExecutableStatisticKHR
@@ -27864,10 +29379,13 @@ ___return (pipelineexecutablestatistickhr);"))
       VkPipelineExecutableInternalRepresentationKHRsType
       VkPipelineExecutableInternalRepresentationKHR
       VkPipelineExecutableInternalRepresentationKHR*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineExecutableInternalRepresentationKHR
@@ -27930,10 +29448,13 @@ ___return (pipelineexecutableinternalrepresentationkhr);"))
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXTsType
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
@@ -27972,10 +29493,13 @@ ___return (physicaldeviceshaderdemotetohelperinvocationfeaturesext);"))
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXTsType
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
@@ -28017,10 +29541,13 @@ ___return (physicaldevicetexelbufferalignmentfeaturesext);"))
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXTsType
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
@@ -28078,10 +29605,13 @@ ___return (physicaldevicetexelbufferalignmentpropertiesext);"))
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXTsType
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
@@ -28129,10 +29659,13 @@ ___return (physicaldevicesubgroupsizecontrolfeaturesext);"))
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXTsType
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
@@ -28189,10 +29722,13 @@ ___return (physicaldevicesubgroupsizecontrolpropertiesext);"))
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXTsType
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
@@ -28236,10 +29772,13 @@ ___return (pipelineshaderstagerequiredsubgroupsizecreateinfoext);"))
       VkPhysicalDeviceLineRasterizationFeaturesEXTsType
       VkPhysicalDeviceLineRasterizationFeaturesEXT
       VkPhysicalDeviceLineRasterizationFeaturesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceLineRasterizationFeaturesEXT
@@ -28308,10 +29847,13 @@ ___return (physicaldevicelinerasterizationfeaturesext);"))
       VkPhysicalDeviceLineRasterizationPropertiesEXTsType
       VkPhysicalDeviceLineRasterizationPropertiesEXT
       VkPhysicalDeviceLineRasterizationPropertiesEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceLineRasterizationPropertiesEXT
@@ -28353,10 +29895,13 @@ ___return (physicaldevicelinerasterizationpropertiesext);"))
       VkPipelineRasterizationLineStateCreateInfoEXTsType
       VkPipelineRasterizationLineStateCreateInfoEXT
       VkPipelineRasterizationLineStateCreateInfoEXT*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineRasterizationLineStateCreateInfoEXT
@@ -28413,10 +29958,13 @@ ___return (pipelinerasterizationlinestatecreateinfoext);"))
       VkPipelineCompilerControlCreateInfoAMDsType
       VkPipelineCompilerControlCreateInfoAMD
       VkPipelineCompilerControlCreateInfoAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPipelineCompilerControlCreateInfoAMD
@@ -28455,10 +30003,13 @@ ___return (pipelinecompilercontrolcreateinfoamd);"))
       VkPhysicalDeviceCoherentMemoryFeaturesAMDsType
       VkPhysicalDeviceCoherentMemoryFeaturesAMD
       VkPhysicalDeviceCoherentMemoryFeaturesAMD*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type
       VkPhysicalDeviceCoherentMemoryFeaturesAMD
@@ -28492,10 +30043,2270 @@ physicaldevicecoherentmemoryfeaturesamd->deviceCoherentMemory=___arg3;
 ___return (physicaldevicecoherentmemoryfeaturesamd);"))
 (begin-ffi
    (PFN_vkVoidFunction PFN_vkVoidFunction*)
-   (c-declare "   
+   (c-declare
+      "   
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
    (c-define-type PFN_vkVoidFunction (function () void))
    (c-define-type PFN_vkVoidFunction* (pointer PFN_vkVoidFunction)))
+(begin-ffi
+   (vkCmdSetLineStippleEXT
+      vkGetPipelineExecutableInternalRepresentationsKHR
+      vkGetPipelineExecutableStatisticsKHR
+      vkGetPipelineExecutablePropertiesKHR
+      vkGetPerformanceParameterINTEL
+      vkQueueSetPerformanceConfigurationINTEL
+      vkReleasePerformanceConfigurationINTEL
+      vkAcquirePerformanceConfigurationINTEL
+      vkCmdSetPerformanceOverrideINTEL
+      vkCmdSetPerformanceStreamMarkerINTEL
+      vkCmdSetPerformanceMarkerINTEL
+      vkUninitializePerformanceApiINTEL
+      vkInitializePerformanceApiINTEL
+      vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV
+      vkCreateHeadlessSurfaceEXT
+      vkReleaseFullScreenExclusiveModeEXT
+      vkAcquireFullScreenExclusiveModeEXT
+      vkGetDeviceGroupSurfacePresentModes2EXT
+      vkGetPhysicalDeviceSurfacePresentModes2EXT
+      vkGetImageViewHandleNVX
+      vkGetPhysicalDeviceCooperativeMatrixPropertiesNV
+      vkGetBufferDeviceAddressEXT
+      vkGetImageDrmFormatModifierPropertiesEXT
+      vkCreateRayTracingPipelinesNV
+      vkGetAccelerationStructureHandleNV
+      vkGetRayTracingShaderGroupHandlesNV
+      vkCmdTraceRaysNV
+      vkCmdBuildAccelerationStructureNV
+      vkCmdWriteAccelerationStructuresPropertiesNV
+      vkCmdCopyAccelerationStructureNV
+      vkBindAccelerationStructureMemoryNV
+      vkGetAccelerationStructureMemoryRequirementsNV
+      vkDestroyAccelerationStructureNV
+      vkCreateAccelerationStructureNV
+      vkCompileDeferredNV
+      vkCmdDrawMeshTasksIndirectCountNV
+      vkCmdDrawMeshTasksIndirectNV
+      vkCmdDrawMeshTasksNV
+      vkCmdSetCoarseSampleOrderNV
+      vkCmdSetViewportShadingRatePaletteNV
+      vkCmdBindShadingRateImageNV
+      vkCmdSetExclusiveScissorNV
+      vkCmdDrawIndirectByteCountEXT
+      vkCmdEndQueryIndexedEXT
+      vkCmdBeginQueryIndexedEXT
+      vkCmdEndTransformFeedbackEXT
+      vkCmdBeginTransformFeedbackEXT
+      vkCmdBindTransformFeedbackBuffersEXT
+      vkGetQueueCheckpointDataNV
+      vkCmdSetCheckpointNV
+      vkCmdDrawIndexedIndirectCountKHR
+      vkCmdDrawIndirectCountKHR
+      vkCmdEndRenderPass2KHR
+      vkCmdNextSubpass2KHR
+      vkCmdBeginRenderPass2KHR
+      vkCreateRenderPass2KHR
+      vkCmdWriteBufferMarkerAMD
+      vkGetMemoryHostPointerPropertiesEXT
+      vkSubmitDebugUtilsMessageEXT
+      vkDestroyDebugUtilsMessengerEXT
+      vkCreateDebugUtilsMessengerEXT
+      vkCmdInsertDebugUtilsLabelEXT
+      vkCmdEndDebugUtilsLabelEXT
+      vkCmdBeginDebugUtilsLabelEXT
+      vkQueueInsertDebugUtilsLabelEXT
+      vkQueueEndDebugUtilsLabelEXT
+      vkQueueBeginDebugUtilsLabelEXT
+      vkSetDebugUtilsObjectTagEXT
+      vkSetDebugUtilsObjectNameEXT
+      vkGetCalibratedTimestampsEXT
+      vkGetPhysicalDeviceCalibrateableTimeDomainsEXT
+      vkSetLocalDimmingAMD
+      vkGetShaderInfoAMD
+      vkQueueSignalReleaseImageANDROID
+      vkAcquireImageANDROID
+      vkGetSwapchainGrallocUsageANDROID
+      vkGetDescriptorSetLayoutSupport
+      vkMergeValidationCachesEXT
+      vkGetValidationCacheDataEXT
+      vkDestroyValidationCacheEXT
+      vkCreateValidationCacheEXT
+      vkGetDeviceQueue2
+      vkDestroySamplerYcbcrConversion
+      vkCreateSamplerYcbcrConversion
+      vkGetImageSparseMemoryRequirements2
+      vkGetImageMemoryRequirements2
+      vkGetBufferMemoryRequirements2
+      vkGetDisplayPlaneCapabilities2KHR
+      vkGetDisplayModeProperties2KHR
+      vkGetPhysicalDeviceDisplayPlaneProperties2KHR
+      vkGetPhysicalDeviceDisplayProperties2KHR
+      vkGetPhysicalDeviceSurfaceFormats2KHR
+      vkGetPhysicalDeviceSurfaceCapabilities2KHR
+      vkGetPhysicalDeviceMultisamplePropertiesEXT
+      vkCmdSetSampleLocationsEXT
+      vkCmdSetDiscardRectangleEXT
+      vkCmdSetViewportWScalingNV
+      vkGetPastPresentationTimingGOOGLE
+      vkGetRefreshCycleDurationGOOGLE
+      vkGetSwapchainStatusKHR
+      vkSetHdrMetadataEXT
+      vkCmdPushDescriptorSetWithTemplateKHR
+      vkUpdateDescriptorSetWithTemplate
+      vkDestroyDescriptorUpdateTemplate
+      vkCreateDescriptorUpdateTemplate
+      vkGetPhysicalDevicePresentRectanglesKHR
+      vkCmdDispatchBase
+      vkAcquireNextImage2KHR
+      vkGetDeviceGroupSurfacePresentModesKHR
+      vkGetDeviceGroupPresentCapabilitiesKHR
+      vkCmdSetDeviceMask
+      vkBindImageMemory2
+      vkBindBufferMemory2
+      vkGetDeviceGroupPeerMemoryFeatures
+      vkEnumeratePhysicalDeviceGroups
+      vkGetPhysicalDeviceSurfaceCapabilities2EXT
+      vkGetSwapchainCounterEXT
+      vkRegisterDisplayEventEXT
+      vkRegisterDeviceEventEXT
+      vkDisplayPowerControlEXT
+      vkAcquireXlibDisplayEXT
+      vkReleaseDisplayEXT
+      vkImportFenceFdKHR
+      vkGetFenceFdKHR
+      vkGetPhysicalDeviceExternalFenceProperties
+      vkImportSemaphoreFdKHR
+      vkGetSemaphoreFdKHR
+      vkGetPhysicalDeviceExternalSemaphoreProperties
+      vkGetMemoryFdPropertiesKHR
+      vkGetMemoryFdKHR
+      vkGetPhysicalDeviceExternalBufferProperties
+      vkTrimCommandPool
+      vkCmdPushDescriptorSetKHR
+      vkGetPhysicalDeviceSparseImageFormatProperties2
+      vkGetPhysicalDeviceMemoryProperties2
+      vkGetPhysicalDeviceQueueFamilyProperties2
+      vkGetPhysicalDeviceImageFormatProperties2
+      vkGetPhysicalDeviceFormatProperties2
+      vkGetPhysicalDeviceProperties2
+      vkGetPhysicalDeviceFeatures2
+      vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX
+      vkUnregisterObjectsNVX
+      vkRegisterObjectsNVX
+      vkDestroyObjectTableNVX
+      vkCreateObjectTableNVX
+      vkDestroyIndirectCommandsLayoutNVX
+      vkCreateIndirectCommandsLayoutNVX
+      vkCmdReserveSpaceForCommandsNVX
+      vkCmdProcessCommandsNVX
+      vkGetMemoryWin32HandleNV
+      vkGetPhysicalDeviceExternalImageFormatPropertiesNV
+      vkCmdDebugMarkerInsertEXT
+      vkCmdDebugMarkerEndEXT
+      vkCmdDebugMarkerBeginEXT
+      vkDebugMarkerSetObjectTagEXT
+      vkDebugMarkerSetObjectNameEXT
+      vkDebugReportMessageEXT
+      vkDestroyDebugReportCallbackEXT
+      vkCreateDebugReportCallbackEXT
+      vkGetPhysicalDeviceWin32PresentationSupportKHR
+      vkGetPhysicalDeviceWaylandPresentationSupportKHR
+      vkQueuePresentKHR
+      vkAcquireNextImageKHR
+      vkGetSwapchainImagesKHR
+      vkDestroySwapchainKHR
+      vkCreateSwapchainKHR
+      vkGetPhysicalDeviceSurfacePresentModesKHR
+      vkGetPhysicalDeviceSurfaceFormatsKHR
+      vkGetPhysicalDeviceSurfaceCapabilitiesKHR
+      vkGetPhysicalDeviceSurfaceSupportKHR
+      vkDestroySurfaceKHR
+      vkCreateSharedSwapchainsKHR
+      vkCreateDisplayPlaneSurfaceKHR
+      vkGetDisplayPlaneCapabilitiesKHR
+      vkCreateDisplayModeKHR
+      vkGetDisplayModePropertiesKHR
+      vkGetDisplayPlaneSupportedDisplaysKHR
+      vkGetPhysicalDeviceDisplayPlanePropertiesKHR
+      vkGetPhysicalDeviceDisplayPropertiesKHR
+      vkCmdExecuteCommands
+      vkCmdEndRenderPass
+      vkCmdNextSubpass
+      vkCmdBeginRenderPass
+      vkCmdPushConstants
+      vkCmdCopyQueryPoolResults
+      vkCmdWriteTimestamp
+      vkCmdResetQueryPool
+      vkCmdEndConditionalRenderingEXT
+      vkCmdBeginConditionalRenderingEXT
+      vkCmdEndQuery
+      vkCmdBeginQuery
+      vkCmdPipelineBarrier
+      vkCmdWaitEvents
+      vkCmdResetEvent
+      vkCmdSetEvent
+      vkCmdResolveImage
+      vkCmdClearAttachments
+      vkCmdClearDepthStencilImage
+      vkCmdClearColorImage
+      vkCmdFillBuffer
+      vkCmdUpdateBuffer
+      vkCmdCopyImageToBuffer
+      vkCmdCopyBufferToImage
+      vkCmdBlitImage
+      vkCmdCopyImage
+      vkCmdCopyBuffer
+      vkCmdDispatchIndirect
+      vkCmdDispatch
+      vkCmdDrawIndexedIndirect
+      vkCmdDrawIndirect
+      vkCmdDrawIndexed
+      vkCmdDraw
+      vkCmdBindVertexBuffers
+      vkCmdBindIndexBuffer
+      vkCmdBindDescriptorSets
+      vkCmdSetStencilReference
+      vkCmdSetStencilWriteMask
+      vkCmdSetStencilCompareMask
+      vkCmdSetDepthBounds
+      vkCmdSetBlendConstants
+      vkCmdSetDepthBias
+      vkCmdSetLineWidth
+      vkCmdSetScissor
+      vkCmdSetViewport
+      vkCmdBindPipeline
+      vkResetCommandBuffer
+      vkEndCommandBuffer
+      vkBeginCommandBuffer
+      vkFreeCommandBuffers
+      vkAllocateCommandBuffers
+      vkResetCommandPool
+      vkDestroyCommandPool
+      vkCreateCommandPool
+      vkGetRenderAreaGranularity
+      vkDestroyRenderPass
+      vkCreateRenderPass
+      vkDestroyFramebuffer
+      vkCreateFramebuffer
+      vkUpdateDescriptorSets
+      vkFreeDescriptorSets
+      vkAllocateDescriptorSets
+      vkResetDescriptorPool
+      vkDestroyDescriptorPool
+      vkCreateDescriptorPool
+      vkDestroyDescriptorSetLayout
+      vkCreateDescriptorSetLayout
+      vkDestroySampler
+      vkCreateSampler
+      vkDestroyPipelineLayout
+      vkCreatePipelineLayout
+      vkDestroyPipeline
+      vkCreateComputePipelines
+      vkCreateGraphicsPipelines
+      vkMergePipelineCaches
+      vkGetPipelineCacheData
+      vkDestroyPipelineCache
+      vkCreatePipelineCache
+      vkDestroyShaderModule
+      vkCreateShaderModule
+      vkDestroyImageView
+      vkCreateImageView
+      vkGetImageSubresourceLayout
+      vkDestroyImage
+      vkCreateImage
+      vkDestroyBufferView
+      vkCreateBufferView
+      vkDestroyBuffer
+      vkCreateBuffer
+      vkResetQueryPoolEXT
+      vkGetQueryPoolResults
+      vkDestroyQueryPool
+      vkCreateQueryPool
+      vkResetEvent
+      vkSetEvent
+      vkGetEventStatus
+      vkDestroyEvent
+      vkCreateEvent
+      vkDestroySemaphore
+      vkCreateSemaphore
+      vkWaitForFences
+      vkGetFenceStatus
+      vkResetFences
+      vkDestroyFence
+      vkCreateFence
+      vkQueueBindSparse
+      vkGetPhysicalDeviceSparseImageFormatProperties
+      vkGetImageSparseMemoryRequirements
+      vkBindImageMemory
+      vkGetImageMemoryRequirements
+      vkBindBufferMemory
+      vkGetBufferMemoryRequirements
+      vkGetDeviceMemoryCommitment
+      vkInvalidateMappedMemoryRanges
+      vkFlushMappedMemoryRanges
+      vkUnmapMemory
+      vkMapMemory
+      vkFreeMemory
+      vkAllocateMemory
+      vkDeviceWaitIdle
+      vkQueueWaitIdle
+      vkQueueSubmit
+      vkGetDeviceQueue
+      vkEnumerateDeviceExtensionProperties
+      vkEnumerateDeviceLayerProperties
+      vkEnumerateInstanceExtensionProperties
+      vkEnumerateInstanceLayerProperties
+      vkEnumerateInstanceVersion
+      vkDestroyDevice
+      vkCreateDevice
+      vkGetPhysicalDeviceImageFormatProperties
+      vkGetPhysicalDeviceFormatProperties
+      vkGetPhysicalDeviceFeatures
+      vkGetPhysicalDeviceMemoryProperties
+      vkGetPhysicalDeviceQueueFamilyProperties
+      vkGetPhysicalDeviceProperties
+      vkGetInstanceProcAddr
+      vkGetDeviceProcAddr
+      vkEnumeratePhysicalDevices
+      vkDestroyInstance
+      vkCreateInstance)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkCreateInstance
+      ((pointer VkInstanceCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkInstance))
+      VkResult
+      "vkCreateInstance")
+   (define-c-lambda
+      vkDestroyInstance
+      (VkInstance (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyInstance")
+   (define-c-lambda
+      vkEnumeratePhysicalDevices
+      (VkInstance (pointer uint32_t) (pointer VkPhysicalDevice))
+      VkResult
+      "vkEnumeratePhysicalDevices")
+   (define-c-lambda
+      vkGetDeviceProcAddr
+      (VkDevice (pointer char))
+      PFN_vkVoidFunction
+      "vkGetDeviceProcAddr")
+   (define-c-lambda
+      vkGetInstanceProcAddr
+      (VkInstance (pointer char))
+      PFN_vkVoidFunction
+      "vkGetInstanceProcAddr")
+   (define-c-lambda
+      vkGetPhysicalDeviceProperties
+      (VkPhysicalDevice (pointer VkPhysicalDeviceProperties))
+      void
+      "vkGetPhysicalDeviceProperties")
+   (define-c-lambda
+      vkGetPhysicalDeviceQueueFamilyProperties
+      (VkPhysicalDevice (pointer uint32_t) (pointer VkQueueFamilyProperties))
+      void
+      "vkGetPhysicalDeviceQueueFamilyProperties")
+   (define-c-lambda
+      vkGetPhysicalDeviceMemoryProperties
+      (VkPhysicalDevice (pointer VkPhysicalDeviceMemoryProperties))
+      void
+      "vkGetPhysicalDeviceMemoryProperties")
+   (define-c-lambda
+      vkGetPhysicalDeviceFeatures
+      (VkPhysicalDevice (pointer VkPhysicalDeviceFeatures))
+      void
+      "vkGetPhysicalDeviceFeatures")
+   (define-c-lambda
+      vkGetPhysicalDeviceFormatProperties
+      (VkPhysicalDevice VkFormat (pointer VkFormatProperties))
+      void
+      "vkGetPhysicalDeviceFormatProperties")
+   (define-c-lambda
+      vkGetPhysicalDeviceImageFormatProperties
+      (VkPhysicalDevice
+         VkFormat
+         VkImageType
+         VkImageTiling
+         VkImageUsageFlags
+         VkImageCreateFlags
+         (pointer VkImageFormatProperties))
+      VkResult
+      "vkGetPhysicalDeviceImageFormatProperties")
+   (define-c-lambda
+      vkCreateDevice
+      (VkPhysicalDevice
+         (pointer VkDeviceCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkDevice))
+      VkResult
+      "vkCreateDevice")
+   (define-c-lambda
+      vkDestroyDevice
+      (VkDevice (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyDevice")
+   (define-c-lambda
+      vkEnumerateInstanceVersion
+      ((pointer uint32_t))
+      VkResult
+      "vkEnumerateInstanceVersion")
+   (define-c-lambda
+      vkEnumerateInstanceLayerProperties
+      ((pointer uint32_t) (pointer VkLayerProperties))
+      VkResult
+      "vkEnumerateInstanceLayerProperties")
+   (define-c-lambda
+      vkEnumerateInstanceExtensionProperties
+      ((pointer char) (pointer uint32_t) (pointer VkExtensionProperties))
+      VkResult
+      "vkEnumerateInstanceExtensionProperties")
+   (define-c-lambda
+      vkEnumerateDeviceLayerProperties
+      (VkPhysicalDevice (pointer uint32_t) (pointer VkLayerProperties))
+      VkResult
+      "vkEnumerateDeviceLayerProperties")
+   (define-c-lambda
+      vkEnumerateDeviceExtensionProperties
+      (VkPhysicalDevice (pointer char) (pointer uint32_t) (pointer VkExtensionProperties))
+      VkResult
+      "vkEnumerateDeviceExtensionProperties")
+   (define-c-lambda
+      vkGetDeviceQueue
+      (VkDevice uint32_t uint32_t (pointer VkQueue))
+      void
+      "vkGetDeviceQueue")
+   (define-c-lambda
+      vkQueueSubmit
+      (VkQueue uint32_t (pointer VkSubmitInfo) VkFence)
+      VkResult
+      "vkQueueSubmit")
+   (define-c-lambda vkQueueWaitIdle (VkQueue) VkResult "vkQueueWaitIdle")
+   (define-c-lambda vkDeviceWaitIdle (VkDevice) VkResult "vkDeviceWaitIdle")
+   (define-c-lambda
+      vkAllocateMemory
+      (VkDevice
+         (pointer VkMemoryAllocateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkDeviceMemory))
+      VkResult
+      "vkAllocateMemory")
+   (define-c-lambda
+      vkFreeMemory
+      (VkDevice VkDeviceMemory (pointer VkAllocationCallbacks))
+      void
+      "vkFreeMemory")
+   (define-c-lambda
+      vkMapMemory
+      (VkDevice VkDeviceMemory VkDeviceSize VkDeviceSize VkMemoryMapFlags (pointer void))
+      VkResult
+      "vkMapMemory")
+   (define-c-lambda vkUnmapMemory (VkDevice VkDeviceMemory) void "vkUnmapMemory")
+   (define-c-lambda
+      vkFlushMappedMemoryRanges
+      (VkDevice uint32_t (pointer VkMappedMemoryRange))
+      VkResult
+      "vkFlushMappedMemoryRanges")
+   (define-c-lambda
+      vkInvalidateMappedMemoryRanges
+      (VkDevice uint32_t (pointer VkMappedMemoryRange))
+      VkResult
+      "vkInvalidateMappedMemoryRanges")
+   (define-c-lambda
+      vkGetDeviceMemoryCommitment
+      (VkDevice VkDeviceMemory (pointer VkDeviceSize))
+      void
+      "vkGetDeviceMemoryCommitment")
+   (define-c-lambda
+      vkGetBufferMemoryRequirements
+      (VkDevice VkBuffer (pointer VkMemoryRequirements))
+      void
+      "vkGetBufferMemoryRequirements")
+   (define-c-lambda
+      vkBindBufferMemory
+      (VkDevice VkBuffer VkDeviceMemory VkDeviceSize)
+      VkResult
+      "vkBindBufferMemory")
+   (define-c-lambda
+      vkGetImageMemoryRequirements
+      (VkDevice VkImage (pointer VkMemoryRequirements))
+      void
+      "vkGetImageMemoryRequirements")
+   (define-c-lambda
+      vkBindImageMemory
+      (VkDevice VkImage VkDeviceMemory VkDeviceSize)
+      VkResult
+      "vkBindImageMemory")
+   (define-c-lambda
+      vkGetImageSparseMemoryRequirements
+      (VkDevice VkImage (pointer uint32_t) (pointer VkSparseImageMemoryRequirements))
+      void
+      "vkGetImageSparseMemoryRequirements")
+   (define-c-lambda
+      vkGetPhysicalDeviceSparseImageFormatProperties
+      (VkPhysicalDevice
+         VkFormat
+         VkImageType
+         VkSampleCountFlagBits
+         VkImageUsageFlags
+         VkImageTiling
+         (pointer uint32_t)
+         (pointer VkSparseImageFormatProperties))
+      void
+      "vkGetPhysicalDeviceSparseImageFormatProperties")
+   (define-c-lambda
+      vkQueueBindSparse
+      (VkQueue uint32_t (pointer VkBindSparseInfo) VkFence)
+      VkResult
+      "vkQueueBindSparse")
+   (define-c-lambda
+      vkCreateFence
+      (VkDevice
+         (pointer VkFenceCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkFence))
+      VkResult
+      "vkCreateFence")
+   (define-c-lambda
+      vkDestroyFence
+      (VkDevice VkFence (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyFence")
+   (define-c-lambda
+      vkResetFences
+      (VkDevice uint32_t (pointer VkFence))
+      VkResult
+      "vkResetFences")
+   (define-c-lambda vkGetFenceStatus (VkDevice VkFence) VkResult "vkGetFenceStatus")
+   (define-c-lambda
+      vkWaitForFences
+      (VkDevice uint32_t (pointer VkFence) VkBool32 uint64_t)
+      VkResult
+      "vkWaitForFences")
+   (define-c-lambda
+      vkCreateSemaphore
+      (VkDevice
+         (pointer VkSemaphoreCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkSemaphore))
+      VkResult
+      "vkCreateSemaphore")
+   (define-c-lambda
+      vkDestroySemaphore
+      (VkDevice VkSemaphore (pointer VkAllocationCallbacks))
+      void
+      "vkDestroySemaphore")
+   (define-c-lambda
+      vkCreateEvent
+      (VkDevice
+         (pointer VkEventCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkEvent))
+      VkResult
+      "vkCreateEvent")
+   (define-c-lambda
+      vkDestroyEvent
+      (VkDevice VkEvent (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyEvent")
+   (define-c-lambda vkGetEventStatus (VkDevice VkEvent) VkResult "vkGetEventStatus")
+   (define-c-lambda vkSetEvent (VkDevice VkEvent) VkResult "vkSetEvent")
+   (define-c-lambda vkResetEvent (VkDevice VkEvent) VkResult "vkResetEvent")
+   (define-c-lambda
+      vkCreateQueryPool
+      (VkDevice
+         (pointer VkQueryPoolCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkQueryPool))
+      VkResult
+      "vkCreateQueryPool")
+   (define-c-lambda
+      vkDestroyQueryPool
+      (VkDevice VkQueryPool (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyQueryPool")
+   (define-c-lambda
+      vkGetQueryPoolResults
+      (VkDevice
+         VkQueryPool
+         uint32_t
+         uint32_t
+         size_t
+         (pointer void)
+         VkDeviceSize
+         VkQueryResultFlags)
+      VkResult
+      "vkGetQueryPoolResults")
+   (define-c-lambda
+      vkResetQueryPoolEXT
+      (VkDevice VkQueryPool uint32_t uint32_t)
+      void
+      "vkResetQueryPoolEXT")
+   (define-c-lambda
+      vkCreateBuffer
+      (VkDevice
+         (pointer VkBufferCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkBuffer))
+      VkResult
+      "vkCreateBuffer")
+   (define-c-lambda
+      vkDestroyBuffer
+      (VkDevice VkBuffer (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyBuffer")
+   (define-c-lambda
+      vkCreateBufferView
+      (VkDevice
+         (pointer VkBufferViewCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkBufferView))
+      VkResult
+      "vkCreateBufferView")
+   (define-c-lambda
+      vkDestroyBufferView
+      (VkDevice VkBufferView (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyBufferView")
+   (define-c-lambda
+      vkCreateImage
+      (VkDevice
+         (pointer VkImageCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkImage))
+      VkResult
+      "vkCreateImage")
+   (define-c-lambda
+      vkDestroyImage
+      (VkDevice VkImage (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyImage")
+   (define-c-lambda
+      vkGetImageSubresourceLayout
+      (VkDevice VkImage (pointer VkImageSubresource) (pointer VkSubresourceLayout))
+      void
+      "vkGetImageSubresourceLayout")
+   (define-c-lambda
+      vkCreateImageView
+      (VkDevice
+         (pointer VkImageViewCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkImageView))
+      VkResult
+      "vkCreateImageView")
+   (define-c-lambda
+      vkDestroyImageView
+      (VkDevice VkImageView (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyImageView")
+   (define-c-lambda
+      vkCreateShaderModule
+      (VkDevice
+         (pointer VkShaderModuleCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkShaderModule))
+      VkResult
+      "vkCreateShaderModule")
+   (define-c-lambda
+      vkDestroyShaderModule
+      (VkDevice VkShaderModule (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyShaderModule")
+   (define-c-lambda
+      vkCreatePipelineCache
+      (VkDevice
+         (pointer VkPipelineCacheCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkPipelineCache))
+      VkResult
+      "vkCreatePipelineCache")
+   (define-c-lambda
+      vkDestroyPipelineCache
+      (VkDevice VkPipelineCache (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyPipelineCache")
+   (define-c-lambda
+      vkGetPipelineCacheData
+      (VkDevice VkPipelineCache (pointer size_t) (pointer void))
+      VkResult
+      "vkGetPipelineCacheData")
+   (define-c-lambda
+      vkMergePipelineCaches
+      (VkDevice VkPipelineCache uint32_t (pointer VkPipelineCache))
+      VkResult
+      "vkMergePipelineCaches")
+   (define-c-lambda
+      vkCreateGraphicsPipelines
+      (VkDevice
+         VkPipelineCache
+         uint32_t
+         (pointer VkGraphicsPipelineCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkPipeline))
+      VkResult
+      "vkCreateGraphicsPipelines")
+   (define-c-lambda
+      vkCreateComputePipelines
+      (VkDevice
+         VkPipelineCache
+         uint32_t
+         (pointer VkComputePipelineCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkPipeline))
+      VkResult
+      "vkCreateComputePipelines")
+   (define-c-lambda
+      vkDestroyPipeline
+      (VkDevice VkPipeline (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyPipeline")
+   (define-c-lambda
+      vkCreatePipelineLayout
+      (VkDevice
+         (pointer VkPipelineLayoutCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkPipelineLayout))
+      VkResult
+      "vkCreatePipelineLayout")
+   (define-c-lambda
+      vkDestroyPipelineLayout
+      (VkDevice VkPipelineLayout (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyPipelineLayout")
+   (define-c-lambda
+      vkCreateSampler
+      (VkDevice
+         (pointer VkSamplerCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkSampler))
+      VkResult
+      "vkCreateSampler")
+   (define-c-lambda
+      vkDestroySampler
+      (VkDevice VkSampler (pointer VkAllocationCallbacks))
+      void
+      "vkDestroySampler")
+   (define-c-lambda
+      vkCreateDescriptorSetLayout
+      (VkDevice
+         (pointer VkDescriptorSetLayoutCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkDescriptorSetLayout))
+      VkResult
+      "vkCreateDescriptorSetLayout")
+   (define-c-lambda
+      vkDestroyDescriptorSetLayout
+      (VkDevice VkDescriptorSetLayout (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyDescriptorSetLayout")
+   (define-c-lambda
+      vkCreateDescriptorPool
+      (VkDevice
+         (pointer VkDescriptorPoolCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkDescriptorPool))
+      VkResult
+      "vkCreateDescriptorPool")
+   (define-c-lambda
+      vkDestroyDescriptorPool
+      (VkDevice VkDescriptorPool (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyDescriptorPool")
+   (define-c-lambda
+      vkResetDescriptorPool
+      (VkDevice VkDescriptorPool VkDescriptorPoolResetFlags)
+      VkResult
+      "vkResetDescriptorPool")
+   (define-c-lambda
+      vkAllocateDescriptorSets
+      (VkDevice (pointer VkDescriptorSetAllocateInfo) (pointer VkDescriptorSet))
+      VkResult
+      "vkAllocateDescriptorSets")
+   (define-c-lambda
+      vkFreeDescriptorSets
+      (VkDevice VkDescriptorPool uint32_t (pointer VkDescriptorSet))
+      VkResult
+      "vkFreeDescriptorSets")
+   (define-c-lambda
+      vkUpdateDescriptorSets
+      (VkDevice
+         uint32_t
+         (pointer VkWriteDescriptorSet)
+         uint32_t
+         (pointer VkCopyDescriptorSet))
+      void
+      "vkUpdateDescriptorSets")
+   (define-c-lambda
+      vkCreateFramebuffer
+      (VkDevice
+         (pointer VkFramebufferCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkFramebuffer))
+      VkResult
+      "vkCreateFramebuffer")
+   (define-c-lambda
+      vkDestroyFramebuffer
+      (VkDevice VkFramebuffer (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyFramebuffer")
+   (define-c-lambda
+      vkCreateRenderPass
+      (VkDevice
+         (pointer VkRenderPassCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkRenderPass))
+      VkResult
+      "vkCreateRenderPass")
+   (define-c-lambda
+      vkDestroyRenderPass
+      (VkDevice VkRenderPass (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyRenderPass")
+   (define-c-lambda
+      vkGetRenderAreaGranularity
+      (VkDevice VkRenderPass (pointer VkExtent2D))
+      void
+      "vkGetRenderAreaGranularity")
+   (define-c-lambda
+      vkCreateCommandPool
+      (VkDevice
+         (pointer VkCommandPoolCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkCommandPool))
+      VkResult
+      "vkCreateCommandPool")
+   (define-c-lambda
+      vkDestroyCommandPool
+      (VkDevice VkCommandPool (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyCommandPool")
+   (define-c-lambda
+      vkResetCommandPool
+      (VkDevice VkCommandPool VkCommandPoolResetFlags)
+      VkResult
+      "vkResetCommandPool")
+   (define-c-lambda
+      vkAllocateCommandBuffers
+      (VkDevice (pointer VkCommandBufferAllocateInfo) (pointer VkCommandBuffer))
+      VkResult
+      "vkAllocateCommandBuffers")
+   (define-c-lambda
+      vkFreeCommandBuffers
+      (VkDevice VkCommandPool uint32_t (pointer VkCommandBuffer))
+      void
+      "vkFreeCommandBuffers")
+   (define-c-lambda
+      vkBeginCommandBuffer
+      (VkCommandBuffer (pointer VkCommandBufferBeginInfo))
+      VkResult
+      "vkBeginCommandBuffer")
+   (define-c-lambda vkEndCommandBuffer (VkCommandBuffer) VkResult "vkEndCommandBuffer")
+   (define-c-lambda
+      vkResetCommandBuffer
+      (VkCommandBuffer VkCommandBufferResetFlags)
+      VkResult
+      "vkResetCommandBuffer")
+   (define-c-lambda
+      vkCmdBindPipeline
+      (VkCommandBuffer VkPipelineBindPoint VkPipeline)
+      void
+      "vkCmdBindPipeline")
+   (define-c-lambda
+      vkCmdSetViewport
+      (VkCommandBuffer uint32_t uint32_t (pointer VkViewport))
+      void
+      "vkCmdSetViewport")
+   (define-c-lambda
+      vkCmdSetScissor
+      (VkCommandBuffer uint32_t uint32_t (pointer VkRect2D))
+      void
+      "vkCmdSetScissor")
+   (define-c-lambda vkCmdSetLineWidth (VkCommandBuffer float) void "vkCmdSetLineWidth")
+   (define-c-lambda
+      vkCmdSetDepthBias
+      (VkCommandBuffer float float float)
+      void
+      "vkCmdSetDepthBias")
+   (define-c-lambda
+      vkCmdSetBlendConstants
+      (VkCommandBuffer (pointer float))
+      void
+      "vkCmdSetBlendConstants")
+   (define-c-lambda
+      vkCmdSetDepthBounds
+      (VkCommandBuffer float float)
+      void
+      "vkCmdSetDepthBounds")
+   (define-c-lambda
+      vkCmdSetStencilCompareMask
+      (VkCommandBuffer VkStencilFaceFlags uint32_t)
+      void
+      "vkCmdSetStencilCompareMask")
+   (define-c-lambda
+      vkCmdSetStencilWriteMask
+      (VkCommandBuffer VkStencilFaceFlags uint32_t)
+      void
+      "vkCmdSetStencilWriteMask")
+   (define-c-lambda
+      vkCmdSetStencilReference
+      (VkCommandBuffer VkStencilFaceFlags uint32_t)
+      void
+      "vkCmdSetStencilReference")
+   (define-c-lambda
+      vkCmdBindDescriptorSets
+      (VkCommandBuffer
+         VkPipelineBindPoint
+         VkPipelineLayout
+         uint32_t
+         uint32_t
+         (pointer VkDescriptorSet)
+         uint32_t
+         (pointer uint32_t))
+      void
+      "vkCmdBindDescriptorSets")
+   (define-c-lambda
+      vkCmdBindIndexBuffer
+      (VkCommandBuffer VkBuffer VkDeviceSize VkIndexType)
+      void
+      "vkCmdBindIndexBuffer")
+   (define-c-lambda
+      vkCmdBindVertexBuffers
+      (VkCommandBuffer uint32_t uint32_t (pointer VkBuffer) (pointer VkDeviceSize))
+      void
+      "vkCmdBindVertexBuffers")
+   (define-c-lambda
+      vkCmdDraw
+      (VkCommandBuffer uint32_t uint32_t uint32_t uint32_t)
+      void
+      "vkCmdDraw")
+   (define-c-lambda
+      vkCmdDrawIndexed
+      (VkCommandBuffer uint32_t uint32_t uint32_t int32_t uint32_t)
+      void
+      "vkCmdDrawIndexed")
+   (define-c-lambda
+      vkCmdDrawIndirect
+      (VkCommandBuffer VkBuffer VkDeviceSize uint32_t uint32_t)
+      void
+      "vkCmdDrawIndirect")
+   (define-c-lambda
+      vkCmdDrawIndexedIndirect
+      (VkCommandBuffer VkBuffer VkDeviceSize uint32_t uint32_t)
+      void
+      "vkCmdDrawIndexedIndirect")
+   (define-c-lambda
+      vkCmdDispatch
+      (VkCommandBuffer uint32_t uint32_t uint32_t)
+      void
+      "vkCmdDispatch")
+   (define-c-lambda
+      vkCmdDispatchIndirect
+      (VkCommandBuffer VkBuffer VkDeviceSize)
+      void
+      "vkCmdDispatchIndirect")
+   (define-c-lambda
+      vkCmdCopyBuffer
+      (VkCommandBuffer VkBuffer VkBuffer uint32_t (pointer VkBufferCopy))
+      void
+      "vkCmdCopyBuffer")
+   (define-c-lambda
+      vkCmdCopyImage
+      (VkCommandBuffer
+         VkImage
+         VkImageLayout
+         VkImage
+         VkImageLayout
+         uint32_t
+         (pointer VkImageCopy))
+      void
+      "vkCmdCopyImage")
+   (define-c-lambda
+      vkCmdBlitImage
+      (VkCommandBuffer
+         VkImage
+         VkImageLayout
+         VkImage
+         VkImageLayout
+         uint32_t
+         (pointer VkImageBlit)
+         VkFilter)
+      void
+      "vkCmdBlitImage")
+   (define-c-lambda
+      vkCmdCopyBufferToImage
+      (VkCommandBuffer
+         VkBuffer
+         VkImage
+         VkImageLayout
+         uint32_t
+         (pointer VkBufferImageCopy))
+      void
+      "vkCmdCopyBufferToImage")
+   (define-c-lambda
+      vkCmdCopyImageToBuffer
+      (VkCommandBuffer
+         VkImage
+         VkImageLayout
+         VkBuffer
+         uint32_t
+         (pointer VkBufferImageCopy))
+      void
+      "vkCmdCopyImageToBuffer")
+   (define-c-lambda
+      vkCmdUpdateBuffer
+      (VkCommandBuffer VkBuffer VkDeviceSize VkDeviceSize (pointer void))
+      void
+      "vkCmdUpdateBuffer")
+   (define-c-lambda
+      vkCmdFillBuffer
+      (VkCommandBuffer VkBuffer VkDeviceSize VkDeviceSize uint32_t)
+      void
+      "vkCmdFillBuffer")
+   (define-c-lambda
+      vkCmdClearColorImage
+      (VkCommandBuffer
+         VkImage
+         VkImageLayout
+         (pointer VkClearColorValue)
+         uint32_t
+         (pointer VkImageSubresourceRange))
+      void
+      "vkCmdClearColorImage")
+   (define-c-lambda
+      vkCmdClearDepthStencilImage
+      (VkCommandBuffer
+         VkImage
+         VkImageLayout
+         (pointer VkClearDepthStencilValue)
+         uint32_t
+         (pointer VkImageSubresourceRange))
+      void
+      "vkCmdClearDepthStencilImage")
+   (define-c-lambda
+      vkCmdClearAttachments
+      (VkCommandBuffer
+         uint32_t
+         (pointer VkClearAttachment)
+         uint32_t
+         (pointer VkClearRect))
+      void
+      "vkCmdClearAttachments")
+   (define-c-lambda
+      vkCmdResolveImage
+      (VkCommandBuffer
+         VkImage
+         VkImageLayout
+         VkImage
+         VkImageLayout
+         uint32_t
+         (pointer VkImageResolve))
+      void
+      "vkCmdResolveImage")
+   (define-c-lambda
+      vkCmdSetEvent
+      (VkCommandBuffer VkEvent VkPipelineStageFlags)
+      void
+      "vkCmdSetEvent")
+   (define-c-lambda
+      vkCmdResetEvent
+      (VkCommandBuffer VkEvent VkPipelineStageFlags)
+      void
+      "vkCmdResetEvent")
+   (define-c-lambda
+      vkCmdWaitEvents
+      (VkCommandBuffer
+         uint32_t
+         (pointer VkEvent)
+         VkPipelineStageFlags
+         VkPipelineStageFlags
+         uint32_t
+         (pointer VkMemoryBarrier)
+         uint32_t
+         (pointer VkBufferMemoryBarrier)
+         uint32_t
+         (pointer VkImageMemoryBarrier))
+      void
+      "vkCmdWaitEvents")
+   (define-c-lambda
+      vkCmdPipelineBarrier
+      (VkCommandBuffer
+         VkPipelineStageFlags
+         VkPipelineStageFlags
+         VkDependencyFlags
+         uint32_t
+         (pointer VkMemoryBarrier)
+         uint32_t
+         (pointer VkBufferMemoryBarrier)
+         uint32_t
+         (pointer VkImageMemoryBarrier))
+      void
+      "vkCmdPipelineBarrier")
+   (define-c-lambda
+      vkCmdBeginQuery
+      (VkCommandBuffer VkQueryPool uint32_t VkQueryControlFlags)
+      void
+      "vkCmdBeginQuery")
+   (define-c-lambda
+      vkCmdEndQuery
+      (VkCommandBuffer VkQueryPool uint32_t)
+      void
+      "vkCmdEndQuery")
+   (define-c-lambda
+      vkCmdBeginConditionalRenderingEXT
+      (VkCommandBuffer (pointer VkConditionalRenderingBeginInfoEXT))
+      void
+      "vkCmdBeginConditionalRenderingEXT")
+   (define-c-lambda
+      vkCmdEndConditionalRenderingEXT
+      (VkCommandBuffer)
+      void
+      "vkCmdEndConditionalRenderingEXT")
+   (define-c-lambda
+      vkCmdResetQueryPool
+      (VkCommandBuffer VkQueryPool uint32_t uint32_t)
+      void
+      "vkCmdResetQueryPool")
+   (define-c-lambda
+      vkCmdWriteTimestamp
+      (VkCommandBuffer VkPipelineStageFlagBits VkQueryPool uint32_t)
+      void
+      "vkCmdWriteTimestamp")
+   (define-c-lambda
+      vkCmdCopyQueryPoolResults
+      (VkCommandBuffer
+         VkQueryPool
+         uint32_t
+         uint32_t
+         VkBuffer
+         VkDeviceSize
+         VkDeviceSize
+         VkQueryResultFlags)
+      void
+      "vkCmdCopyQueryPoolResults")
+   (define-c-lambda
+      vkCmdPushConstants
+      (VkCommandBuffer
+         VkPipelineLayout
+         VkShaderStageFlags
+         uint32_t
+         uint32_t
+         (pointer void))
+      void
+      "vkCmdPushConstants")
+   (define-c-lambda
+      vkCmdBeginRenderPass
+      (VkCommandBuffer (pointer VkRenderPassBeginInfo) VkSubpassContents)
+      void
+      "vkCmdBeginRenderPass")
+   (define-c-lambda
+      vkCmdNextSubpass
+      (VkCommandBuffer VkSubpassContents)
+      void
+      "vkCmdNextSubpass")
+   (define-c-lambda vkCmdEndRenderPass (VkCommandBuffer) void "vkCmdEndRenderPass")
+   (define-c-lambda
+      vkCmdExecuteCommands
+      (VkCommandBuffer uint32_t (pointer VkCommandBuffer))
+      void
+      "vkCmdExecuteCommands")
+   (define-c-lambda
+      vkGetPhysicalDeviceDisplayPropertiesKHR
+      (VkPhysicalDevice (pointer uint32_t) (pointer VkDisplayPropertiesKHR))
+      VkResult
+      "vkGetPhysicalDeviceDisplayPropertiesKHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceDisplayPlanePropertiesKHR
+      (VkPhysicalDevice (pointer uint32_t) (pointer VkDisplayPlanePropertiesKHR))
+      VkResult
+      "vkGetPhysicalDeviceDisplayPlanePropertiesKHR")
+   (define-c-lambda
+      vkGetDisplayPlaneSupportedDisplaysKHR
+      (VkPhysicalDevice uint32_t (pointer uint32_t) (pointer VkDisplayKHR))
+      VkResult
+      "vkGetDisplayPlaneSupportedDisplaysKHR")
+   (define-c-lambda
+      vkGetDisplayModePropertiesKHR
+      (VkPhysicalDevice
+         VkDisplayKHR
+         (pointer uint32_t)
+         (pointer VkDisplayModePropertiesKHR))
+      VkResult
+      "vkGetDisplayModePropertiesKHR")
+   (define-c-lambda
+      vkCreateDisplayModeKHR
+      (VkPhysicalDevice
+         VkDisplayKHR
+         (pointer VkDisplayModeCreateInfoKHR)
+         (pointer VkAllocationCallbacks)
+         (pointer VkDisplayModeKHR))
+      VkResult
+      "vkCreateDisplayModeKHR")
+   (define-c-lambda
+      vkGetDisplayPlaneCapabilitiesKHR
+      (VkPhysicalDevice VkDisplayModeKHR uint32_t (pointer VkDisplayPlaneCapabilitiesKHR))
+      VkResult
+      "vkGetDisplayPlaneCapabilitiesKHR")
+   (define-c-lambda
+      vkCreateDisplayPlaneSurfaceKHR
+      (VkInstance
+         (pointer VkDisplaySurfaceCreateInfoKHR)
+         (pointer VkAllocationCallbacks)
+         (pointer VkSurfaceKHR))
+      VkResult
+      "vkCreateDisplayPlaneSurfaceKHR")
+   (define-c-lambda
+      vkCreateSharedSwapchainsKHR
+      (VkDevice
+         uint32_t
+         (pointer VkSwapchainCreateInfoKHR)
+         (pointer VkAllocationCallbacks)
+         (pointer VkSwapchainKHR))
+      VkResult
+      "vkCreateSharedSwapchainsKHR")
+   (define-c-lambda
+      vkDestroySurfaceKHR
+      (VkInstance VkSurfaceKHR (pointer VkAllocationCallbacks))
+      void
+      "vkDestroySurfaceKHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfaceSupportKHR
+      (VkPhysicalDevice uint32_t VkSurfaceKHR (pointer VkBool32))
+      VkResult
+      "vkGetPhysicalDeviceSurfaceSupportKHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfaceCapabilitiesKHR
+      (VkPhysicalDevice VkSurfaceKHR (pointer VkSurfaceCapabilitiesKHR))
+      VkResult
+      "vkGetPhysicalDeviceSurfaceCapabilitiesKHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfaceFormatsKHR
+      (VkPhysicalDevice VkSurfaceKHR (pointer uint32_t) (pointer VkSurfaceFormatKHR))
+      VkResult
+      "vkGetPhysicalDeviceSurfaceFormatsKHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfacePresentModesKHR
+      (VkPhysicalDevice VkSurfaceKHR (pointer uint32_t) (pointer VkPresentModeKHR))
+      VkResult
+      "vkGetPhysicalDeviceSurfacePresentModesKHR")
+   (define-c-lambda
+      vkCreateSwapchainKHR
+      (VkDevice
+         (pointer VkSwapchainCreateInfoKHR)
+         (pointer VkAllocationCallbacks)
+         (pointer VkSwapchainKHR))
+      VkResult
+      "vkCreateSwapchainKHR")
+   (define-c-lambda
+      vkDestroySwapchainKHR
+      (VkDevice VkSwapchainKHR (pointer VkAllocationCallbacks))
+      void
+      "vkDestroySwapchainKHR")
+   (define-c-lambda
+      vkGetSwapchainImagesKHR
+      (VkDevice VkSwapchainKHR (pointer uint32_t) (pointer VkImage))
+      VkResult
+      "vkGetSwapchainImagesKHR")
+   (define-c-lambda
+      vkAcquireNextImageKHR
+      (VkDevice VkSwapchainKHR uint64_t VkSemaphore VkFence (pointer uint32_t))
+      VkResult
+      "vkAcquireNextImageKHR")
+   (define-c-lambda
+      vkQueuePresentKHR
+      (VkQueue (pointer VkPresentInfoKHR))
+      VkResult
+      "vkQueuePresentKHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceWaylandPresentationSupportKHR
+      (VkPhysicalDevice uint32_t (pointer wl_display))
+      VkBool32
+      "vkGetPhysicalDeviceWaylandPresentationSupportKHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceWin32PresentationSupportKHR
+      (VkPhysicalDevice uint32_t)
+      VkBool32
+      "vkGetPhysicalDeviceWin32PresentationSupportKHR")
+   (define-c-lambda
+      vkCreateDebugReportCallbackEXT
+      (VkInstance
+         (pointer VkDebugReportCallbackCreateInfoEXT)
+         (pointer VkAllocationCallbacks)
+         (pointer VkDebugReportCallbackEXT))
+      VkResult
+      "vkCreateDebugReportCallbackEXT")
+   (define-c-lambda
+      vkDestroyDebugReportCallbackEXT
+      (VkInstance VkDebugReportCallbackEXT (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyDebugReportCallbackEXT")
+   (define-c-lambda
+      vkDebugReportMessageEXT
+      (VkInstance
+         VkDebugReportFlagsEXT
+         VkDebugReportObjectTypeEXT
+         uint64_t
+         size_t
+         int32_t
+         (pointer char)
+         (pointer char))
+      void
+      "vkDebugReportMessageEXT")
+   (define-c-lambda
+      vkDebugMarkerSetObjectNameEXT
+      (VkDevice (pointer VkDebugMarkerObjectNameInfoEXT))
+      VkResult
+      "vkDebugMarkerSetObjectNameEXT")
+   (define-c-lambda
+      vkDebugMarkerSetObjectTagEXT
+      (VkDevice (pointer VkDebugMarkerObjectTagInfoEXT))
+      VkResult
+      "vkDebugMarkerSetObjectTagEXT")
+   (define-c-lambda
+      vkCmdDebugMarkerBeginEXT
+      (VkCommandBuffer (pointer VkDebugMarkerMarkerInfoEXT))
+      void
+      "vkCmdDebugMarkerBeginEXT")
+   (define-c-lambda
+      vkCmdDebugMarkerEndEXT
+      (VkCommandBuffer)
+      void
+      "vkCmdDebugMarkerEndEXT")
+   (define-c-lambda
+      vkCmdDebugMarkerInsertEXT
+      (VkCommandBuffer (pointer VkDebugMarkerMarkerInfoEXT))
+      void
+      "vkCmdDebugMarkerInsertEXT")
+   (define-c-lambda
+      vkGetPhysicalDeviceExternalImageFormatPropertiesNV
+      (VkPhysicalDevice
+         VkFormat
+         VkImageType
+         VkImageTiling
+         VkImageUsageFlags
+         VkImageCreateFlags
+         VkExternalMemoryHandleTypeFlagsNV
+         (pointer VkExternalImageFormatPropertiesNV))
+      VkResult
+      "vkGetPhysicalDeviceExternalImageFormatPropertiesNV")
+   (define-c-lambda
+      vkGetMemoryWin32HandleNV
+      (VkDevice VkDeviceMemory VkExternalMemoryHandleTypeFlagsNV (pointer HANDLE))
+      VkResult
+      "vkGetMemoryWin32HandleNV")
+   (define-c-lambda
+      vkCmdProcessCommandsNVX
+      (VkCommandBuffer (pointer VkCmdProcessCommandsInfoNVX))
+      void
+      "vkCmdProcessCommandsNVX")
+   (define-c-lambda
+      vkCmdReserveSpaceForCommandsNVX
+      (VkCommandBuffer (pointer VkCmdReserveSpaceForCommandsInfoNVX))
+      void
+      "vkCmdReserveSpaceForCommandsNVX")
+   (define-c-lambda
+      vkCreateIndirectCommandsLayoutNVX
+      (VkDevice
+         (pointer VkIndirectCommandsLayoutCreateInfoNVX)
+         (pointer VkAllocationCallbacks)
+         (pointer VkIndirectCommandsLayoutNVX))
+      VkResult
+      "vkCreateIndirectCommandsLayoutNVX")
+   (define-c-lambda
+      vkDestroyIndirectCommandsLayoutNVX
+      (VkDevice VkIndirectCommandsLayoutNVX (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyIndirectCommandsLayoutNVX")
+   (define-c-lambda
+      vkCreateObjectTableNVX
+      (VkDevice
+         (pointer VkObjectTableCreateInfoNVX)
+         (pointer VkAllocationCallbacks)
+         (pointer VkObjectTableNVX))
+      VkResult
+      "vkCreateObjectTableNVX")
+   (define-c-lambda
+      vkDestroyObjectTableNVX
+      (VkDevice VkObjectTableNVX (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyObjectTableNVX")
+   (define-c-lambda
+      vkRegisterObjectsNVX
+      (VkDevice
+         VkObjectTableNVX
+         uint32_t
+         (pointer VkObjectTableEntryNVX)
+         (pointer uint32_t))
+      VkResult
+      "vkRegisterObjectsNVX")
+   (define-c-lambda
+      vkUnregisterObjectsNVX
+      (VkDevice
+         VkObjectTableNVX
+         uint32_t
+         (pointer VkObjectEntryTypeNVX)
+         (pointer uint32_t))
+      VkResult
+      "vkUnregisterObjectsNVX")
+   (define-c-lambda
+      vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX
+      (VkPhysicalDevice
+         (pointer VkDeviceGeneratedCommandsFeaturesNVX)
+         (pointer VkDeviceGeneratedCommandsLimitsNVX))
+      void
+      "vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX")
+   (define-c-lambda
+      vkGetPhysicalDeviceFeatures2
+      (VkPhysicalDevice (pointer VkPhysicalDeviceFeatures2))
+      void
+      "vkGetPhysicalDeviceFeatures2")
+   (define-c-lambda
+      vkGetPhysicalDeviceProperties2
+      (VkPhysicalDevice (pointer VkPhysicalDeviceProperties2))
+      void
+      "vkGetPhysicalDeviceProperties2")
+   (define-c-lambda
+      vkGetPhysicalDeviceFormatProperties2
+      (VkPhysicalDevice VkFormat (pointer VkFormatProperties2))
+      void
+      "vkGetPhysicalDeviceFormatProperties2")
+   (define-c-lambda
+      vkGetPhysicalDeviceImageFormatProperties2
+      (VkPhysicalDevice
+         (pointer VkPhysicalDeviceImageFormatInfo2)
+         (pointer VkImageFormatProperties2))
+      VkResult
+      "vkGetPhysicalDeviceImageFormatProperties2")
+   (define-c-lambda
+      vkGetPhysicalDeviceQueueFamilyProperties2
+      (VkPhysicalDevice (pointer uint32_t) (pointer VkQueueFamilyProperties2))
+      void
+      "vkGetPhysicalDeviceQueueFamilyProperties2")
+   (define-c-lambda
+      vkGetPhysicalDeviceMemoryProperties2
+      (VkPhysicalDevice (pointer VkPhysicalDeviceMemoryProperties2))
+      void
+      "vkGetPhysicalDeviceMemoryProperties2")
+   (define-c-lambda
+      vkGetPhysicalDeviceSparseImageFormatProperties2
+      (VkPhysicalDevice
+         (pointer VkPhysicalDeviceSparseImageFormatInfo2)
+         (pointer uint32_t)
+         (pointer VkSparseImageFormatProperties2))
+      void
+      "vkGetPhysicalDeviceSparseImageFormatProperties2")
+   (define-c-lambda
+      vkCmdPushDescriptorSetKHR
+      (VkCommandBuffer
+         VkPipelineBindPoint
+         VkPipelineLayout
+         uint32_t
+         uint32_t
+         (pointer VkWriteDescriptorSet))
+      void
+      "vkCmdPushDescriptorSetKHR")
+   (define-c-lambda
+      vkTrimCommandPool
+      (VkDevice VkCommandPool VkCommandPoolTrimFlags)
+      void
+      "vkTrimCommandPool")
+   (define-c-lambda
+      vkGetPhysicalDeviceExternalBufferProperties
+      (VkPhysicalDevice
+         (pointer VkPhysicalDeviceExternalBufferInfo)
+         (pointer VkExternalBufferProperties))
+      void
+      "vkGetPhysicalDeviceExternalBufferProperties")
+   (define-c-lambda
+      vkGetMemoryFdKHR
+      (VkDevice (pointer VkMemoryGetFdInfoKHR) (pointer int))
+      VkResult
+      "vkGetMemoryFdKHR")
+   (define-c-lambda
+      vkGetMemoryFdPropertiesKHR
+      (VkDevice VkExternalMemoryHandleTypeFlagBits int (pointer VkMemoryFdPropertiesKHR))
+      VkResult
+      "vkGetMemoryFdPropertiesKHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceExternalSemaphoreProperties
+      (VkPhysicalDevice
+         (pointer VkPhysicalDeviceExternalSemaphoreInfo)
+         (pointer VkExternalSemaphoreProperties))
+      void
+      "vkGetPhysicalDeviceExternalSemaphoreProperties")
+   (define-c-lambda
+      vkGetSemaphoreFdKHR
+      (VkDevice (pointer VkSemaphoreGetFdInfoKHR) (pointer int))
+      VkResult
+      "vkGetSemaphoreFdKHR")
+   (define-c-lambda
+      vkImportSemaphoreFdKHR
+      (VkDevice (pointer VkImportSemaphoreFdInfoKHR))
+      VkResult
+      "vkImportSemaphoreFdKHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceExternalFenceProperties
+      (VkPhysicalDevice
+         (pointer VkPhysicalDeviceExternalFenceInfo)
+         (pointer VkExternalFenceProperties))
+      void
+      "vkGetPhysicalDeviceExternalFenceProperties")
+   (define-c-lambda
+      vkGetFenceFdKHR
+      (VkDevice (pointer VkFenceGetFdInfoKHR) (pointer int))
+      VkResult
+      "vkGetFenceFdKHR")
+   (define-c-lambda
+      vkImportFenceFdKHR
+      (VkDevice (pointer VkImportFenceFdInfoKHR))
+      VkResult
+      "vkImportFenceFdKHR")
+   (define-c-lambda
+      vkReleaseDisplayEXT
+      (VkPhysicalDevice VkDisplayKHR)
+      VkResult
+      "vkReleaseDisplayEXT")
+   (define-c-lambda
+      vkAcquireXlibDisplayEXT
+      (VkPhysicalDevice (pointer Display) VkDisplayKHR)
+      VkResult
+      "vkAcquireXlibDisplayEXT")
+   (define-c-lambda
+      vkDisplayPowerControlEXT
+      (VkDevice VkDisplayKHR (pointer VkDisplayPowerInfoEXT))
+      VkResult
+      "vkDisplayPowerControlEXT")
+   (define-c-lambda
+      vkRegisterDeviceEventEXT
+      (VkDevice
+         (pointer VkDeviceEventInfoEXT)
+         (pointer VkAllocationCallbacks)
+         (pointer VkFence))
+      VkResult
+      "vkRegisterDeviceEventEXT")
+   (define-c-lambda
+      vkRegisterDisplayEventEXT
+      (VkDevice
+         VkDisplayKHR
+         (pointer VkDisplayEventInfoEXT)
+         (pointer VkAllocationCallbacks)
+         (pointer VkFence))
+      VkResult
+      "vkRegisterDisplayEventEXT")
+   (define-c-lambda
+      vkGetSwapchainCounterEXT
+      (VkDevice VkSwapchainKHR VkSurfaceCounterFlagBitsEXT (pointer uint64_t))
+      VkResult
+      "vkGetSwapchainCounterEXT")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfaceCapabilities2EXT
+      (VkPhysicalDevice VkSurfaceKHR (pointer VkSurfaceCapabilities2EXT))
+      VkResult
+      "vkGetPhysicalDeviceSurfaceCapabilities2EXT")
+   (define-c-lambda
+      vkEnumeratePhysicalDeviceGroups
+      (VkInstance (pointer uint32_t) (pointer VkPhysicalDeviceGroupProperties))
+      VkResult
+      "vkEnumeratePhysicalDeviceGroups")
+   (define-c-lambda
+      vkGetDeviceGroupPeerMemoryFeatures
+      (VkDevice uint32_t uint32_t uint32_t (pointer VkPeerMemoryFeatureFlags))
+      void
+      "vkGetDeviceGroupPeerMemoryFeatures")
+   (define-c-lambda
+      vkBindBufferMemory2
+      (VkDevice uint32_t (pointer VkBindBufferMemoryInfo))
+      VkResult
+      "vkBindBufferMemory2")
+   (define-c-lambda
+      vkBindImageMemory2
+      (VkDevice uint32_t (pointer VkBindImageMemoryInfo))
+      VkResult
+      "vkBindImageMemory2")
+   (define-c-lambda
+      vkCmdSetDeviceMask
+      (VkCommandBuffer uint32_t)
+      void
+      "vkCmdSetDeviceMask")
+   (define-c-lambda
+      vkGetDeviceGroupPresentCapabilitiesKHR
+      (VkDevice (pointer VkDeviceGroupPresentCapabilitiesKHR))
+      VkResult
+      "vkGetDeviceGroupPresentCapabilitiesKHR")
+   (define-c-lambda
+      vkGetDeviceGroupSurfacePresentModesKHR
+      (VkDevice VkSurfaceKHR (pointer VkDeviceGroupPresentModeFlagsKHR))
+      VkResult
+      "vkGetDeviceGroupSurfacePresentModesKHR")
+   (define-c-lambda
+      vkAcquireNextImage2KHR
+      (VkDevice (pointer VkAcquireNextImageInfoKHR) (pointer uint32_t))
+      VkResult
+      "vkAcquireNextImage2KHR")
+   (define-c-lambda
+      vkCmdDispatchBase
+      (VkCommandBuffer uint32_t uint32_t uint32_t uint32_t uint32_t uint32_t)
+      void
+      "vkCmdDispatchBase")
+   (define-c-lambda
+      vkGetPhysicalDevicePresentRectanglesKHR
+      (VkPhysicalDevice VkSurfaceKHR (pointer uint32_t) (pointer VkRect2D))
+      VkResult
+      "vkGetPhysicalDevicePresentRectanglesKHR")
+   (define-c-lambda
+      vkCreateDescriptorUpdateTemplate
+      (VkDevice
+         (pointer VkDescriptorUpdateTemplateCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkDescriptorUpdateTemplate))
+      VkResult
+      "vkCreateDescriptorUpdateTemplate")
+   (define-c-lambda
+      vkDestroyDescriptorUpdateTemplate
+      (VkDevice VkDescriptorUpdateTemplate (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyDescriptorUpdateTemplate")
+   (define-c-lambda
+      vkUpdateDescriptorSetWithTemplate
+      (VkDevice VkDescriptorSet VkDescriptorUpdateTemplate (pointer void))
+      void
+      "vkUpdateDescriptorSetWithTemplate")
+   (define-c-lambda
+      vkCmdPushDescriptorSetWithTemplateKHR
+      (VkCommandBuffer
+         VkDescriptorUpdateTemplate
+         VkPipelineLayout
+         uint32_t
+         (pointer void))
+      void
+      "vkCmdPushDescriptorSetWithTemplateKHR")
+   (define-c-lambda
+      vkSetHdrMetadataEXT
+      (VkDevice uint32_t (pointer VkSwapchainKHR) (pointer VkHdrMetadataEXT))
+      void
+      "vkSetHdrMetadataEXT")
+   (define-c-lambda
+      vkGetSwapchainStatusKHR
+      (VkDevice VkSwapchainKHR)
+      VkResult
+      "vkGetSwapchainStatusKHR")
+   (define-c-lambda
+      vkGetRefreshCycleDurationGOOGLE
+      (VkDevice VkSwapchainKHR (pointer VkRefreshCycleDurationGOOGLE))
+      VkResult
+      "vkGetRefreshCycleDurationGOOGLE")
+   (define-c-lambda
+      vkGetPastPresentationTimingGOOGLE
+      (VkDevice
+         VkSwapchainKHR
+         (pointer uint32_t)
+         (pointer VkPastPresentationTimingGOOGLE))
+      VkResult
+      "vkGetPastPresentationTimingGOOGLE")
+   (define-c-lambda
+      vkCmdSetViewportWScalingNV
+      (VkCommandBuffer uint32_t uint32_t (pointer VkViewportWScalingNV))
+      void
+      "vkCmdSetViewportWScalingNV")
+   (define-c-lambda
+      vkCmdSetDiscardRectangleEXT
+      (VkCommandBuffer uint32_t uint32_t (pointer VkRect2D))
+      void
+      "vkCmdSetDiscardRectangleEXT")
+   (define-c-lambda
+      vkCmdSetSampleLocationsEXT
+      (VkCommandBuffer (pointer VkSampleLocationsInfoEXT))
+      void
+      "vkCmdSetSampleLocationsEXT")
+   (define-c-lambda
+      vkGetPhysicalDeviceMultisamplePropertiesEXT
+      (VkPhysicalDevice VkSampleCountFlagBits (pointer VkMultisamplePropertiesEXT))
+      void
+      "vkGetPhysicalDeviceMultisamplePropertiesEXT")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfaceCapabilities2KHR
+      (VkPhysicalDevice
+         (pointer VkPhysicalDeviceSurfaceInfo2KHR)
+         (pointer VkSurfaceCapabilities2KHR))
+      VkResult
+      "vkGetPhysicalDeviceSurfaceCapabilities2KHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfaceFormats2KHR
+      (VkPhysicalDevice
+         (pointer VkPhysicalDeviceSurfaceInfo2KHR)
+         (pointer uint32_t)
+         (pointer VkSurfaceFormat2KHR))
+      VkResult
+      "vkGetPhysicalDeviceSurfaceFormats2KHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceDisplayProperties2KHR
+      (VkPhysicalDevice (pointer uint32_t) (pointer VkDisplayProperties2KHR))
+      VkResult
+      "vkGetPhysicalDeviceDisplayProperties2KHR")
+   (define-c-lambda
+      vkGetPhysicalDeviceDisplayPlaneProperties2KHR
+      (VkPhysicalDevice (pointer uint32_t) (pointer VkDisplayPlaneProperties2KHR))
+      VkResult
+      "vkGetPhysicalDeviceDisplayPlaneProperties2KHR")
+   (define-c-lambda
+      vkGetDisplayModeProperties2KHR
+      (VkPhysicalDevice
+         VkDisplayKHR
+         (pointer uint32_t)
+         (pointer VkDisplayModeProperties2KHR))
+      VkResult
+      "vkGetDisplayModeProperties2KHR")
+   (define-c-lambda
+      vkGetDisplayPlaneCapabilities2KHR
+      (VkPhysicalDevice
+         (pointer VkDisplayPlaneInfo2KHR)
+         (pointer VkDisplayPlaneCapabilities2KHR))
+      VkResult
+      "vkGetDisplayPlaneCapabilities2KHR")
+   (define-c-lambda
+      vkGetBufferMemoryRequirements2
+      (VkDevice (pointer VkBufferMemoryRequirementsInfo2) (pointer VkMemoryRequirements2))
+      void
+      "vkGetBufferMemoryRequirements2")
+   (define-c-lambda
+      vkGetImageMemoryRequirements2
+      (VkDevice (pointer VkImageMemoryRequirementsInfo2) (pointer VkMemoryRequirements2))
+      void
+      "vkGetImageMemoryRequirements2")
+   (define-c-lambda
+      vkGetImageSparseMemoryRequirements2
+      (VkDevice
+         (pointer VkImageSparseMemoryRequirementsInfo2)
+         (pointer uint32_t)
+         (pointer VkSparseImageMemoryRequirements2))
+      void
+      "vkGetImageSparseMemoryRequirements2")
+   (define-c-lambda
+      vkCreateSamplerYcbcrConversion
+      (VkDevice
+         (pointer VkSamplerYcbcrConversionCreateInfo)
+         (pointer VkAllocationCallbacks)
+         (pointer VkSamplerYcbcrConversion))
+      VkResult
+      "vkCreateSamplerYcbcrConversion")
+   (define-c-lambda
+      vkDestroySamplerYcbcrConversion
+      (VkDevice VkSamplerYcbcrConversion (pointer VkAllocationCallbacks))
+      void
+      "vkDestroySamplerYcbcrConversion")
+   (define-c-lambda
+      vkGetDeviceQueue2
+      (VkDevice (pointer VkDeviceQueueInfo2) (pointer VkQueue))
+      void
+      "vkGetDeviceQueue2")
+   (define-c-lambda
+      vkCreateValidationCacheEXT
+      (VkDevice
+         (pointer VkValidationCacheCreateInfoEXT)
+         (pointer VkAllocationCallbacks)
+         (pointer VkValidationCacheEXT))
+      VkResult
+      "vkCreateValidationCacheEXT")
+   (define-c-lambda
+      vkDestroyValidationCacheEXT
+      (VkDevice VkValidationCacheEXT (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyValidationCacheEXT")
+   (define-c-lambda
+      vkGetValidationCacheDataEXT
+      (VkDevice VkValidationCacheEXT (pointer size_t) (pointer void))
+      VkResult
+      "vkGetValidationCacheDataEXT")
+   (define-c-lambda
+      vkMergeValidationCachesEXT
+      (VkDevice VkValidationCacheEXT uint32_t (pointer VkValidationCacheEXT))
+      VkResult
+      "vkMergeValidationCachesEXT")
+   (define-c-lambda
+      vkGetDescriptorSetLayoutSupport
+      (VkDevice
+         (pointer VkDescriptorSetLayoutCreateInfo)
+         (pointer VkDescriptorSetLayoutSupport))
+      void
+      "vkGetDescriptorSetLayoutSupport")
+   (define-c-lambda
+      vkGetSwapchainGrallocUsageANDROID
+      (VkDevice VkFormat VkImageUsageFlags (pointer int))
+      VkResult
+      "vkGetSwapchainGrallocUsageANDROID")
+   (define-c-lambda
+      vkAcquireImageANDROID
+      (VkDevice VkImage int VkSemaphore VkFence)
+      VkResult
+      "vkAcquireImageANDROID")
+   (define-c-lambda
+      vkQueueSignalReleaseImageANDROID
+      (VkQueue uint32_t (pointer VkSemaphore) VkImage (pointer int))
+      VkResult
+      "vkQueueSignalReleaseImageANDROID")
+   (define-c-lambda
+      vkGetShaderInfoAMD
+      (VkDevice
+         VkPipeline
+         VkShaderStageFlagBits
+         VkShaderInfoTypeAMD
+         (pointer size_t)
+         (pointer void))
+      VkResult
+      "vkGetShaderInfoAMD")
+   (define-c-lambda
+      vkSetLocalDimmingAMD
+      (VkDevice VkSwapchainKHR VkBool32)
+      void
+      "vkSetLocalDimmingAMD")
+   (define-c-lambda
+      vkGetPhysicalDeviceCalibrateableTimeDomainsEXT
+      (VkPhysicalDevice (pointer uint32_t) (pointer VkTimeDomainEXT))
+      VkResult
+      "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT")
+   (define-c-lambda
+      vkGetCalibratedTimestampsEXT
+      (VkDevice
+         uint32_t
+         (pointer VkCalibratedTimestampInfoEXT)
+         (pointer uint64_t)
+         (pointer uint64_t))
+      VkResult
+      "vkGetCalibratedTimestampsEXT")
+   (define-c-lambda
+      vkSetDebugUtilsObjectNameEXT
+      (VkDevice (pointer VkDebugUtilsObjectNameInfoEXT))
+      VkResult
+      "vkSetDebugUtilsObjectNameEXT")
+   (define-c-lambda
+      vkSetDebugUtilsObjectTagEXT
+      (VkDevice (pointer VkDebugUtilsObjectTagInfoEXT))
+      VkResult
+      "vkSetDebugUtilsObjectTagEXT")
+   (define-c-lambda
+      vkQueueBeginDebugUtilsLabelEXT
+      (VkQueue (pointer VkDebugUtilsLabelEXT))
+      void
+      "vkQueueBeginDebugUtilsLabelEXT")
+   (define-c-lambda
+      vkQueueEndDebugUtilsLabelEXT
+      (VkQueue)
+      void
+      "vkQueueEndDebugUtilsLabelEXT")
+   (define-c-lambda
+      vkQueueInsertDebugUtilsLabelEXT
+      (VkQueue (pointer VkDebugUtilsLabelEXT))
+      void
+      "vkQueueInsertDebugUtilsLabelEXT")
+   (define-c-lambda
+      vkCmdBeginDebugUtilsLabelEXT
+      (VkCommandBuffer (pointer VkDebugUtilsLabelEXT))
+      void
+      "vkCmdBeginDebugUtilsLabelEXT")
+   (define-c-lambda
+      vkCmdEndDebugUtilsLabelEXT
+      (VkCommandBuffer)
+      void
+      "vkCmdEndDebugUtilsLabelEXT")
+   (define-c-lambda
+      vkCmdInsertDebugUtilsLabelEXT
+      (VkCommandBuffer (pointer VkDebugUtilsLabelEXT))
+      void
+      "vkCmdInsertDebugUtilsLabelEXT")
+   (define-c-lambda
+      vkCreateDebugUtilsMessengerEXT
+      (VkInstance
+         (pointer VkDebugUtilsMessengerCreateInfoEXT)
+         (pointer VkAllocationCallbacks)
+         (pointer VkDebugUtilsMessengerEXT))
+      VkResult
+      "vkCreateDebugUtilsMessengerEXT")
+   (define-c-lambda
+      vkDestroyDebugUtilsMessengerEXT
+      (VkInstance VkDebugUtilsMessengerEXT (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyDebugUtilsMessengerEXT")
+   (define-c-lambda
+      vkSubmitDebugUtilsMessageEXT
+      (VkInstance
+         VkDebugUtilsMessageSeverityFlagBitsEXT
+         VkDebugUtilsMessageTypeFlagsEXT
+         (pointer VkDebugUtilsMessengerCallbackDataEXT))
+      void
+      "vkSubmitDebugUtilsMessageEXT")
+   (define-c-lambda
+      vkGetMemoryHostPointerPropertiesEXT
+      (VkDevice
+         VkExternalMemoryHandleTypeFlagBits
+         (pointer void)
+         (pointer VkMemoryHostPointerPropertiesEXT))
+      VkResult
+      "vkGetMemoryHostPointerPropertiesEXT")
+   (define-c-lambda
+      vkCmdWriteBufferMarkerAMD
+      (VkCommandBuffer VkPipelineStageFlagBits VkBuffer VkDeviceSize uint32_t)
+      void
+      "vkCmdWriteBufferMarkerAMD")
+   (define-c-lambda
+      vkCreateRenderPass2KHR
+      (VkDevice
+         (pointer VkRenderPassCreateInfo2KHR)
+         (pointer VkAllocationCallbacks)
+         (pointer VkRenderPass))
+      VkResult
+      "vkCreateRenderPass2KHR")
+   (define-c-lambda
+      vkCmdBeginRenderPass2KHR
+      (VkCommandBuffer (pointer VkRenderPassBeginInfo) (pointer VkSubpassBeginInfoKHR))
+      void
+      "vkCmdBeginRenderPass2KHR")
+   (define-c-lambda
+      vkCmdNextSubpass2KHR
+      (VkCommandBuffer (pointer VkSubpassBeginInfoKHR) (pointer VkSubpassEndInfoKHR))
+      void
+      "vkCmdNextSubpass2KHR")
+   (define-c-lambda
+      vkCmdEndRenderPass2KHR
+      (VkCommandBuffer (pointer VkSubpassEndInfoKHR))
+      void
+      "vkCmdEndRenderPass2KHR")
+   (define-c-lambda
+      vkCmdDrawIndirectCountKHR
+      (VkCommandBuffer VkBuffer VkDeviceSize VkBuffer VkDeviceSize uint32_t uint32_t)
+      void
+      "vkCmdDrawIndirectCountKHR")
+   (define-c-lambda
+      vkCmdDrawIndexedIndirectCountKHR
+      (VkCommandBuffer VkBuffer VkDeviceSize VkBuffer VkDeviceSize uint32_t uint32_t)
+      void
+      "vkCmdDrawIndexedIndirectCountKHR")
+   (define-c-lambda
+      vkCmdSetCheckpointNV
+      (VkCommandBuffer (pointer void))
+      void
+      "vkCmdSetCheckpointNV")
+   (define-c-lambda
+      vkGetQueueCheckpointDataNV
+      (VkQueue (pointer uint32_t) (pointer VkCheckpointDataNV))
+      void
+      "vkGetQueueCheckpointDataNV")
+   (define-c-lambda
+      vkCmdBindTransformFeedbackBuffersEXT
+      (VkCommandBuffer
+         uint32_t
+         uint32_t
+         (pointer VkBuffer)
+         (pointer VkDeviceSize)
+         (pointer VkDeviceSize))
+      void
+      "vkCmdBindTransformFeedbackBuffersEXT")
+   (define-c-lambda
+      vkCmdBeginTransformFeedbackEXT
+      (VkCommandBuffer uint32_t uint32_t (pointer VkBuffer) (pointer VkDeviceSize))
+      void
+      "vkCmdBeginTransformFeedbackEXT")
+   (define-c-lambda
+      vkCmdEndTransformFeedbackEXT
+      (VkCommandBuffer uint32_t uint32_t (pointer VkBuffer) (pointer VkDeviceSize))
+      void
+      "vkCmdEndTransformFeedbackEXT")
+   (define-c-lambda
+      vkCmdBeginQueryIndexedEXT
+      (VkCommandBuffer VkQueryPool uint32_t VkQueryControlFlags uint32_t)
+      void
+      "vkCmdBeginQueryIndexedEXT")
+   (define-c-lambda
+      vkCmdEndQueryIndexedEXT
+      (VkCommandBuffer VkQueryPool uint32_t uint32_t)
+      void
+      "vkCmdEndQueryIndexedEXT")
+   (define-c-lambda
+      vkCmdDrawIndirectByteCountEXT
+      (VkCommandBuffer uint32_t uint32_t VkBuffer VkDeviceSize uint32_t uint32_t)
+      void
+      "vkCmdDrawIndirectByteCountEXT")
+   (define-c-lambda
+      vkCmdSetExclusiveScissorNV
+      (VkCommandBuffer uint32_t uint32_t (pointer VkRect2D))
+      void
+      "vkCmdSetExclusiveScissorNV")
+   (define-c-lambda
+      vkCmdBindShadingRateImageNV
+      (VkCommandBuffer VkImageView VkImageLayout)
+      void
+      "vkCmdBindShadingRateImageNV")
+   (define-c-lambda
+      vkCmdSetViewportShadingRatePaletteNV
+      (VkCommandBuffer uint32_t uint32_t (pointer VkShadingRatePaletteNV))
+      void
+      "vkCmdSetViewportShadingRatePaletteNV")
+   (define-c-lambda
+      vkCmdSetCoarseSampleOrderNV
+      (VkCommandBuffer
+         VkCoarseSampleOrderTypeNV
+         uint32_t
+         (pointer VkCoarseSampleOrderCustomNV))
+      void
+      "vkCmdSetCoarseSampleOrderNV")
+   (define-c-lambda
+      vkCmdDrawMeshTasksNV
+      (VkCommandBuffer uint32_t uint32_t)
+      void
+      "vkCmdDrawMeshTasksNV")
+   (define-c-lambda
+      vkCmdDrawMeshTasksIndirectNV
+      (VkCommandBuffer VkBuffer VkDeviceSize uint32_t uint32_t)
+      void
+      "vkCmdDrawMeshTasksIndirectNV")
+   (define-c-lambda
+      vkCmdDrawMeshTasksIndirectCountNV
+      (VkCommandBuffer VkBuffer VkDeviceSize VkBuffer VkDeviceSize uint32_t uint32_t)
+      void
+      "vkCmdDrawMeshTasksIndirectCountNV")
+   (define-c-lambda
+      vkCompileDeferredNV
+      (VkDevice VkPipeline uint32_t)
+      VkResult
+      "vkCompileDeferredNV")
+   (define-c-lambda
+      vkCreateAccelerationStructureNV
+      (VkDevice
+         (pointer VkAccelerationStructureCreateInfoNV)
+         (pointer VkAllocationCallbacks)
+         (pointer VkAccelerationStructureNV))
+      VkResult
+      "vkCreateAccelerationStructureNV")
+   (define-c-lambda
+      vkDestroyAccelerationStructureNV
+      (VkDevice VkAccelerationStructureNV (pointer VkAllocationCallbacks))
+      void
+      "vkDestroyAccelerationStructureNV")
+   (define-c-lambda
+      vkGetAccelerationStructureMemoryRequirementsNV
+      (VkDevice
+         (pointer VkAccelerationStructureMemoryRequirementsInfoNV)
+         (pointer VkMemoryRequirements2KHR))
+      void
+      "vkGetAccelerationStructureMemoryRequirementsNV")
+   (define-c-lambda
+      vkBindAccelerationStructureMemoryNV
+      (VkDevice uint32_t (pointer VkBindAccelerationStructureMemoryInfoNV))
+      VkResult
+      "vkBindAccelerationStructureMemoryNV")
+   (define-c-lambda
+      vkCmdCopyAccelerationStructureNV
+      (VkCommandBuffer
+         VkAccelerationStructureNV
+         VkAccelerationStructureNV
+         VkCopyAccelerationStructureModeNV)
+      void
+      "vkCmdCopyAccelerationStructureNV")
+   (define-c-lambda
+      vkCmdWriteAccelerationStructuresPropertiesNV
+      (VkCommandBuffer
+         uint32_t
+         (pointer VkAccelerationStructureNV)
+         VkQueryType
+         VkQueryPool
+         uint32_t)
+      void
+      "vkCmdWriteAccelerationStructuresPropertiesNV")
+   (define-c-lambda
+      vkCmdBuildAccelerationStructureNV
+      (VkCommandBuffer
+         (pointer VkAccelerationStructureInfoNV)
+         VkBuffer
+         VkDeviceSize
+         VkBool32
+         VkAccelerationStructureNV
+         VkAccelerationStructureNV
+         VkBuffer
+         VkDeviceSize)
+      void
+      "vkCmdBuildAccelerationStructureNV")
+   (define-c-lambda
+      vkCmdTraceRaysNV
+      (VkCommandBuffer
+         VkBuffer
+         VkDeviceSize
+         VkBuffer
+         VkDeviceSize
+         VkDeviceSize
+         VkBuffer
+         VkDeviceSize
+         VkDeviceSize
+         VkBuffer
+         VkDeviceSize
+         VkDeviceSize
+         uint32_t
+         uint32_t
+         uint32_t)
+      void
+      "vkCmdTraceRaysNV")
+   (define-c-lambda
+      vkGetRayTracingShaderGroupHandlesNV
+      (VkDevice VkPipeline uint32_t uint32_t size_t (pointer void))
+      VkResult
+      "vkGetRayTracingShaderGroupHandlesNV")
+   (define-c-lambda
+      vkGetAccelerationStructureHandleNV
+      (VkDevice VkAccelerationStructureNV size_t (pointer void))
+      VkResult
+      "vkGetAccelerationStructureHandleNV")
+   (define-c-lambda
+      vkCreateRayTracingPipelinesNV
+      (VkDevice
+         VkPipelineCache
+         uint32_t
+         (pointer VkRayTracingPipelineCreateInfoNV)
+         (pointer VkAllocationCallbacks)
+         (pointer VkPipeline))
+      VkResult
+      "vkCreateRayTracingPipelinesNV")
+   (define-c-lambda
+      vkGetImageDrmFormatModifierPropertiesEXT
+      (VkDevice VkImage (pointer VkImageDrmFormatModifierPropertiesEXT))
+      VkResult
+      "vkGetImageDrmFormatModifierPropertiesEXT")
+   (define-c-lambda
+      vkGetBufferDeviceAddressEXT
+      (VkDevice (pointer VkBufferDeviceAddressInfoEXT))
+      VkDeviceAddress
+      "vkGetBufferDeviceAddressEXT")
+   (define-c-lambda
+      vkGetPhysicalDeviceCooperativeMatrixPropertiesNV
+      (VkPhysicalDevice (pointer uint32_t) (pointer VkCooperativeMatrixPropertiesNV))
+      VkResult
+      "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV")
+   (define-c-lambda
+      vkGetImageViewHandleNVX
+      (VkDevice (pointer VkImageViewHandleInfoNVX))
+      uint32_t
+      "vkGetImageViewHandleNVX")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfacePresentModes2EXT
+      (VkPhysicalDevice
+         (pointer VkPhysicalDeviceSurfaceInfo2KHR)
+         (pointer uint32_t)
+         (pointer VkPresentModeKHR))
+      VkResult
+      "vkGetPhysicalDeviceSurfacePresentModes2EXT")
+   (define-c-lambda
+      vkGetDeviceGroupSurfacePresentModes2EXT
+      (VkDevice
+         (pointer VkPhysicalDeviceSurfaceInfo2KHR)
+         (pointer VkDeviceGroupPresentModeFlagsKHR))
+      VkResult
+      "vkGetDeviceGroupSurfacePresentModes2EXT")
+   (define-c-lambda
+      vkAcquireFullScreenExclusiveModeEXT
+      (VkDevice VkSwapchainKHR)
+      VkResult
+      "vkAcquireFullScreenExclusiveModeEXT")
+   (define-c-lambda
+      vkReleaseFullScreenExclusiveModeEXT
+      (VkDevice VkSwapchainKHR)
+      VkResult
+      "vkReleaseFullScreenExclusiveModeEXT")
+   (define-c-lambda
+      vkCreateHeadlessSurfaceEXT
+      (VkInstance
+         (pointer VkHeadlessSurfaceCreateInfoEXT)
+         (pointer VkAllocationCallbacks)
+         (pointer VkSurfaceKHR))
+      VkResult
+      "vkCreateHeadlessSurfaceEXT")
+   (define-c-lambda
+      vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV
+      (VkPhysicalDevice
+         (pointer uint32_t)
+         (pointer VkFramebufferMixedSamplesCombinationNV))
+      VkResult
+      "vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV")
+   (define-c-lambda
+      vkInitializePerformanceApiINTEL
+      (VkDevice (pointer VkInitializePerformanceApiInfoINTEL))
+      VkResult
+      "vkInitializePerformanceApiINTEL")
+   (define-c-lambda
+      vkUninitializePerformanceApiINTEL
+      (VkDevice)
+      void
+      "vkUninitializePerformanceApiINTEL")
+   (define-c-lambda
+      vkCmdSetPerformanceMarkerINTEL
+      (VkCommandBuffer (pointer VkPerformanceMarkerInfoINTEL))
+      VkResult
+      "vkCmdSetPerformanceMarkerINTEL")
+   (define-c-lambda
+      vkCmdSetPerformanceStreamMarkerINTEL
+      (VkCommandBuffer (pointer VkPerformanceStreamMarkerInfoINTEL))
+      VkResult
+      "vkCmdSetPerformanceStreamMarkerINTEL")
+   (define-c-lambda
+      vkCmdSetPerformanceOverrideINTEL
+      (VkCommandBuffer (pointer VkPerformanceOverrideInfoINTEL))
+      VkResult
+      "vkCmdSetPerformanceOverrideINTEL")
+   (define-c-lambda
+      vkAcquirePerformanceConfigurationINTEL
+      (VkDevice
+         (pointer VkPerformanceConfigurationAcquireInfoINTEL)
+         (pointer VkPerformanceConfigurationINTEL))
+      VkResult
+      "vkAcquirePerformanceConfigurationINTEL")
+   (define-c-lambda
+      vkReleasePerformanceConfigurationINTEL
+      (VkDevice VkPerformanceConfigurationINTEL)
+      VkResult
+      "vkReleasePerformanceConfigurationINTEL")
+   (define-c-lambda
+      vkQueueSetPerformanceConfigurationINTEL
+      (VkQueue VkPerformanceConfigurationINTEL)
+      VkResult
+      "vkQueueSetPerformanceConfigurationINTEL")
+   (define-c-lambda
+      vkGetPerformanceParameterINTEL
+      (VkDevice VkPerformanceParameterTypeINTEL (pointer VkPerformanceValueINTEL))
+      VkResult
+      "vkGetPerformanceParameterINTEL")
+   (define-c-lambda
+      vkGetPipelineExecutablePropertiesKHR
+      (VkDevice
+         (pointer VkPipelineInfoKHR)
+         (pointer uint32_t)
+         (pointer VkPipelineExecutablePropertiesKHR))
+      VkResult
+      "vkGetPipelineExecutablePropertiesKHR")
+   (define-c-lambda
+      vkGetPipelineExecutableStatisticsKHR
+      (VkDevice
+         (pointer VkPipelineExecutableInfoKHR)
+         (pointer uint32_t)
+         (pointer VkPipelineExecutableStatisticKHR))
+      VkResult
+      "vkGetPipelineExecutableStatisticsKHR")
+   (define-c-lambda
+      vkGetPipelineExecutableInternalRepresentationsKHR
+      (VkDevice
+         (pointer VkPipelineExecutableInfoKHR)
+         (pointer uint32_t)
+         (pointer VkPipelineExecutableInternalRepresentationKHR))
+      VkResult
+      "vkGetPipelineExecutableInternalRepresentationsKHR")
+   (define-c-lambda
+      vkCmdSetLineStippleEXT
+      (VkCommandBuffer uint32_t uint16_t)
+      void
+      "vkCmdSetLineStippleEXT"))

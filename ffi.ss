@@ -69,6 +69,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 "))
 	      (cond
 	       ((alist? c-types) c-types)
@@ -85,14 +87,16 @@
 (define types ((sxpath '(registry types type)) vulkan-xml))
 (define enums ((sxpath '(registry enums)) vulkan-xml))
 (define extensions ((sxpath '(registry extensions extension)) vulkan-xml))
-
+(define commands ((sxpath '(registry commands command)) vulkan-xml))
 
 (define platform-specific-type-names
-  (concatenate (map (lambda (ext)
-		      (map cadr ((sxpath '(require type @ name)) ext)))
-		    (filter (lambda (ext) 
+  (append 
+   (concatenate (map (lambda (ext)
+		       (map cadr ((sxpath '(require type @ name)) ext)))
+		     (filter (lambda (ext) 
 			       (not (null? ((sxpath '(@ platform)) ext))))
-			    extensions))))
+			     extensions)))
+   (list "RROutput" "VisualID" "xcb_visualid_t")))
 
 (define (get-category-from-type type)
   (let (cat ((sxpath '(@ category)) type))
@@ -365,8 +369,8 @@
        (filter (lambda (t)
 		 (let (header ((sxpath '(@ requires)) t))
 		   (and (not (null? header))
-		      (not (null? ((sxpath '(@ name)) t)))
-		      (not (equal? (cadar header) "vk_platform")))))
+			(not (null? ((sxpath '(@ name)) t)))
+			(not (equal? (cadar header) "vk_platform")))))
 	       types)))
 
 (define (gen-ffi-for-opaque-structs types)
@@ -417,12 +421,12 @@
 ;; combine ffi  ;;
 ;;;;;;;;;;;;;;;;;;
 
-(define (take n xs)
-  (cond
-   ((or (zero? n)
-	(null? xs)) (list))
-   (else (cons (car xs)
-	       (take (- n 1) (cdr xs))))))
+;; (define (take n xs)
+;;   (cond
+;;    ((or (zero? n)
+;; 	(null? xs)) (list))
+;;    (else (cons (car xs)
+;; 	       (take (- n 1) (cdr xs))))))
 
 ;; finds an element satisfying pred? in xs and
 ;; returns a list which contains thate element
@@ -508,6 +512,51 @@
     (filter identity (map (lambda (type) (assget type tagged-ffi)) type-order))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ffi for vulkan functions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (get-type-from-param param)
+  (let ((type (string->symbol (cadar ((sxpath '(type)) param))))
+	(qualifiers (string-concatenate ((sxpath '(*text*)) param))))
+    
+    (cond
+     ((or (string-contains qualifiers "*")
+	  (string-contains qualifiers "[")) (list 'pointer type))
+     (else type))))
+
+(define (c-lambda-for-cmd cmd)
+  (let ((name-res  ((sxpath '(proto name)) cmd))
+	(params ((sxpath '(param)) cmd))
+	(ret-type ((sxpath '(proto type)) cmd)))
+    (if (or (null? name-res)
+	    (any (lambda (p)
+		   (member (cadar ((sxpath '(type)) p))
+			   platform-specific-type-names))
+		 params))
+      #f
+      (let (name (cadar name-res))
+	(cons name
+	      `((define-c-lambda ,(string->symbol name)
+		   ,(map get-type-from-param params) ,(string->symbol (cadar ret-type))
+		   ,name)))))))
+
+(define (gen-ffi-for-commands)
+  (let (name+ffi (filter identity (map c-lambda-for-cmd commands)))
+    (make-ffi-code (map (lambda (n+f)
+			  (cons
+			   (list (cons 'symbol (string->symbol (car n+f)))) 'lambda))
+			name+ffi)
+		   identity
+		   (lambda (sym)
+		     (assget (symbol->string (assget 'symbol sym)) name+ffi)))))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; make gerbil module ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define make-ffi-module (lambda ()
 			  `((import :std/foreign)
 			    (include "glfw.scm")
@@ -524,7 +573,8 @@
 			       (list (gen-ffi-for-enums types))
 			       (list (gen-ffi-for-unions types))
 			       (list (gen-ffi-for-opaque-structs types))
-			       (combine-structs-with-func-ptrs types)))))
+			       (combine-structs-with-func-ptrs types)
+			       (list (gen-ffi-for-commands))))))
 
 ;;;;;;;;;;
 ;; main ;;
