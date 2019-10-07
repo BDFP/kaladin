@@ -183,7 +183,7 @@
 
 (define (gen-base-pointer-types)
   '(begin-ffi (char*)
-     (c-define-type char* (pointer char))))
+     (c-define-type char* char-string)))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ffi for bitmask ;;
