@@ -1800,7 +1800,6 @@
    (c-define-type uint8_t* (pointer uint8_t))
    (c-define-type uint16_t int)
    (c-define-type uint16_t* (pointer uint16_t)))
-
 (begin-ffi (char*) (c-define-type char* char-string))
 (begin-ffi
    (VkPipelineExecutableStatisticFormatKHR
@@ -5137,9 +5136,9 @@ ___return (devicecreateinfo);"))
          VkInstanceCreateFlags
          VkApplicationInfo*
          uint32_t
-         char**
+         char
          uint32_t
-         char**)
+         char)
       VkInstanceCreateInfo*
       "VkInstanceCreateInfo *instancecreateinfo = malloc(sizeof(VkInstanceCreateInfo));
 instancecreateinfo->sType=___arg1;
@@ -30977,139 +30976,26 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    (c-define-type PFN_vkVoidFunction (function () void))
    (c-define-type PFN_vkVoidFunction* (pointer PFN_vkVoidFunction)))
 (begin-ffi
-   (vkCmdSetLineStippleEXT
-      vkGetPipelineExecutableInternalRepresentationsKHR
-      vkGetPipelineExecutableStatisticsKHR
-      vkGetPipelineExecutablePropertiesKHR
-      vkGetPerformanceParameterINTEL
-      vkQueueSetPerformanceConfigurationINTEL
-      vkReleasePerformanceConfigurationINTEL
-      vkAcquirePerformanceConfigurationINTEL
-      vkCmdSetPerformanceOverrideINTEL
-      vkCmdSetPerformanceStreamMarkerINTEL
-      vkCmdSetPerformanceMarkerINTEL
-      vkUninitializePerformanceApiINTEL
-      vkInitializePerformanceApiINTEL
-      vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV
-      vkCreateHeadlessSurfaceEXT
-      vkReleaseFullScreenExclusiveModeEXT
-      vkAcquireFullScreenExclusiveModeEXT
-      vkGetDeviceGroupSurfacePresentModes2EXT
-      vkGetPhysicalDeviceSurfacePresentModes2EXT
-      vkGetImageViewHandleNVX
-      vkGetPhysicalDeviceCooperativeMatrixPropertiesNV
-      vkGetBufferDeviceAddressEXT
-      vkGetImageDrmFormatModifierPropertiesEXT
-      vkCreateRayTracingPipelinesNV
-      vkGetAccelerationStructureHandleNV
-      vkGetRayTracingShaderGroupHandlesNV
-      vkCmdTraceRaysNV
-      vkCmdBuildAccelerationStructureNV
-      vkCmdWriteAccelerationStructuresPropertiesNV
-      vkCmdCopyAccelerationStructureNV
-      vkBindAccelerationStructureMemoryNV
-      vkGetAccelerationStructureMemoryRequirementsNV
-      vkDestroyAccelerationStructureNV
-      vkCreateAccelerationStructureNV
-      vkCompileDeferredNV
-      vkCmdDrawMeshTasksIndirectCountNV
-      vkCmdDrawMeshTasksIndirectNV
-      vkCmdDrawMeshTasksNV
-      vkCmdSetCoarseSampleOrderNV
-      vkCmdSetViewportShadingRatePaletteNV
-      vkCmdBindShadingRateImageNV
-      vkCmdSetExclusiveScissorNV
-      vkCmdDrawIndirectByteCountEXT
-      vkCmdEndQueryIndexedEXT
-      vkCmdBeginQueryIndexedEXT
-      vkCmdEndTransformFeedbackEXT
-      vkCmdBeginTransformFeedbackEXT
-      vkCmdBindTransformFeedbackBuffersEXT
-      vkGetQueueCheckpointDataNV
-      vkCmdSetCheckpointNV
-      vkCmdDrawIndexedIndirectCountKHR
-      vkCmdDrawIndirectCountKHR
-      vkCmdEndRenderPass2KHR
-      vkCmdNextSubpass2KHR
-      vkCmdBeginRenderPass2KHR
-      vkCreateRenderPass2KHR
-      vkCmdWriteBufferMarkerAMD
-      vkGetMemoryHostPointerPropertiesEXT
-      vkSubmitDebugUtilsMessageEXT
-      vkDestroyDebugUtilsMessengerEXT
-      vkCreateDebugUtilsMessengerEXT
-      vkCmdInsertDebugUtilsLabelEXT
-      vkCmdEndDebugUtilsLabelEXT
-      vkCmdBeginDebugUtilsLabelEXT
-      vkQueueInsertDebugUtilsLabelEXT
-      vkQueueEndDebugUtilsLabelEXT
-      vkQueueBeginDebugUtilsLabelEXT
-      vkSetDebugUtilsObjectTagEXT
-      vkSetDebugUtilsObjectNameEXT
-      vkGetCalibratedTimestampsEXT
-      vkGetPhysicalDeviceCalibrateableTimeDomainsEXT
-      vkSetLocalDimmingAMD
-      vkGetShaderInfoAMD
-      vkQueueSignalReleaseImageANDROID
-      vkAcquireImageANDROID
-      vkGetSwapchainGrallocUsageANDROID
-      vkGetDescriptorSetLayoutSupport
-      vkMergeValidationCachesEXT
-      vkGetValidationCacheDataEXT
-      vkDestroyValidationCacheEXT
-      vkCreateValidationCacheEXT
+   (vkGetDescriptorSetLayoutSupport
       vkGetDeviceQueue2
       vkDestroySamplerYcbcrConversion
       vkCreateSamplerYcbcrConversion
       vkGetImageSparseMemoryRequirements2
       vkGetImageMemoryRequirements2
       vkGetBufferMemoryRequirements2
-      vkGetDisplayPlaneCapabilities2KHR
-      vkGetDisplayModeProperties2KHR
-      vkGetPhysicalDeviceDisplayPlaneProperties2KHR
-      vkGetPhysicalDeviceDisplayProperties2KHR
-      vkGetPhysicalDeviceSurfaceFormats2KHR
-      vkGetPhysicalDeviceSurfaceCapabilities2KHR
-      vkGetPhysicalDeviceMultisamplePropertiesEXT
-      vkCmdSetSampleLocationsEXT
-      vkCmdSetDiscardRectangleEXT
-      vkCmdSetViewportWScalingNV
-      vkGetPastPresentationTimingGOOGLE
-      vkGetRefreshCycleDurationGOOGLE
-      vkGetSwapchainStatusKHR
-      vkSetHdrMetadataEXT
-      vkCmdPushDescriptorSetWithTemplateKHR
       vkUpdateDescriptorSetWithTemplate
       vkDestroyDescriptorUpdateTemplate
       vkCreateDescriptorUpdateTemplate
-      vkGetPhysicalDevicePresentRectanglesKHR
       vkCmdDispatchBase
-      vkAcquireNextImage2KHR
-      vkGetDeviceGroupSurfacePresentModesKHR
-      vkGetDeviceGroupPresentCapabilitiesKHR
       vkCmdSetDeviceMask
       vkBindImageMemory2
       vkBindBufferMemory2
       vkGetDeviceGroupPeerMemoryFeatures
       vkEnumeratePhysicalDeviceGroups
-      vkGetPhysicalDeviceSurfaceCapabilities2EXT
-      vkGetSwapchainCounterEXT
-      vkRegisterDisplayEventEXT
-      vkRegisterDeviceEventEXT
-      vkDisplayPowerControlEXT
-      vkAcquireXlibDisplayEXT
-      vkReleaseDisplayEXT
-      vkImportFenceFdKHR
-      vkGetFenceFdKHR
       vkGetPhysicalDeviceExternalFenceProperties
-      vkImportSemaphoreFdKHR
-      vkGetSemaphoreFdKHR
       vkGetPhysicalDeviceExternalSemaphoreProperties
-      vkGetMemoryFdPropertiesKHR
-      vkGetMemoryFdKHR
       vkGetPhysicalDeviceExternalBufferProperties
       vkTrimCommandPool
-      vkCmdPushDescriptorSetKHR
       vkGetPhysicalDeviceSparseImageFormatProperties2
       vkGetPhysicalDeviceMemoryProperties2
       vkGetPhysicalDeviceQueueFamilyProperties2
@@ -31117,45 +31003,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       vkGetPhysicalDeviceFormatProperties2
       vkGetPhysicalDeviceProperties2
       vkGetPhysicalDeviceFeatures2
-      vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX
-      vkUnregisterObjectsNVX
-      vkRegisterObjectsNVX
-      vkDestroyObjectTableNVX
-      vkCreateObjectTableNVX
-      vkDestroyIndirectCommandsLayoutNVX
-      vkCreateIndirectCommandsLayoutNVX
-      vkCmdReserveSpaceForCommandsNVX
-      vkCmdProcessCommandsNVX
-      vkGetMemoryWin32HandleNV
-      vkGetPhysicalDeviceExternalImageFormatPropertiesNV
-      vkCmdDebugMarkerInsertEXT
-      vkCmdDebugMarkerEndEXT
-      vkCmdDebugMarkerBeginEXT
-      vkDebugMarkerSetObjectTagEXT
-      vkDebugMarkerSetObjectNameEXT
-      vkDebugReportMessageEXT
-      vkDestroyDebugReportCallbackEXT
-      vkCreateDebugReportCallbackEXT
-      vkGetPhysicalDeviceWin32PresentationSupportKHR
-      vkGetPhysicalDeviceWaylandPresentationSupportKHR
-      vkQueuePresentKHR
-      vkAcquireNextImageKHR
-      vkGetSwapchainImagesKHR
-      vkDestroySwapchainKHR
-      vkCreateSwapchainKHR
-      vkGetPhysicalDeviceSurfacePresentModesKHR
-      vkGetPhysicalDeviceSurfaceFormatsKHR
-      vkGetPhysicalDeviceSurfaceCapabilitiesKHR
-      vkGetPhysicalDeviceSurfaceSupportKHR
-      vkDestroySurfaceKHR
-      vkCreateSharedSwapchainsKHR
-      vkCreateDisplayPlaneSurfaceKHR
-      vkGetDisplayPlaneCapabilitiesKHR
-      vkCreateDisplayModeKHR
-      vkGetDisplayModePropertiesKHR
-      vkGetDisplayPlaneSupportedDisplaysKHR
-      vkGetPhysicalDeviceDisplayPlanePropertiesKHR
-      vkGetPhysicalDeviceDisplayPropertiesKHR
       vkCmdExecuteCommands
       vkCmdEndRenderPass
       vkCmdNextSubpass
@@ -31164,8 +31011,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       vkCmdCopyQueryPoolResults
       vkCmdWriteTimestamp
       vkCmdResetQueryPool
-      vkCmdEndConditionalRenderingEXT
-      vkCmdBeginConditionalRenderingEXT
       vkCmdEndQuery
       vkCmdBeginQuery
       vkCmdPipelineBarrier
@@ -31245,7 +31090,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       vkCreateBufferView
       vkDestroyBuffer
       vkCreateBuffer
-      vkResetQueryPoolEXT
       vkGetQueryPoolResults
       vkDestroyQueryPool
       vkCreateQueryPool
@@ -31572,11 +31416,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
          VkQueryResultFlags)
       VkResult
       "vkGetQueryPoolResults")
-   (define-c-lambda
-      vkResetQueryPoolEXT
-      (VkDevice VkQueryPool uint32_t uint32_t)
-      void
-      "vkResetQueryPoolEXT")
    (define-c-lambda
       vkCreateBuffer
       (VkDevice
@@ -32087,16 +31926,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       void
       "vkCmdEndQuery")
    (define-c-lambda
-      vkCmdBeginConditionalRenderingEXT
-      (VkCommandBuffer (pointer VkConditionalRenderingBeginInfoEXT))
-      void
-      "vkCmdBeginConditionalRenderingEXT")
-   (define-c-lambda
-      vkCmdEndConditionalRenderingEXT
-      (VkCommandBuffer)
-      void
-      "vkCmdEndConditionalRenderingEXT")
-   (define-c-lambda
       vkCmdResetQueryPool
       (VkCommandBuffer VkQueryPool uint32_t uint32_t)
       void
@@ -32145,251 +31974,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       void
       "vkCmdExecuteCommands")
    (define-c-lambda
-      vkGetPhysicalDeviceDisplayPropertiesKHR
-      (VkPhysicalDevice (pointer uint32_t) (pointer VkDisplayPropertiesKHR))
-      VkResult
-      "vkGetPhysicalDeviceDisplayPropertiesKHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceDisplayPlanePropertiesKHR
-      (VkPhysicalDevice (pointer uint32_t) (pointer VkDisplayPlanePropertiesKHR))
-      VkResult
-      "vkGetPhysicalDeviceDisplayPlanePropertiesKHR")
-   (define-c-lambda
-      vkGetDisplayPlaneSupportedDisplaysKHR
-      (VkPhysicalDevice uint32_t (pointer uint32_t) (pointer VkDisplayKHR))
-      VkResult
-      "vkGetDisplayPlaneSupportedDisplaysKHR")
-   (define-c-lambda
-      vkGetDisplayModePropertiesKHR
-      (VkPhysicalDevice
-         VkDisplayKHR
-         (pointer uint32_t)
-         (pointer VkDisplayModePropertiesKHR))
-      VkResult
-      "vkGetDisplayModePropertiesKHR")
-   (define-c-lambda
-      vkCreateDisplayModeKHR
-      (VkPhysicalDevice
-         VkDisplayKHR
-         (pointer VkDisplayModeCreateInfoKHR)
-         (pointer VkAllocationCallbacks)
-         (pointer VkDisplayModeKHR))
-      VkResult
-      "vkCreateDisplayModeKHR")
-   (define-c-lambda
-      vkGetDisplayPlaneCapabilitiesKHR
-      (VkPhysicalDevice VkDisplayModeKHR uint32_t (pointer VkDisplayPlaneCapabilitiesKHR))
-      VkResult
-      "vkGetDisplayPlaneCapabilitiesKHR")
-   (define-c-lambda
-      vkCreateDisplayPlaneSurfaceKHR
-      (VkInstance
-         (pointer VkDisplaySurfaceCreateInfoKHR)
-         (pointer VkAllocationCallbacks)
-         (pointer VkSurfaceKHR))
-      VkResult
-      "vkCreateDisplayPlaneSurfaceKHR")
-   (define-c-lambda
-      vkCreateSharedSwapchainsKHR
-      (VkDevice
-         uint32_t
-         (pointer VkSwapchainCreateInfoKHR)
-         (pointer VkAllocationCallbacks)
-         (pointer VkSwapchainKHR))
-      VkResult
-      "vkCreateSharedSwapchainsKHR")
-   (define-c-lambda
-      vkDestroySurfaceKHR
-      (VkInstance VkSurfaceKHR (pointer VkAllocationCallbacks))
-      void
-      "vkDestroySurfaceKHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceSurfaceSupportKHR
-      (VkPhysicalDevice uint32_t VkSurfaceKHR (pointer VkBool32))
-      VkResult
-      "vkGetPhysicalDeviceSurfaceSupportKHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceSurfaceCapabilitiesKHR
-      (VkPhysicalDevice VkSurfaceKHR (pointer VkSurfaceCapabilitiesKHR))
-      VkResult
-      "vkGetPhysicalDeviceSurfaceCapabilitiesKHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceSurfaceFormatsKHR
-      (VkPhysicalDevice VkSurfaceKHR (pointer uint32_t) (pointer VkSurfaceFormatKHR))
-      VkResult
-      "vkGetPhysicalDeviceSurfaceFormatsKHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceSurfacePresentModesKHR
-      (VkPhysicalDevice VkSurfaceKHR (pointer uint32_t) (pointer VkPresentModeKHR))
-      VkResult
-      "vkGetPhysicalDeviceSurfacePresentModesKHR")
-   (define-c-lambda
-      vkCreateSwapchainKHR
-      (VkDevice
-         (pointer VkSwapchainCreateInfoKHR)
-         (pointer VkAllocationCallbacks)
-         (pointer VkSwapchainKHR))
-      VkResult
-      "vkCreateSwapchainKHR")
-   (define-c-lambda
-      vkDestroySwapchainKHR
-      (VkDevice VkSwapchainKHR (pointer VkAllocationCallbacks))
-      void
-      "vkDestroySwapchainKHR")
-   (define-c-lambda
-      vkGetSwapchainImagesKHR
-      (VkDevice VkSwapchainKHR (pointer uint32_t) (pointer VkImage))
-      VkResult
-      "vkGetSwapchainImagesKHR")
-   (define-c-lambda
-      vkAcquireNextImageKHR
-      (VkDevice VkSwapchainKHR uint64_t VkSemaphore VkFence (pointer uint32_t))
-      VkResult
-      "vkAcquireNextImageKHR")
-   (define-c-lambda
-      vkQueuePresentKHR
-      (VkQueue (pointer VkPresentInfoKHR))
-      VkResult
-      "vkQueuePresentKHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceWaylandPresentationSupportKHR
-      (VkPhysicalDevice uint32_t (pointer wl_display))
-      VkBool32
-      "vkGetPhysicalDeviceWaylandPresentationSupportKHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceWin32PresentationSupportKHR
-      (VkPhysicalDevice uint32_t)
-      VkBool32
-      "vkGetPhysicalDeviceWin32PresentationSupportKHR")
-   (define-c-lambda
-      vkCreateDebugReportCallbackEXT
-      (VkInstance
-         (pointer VkDebugReportCallbackCreateInfoEXT)
-         (pointer VkAllocationCallbacks)
-         (pointer VkDebugReportCallbackEXT))
-      VkResult
-      "vkCreateDebugReportCallbackEXT")
-   (define-c-lambda
-      vkDestroyDebugReportCallbackEXT
-      (VkInstance VkDebugReportCallbackEXT (pointer VkAllocationCallbacks))
-      void
-      "vkDestroyDebugReportCallbackEXT")
-   (define-c-lambda
-      vkDebugReportMessageEXT
-      (VkInstance
-         VkDebugReportFlagsEXT
-         VkDebugReportObjectTypeEXT
-         uint64_t
-         size_t
-         int32_t
-         (pointer char)
-         (pointer char))
-      void
-      "vkDebugReportMessageEXT")
-   (define-c-lambda
-      vkDebugMarkerSetObjectNameEXT
-      (VkDevice (pointer VkDebugMarkerObjectNameInfoEXT))
-      VkResult
-      "vkDebugMarkerSetObjectNameEXT")
-   (define-c-lambda
-      vkDebugMarkerSetObjectTagEXT
-      (VkDevice (pointer VkDebugMarkerObjectTagInfoEXT))
-      VkResult
-      "vkDebugMarkerSetObjectTagEXT")
-   (define-c-lambda
-      vkCmdDebugMarkerBeginEXT
-      (VkCommandBuffer (pointer VkDebugMarkerMarkerInfoEXT))
-      void
-      "vkCmdDebugMarkerBeginEXT")
-   (define-c-lambda
-      vkCmdDebugMarkerEndEXT
-      (VkCommandBuffer)
-      void
-      "vkCmdDebugMarkerEndEXT")
-   (define-c-lambda
-      vkCmdDebugMarkerInsertEXT
-      (VkCommandBuffer (pointer VkDebugMarkerMarkerInfoEXT))
-      void
-      "vkCmdDebugMarkerInsertEXT")
-   (define-c-lambda
-      vkGetPhysicalDeviceExternalImageFormatPropertiesNV
-      (VkPhysicalDevice
-         VkFormat
-         VkImageType
-         VkImageTiling
-         VkImageUsageFlags
-         VkImageCreateFlags
-         VkExternalMemoryHandleTypeFlagsNV
-         (pointer VkExternalImageFormatPropertiesNV))
-      VkResult
-      "vkGetPhysicalDeviceExternalImageFormatPropertiesNV")
-   (define-c-lambda
-      vkGetMemoryWin32HandleNV
-      (VkDevice VkDeviceMemory VkExternalMemoryHandleTypeFlagsNV (pointer HANDLE))
-      VkResult
-      "vkGetMemoryWin32HandleNV")
-   (define-c-lambda
-      vkCmdProcessCommandsNVX
-      (VkCommandBuffer (pointer VkCmdProcessCommandsInfoNVX))
-      void
-      "vkCmdProcessCommandsNVX")
-   (define-c-lambda
-      vkCmdReserveSpaceForCommandsNVX
-      (VkCommandBuffer (pointer VkCmdReserveSpaceForCommandsInfoNVX))
-      void
-      "vkCmdReserveSpaceForCommandsNVX")
-   (define-c-lambda
-      vkCreateIndirectCommandsLayoutNVX
-      (VkDevice
-         (pointer VkIndirectCommandsLayoutCreateInfoNVX)
-         (pointer VkAllocationCallbacks)
-         (pointer VkIndirectCommandsLayoutNVX))
-      VkResult
-      "vkCreateIndirectCommandsLayoutNVX")
-   (define-c-lambda
-      vkDestroyIndirectCommandsLayoutNVX
-      (VkDevice VkIndirectCommandsLayoutNVX (pointer VkAllocationCallbacks))
-      void
-      "vkDestroyIndirectCommandsLayoutNVX")
-   (define-c-lambda
-      vkCreateObjectTableNVX
-      (VkDevice
-         (pointer VkObjectTableCreateInfoNVX)
-         (pointer VkAllocationCallbacks)
-         (pointer VkObjectTableNVX))
-      VkResult
-      "vkCreateObjectTableNVX")
-   (define-c-lambda
-      vkDestroyObjectTableNVX
-      (VkDevice VkObjectTableNVX (pointer VkAllocationCallbacks))
-      void
-      "vkDestroyObjectTableNVX")
-   (define-c-lambda
-      vkRegisterObjectsNVX
-      (VkDevice
-         VkObjectTableNVX
-         uint32_t
-         (pointer VkObjectTableEntryNVX)
-         (pointer uint32_t))
-      VkResult
-      "vkRegisterObjectsNVX")
-   (define-c-lambda
-      vkUnregisterObjectsNVX
-      (VkDevice
-         VkObjectTableNVX
-         uint32_t
-         (pointer VkObjectEntryTypeNVX)
-         (pointer uint32_t))
-      VkResult
-      "vkUnregisterObjectsNVX")
-   (define-c-lambda
-      vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX
-      (VkPhysicalDevice
-         (pointer VkDeviceGeneratedCommandsFeaturesNVX)
-         (pointer VkDeviceGeneratedCommandsLimitsNVX))
-      void
-      "vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX")
-   (define-c-lambda
       vkGetPhysicalDeviceFeatures2
       (VkPhysicalDevice (pointer VkPhysicalDeviceFeatures2))
       void
@@ -32430,16 +32014,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       void
       "vkGetPhysicalDeviceSparseImageFormatProperties2")
    (define-c-lambda
-      vkCmdPushDescriptorSetKHR
-      (VkCommandBuffer
-         VkPipelineBindPoint
-         VkPipelineLayout
-         uint32_t
-         uint32_t
-         (pointer VkWriteDescriptorSet))
-      void
-      "vkCmdPushDescriptorSetKHR")
-   (define-c-lambda
       vkTrimCommandPool
       (VkDevice VkCommandPool VkCommandPoolTrimFlags)
       void
@@ -32452,16 +32026,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       void
       "vkGetPhysicalDeviceExternalBufferProperties")
    (define-c-lambda
-      vkGetMemoryFdKHR
-      (VkDevice (pointer VkMemoryGetFdInfoKHR) (pointer int))
-      VkResult
-      "vkGetMemoryFdKHR")
-   (define-c-lambda
-      vkGetMemoryFdPropertiesKHR
-      (VkDevice VkExternalMemoryHandleTypeFlagBits int (pointer VkMemoryFdPropertiesKHR))
-      VkResult
-      "vkGetMemoryFdPropertiesKHR")
-   (define-c-lambda
       vkGetPhysicalDeviceExternalSemaphoreProperties
       (VkPhysicalDevice
          (pointer VkPhysicalDeviceExternalSemaphoreInfo)
@@ -32469,74 +32033,12 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       void
       "vkGetPhysicalDeviceExternalSemaphoreProperties")
    (define-c-lambda
-      vkGetSemaphoreFdKHR
-      (VkDevice (pointer VkSemaphoreGetFdInfoKHR) (pointer int))
-      VkResult
-      "vkGetSemaphoreFdKHR")
-   (define-c-lambda
-      vkImportSemaphoreFdKHR
-      (VkDevice (pointer VkImportSemaphoreFdInfoKHR))
-      VkResult
-      "vkImportSemaphoreFdKHR")
-   (define-c-lambda
       vkGetPhysicalDeviceExternalFenceProperties
       (VkPhysicalDevice
          (pointer VkPhysicalDeviceExternalFenceInfo)
          (pointer VkExternalFenceProperties))
       void
       "vkGetPhysicalDeviceExternalFenceProperties")
-   (define-c-lambda
-      vkGetFenceFdKHR
-      (VkDevice (pointer VkFenceGetFdInfoKHR) (pointer int))
-      VkResult
-      "vkGetFenceFdKHR")
-   (define-c-lambda
-      vkImportFenceFdKHR
-      (VkDevice (pointer VkImportFenceFdInfoKHR))
-      VkResult
-      "vkImportFenceFdKHR")
-   (define-c-lambda
-      vkReleaseDisplayEXT
-      (VkPhysicalDevice VkDisplayKHR)
-      VkResult
-      "vkReleaseDisplayEXT")
-   (define-c-lambda
-      vkAcquireXlibDisplayEXT
-      (VkPhysicalDevice (pointer Display) VkDisplayKHR)
-      VkResult
-      "vkAcquireXlibDisplayEXT")
-   (define-c-lambda
-      vkDisplayPowerControlEXT
-      (VkDevice VkDisplayKHR (pointer VkDisplayPowerInfoEXT))
-      VkResult
-      "vkDisplayPowerControlEXT")
-   (define-c-lambda
-      vkRegisterDeviceEventEXT
-      (VkDevice
-         (pointer VkDeviceEventInfoEXT)
-         (pointer VkAllocationCallbacks)
-         (pointer VkFence))
-      VkResult
-      "vkRegisterDeviceEventEXT")
-   (define-c-lambda
-      vkRegisterDisplayEventEXT
-      (VkDevice
-         VkDisplayKHR
-         (pointer VkDisplayEventInfoEXT)
-         (pointer VkAllocationCallbacks)
-         (pointer VkFence))
-      VkResult
-      "vkRegisterDisplayEventEXT")
-   (define-c-lambda
-      vkGetSwapchainCounterEXT
-      (VkDevice VkSwapchainKHR VkSurfaceCounterFlagBitsEXT (pointer uint64_t))
-      VkResult
-      "vkGetSwapchainCounterEXT")
-   (define-c-lambda
-      vkGetPhysicalDeviceSurfaceCapabilities2EXT
-      (VkPhysicalDevice VkSurfaceKHR (pointer VkSurfaceCapabilities2EXT))
-      VkResult
-      "vkGetPhysicalDeviceSurfaceCapabilities2EXT")
    (define-c-lambda
       vkEnumeratePhysicalDeviceGroups
       (VkInstance (pointer uint32_t) (pointer VkPhysicalDeviceGroupProperties))
@@ -32563,30 +32065,10 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       void
       "vkCmdSetDeviceMask")
    (define-c-lambda
-      vkGetDeviceGroupPresentCapabilitiesKHR
-      (VkDevice (pointer VkDeviceGroupPresentCapabilitiesKHR))
-      VkResult
-      "vkGetDeviceGroupPresentCapabilitiesKHR")
-   (define-c-lambda
-      vkGetDeviceGroupSurfacePresentModesKHR
-      (VkDevice VkSurfaceKHR (pointer VkDeviceGroupPresentModeFlagsKHR))
-      VkResult
-      "vkGetDeviceGroupSurfacePresentModesKHR")
-   (define-c-lambda
-      vkAcquireNextImage2KHR
-      (VkDevice (pointer VkAcquireNextImageInfoKHR) (pointer uint32_t))
-      VkResult
-      "vkAcquireNextImage2KHR")
-   (define-c-lambda
       vkCmdDispatchBase
       (VkCommandBuffer uint32_t uint32_t uint32_t uint32_t uint32_t uint32_t)
       void
       "vkCmdDispatchBase")
-   (define-c-lambda
-      vkGetPhysicalDevicePresentRectanglesKHR
-      (VkPhysicalDevice VkSurfaceKHR (pointer uint32_t) (pointer VkRect2D))
-      VkResult
-      "vkGetPhysicalDevicePresentRectanglesKHR")
    (define-c-lambda
       vkCreateDescriptorUpdateTemplate
       (VkDevice
@@ -32605,98 +32087,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       (VkDevice VkDescriptorSet VkDescriptorUpdateTemplate (pointer void))
       void
       "vkUpdateDescriptorSetWithTemplate")
-   (define-c-lambda
-      vkCmdPushDescriptorSetWithTemplateKHR
-      (VkCommandBuffer
-         VkDescriptorUpdateTemplate
-         VkPipelineLayout
-         uint32_t
-         (pointer void))
-      void
-      "vkCmdPushDescriptorSetWithTemplateKHR")
-   (define-c-lambda
-      vkSetHdrMetadataEXT
-      (VkDevice uint32_t (pointer VkSwapchainKHR) (pointer VkHdrMetadataEXT))
-      void
-      "vkSetHdrMetadataEXT")
-   (define-c-lambda
-      vkGetSwapchainStatusKHR
-      (VkDevice VkSwapchainKHR)
-      VkResult
-      "vkGetSwapchainStatusKHR")
-   (define-c-lambda
-      vkGetRefreshCycleDurationGOOGLE
-      (VkDevice VkSwapchainKHR (pointer VkRefreshCycleDurationGOOGLE))
-      VkResult
-      "vkGetRefreshCycleDurationGOOGLE")
-   (define-c-lambda
-      vkGetPastPresentationTimingGOOGLE
-      (VkDevice
-         VkSwapchainKHR
-         (pointer uint32_t)
-         (pointer VkPastPresentationTimingGOOGLE))
-      VkResult
-      "vkGetPastPresentationTimingGOOGLE")
-   (define-c-lambda
-      vkCmdSetViewportWScalingNV
-      (VkCommandBuffer uint32_t uint32_t (pointer VkViewportWScalingNV))
-      void
-      "vkCmdSetViewportWScalingNV")
-   (define-c-lambda
-      vkCmdSetDiscardRectangleEXT
-      (VkCommandBuffer uint32_t uint32_t (pointer VkRect2D))
-      void
-      "vkCmdSetDiscardRectangleEXT")
-   (define-c-lambda
-      vkCmdSetSampleLocationsEXT
-      (VkCommandBuffer (pointer VkSampleLocationsInfoEXT))
-      void
-      "vkCmdSetSampleLocationsEXT")
-   (define-c-lambda
-      vkGetPhysicalDeviceMultisamplePropertiesEXT
-      (VkPhysicalDevice VkSampleCountFlagBits (pointer VkMultisamplePropertiesEXT))
-      void
-      "vkGetPhysicalDeviceMultisamplePropertiesEXT")
-   (define-c-lambda
-      vkGetPhysicalDeviceSurfaceCapabilities2KHR
-      (VkPhysicalDevice
-         (pointer VkPhysicalDeviceSurfaceInfo2KHR)
-         (pointer VkSurfaceCapabilities2KHR))
-      VkResult
-      "vkGetPhysicalDeviceSurfaceCapabilities2KHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceSurfaceFormats2KHR
-      (VkPhysicalDevice
-         (pointer VkPhysicalDeviceSurfaceInfo2KHR)
-         (pointer uint32_t)
-         (pointer VkSurfaceFormat2KHR))
-      VkResult
-      "vkGetPhysicalDeviceSurfaceFormats2KHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceDisplayProperties2KHR
-      (VkPhysicalDevice (pointer uint32_t) (pointer VkDisplayProperties2KHR))
-      VkResult
-      "vkGetPhysicalDeviceDisplayProperties2KHR")
-   (define-c-lambda
-      vkGetPhysicalDeviceDisplayPlaneProperties2KHR
-      (VkPhysicalDevice (pointer uint32_t) (pointer VkDisplayPlaneProperties2KHR))
-      VkResult
-      "vkGetPhysicalDeviceDisplayPlaneProperties2KHR")
-   (define-c-lambda
-      vkGetDisplayModeProperties2KHR
-      (VkPhysicalDevice
-         VkDisplayKHR
-         (pointer uint32_t)
-         (pointer VkDisplayModeProperties2KHR))
-      VkResult
-      "vkGetDisplayModeProperties2KHR")
-   (define-c-lambda
-      vkGetDisplayPlaneCapabilities2KHR
-      (VkPhysicalDevice
-         (pointer VkDisplayPlaneInfo2KHR)
-         (pointer VkDisplayPlaneCapabilities2KHR))
-      VkResult
-      "vkGetDisplayPlaneCapabilities2KHR")
    (define-c-lambda
       vkGetBufferMemoryRequirements2
       (VkDevice (pointer VkBufferMemoryRequirementsInfo2) (pointer VkMemoryRequirements2))
@@ -32734,502 +32124,9 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       void
       "vkGetDeviceQueue2")
    (define-c-lambda
-      vkCreateValidationCacheEXT
-      (VkDevice
-         (pointer VkValidationCacheCreateInfoEXT)
-         (pointer VkAllocationCallbacks)
-         (pointer VkValidationCacheEXT))
-      VkResult
-      "vkCreateValidationCacheEXT")
-   (define-c-lambda
-      vkDestroyValidationCacheEXT
-      (VkDevice VkValidationCacheEXT (pointer VkAllocationCallbacks))
-      void
-      "vkDestroyValidationCacheEXT")
-   (define-c-lambda
-      vkGetValidationCacheDataEXT
-      (VkDevice VkValidationCacheEXT (pointer size_t) (pointer void))
-      VkResult
-      "vkGetValidationCacheDataEXT")
-   (define-c-lambda
-      vkMergeValidationCachesEXT
-      (VkDevice VkValidationCacheEXT uint32_t (pointer VkValidationCacheEXT))
-      VkResult
-      "vkMergeValidationCachesEXT")
-   (define-c-lambda
       vkGetDescriptorSetLayoutSupport
       (VkDevice
          (pointer VkDescriptorSetLayoutCreateInfo)
          (pointer VkDescriptorSetLayoutSupport))
       void
-      "vkGetDescriptorSetLayoutSupport")
-   (define-c-lambda
-      vkGetSwapchainGrallocUsageANDROID
-      (VkDevice VkFormat VkImageUsageFlags (pointer int))
-      VkResult
-      "vkGetSwapchainGrallocUsageANDROID")
-   (define-c-lambda
-      vkAcquireImageANDROID
-      (VkDevice VkImage int VkSemaphore VkFence)
-      VkResult
-      "vkAcquireImageANDROID")
-   (define-c-lambda
-      vkQueueSignalReleaseImageANDROID
-      (VkQueue uint32_t (pointer VkSemaphore) VkImage (pointer int))
-      VkResult
-      "vkQueueSignalReleaseImageANDROID")
-   (define-c-lambda
-      vkGetShaderInfoAMD
-      (VkDevice
-         VkPipeline
-         VkShaderStageFlagBits
-         VkShaderInfoTypeAMD
-         (pointer size_t)
-         (pointer void))
-      VkResult
-      "vkGetShaderInfoAMD")
-   (define-c-lambda
-      vkSetLocalDimmingAMD
-      (VkDevice VkSwapchainKHR VkBool32)
-      void
-      "vkSetLocalDimmingAMD")
-   (define-c-lambda
-      vkGetPhysicalDeviceCalibrateableTimeDomainsEXT
-      (VkPhysicalDevice (pointer uint32_t) (pointer VkTimeDomainEXT))
-      VkResult
-      "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT")
-   (define-c-lambda
-      vkGetCalibratedTimestampsEXT
-      (VkDevice
-         uint32_t
-         (pointer VkCalibratedTimestampInfoEXT)
-         (pointer uint64_t)
-         (pointer uint64_t))
-      VkResult
-      "vkGetCalibratedTimestampsEXT")
-   (define-c-lambda
-      vkSetDebugUtilsObjectNameEXT
-      (VkDevice (pointer VkDebugUtilsObjectNameInfoEXT))
-      VkResult
-      "vkSetDebugUtilsObjectNameEXT")
-   (define-c-lambda
-      vkSetDebugUtilsObjectTagEXT
-      (VkDevice (pointer VkDebugUtilsObjectTagInfoEXT))
-      VkResult
-      "vkSetDebugUtilsObjectTagEXT")
-   (define-c-lambda
-      vkQueueBeginDebugUtilsLabelEXT
-      (VkQueue (pointer VkDebugUtilsLabelEXT))
-      void
-      "vkQueueBeginDebugUtilsLabelEXT")
-   (define-c-lambda
-      vkQueueEndDebugUtilsLabelEXT
-      (VkQueue)
-      void
-      "vkQueueEndDebugUtilsLabelEXT")
-   (define-c-lambda
-      vkQueueInsertDebugUtilsLabelEXT
-      (VkQueue (pointer VkDebugUtilsLabelEXT))
-      void
-      "vkQueueInsertDebugUtilsLabelEXT")
-   (define-c-lambda
-      vkCmdBeginDebugUtilsLabelEXT
-      (VkCommandBuffer (pointer VkDebugUtilsLabelEXT))
-      void
-      "vkCmdBeginDebugUtilsLabelEXT")
-   (define-c-lambda
-      vkCmdEndDebugUtilsLabelEXT
-      (VkCommandBuffer)
-      void
-      "vkCmdEndDebugUtilsLabelEXT")
-   (define-c-lambda
-      vkCmdInsertDebugUtilsLabelEXT
-      (VkCommandBuffer (pointer VkDebugUtilsLabelEXT))
-      void
-      "vkCmdInsertDebugUtilsLabelEXT")
-   (define-c-lambda
-      vkCreateDebugUtilsMessengerEXT
-      (VkInstance
-         (pointer VkDebugUtilsMessengerCreateInfoEXT)
-         (pointer VkAllocationCallbacks)
-         (pointer VkDebugUtilsMessengerEXT))
-      VkResult
-      "vkCreateDebugUtilsMessengerEXT")
-   (define-c-lambda
-      vkDestroyDebugUtilsMessengerEXT
-      (VkInstance VkDebugUtilsMessengerEXT (pointer VkAllocationCallbacks))
-      void
-      "vkDestroyDebugUtilsMessengerEXT")
-   (define-c-lambda
-      vkSubmitDebugUtilsMessageEXT
-      (VkInstance
-         VkDebugUtilsMessageSeverityFlagBitsEXT
-         VkDebugUtilsMessageTypeFlagsEXT
-         (pointer VkDebugUtilsMessengerCallbackDataEXT))
-      void
-      "vkSubmitDebugUtilsMessageEXT")
-   (define-c-lambda
-      vkGetMemoryHostPointerPropertiesEXT
-      (VkDevice
-         VkExternalMemoryHandleTypeFlagBits
-         (pointer void)
-         (pointer VkMemoryHostPointerPropertiesEXT))
-      VkResult
-      "vkGetMemoryHostPointerPropertiesEXT")
-   (define-c-lambda
-      vkCmdWriteBufferMarkerAMD
-      (VkCommandBuffer VkPipelineStageFlagBits VkBuffer VkDeviceSize uint32_t)
-      void
-      "vkCmdWriteBufferMarkerAMD")
-   (define-c-lambda
-      vkCreateRenderPass2KHR
-      (VkDevice
-         (pointer VkRenderPassCreateInfo2KHR)
-         (pointer VkAllocationCallbacks)
-         (pointer VkRenderPass))
-      VkResult
-      "vkCreateRenderPass2KHR")
-   (define-c-lambda
-      vkCmdBeginRenderPass2KHR
-      (VkCommandBuffer (pointer VkRenderPassBeginInfo) (pointer VkSubpassBeginInfoKHR))
-      void
-      "vkCmdBeginRenderPass2KHR")
-   (define-c-lambda
-      vkCmdNextSubpass2KHR
-      (VkCommandBuffer (pointer VkSubpassBeginInfoKHR) (pointer VkSubpassEndInfoKHR))
-      void
-      "vkCmdNextSubpass2KHR")
-   (define-c-lambda
-      vkCmdEndRenderPass2KHR
-      (VkCommandBuffer (pointer VkSubpassEndInfoKHR))
-      void
-      "vkCmdEndRenderPass2KHR")
-   (define-c-lambda
-      vkCmdDrawIndirectCountKHR
-      (VkCommandBuffer VkBuffer VkDeviceSize VkBuffer VkDeviceSize uint32_t uint32_t)
-      void
-      "vkCmdDrawIndirectCountKHR")
-   (define-c-lambda
-      vkCmdDrawIndexedIndirectCountKHR
-      (VkCommandBuffer VkBuffer VkDeviceSize VkBuffer VkDeviceSize uint32_t uint32_t)
-      void
-      "vkCmdDrawIndexedIndirectCountKHR")
-   (define-c-lambda
-      vkCmdSetCheckpointNV
-      (VkCommandBuffer (pointer void))
-      void
-      "vkCmdSetCheckpointNV")
-   (define-c-lambda
-      vkGetQueueCheckpointDataNV
-      (VkQueue (pointer uint32_t) (pointer VkCheckpointDataNV))
-      void
-      "vkGetQueueCheckpointDataNV")
-   (define-c-lambda
-      vkCmdBindTransformFeedbackBuffersEXT
-      (VkCommandBuffer
-         uint32_t
-         uint32_t
-         (pointer VkBuffer)
-         (pointer VkDeviceSize)
-         (pointer VkDeviceSize))
-      void
-      "vkCmdBindTransformFeedbackBuffersEXT")
-   (define-c-lambda
-      vkCmdBeginTransformFeedbackEXT
-      (VkCommandBuffer uint32_t uint32_t (pointer VkBuffer) (pointer VkDeviceSize))
-      void
-      "vkCmdBeginTransformFeedbackEXT")
-   (define-c-lambda
-      vkCmdEndTransformFeedbackEXT
-      (VkCommandBuffer uint32_t uint32_t (pointer VkBuffer) (pointer VkDeviceSize))
-      void
-      "vkCmdEndTransformFeedbackEXT")
-   (define-c-lambda
-      vkCmdBeginQueryIndexedEXT
-      (VkCommandBuffer VkQueryPool uint32_t VkQueryControlFlags uint32_t)
-      void
-      "vkCmdBeginQueryIndexedEXT")
-   (define-c-lambda
-      vkCmdEndQueryIndexedEXT
-      (VkCommandBuffer VkQueryPool uint32_t uint32_t)
-      void
-      "vkCmdEndQueryIndexedEXT")
-   (define-c-lambda
-      vkCmdDrawIndirectByteCountEXT
-      (VkCommandBuffer uint32_t uint32_t VkBuffer VkDeviceSize uint32_t uint32_t)
-      void
-      "vkCmdDrawIndirectByteCountEXT")
-   (define-c-lambda
-      vkCmdSetExclusiveScissorNV
-      (VkCommandBuffer uint32_t uint32_t (pointer VkRect2D))
-      void
-      "vkCmdSetExclusiveScissorNV")
-   (define-c-lambda
-      vkCmdBindShadingRateImageNV
-      (VkCommandBuffer VkImageView VkImageLayout)
-      void
-      "vkCmdBindShadingRateImageNV")
-   (define-c-lambda
-      vkCmdSetViewportShadingRatePaletteNV
-      (VkCommandBuffer uint32_t uint32_t (pointer VkShadingRatePaletteNV))
-      void
-      "vkCmdSetViewportShadingRatePaletteNV")
-   (define-c-lambda
-      vkCmdSetCoarseSampleOrderNV
-      (VkCommandBuffer
-         VkCoarseSampleOrderTypeNV
-         uint32_t
-         (pointer VkCoarseSampleOrderCustomNV))
-      void
-      "vkCmdSetCoarseSampleOrderNV")
-   (define-c-lambda
-      vkCmdDrawMeshTasksNV
-      (VkCommandBuffer uint32_t uint32_t)
-      void
-      "vkCmdDrawMeshTasksNV")
-   (define-c-lambda
-      vkCmdDrawMeshTasksIndirectNV
-      (VkCommandBuffer VkBuffer VkDeviceSize uint32_t uint32_t)
-      void
-      "vkCmdDrawMeshTasksIndirectNV")
-   (define-c-lambda
-      vkCmdDrawMeshTasksIndirectCountNV
-      (VkCommandBuffer VkBuffer VkDeviceSize VkBuffer VkDeviceSize uint32_t uint32_t)
-      void
-      "vkCmdDrawMeshTasksIndirectCountNV")
-   (define-c-lambda
-      vkCompileDeferredNV
-      (VkDevice VkPipeline uint32_t)
-      VkResult
-      "vkCompileDeferredNV")
-   (define-c-lambda
-      vkCreateAccelerationStructureNV
-      (VkDevice
-         (pointer VkAccelerationStructureCreateInfoNV)
-         (pointer VkAllocationCallbacks)
-         (pointer VkAccelerationStructureNV))
-      VkResult
-      "vkCreateAccelerationStructureNV")
-   (define-c-lambda
-      vkDestroyAccelerationStructureNV
-      (VkDevice VkAccelerationStructureNV (pointer VkAllocationCallbacks))
-      void
-      "vkDestroyAccelerationStructureNV")
-   (define-c-lambda
-      vkGetAccelerationStructureMemoryRequirementsNV
-      (VkDevice
-         (pointer VkAccelerationStructureMemoryRequirementsInfoNV)
-         (pointer VkMemoryRequirements2KHR))
-      void
-      "vkGetAccelerationStructureMemoryRequirementsNV")
-   (define-c-lambda
-      vkBindAccelerationStructureMemoryNV
-      (VkDevice uint32_t (pointer VkBindAccelerationStructureMemoryInfoNV))
-      VkResult
-      "vkBindAccelerationStructureMemoryNV")
-   (define-c-lambda
-      vkCmdCopyAccelerationStructureNV
-      (VkCommandBuffer
-         VkAccelerationStructureNV
-         VkAccelerationStructureNV
-         VkCopyAccelerationStructureModeNV)
-      void
-      "vkCmdCopyAccelerationStructureNV")
-   (define-c-lambda
-      vkCmdWriteAccelerationStructuresPropertiesNV
-      (VkCommandBuffer
-         uint32_t
-         (pointer VkAccelerationStructureNV)
-         VkQueryType
-         VkQueryPool
-         uint32_t)
-      void
-      "vkCmdWriteAccelerationStructuresPropertiesNV")
-   (define-c-lambda
-      vkCmdBuildAccelerationStructureNV
-      (VkCommandBuffer
-         (pointer VkAccelerationStructureInfoNV)
-         VkBuffer
-         VkDeviceSize
-         VkBool32
-         VkAccelerationStructureNV
-         VkAccelerationStructureNV
-         VkBuffer
-         VkDeviceSize)
-      void
-      "vkCmdBuildAccelerationStructureNV")
-   (define-c-lambda
-      vkCmdTraceRaysNV
-      (VkCommandBuffer
-         VkBuffer
-         VkDeviceSize
-         VkBuffer
-         VkDeviceSize
-         VkDeviceSize
-         VkBuffer
-         VkDeviceSize
-         VkDeviceSize
-         VkBuffer
-         VkDeviceSize
-         VkDeviceSize
-         uint32_t
-         uint32_t
-         uint32_t)
-      void
-      "vkCmdTraceRaysNV")
-   (define-c-lambda
-      vkGetRayTracingShaderGroupHandlesNV
-      (VkDevice VkPipeline uint32_t uint32_t size_t (pointer void))
-      VkResult
-      "vkGetRayTracingShaderGroupHandlesNV")
-   (define-c-lambda
-      vkGetAccelerationStructureHandleNV
-      (VkDevice VkAccelerationStructureNV size_t (pointer void))
-      VkResult
-      "vkGetAccelerationStructureHandleNV")
-   (define-c-lambda
-      vkCreateRayTracingPipelinesNV
-      (VkDevice
-         VkPipelineCache
-         uint32_t
-         (pointer VkRayTracingPipelineCreateInfoNV)
-         (pointer VkAllocationCallbacks)
-         (pointer VkPipeline))
-      VkResult
-      "vkCreateRayTracingPipelinesNV")
-   (define-c-lambda
-      vkGetImageDrmFormatModifierPropertiesEXT
-      (VkDevice VkImage (pointer VkImageDrmFormatModifierPropertiesEXT))
-      VkResult
-      "vkGetImageDrmFormatModifierPropertiesEXT")
-   (define-c-lambda
-      vkGetBufferDeviceAddressEXT
-      (VkDevice (pointer VkBufferDeviceAddressInfoEXT))
-      VkDeviceAddress
-      "vkGetBufferDeviceAddressEXT")
-   (define-c-lambda
-      vkGetPhysicalDeviceCooperativeMatrixPropertiesNV
-      (VkPhysicalDevice (pointer uint32_t) (pointer VkCooperativeMatrixPropertiesNV))
-      VkResult
-      "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV")
-   (define-c-lambda
-      vkGetImageViewHandleNVX
-      (VkDevice (pointer VkImageViewHandleInfoNVX))
-      uint32_t
-      "vkGetImageViewHandleNVX")
-   (define-c-lambda
-      vkGetPhysicalDeviceSurfacePresentModes2EXT
-      (VkPhysicalDevice
-         (pointer VkPhysicalDeviceSurfaceInfo2KHR)
-         (pointer uint32_t)
-         (pointer VkPresentModeKHR))
-      VkResult
-      "vkGetPhysicalDeviceSurfacePresentModes2EXT")
-   (define-c-lambda
-      vkGetDeviceGroupSurfacePresentModes2EXT
-      (VkDevice
-         (pointer VkPhysicalDeviceSurfaceInfo2KHR)
-         (pointer VkDeviceGroupPresentModeFlagsKHR))
-      VkResult
-      "vkGetDeviceGroupSurfacePresentModes2EXT")
-   (define-c-lambda
-      vkAcquireFullScreenExclusiveModeEXT
-      (VkDevice VkSwapchainKHR)
-      VkResult
-      "vkAcquireFullScreenExclusiveModeEXT")
-   (define-c-lambda
-      vkReleaseFullScreenExclusiveModeEXT
-      (VkDevice VkSwapchainKHR)
-      VkResult
-      "vkReleaseFullScreenExclusiveModeEXT")
-   (define-c-lambda
-      vkCreateHeadlessSurfaceEXT
-      (VkInstance
-         (pointer VkHeadlessSurfaceCreateInfoEXT)
-         (pointer VkAllocationCallbacks)
-         (pointer VkSurfaceKHR))
-      VkResult
-      "vkCreateHeadlessSurfaceEXT")
-   (define-c-lambda
-      vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV
-      (VkPhysicalDevice
-         (pointer uint32_t)
-         (pointer VkFramebufferMixedSamplesCombinationNV))
-      VkResult
-      "vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV")
-   (define-c-lambda
-      vkInitializePerformanceApiINTEL
-      (VkDevice (pointer VkInitializePerformanceApiInfoINTEL))
-      VkResult
-      "vkInitializePerformanceApiINTEL")
-   (define-c-lambda
-      vkUninitializePerformanceApiINTEL
-      (VkDevice)
-      void
-      "vkUninitializePerformanceApiINTEL")
-   (define-c-lambda
-      vkCmdSetPerformanceMarkerINTEL
-      (VkCommandBuffer (pointer VkPerformanceMarkerInfoINTEL))
-      VkResult
-      "vkCmdSetPerformanceMarkerINTEL")
-   (define-c-lambda
-      vkCmdSetPerformanceStreamMarkerINTEL
-      (VkCommandBuffer (pointer VkPerformanceStreamMarkerInfoINTEL))
-      VkResult
-      "vkCmdSetPerformanceStreamMarkerINTEL")
-   (define-c-lambda
-      vkCmdSetPerformanceOverrideINTEL
-      (VkCommandBuffer (pointer VkPerformanceOverrideInfoINTEL))
-      VkResult
-      "vkCmdSetPerformanceOverrideINTEL")
-   (define-c-lambda
-      vkAcquirePerformanceConfigurationINTEL
-      (VkDevice
-         (pointer VkPerformanceConfigurationAcquireInfoINTEL)
-         (pointer VkPerformanceConfigurationINTEL))
-      VkResult
-      "vkAcquirePerformanceConfigurationINTEL")
-   (define-c-lambda
-      vkReleasePerformanceConfigurationINTEL
-      (VkDevice VkPerformanceConfigurationINTEL)
-      VkResult
-      "vkReleasePerformanceConfigurationINTEL")
-   (define-c-lambda
-      vkQueueSetPerformanceConfigurationINTEL
-      (VkQueue VkPerformanceConfigurationINTEL)
-      VkResult
-      "vkQueueSetPerformanceConfigurationINTEL")
-   (define-c-lambda
-      vkGetPerformanceParameterINTEL
-      (VkDevice VkPerformanceParameterTypeINTEL (pointer VkPerformanceValueINTEL))
-      VkResult
-      "vkGetPerformanceParameterINTEL")
-   (define-c-lambda
-      vkGetPipelineExecutablePropertiesKHR
-      (VkDevice
-         (pointer VkPipelineInfoKHR)
-         (pointer uint32_t)
-         (pointer VkPipelineExecutablePropertiesKHR))
-      VkResult
-      "vkGetPipelineExecutablePropertiesKHR")
-   (define-c-lambda
-      vkGetPipelineExecutableStatisticsKHR
-      (VkDevice
-         (pointer VkPipelineExecutableInfoKHR)
-         (pointer uint32_t)
-         (pointer VkPipelineExecutableStatisticKHR))
-      VkResult
-      "vkGetPipelineExecutableStatisticsKHR")
-   (define-c-lambda
-      vkGetPipelineExecutableInternalRepresentationsKHR
-      (VkDevice
-         (pointer VkPipelineExecutableInfoKHR)
-         (pointer uint32_t)
-         (pointer VkPipelineExecutableInternalRepresentationKHR))
-      VkResult
-      "vkGetPipelineExecutableInternalRepresentationsKHR")
-   (define-c-lambda
-      vkCmdSetLineStippleEXT
-      (VkCommandBuffer uint32_t uint16_t)
-      void
-      "vkCmdSetLineStippleEXT"))
+      "vkGetDescriptorSetLayoutSupport"))

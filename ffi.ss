@@ -99,6 +99,14 @@
 			     extensions)))
    (list "RROutput" "VisualID" "xcb_visualid_t")))
 
+(define extension-commands
+  (map cadr
+       (concatenate  (map (lambda (e)
+			    (concatenate (map (lambda (cmd)
+						((sxpath '(@ name)) cmd))
+					      ((sxpath '(require command)) e))))
+			  extensions))))
+
 (define (get-category-from-type type)
   (let (cat ((sxpath '(@ category)) type))
     (if (null? cat) #f (cadar cat))))
@@ -570,10 +578,11 @@
 	(params ((sxpath '(param)) cmd))
 	(ret-type ((sxpath '(proto type)) cmd)))
     (if (or (null? name-res)
-	    (any (lambda (p)
-		   (member (cadar ((sxpath '(type)) p))
-			   platform-specific-type-names))
-		 params))
+	   (any (lambda (p)
+		  (member (cadar ((sxpath '(type)) p))
+			  platform-specific-type-names))
+		params)
+	   (member (cadar name-res) extension-commands))
       #f
       (let (name (cadar name-res))
 	(cons name
@@ -599,9 +608,8 @@
 
 (define make-ffi-module (lambda ()
 			  `((import :std/foreign)
-			    (include "glfw.scm")
 			    (include "ctypes.scm")
-			    
+			    (include "cstrings.ss")
 			    (export #t)
 			    
 			    ,@(append
