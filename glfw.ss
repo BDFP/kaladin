@@ -1,6 +1,5 @@
 (import :std/foreign
 	:kaladin/ctypes)
-
 (include "cstrings.ss")
 
 (export #t)
@@ -61,7 +60,7 @@
 (define (get-required-instance-extensions)
   (glfw-init!)
   (let* ((count (make-int32))
-	 (extensions (glfw-get-required-instance-extensions count)))
+	 (extensions (glfw-get-required-instance-extensions  count)))
     (cons (read-int32-ptr count) extensions)))
 
 (define (destroy-glfw window)

@@ -1,6 +1,5 @@
-(import :std/foreign)
-(include "ctypes.scm")
-(include "cstrings.ss")
+(import :std/foreign
+	:kaladin/ctypes)
 (export #t)
 (define VK_MAX_PHYSICAL_DEVICE_NAME_SIZE 256)
 (define VK_UUID_SIZE 16)
@@ -1000,7 +999,8 @@
       VkPhysicalDevice
       VkPhysicalDevice*
       VkInstance
-      VkInstance*)
+      VkInstance*
+      make-VkInstance)
    (c-declare
       "   
 #include <stdio.h>
@@ -1011,6 +1011,9 @@
 ")
    (c-define-type VkInstance (pointer (struct "VkInstance_T")))
    (c-define-type VkInstance* (pointer VkInstance))
+   (define-c-lambda make-VkInstance () VkInstance*
+     "VkInstance *instance = malloc(sizeof(VkInstance));
+      ___return (instance);")
    (c-define-type VkPhysicalDevice (pointer (struct "VkPhysicalDevice_T")))
    (c-define-type VkPhysicalDevice* (pointer VkPhysicalDevice))
    (c-define-type VkDevice (pointer (struct "VkDevice_T")))
@@ -1779,7 +1782,9 @@
       int64_t
       int64_t*
       int32_t
-      int32_t*)
+      int32_t*
+      void*
+      float*)
    (c-declare
       "   
 #include <stdio.h>
@@ -1788,6 +1793,7 @@
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
+   
    (c-define-type int32_t int)
    (c-define-type int32_t* (pointer int32_t))
    (c-define-type int64_t int)
@@ -1799,8 +1805,15 @@
    (c-define-type uint8_t int)
    (c-define-type uint8_t* (pointer uint8_t))
    (c-define-type uint16_t int)
-   (c-define-type uint16_t* (pointer uint16_t)))
-(begin-ffi (char*) (c-define-type char* char-string))
+   (c-define-type uint16_t* (pointer uint16_t))
+   	   (c-define-type void* (pointer "void"))
+
+	   (c-define-type float* (pointer "float")))
+(begin-ffi (char*
+	    char**)
+  (c-define-type char* char-string)
+  (c-define-type char** (pointer char-string)))
+
 (begin-ffi
    (VkPipelineExecutableStatisticFormatKHR
       VkPipelineExecutableStatisticFormatKHR*
@@ -4152,7 +4165,9 @@ physicaldeviceproperties->limits=___arg8;
 physicaldeviceproperties->sparseProperties=___arg9;
 ___return (physicaldeviceproperties);"))
 (begin-ffi
-   (make-VkExtensionProperties
+    (make-VkExtensionProperties
+     make-VkExtensionProperties*
+     ref-VkExtensionProperties
       VkExtensionPropertiesspecVersion
       VkExtensionPropertiesextensionName
       VkExtensionProperties
@@ -4164,6 +4179,7 @@ ___return (physicaldeviceproperties);"))
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
+#include <stdlib.h>
 ")
    (c-define-type VkExtensionProperties (struct "VkExtensionProperties"))
    (c-define-type VkExtensionProperties* (pointer VkExtensionProperties))
@@ -4177,6 +4193,12 @@ ___return (physicaldeviceproperties);"))
       (VkExtensionProperties*)
       uint32_t
       "___return (___arg1->specVersion);")
+   (define-c-lambda make-VkExtensionProperties* (int) VkExtensionProperties*
+     "VkExtensionProperties* extensionProperties = malloc(___arg1 * sizeof(VkExtensionProperties));
+      ___return (extensionProperties);")
+   (define-c-lambda ref-VkExtensionProperties
+     (VkExtensionProperties* int) VkExtensionProperties*
+     "___return (___arg1 + ___arg2);")
    (define-c-lambda
       make-VkExtensionProperties
       (char* uint32_t)
@@ -5136,9 +5158,9 @@ ___return (devicecreateinfo);"))
          VkInstanceCreateFlags
          VkApplicationInfo*
          uint32_t
-         char
+         char**
          uint32_t
-         char)
+         char**)
       VkInstanceCreateInfo*
       "VkInstanceCreateInfo *instancecreateinfo = malloc(sizeof(VkInstanceCreateInfo));
 instancecreateinfo->sType=___arg1;
@@ -31237,7 +31259,7 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       "vkEnumerateInstanceLayerProperties")
    (define-c-lambda
       vkEnumerateInstanceExtensionProperties
-      ((pointer char) (pointer uint32_t) (pointer VkExtensionProperties))
+      (char-string (pointer uint32_t) (pointer VkExtensionProperties))
       VkResult
       "vkEnumerateInstanceExtensionProperties")
    (define-c-lambda

@@ -4,7 +4,9 @@
 	)
 
 (defbuild-script 
-  `((gxc: "vulkan-auto"
+  `((gxc: "ctypes")
+    (gxc: "cstrings")
+    (gxc: "vulkan-auto"
 	  "-ld-options" "-lvulkan")
     (gxc: "glfw"
 	  "-ld-options" "-lglfw")
