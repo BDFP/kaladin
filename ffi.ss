@@ -69,6 +69,7 @@
 		 (c-declare "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -137,15 +138,27 @@
 (define (gen-handle-types type-name)
   `((c-define-type ,(string->symbol type-name)
 		     (pointer
-		      (struct ,(string-append type-name "_T"))))))
+		      (struct ,(string-append type-name "_T"))))
+    ))
 
 (define (gen-ffi-for-handle types)
   (let (handle-types (get-type-names-of-category "handle" types))
-    (make-ffi-code handle-types
+    (make-ffi-code (append (map (lambda (t) (cons t 'type)) handle-types)
+			   (map (lambda (t)
+				  (cons (list (cons 'symbol (string->symbol (string-append "make-" t)))
+					      (cons 'type t))
+					'lambda)) handle-types))
 		   (lambda (sym)
 		     ;; making no difference b/w
 		     ;; non-dispatchable-handle and dispatchable
-		     (gen-handle-types (symbol->string sym))))))
+		     (gen-handle-types (symbol->string sym)))
+		   (lambda (sym-info)
+		     (let* ((type (assget 'type sym-info))
+			    (var (string-downcase (string-drop type 2))))
+		       `((define-c-lambda ,(assget 'symbol  sym-info)
+			   () (pointer ,(string->symbol  type))
+			 ,(string-append type "* "  var " = " "malloc(sizeof(" type "));"
+					 "\n" "___return(" var ");"))))))))
 
 
 (define (get-name+type type)
@@ -183,6 +196,13 @@
 		 (lambda (sym)
 		   `((c-define-type ,sym int)))))
 
+
+(define (gen-ffi-for-native-types)
+  (let (ffi '(("void*" .  (c-define-type void* (pointer void)))
+	      ("float*" . (c-define-type float* (pointer float)))
+	      ))
+    (make-ffi-code (map car ffi)
+		   (lambda (sym) (list (assget (symbol->string sym) ffi))))))
 
 ;; (define (gen-char-type)
 ;;   (make-ffi-code (list "char")
@@ -312,6 +332,7 @@
 
 (define (gen-malloc-info struct-name)
   (list (cons 'symbol (string->symbol (string-append "make-" struct-name)))
+	(cons 'type 'malloc)
 	(cons 'struct-name struct-name)))
 
 (define (setter-definition malloc-var-name member arg-index)
@@ -347,6 +368,32 @@
 
 ;; (displayln (malloc-function-definition struct-name members))
 
+(define (malloc-array-definition info)
+  (let* ((struct-name (assget 'struct-name info))
+	 (ptr (string-append struct-name "*")))
+    `((define-c-lambda ,(string->symbol (string-append "make-" ptr))
+	(int) ,(string->symbol ptr)
+      ,(string-append ptr " " (string-downcase struct-name)
+		      " = malloc(___arg1 * sizeof(" struct-name "));
+      ___return (" (string-downcase struct-name) ");")))))
+
+(define (ref-array-definition info)
+  (let* ((struct-name (assget 'struct-name info))
+	(ptr (string-append struct-name "*")))
+    `((define-c-lambda ,(string->symbol (string-append "ref-" ptr))
+	(,(string->symbol ptr) int)  ,(string->symbol ptr) 
+	,(string-append "___return (___arg1 + ___arg2);")))))
+
+(define (gen-syms struct-name)
+  (list (list (cons 'symbol (string->symbol (string-append "make-" struct-name "*")))
+	      (cons 'type 'malloc-array)
+	      (cons 'struct-name struct-name))
+	;; (list (cons 'symbol (string->symbol (string-append "ref-" struct-name)))
+	;;       (cons 'type 'ref-array)
+	;;       (cons 'struct-name struct-name))
+	))
+
+
 (define (gen-malloc-lambda malloc-lambda-info members)
   (let* ((struct-name (assget 'struct-name malloc-lambda-info))
 	 (return-type (string->symbol (string-append struct-name "*"))))
@@ -366,6 +413,7 @@
 	   (list (cons 'symbol (string->symbol (string-append struct-name
 							      member-name)))
 		 (cons 'member-name member-name)
+		 (cons 'type 'getter)
 		 (cons 'struct-name struct-name))))
        (or members '())))
 
@@ -396,9 +444,13 @@
 			       )
 
 			 (map (lambda (n) (cons n 'lambda))
-			      (gen-getter-names struct-name members))
+			      (append (gen-getter-names struct-name members)
+				      (gen-syms struct-name)))
 			 
-			 (list (cons (gen-malloc-info struct-name) 'lambda)))
+			 (list (cons (gen-malloc-info struct-name) 'lambda)
+			       )
+
+			 )
 		 ;; types ffi lambda
 		 (lambda (sym)
 		   (let (type-name (symbol->string sym))
@@ -406,9 +458,11 @@
 		 ;; lambda ffi lambda
 		 (lambda (sym-info-alist)
 		   ;; member is only present for getters
-		   (if (assget 'member-name sym-info-alist)
-		     (gen-getter-lambda sym-info-alist members)
-		     (gen-malloc-lambda sym-info-alist members)))))
+		   (case (assget 'type sym-info-alist)
+		     ((malloc) (gen-malloc-lambda sym-info-alist members))
+		     ((getter) (gen-getter-lambda sym-info-alist members))
+		     ((malloc-array) (malloc-array-definition sym-info-alist))
+		     ((ref-array) (ref-array-definition sym-info-alist))))))
 
 
 ;; usually defined in platform specific header files
@@ -607,13 +661,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define make-ffi-module (lambda ()
-			  `((import :std/foreign)
-			    (include "ctypes.scm")
-			    (include "cstrings.ss")
+			  `((import :std/foreign
+				    :kaladin/ctypes)
 			    (export #t)
 			    
 			    ,@(append
 			       (gen-enum-consts enums)
+			       (list (gen-ffi-for-native-types))
 			       (list (gen-ffi-for-handle types))
 			       (list (gen-ffi-for-basetype types))
 			       (list (gen-ffi-for-bitmask types))

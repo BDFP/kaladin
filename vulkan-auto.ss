@@ -1,5 +1,4 @@
-(import :std/foreign
-	:kaladin/ctypes)
+(import :std/foreign :kaladin/ctypes)
 (export #t)
 (define VK_MAX_PHYSICAL_DEVICE_NAME_SIZE 256)
 (define VK_UUID_SIZE 16)
@@ -924,7 +923,60 @@
 (define VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT 2)
 (define VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT 3)
 (begin-ffi
-   (VkDebugUtilsMessengerEXT
+   (float* float** void* void**)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (c-define-type void* (pointer void))
+   (c-define-type void** (pointer void*))
+   (c-define-type float* (pointer float))
+   (c-define-type float** (pointer float*)))
+(begin-ffi
+   (make-VkDebugUtilsMessengerEXT
+      make-VkDebugReportCallbackEXT
+      make-VkSwapchainKHR
+      make-VkSurfaceKHR
+      make-VkDisplayModeKHR
+      make-VkDisplayKHR
+      make-VkPerformanceConfigurationINTEL
+      make-VkAccelerationStructureNV
+      make-VkValidationCacheEXT
+      make-VkSamplerYcbcrConversion
+      make-VkDescriptorUpdateTemplate
+      make-VkIndirectCommandsLayoutNVX
+      make-VkObjectTableNVX
+      make-VkPipelineCache
+      make-VkRenderPass
+      make-VkFramebuffer
+      make-VkQueryPool
+      make-VkEvent
+      make-VkSemaphore
+      make-VkFence
+      make-VkDescriptorPool
+      make-VkDescriptorSetLayout
+      make-VkDescriptorSet
+      make-VkSampler
+      make-VkPipelineLayout
+      make-VkPipeline
+      make-VkShaderModule
+      make-VkImageView
+      make-VkImage
+      make-VkBufferView
+      make-VkBuffer
+      make-VkCommandPool
+      make-VkDeviceMemory
+      make-VkCommandBuffer
+      make-VkQueue
+      make-VkDevice
+      make-VkPhysicalDevice
+      make-VkInstance
+      VkDebugUtilsMessengerEXT
       VkDebugUtilsMessengerEXT*
       VkDebugReportCallbackEXT
       VkDebugReportCallbackEXT*
@@ -999,21 +1051,18 @@
       VkPhysicalDevice
       VkPhysicalDevice*
       VkInstance
-      VkInstance*
-      make-VkInstance)
+      VkInstance*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkInstance (pointer (struct "VkInstance_T")))
    (c-define-type VkInstance* (pointer VkInstance))
-   (define-c-lambda make-VkInstance () VkInstance*
-     "VkInstance *instance = malloc(sizeof(VkInstance));
-      ___return (instance);")
    (c-define-type VkPhysicalDevice (pointer (struct "VkPhysicalDevice_T")))
    (c-define-type VkPhysicalDevice* (pointer VkPhysicalDevice))
    (c-define-type VkDevice (pointer (struct "VkDevice_T")))
@@ -1103,7 +1152,235 @@
    (c-define-type
       VkDebugUtilsMessengerEXT
       (pointer (struct "VkDebugUtilsMessengerEXT_T")))
-   (c-define-type VkDebugUtilsMessengerEXT* (pointer VkDebugUtilsMessengerEXT)))
+   (c-define-type VkDebugUtilsMessengerEXT* (pointer VkDebugUtilsMessengerEXT))
+   (define-c-lambda
+      make-VkInstance
+      ()
+      (pointer VkInstance)
+      "VkInstance* instance = malloc(sizeof(VkInstance));
+___return(instance);")
+   (define-c-lambda
+      make-VkPhysicalDevice
+      ()
+      (pointer "VkPhysicalDevice")
+      "VkPhysicalDevice* physicaldevice = malloc(sizeof(VkPhysicalDevice));
+___return(physicaldevice);")
+   (define-c-lambda
+      make-VkDevice
+      ()
+      (pointer "VkDevice")
+      "VkDevice* device = malloc(sizeof(VkDevice));
+___return(device);")
+   (define-c-lambda
+      make-VkQueue
+      ()
+      (pointer "VkQueue")
+      "VkQueue* queue = malloc(sizeof(VkQueue));
+___return(queue);")
+   (define-c-lambda
+      make-VkCommandBuffer
+      ()
+      (pointer "VkCommandBuffer")
+      "VkCommandBuffer* commandbuffer = malloc(sizeof(VkCommandBuffer));
+___return(commandbuffer);")
+   (define-c-lambda
+      make-VkDeviceMemory
+      ()
+      (pointer "VkDeviceMemory")
+      "VkDeviceMemory* devicememory = malloc(sizeof(VkDeviceMemory));
+___return(devicememory);")
+   (define-c-lambda
+      make-VkCommandPool
+      ()
+      (pointer "VkCommandPool")
+      "VkCommandPool* commandpool = malloc(sizeof(VkCommandPool));
+___return(commandpool);")
+   (define-c-lambda
+      make-VkBuffer
+      ()
+      (pointer "VkBuffer")
+      "VkBuffer* buffer = malloc(sizeof(VkBuffer));
+___return(buffer);")
+   (define-c-lambda
+      make-VkBufferView
+      ()
+      (pointer "VkBufferView")
+      "VkBufferView* bufferview = malloc(sizeof(VkBufferView));
+___return(bufferview);")
+   (define-c-lambda
+      make-VkImage
+      ()
+      (pointer "VkImage")
+      "VkImage* image = malloc(sizeof(VkImage));
+___return(image);")
+   (define-c-lambda
+      make-VkImageView
+      ()
+      (pointer "VkImageView")
+      "VkImageView* imageview = malloc(sizeof(VkImageView));
+___return(imageview);")
+   (define-c-lambda
+      make-VkShaderModule
+      ()
+      (pointer "VkShaderModule")
+      "VkShaderModule* shadermodule = malloc(sizeof(VkShaderModule));
+___return(shadermodule);")
+   (define-c-lambda
+      make-VkPipeline
+      ()
+      (pointer "VkPipeline")
+      "VkPipeline* pipeline = malloc(sizeof(VkPipeline));
+___return(pipeline);")
+   (define-c-lambda
+      make-VkPipelineLayout
+      ()
+      (pointer "VkPipelineLayout")
+      "VkPipelineLayout* pipelinelayout = malloc(sizeof(VkPipelineLayout));
+___return(pipelinelayout);")
+   (define-c-lambda
+      make-VkSampler
+      ()
+      (pointer "VkSampler")
+      "VkSampler* sampler = malloc(sizeof(VkSampler));
+___return(sampler);")
+   (define-c-lambda
+      make-VkDescriptorSet
+      ()
+      (pointer "VkDescriptorSet")
+      "VkDescriptorSet* descriptorset = malloc(sizeof(VkDescriptorSet));
+___return(descriptorset);")
+   (define-c-lambda
+      make-VkDescriptorSetLayout
+      ()
+      (pointer "VkDescriptorSetLayout")
+      "VkDescriptorSetLayout* descriptorsetlayout = malloc(sizeof(VkDescriptorSetLayout));
+___return(descriptorsetlayout);")
+   (define-c-lambda
+      make-VkDescriptorPool
+      ()
+      (pointer "VkDescriptorPool")
+      "VkDescriptorPool* descriptorpool = malloc(sizeof(VkDescriptorPool));
+___return(descriptorpool);")
+   (define-c-lambda
+      make-VkFence
+      ()
+      (pointer "VkFence")
+      "VkFence* fence = malloc(sizeof(VkFence));
+___return(fence);")
+   (define-c-lambda
+      make-VkSemaphore
+      ()
+      (pointer "VkSemaphore")
+      "VkSemaphore* semaphore = malloc(sizeof(VkSemaphore));
+___return(semaphore);")
+   (define-c-lambda
+      make-VkEvent
+      ()
+      (pointer "VkEvent")
+      "VkEvent* event = malloc(sizeof(VkEvent));
+___return(event);")
+   (define-c-lambda
+      make-VkQueryPool
+      ()
+      (pointer "VkQueryPool")
+      "VkQueryPool* querypool = malloc(sizeof(VkQueryPool));
+___return(querypool);")
+   (define-c-lambda
+      make-VkFramebuffer
+      ()
+      (pointer "VkFramebuffer")
+      "VkFramebuffer* framebuffer = malloc(sizeof(VkFramebuffer));
+___return(framebuffer);")
+   (define-c-lambda
+      make-VkRenderPass
+      ()
+      (pointer "VkRenderPass")
+      "VkRenderPass* renderpass = malloc(sizeof(VkRenderPass));
+___return(renderpass);")
+   (define-c-lambda
+      make-VkPipelineCache
+      ()
+      (pointer "VkPipelineCache")
+      "VkPipelineCache* pipelinecache = malloc(sizeof(VkPipelineCache));
+___return(pipelinecache);")
+   (define-c-lambda
+      make-VkObjectTableNVX
+      ()
+      (pointer "VkObjectTableNVX")
+      "VkObjectTableNVX* objecttablenvx = malloc(sizeof(VkObjectTableNVX));
+___return(objecttablenvx);")
+   (define-c-lambda
+      make-VkIndirectCommandsLayoutNVX
+      ()
+      (pointer "VkIndirectCommandsLayoutNVX")
+      "VkIndirectCommandsLayoutNVX* indirectcommandslayoutnvx = malloc(sizeof(VkIndirectCommandsLayoutNVX));
+___return(indirectcommandslayoutnvx);")
+   (define-c-lambda
+      make-VkDescriptorUpdateTemplate
+      ()
+      (pointer "VkDescriptorUpdateTemplate")
+      "VkDescriptorUpdateTemplate* descriptorupdatetemplate = malloc(sizeof(VkDescriptorUpdateTemplate));
+___return(descriptorupdatetemplate);")
+   (define-c-lambda
+      make-VkSamplerYcbcrConversion
+      ()
+      (pointer "VkSamplerYcbcrConversion")
+      "VkSamplerYcbcrConversion* samplerycbcrconversion = malloc(sizeof(VkSamplerYcbcrConversion));
+___return(samplerycbcrconversion);")
+   (define-c-lambda
+      make-VkValidationCacheEXT
+      ()
+      (pointer "VkValidationCacheEXT")
+      "VkValidationCacheEXT* validationcacheext = malloc(sizeof(VkValidationCacheEXT));
+___return(validationcacheext);")
+   (define-c-lambda
+      make-VkAccelerationStructureNV
+      ()
+      (pointer "VkAccelerationStructureNV")
+      "VkAccelerationStructureNV* accelerationstructurenv = malloc(sizeof(VkAccelerationStructureNV));
+___return(accelerationstructurenv);")
+   (define-c-lambda
+      make-VkPerformanceConfigurationINTEL
+      ()
+      (pointer "VkPerformanceConfigurationINTEL")
+      "VkPerformanceConfigurationINTEL* performanceconfigurationintel = malloc(sizeof(VkPerformanceConfigurationINTEL));
+___return(performanceconfigurationintel);")
+   (define-c-lambda
+      make-VkDisplayKHR
+      ()
+      (pointer "VkDisplayKHR")
+      "VkDisplayKHR* displaykhr = malloc(sizeof(VkDisplayKHR));
+___return(displaykhr);")
+   (define-c-lambda
+      make-VkDisplayModeKHR
+      ()
+      (pointer "VkDisplayModeKHR")
+      "VkDisplayModeKHR* displaymodekhr = malloc(sizeof(VkDisplayModeKHR));
+___return(displaymodekhr);")
+   (define-c-lambda
+      make-VkSurfaceKHR
+      ()
+      (pointer "VkSurfaceKHR")
+      "VkSurfaceKHR* surfacekhr = malloc(sizeof(VkSurfaceKHR));
+___return(surfacekhr);")
+   (define-c-lambda
+      make-VkSwapchainKHR
+      ()
+      (pointer "VkSwapchainKHR")
+      "VkSwapchainKHR* swapchainkhr = malloc(sizeof(VkSwapchainKHR));
+___return(swapchainkhr);")
+   (define-c-lambda
+      make-VkDebugReportCallbackEXT
+      ()
+      (pointer "VkDebugReportCallbackEXT")
+      "VkDebugReportCallbackEXT* debugreportcallbackext = malloc(sizeof(VkDebugReportCallbackEXT));
+___return(debugreportcallbackext);")
+   (define-c-lambda
+      make-VkDebugUtilsMessengerEXT
+      ()
+      (pointer "VkDebugUtilsMessengerEXT")
+      "VkDebugUtilsMessengerEXT* debugutilsmessengerext = malloc(sizeof(VkDebugUtilsMessengerEXT));
+___return(debugutilsmessengerext);"))
 (begin-ffi
    (VkDeviceAddress
       VkDeviceAddress*
@@ -1119,6 +1396,7 @@
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -1400,6 +1678,7 @@
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -1782,18 +2061,16 @@
       int64_t
       int64_t*
       int32_t
-      int32_t*
-      void*
-      float*)
+      int32_t*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
-   
    (c-define-type int32_t int)
    (c-define-type int32_t* (pointer int32_t))
    (c-define-type int64_t int)
@@ -1805,15 +2082,8 @@
    (c-define-type uint8_t int)
    (c-define-type uint8_t* (pointer uint8_t))
    (c-define-type uint16_t int)
-   (c-define-type uint16_t* (pointer uint16_t))
-   	   (c-define-type void* (pointer "void"))
-
-	   (c-define-type float* (pointer "float")))
-(begin-ffi (char*
-	    char**)
-  (c-define-type char* char-string)
-  (c-define-type char** (pointer char-string)))
-
+   (c-define-type uint16_t* (pointer uint16_t)))
+(begin-ffi (char*) (c-define-type char* char-string))
 (begin-ffi
    (VkPipelineExecutableStatisticFormatKHR
       VkPipelineExecutableStatisticFormatKHR*
@@ -2199,6 +2469,7 @@
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -2708,6 +2979,7 @@
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -2773,6 +3045,7 @@
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -2823,6 +3096,7 @@
    (c-define-type GgpFrameToken* (pointer GgpFrameToken)))
 (begin-ffi
    (make-VkBaseOutStructure
+      make-VkBaseOutStructure*
       VkBaseOutStructurepNext
       VkBaseOutStructuresType
       VkBaseOutStructure
@@ -2831,6 +3105,7 @@
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -2848,6 +3123,12 @@
       VkBaseOutStructure*
       "___return (___arg1->pNext);")
    (define-c-lambda
+      make-VkBaseOutStructure*
+      (int)
+      VkBaseOutStructure*
+      "VkBaseOutStructure* vkbaseoutstructure = malloc(___arg1 * sizeof(VkBaseOutStructure));
+      ___return (vkbaseoutstructure);")
+   (define-c-lambda
       make-VkBaseOutStructure
       (VkStructureType VkBaseOutStructure*)
       VkBaseOutStructure*
@@ -2857,6 +3138,7 @@ baseoutstructure->pNext=___arg2;
 ___return (baseoutstructure);"))
 (begin-ffi
    (make-VkBaseInStructure
+      make-VkBaseInStructure*
       VkBaseInStructurepNext
       VkBaseInStructuresType
       VkBaseInStructure
@@ -2865,6 +3147,7 @@ ___return (baseoutstructure);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -2882,6 +3165,12 @@ ___return (baseoutstructure);"))
       VkBaseInStructure*
       "___return (___arg1->pNext);")
    (define-c-lambda
+      make-VkBaseInStructure*
+      (int)
+      VkBaseInStructure*
+      "VkBaseInStructure* vkbaseinstructure = malloc(___arg1 * sizeof(VkBaseInStructure));
+      ___return (vkbaseinstructure);")
+   (define-c-lambda
       make-VkBaseInStructure
       (VkStructureType VkBaseInStructure*)
       VkBaseInStructure*
@@ -2890,11 +3179,12 @@ baseinstructure->sType=___arg1;
 baseinstructure->pNext=___arg2;
 ___return (baseinstructure);"))
 (begin-ffi
-   (make-VkOffset2D VkOffset2Dy VkOffset2Dx VkOffset2D VkOffset2D*)
+   (make-VkOffset2D make-VkOffset2D* VkOffset2Dy VkOffset2Dx VkOffset2D VkOffset2D*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -2904,6 +3194,12 @@ ___return (baseinstructure);"))
    (define-c-lambda VkOffset2Dx (VkOffset2D*) int32_t "___return (___arg1->x);")
    (define-c-lambda VkOffset2Dy (VkOffset2D*) int32_t "___return (___arg1->y);")
    (define-c-lambda
+      make-VkOffset2D*
+      (int)
+      VkOffset2D*
+      "VkOffset2D* vkoffset2d = malloc(___arg1 * sizeof(VkOffset2D));
+      ___return (vkoffset2d);")
+   (define-c-lambda
       make-VkOffset2D
       (int32_t int32_t)
       VkOffset2D*
@@ -2912,11 +3208,18 @@ offset2d->x=___arg1;
 offset2d->y=___arg2;
 ___return (offset2d);"))
 (begin-ffi
-   (make-VkOffset3D VkOffset3Dz VkOffset3Dy VkOffset3Dx VkOffset3D VkOffset3D*)
+   (make-VkOffset3D
+      make-VkOffset3D*
+      VkOffset3Dz
+      VkOffset3Dy
+      VkOffset3Dx
+      VkOffset3D
+      VkOffset3D*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -2927,6 +3230,12 @@ ___return (offset2d);"))
    (define-c-lambda VkOffset3Dy (VkOffset3D*) int32_t "___return (___arg1->y);")
    (define-c-lambda VkOffset3Dz (VkOffset3D*) int32_t "___return (___arg1->z);")
    (define-c-lambda
+      make-VkOffset3D*
+      (int)
+      VkOffset3D*
+      "VkOffset3D* vkoffset3d = malloc(___arg1 * sizeof(VkOffset3D));
+      ___return (vkoffset3d);")
+   (define-c-lambda
       make-VkOffset3D
       (int32_t int32_t int32_t)
       VkOffset3D*
@@ -2936,11 +3245,17 @@ offset3d->y=___arg2;
 offset3d->z=___arg3;
 ___return (offset3d);"))
 (begin-ffi
-   (make-VkExtent2D VkExtent2Dheight VkExtent2Dwidth VkExtent2D VkExtent2D*)
+   (make-VkExtent2D
+      make-VkExtent2D*
+      VkExtent2Dheight
+      VkExtent2Dwidth
+      VkExtent2D
+      VkExtent2D*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -2954,6 +3269,12 @@ ___return (offset3d);"))
       uint32_t
       "___return (___arg1->height);")
    (define-c-lambda
+      make-VkExtent2D*
+      (int)
+      VkExtent2D*
+      "VkExtent2D* vkextent2d = malloc(___arg1 * sizeof(VkExtent2D));
+      ___return (vkextent2d);")
+   (define-c-lambda
       make-VkExtent2D
       (uint32_t uint32_t)
       VkExtent2D*
@@ -2963,6 +3284,7 @@ extent2d->height=___arg2;
 ___return (extent2d);"))
 (begin-ffi
    (make-VkExtent3D
+      make-VkExtent3D*
       VkExtent3Ddepth
       VkExtent3Dheight
       VkExtent3Dwidth
@@ -2972,6 +3294,7 @@ ___return (extent2d);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -2986,6 +3309,12 @@ ___return (extent2d);"))
       "___return (___arg1->height);")
    (define-c-lambda VkExtent3Ddepth (VkExtent3D*) uint32_t "___return (___arg1->depth);")
    (define-c-lambda
+      make-VkExtent3D*
+      (int)
+      VkExtent3D*
+      "VkExtent3D* vkextent3d = malloc(___arg1 * sizeof(VkExtent3D));
+      ___return (vkextent3d);")
+   (define-c-lambda
       make-VkExtent3D
       (uint32_t uint32_t uint32_t)
       VkExtent3D*
@@ -2996,6 +3325,7 @@ extent3d->depth=___arg3;
 ___return (extent3d);"))
 (begin-ffi
    (make-VkViewport
+      make-VkViewport*
       VkViewportmaxDepth
       VkViewportminDepth
       VkViewportheight
@@ -3008,6 +3338,7 @@ ___return (extent3d);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -3029,6 +3360,12 @@ ___return (extent3d);"))
       float
       "___return (___arg1->maxDepth);")
    (define-c-lambda
+      make-VkViewport*
+      (int)
+      VkViewport*
+      "VkViewport* vkviewport = malloc(___arg1 * sizeof(VkViewport));
+      ___return (vkviewport);")
+   (define-c-lambda
       make-VkViewport
       (float float float float float float)
       VkViewport*
@@ -3041,11 +3378,12 @@ viewport->minDepth=___arg5;
 viewport->maxDepth=___arg6;
 ___return (viewport);"))
 (begin-ffi
-   (make-VkRect2D VkRect2Dextent VkRect2Doffset VkRect2D VkRect2D*)
+   (make-VkRect2D make-VkRect2D* VkRect2Dextent VkRect2Doffset VkRect2D VkRect2D*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -3054,6 +3392,12 @@ ___return (viewport);"))
    (c-define-type VkRect2D* (pointer VkRect2D))
    (define-c-lambda VkRect2Doffset (VkRect2D*) VkOffset2D "___return (___arg1->offset);")
    (define-c-lambda VkRect2Dextent (VkRect2D*) VkExtent2D "___return (___arg1->extent);")
+   (define-c-lambda
+      make-VkRect2D*
+      (int)
+      VkRect2D*
+      "VkRect2D* vkrect2d = malloc(___arg1 * sizeof(VkRect2D));
+      ___return (vkrect2d);")
    (define-c-lambda
       make-VkRect2D
       (VkOffset2D VkExtent2D)
@@ -3064,6 +3408,7 @@ rect2d->extent=___arg2;
 ___return (rect2d);"))
 (begin-ffi
    (make-VkClearRect
+      make-VkClearRect*
       VkClearRectlayerCount
       VkClearRectbaseArrayLayer
       VkClearRectrect
@@ -3073,6 +3418,7 @@ ___return (rect2d);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -3091,6 +3437,12 @@ ___return (rect2d);"))
       uint32_t
       "___return (___arg1->layerCount);")
    (define-c-lambda
+      make-VkClearRect*
+      (int)
+      VkClearRect*
+      "VkClearRect* vkclearrect = malloc(___arg1 * sizeof(VkClearRect));
+      ___return (vkclearrect);")
+   (define-c-lambda
       make-VkClearRect
       (VkRect2D uint32_t uint32_t)
       VkClearRect*
@@ -3101,6 +3453,7 @@ clearrect->layerCount=___arg3;
 ___return (clearrect);"))
 (begin-ffi
    (make-VkComponentMapping
+      make-VkComponentMapping*
       VkComponentMappinga
       VkComponentMappingb
       VkComponentMappingg
@@ -3111,6 +3464,7 @@ ___return (clearrect);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -3138,6 +3492,12 @@ ___return (clearrect);"))
       VkComponentSwizzle
       "___return (___arg1->a);")
    (define-c-lambda
+      make-VkComponentMapping*
+      (int)
+      VkComponentMapping*
+      "VkComponentMapping* vkcomponentmapping = malloc(___arg1 * sizeof(VkComponentMapping));
+      ___return (vkcomponentmapping);")
+   (define-c-lambda
       make-VkComponentMapping
       (VkComponentSwizzle VkComponentSwizzle VkComponentSwizzle VkComponentSwizzle)
       VkComponentMapping*
@@ -3149,6 +3509,7 @@ componentmapping->a=___arg4;
 ___return (componentmapping);"))
 (begin-ffi
    (make-VkPhysicalDeviceSparseProperties
+      make-VkPhysicalDeviceSparseProperties*
       VkPhysicalDeviceSparsePropertiesresidencyNonResidentStrict
       VkPhysicalDeviceSparsePropertiesresidencyAlignedMipSize
       VkPhysicalDeviceSparsePropertiesresidencyStandard3DBlockShape
@@ -3160,6 +3521,7 @@ ___return (componentmapping);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -3196,6 +3558,12 @@ ___return (componentmapping);"))
       VkBool32
       "___return (___arg1->residencyNonResidentStrict);")
    (define-c-lambda
+      make-VkPhysicalDeviceSparseProperties*
+      (int)
+      VkPhysicalDeviceSparseProperties*
+      "VkPhysicalDeviceSparseProperties* vkphysicaldevicesparseproperties = malloc(___arg1 * sizeof(VkPhysicalDeviceSparseProperties));
+      ___return (vkphysicaldevicesparseproperties);")
+   (define-c-lambda
       make-VkPhysicalDeviceSparseProperties
       (VkBool32 VkBool32 VkBool32 VkBool32 VkBool32)
       VkPhysicalDeviceSparseProperties*
@@ -3208,6 +3576,7 @@ physicaldevicesparseproperties->residencyNonResidentStrict=___arg5;
 ___return (physicaldevicesparseproperties);"))
 (begin-ffi
    (make-VkPhysicalDeviceLimits
+      make-VkPhysicalDeviceLimits*
       VkPhysicalDeviceLimitsnonCoherentAtomSize
       VkPhysicalDeviceLimitsoptimalBufferCopyRowPitchAlignment
       VkPhysicalDeviceLimitsoptimalBufferCopyOffsetAlignment
@@ -3320,6 +3689,7 @@ ___return (physicaldevicesparseproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -3857,6 +4227,12 @@ ___return (physicaldevicesparseproperties);"))
       VkDeviceSize
       "___return (___arg1->nonCoherentAtomSize);")
    (define-c-lambda
+      make-VkPhysicalDeviceLimits*
+      (int)
+      VkPhysicalDeviceLimits*
+      "VkPhysicalDeviceLimits* vkphysicaldevicelimits = malloc(___arg1 * sizeof(VkPhysicalDeviceLimits));
+      ___return (vkphysicaldevicelimits);")
+   (define-c-lambda
       make-VkPhysicalDeviceLimits
       (uint32_t
          uint32_t
@@ -4075,6 +4451,7 @@ physicaldevicelimits->nonCoherentAtomSize=___arg106;
 ___return (physicaldevicelimits);"))
 (begin-ffi
    (make-VkPhysicalDeviceProperties
+      make-VkPhysicalDeviceProperties*
       VkPhysicalDevicePropertiessparseProperties
       VkPhysicalDevicePropertieslimits
       VkPhysicalDevicePropertiespipelineCacheUUID
@@ -4090,6 +4467,7 @@ ___return (physicaldevicelimits);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4142,6 +4520,12 @@ ___return (physicaldevicelimits);"))
       VkPhysicalDeviceSparseProperties
       "___return (___arg1->sparseProperties);")
    (define-c-lambda
+      make-VkPhysicalDeviceProperties*
+      (int)
+      VkPhysicalDeviceProperties*
+      "VkPhysicalDeviceProperties* vkphysicaldeviceproperties = malloc(___arg1 * sizeof(VkPhysicalDeviceProperties));
+      ___return (vkphysicaldeviceproperties);")
+   (define-c-lambda
       make-VkPhysicalDeviceProperties
       (uint32_t
          uint32_t
@@ -4165,9 +4549,8 @@ physicaldeviceproperties->limits=___arg8;
 physicaldeviceproperties->sparseProperties=___arg9;
 ___return (physicaldeviceproperties);"))
 (begin-ffi
-    (make-VkExtensionProperties
-     make-VkExtensionProperties*
-     ref-VkExtensionProperties
+   (make-VkExtensionProperties
+      make-VkExtensionProperties*
       VkExtensionPropertiesspecVersion
       VkExtensionPropertiesextensionName
       VkExtensionProperties
@@ -4176,10 +4559,10 @@ ___return (physicaldeviceproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
-#include <stdlib.h>
 ")
    (c-define-type VkExtensionProperties (struct "VkExtensionProperties"))
    (c-define-type VkExtensionProperties* (pointer VkExtensionProperties))
@@ -4193,12 +4576,12 @@ ___return (physicaldeviceproperties);"))
       (VkExtensionProperties*)
       uint32_t
       "___return (___arg1->specVersion);")
-   (define-c-lambda make-VkExtensionProperties* (int) VkExtensionProperties*
-     "VkExtensionProperties* extensionProperties = malloc(___arg1 * sizeof(VkExtensionProperties));
-      ___return (extensionProperties);")
-   (define-c-lambda ref-VkExtensionProperties
-     (VkExtensionProperties* int) VkExtensionProperties*
-     "___return (___arg1 + ___arg2);")
+   (define-c-lambda
+      make-VkExtensionProperties*
+      (int)
+      VkExtensionProperties*
+      "VkExtensionProperties* vkextensionproperties = malloc(___arg1 * sizeof(VkExtensionProperties));
+      ___return (vkextensionproperties);")
    (define-c-lambda
       make-VkExtensionProperties
       (char* uint32_t)
@@ -4209,6 +4592,7 @@ extensionproperties->specVersion=___arg2;
 ___return (extensionproperties);"))
 (begin-ffi
    (make-VkLayerProperties
+      make-VkLayerProperties*
       VkLayerPropertiesdescription
       VkLayerPropertiesimplementationVersion
       VkLayerPropertiesspecVersion
@@ -4219,6 +4603,7 @@ ___return (extensionproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4246,6 +4631,12 @@ ___return (extensionproperties);"))
       char*
       "___return (___arg1->description);")
    (define-c-lambda
+      make-VkLayerProperties*
+      (int)
+      VkLayerProperties*
+      "VkLayerProperties* vklayerproperties = malloc(___arg1 * sizeof(VkLayerProperties));
+      ___return (vklayerproperties);")
+   (define-c-lambda
       make-VkLayerProperties
       (char* uint32_t uint32_t char*)
       VkLayerProperties*
@@ -4257,6 +4648,7 @@ memcpy(layerproperties->description,___arg4,sizeof(___arg4));
 ___return (layerproperties);"))
 (begin-ffi
    (make-VkApplicationInfo
+      make-VkApplicationInfo*
       VkApplicationInfoapiVersion
       VkApplicationInfoengineVersion
       VkApplicationInfopEngineName
@@ -4270,6 +4662,7 @@ ___return (layerproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4312,6 +4705,12 @@ ___return (layerproperties);"))
       uint32_t
       "___return (___arg1->apiVersion);")
    (define-c-lambda
+      make-VkApplicationInfo*
+      (int)
+      VkApplicationInfo*
+      "VkApplicationInfo* vkapplicationinfo = malloc(___arg1 * sizeof(VkApplicationInfo));
+      ___return (vkapplicationinfo);")
+   (define-c-lambda
       make-VkApplicationInfo
       (VkStructureType void* char* uint32_t char* uint32_t uint32_t)
       VkApplicationInfo*
@@ -4330,6 +4729,7 @@ ___return (applicationinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4348,6 +4748,7 @@ ___return (applicationinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4366,6 +4767,7 @@ ___return (applicationinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4378,6 +4780,7 @@ ___return (applicationinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4394,6 +4797,7 @@ ___return (applicationinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4404,6 +4808,7 @@ ___return (applicationinfo);"))
    (c-define-type PFN_vkAllocationFunction* (pointer PFN_vkAllocationFunction)))
 (begin-ffi
    (make-VkAllocationCallbacks
+      make-VkAllocationCallbacks*
       VkAllocationCallbackspfnInternalFree
       VkAllocationCallbackspfnInternalAllocation
       VkAllocationCallbackspfnFree
@@ -4416,6 +4821,7 @@ ___return (applicationinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4453,6 +4859,12 @@ ___return (applicationinfo);"))
       PFN_vkInternalFreeNotification
       "___return (___arg1->pfnInternalFree);")
    (define-c-lambda
+      make-VkAllocationCallbacks*
+      (int)
+      VkAllocationCallbacks*
+      "VkAllocationCallbacks* vkallocationcallbacks = malloc(___arg1 * sizeof(VkAllocationCallbacks));
+      ___return (vkallocationcallbacks);")
+   (define-c-lambda
       make-VkAllocationCallbacks
       (void*
          PFN_vkAllocationFunction
@@ -4471,6 +4883,7 @@ allocationcallbacks->pfnInternalFree=___arg6;
 ___return (allocationcallbacks);"))
 (begin-ffi
    (make-VkDeviceQueueCreateInfo
+      make-VkDeviceQueueCreateInfo*
       VkDeviceQueueCreateInfopQueuePriorities
       VkDeviceQueueCreateInfoqueueCount
       VkDeviceQueueCreateInfoqueueFamilyIndex
@@ -4483,6 +4896,7 @@ ___return (allocationcallbacks);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4520,6 +4934,12 @@ ___return (allocationcallbacks);"))
       float*
       "___return (___arg1->pQueuePriorities);")
    (define-c-lambda
+      make-VkDeviceQueueCreateInfo*
+      (int)
+      VkDeviceQueueCreateInfo*
+      "VkDeviceQueueCreateInfo* vkdevicequeuecreateinfo = malloc(___arg1 * sizeof(VkDeviceQueueCreateInfo));
+      ___return (vkdevicequeuecreateinfo);")
+   (define-c-lambda
       make-VkDeviceQueueCreateInfo
       (VkStructureType void* VkDeviceQueueCreateFlags uint32_t uint32_t float*)
       VkDeviceQueueCreateInfo*
@@ -4533,6 +4953,7 @@ devicequeuecreateinfo->pQueuePriorities=___arg6;
 ___return (devicequeuecreateinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceFeatures
+      make-VkPhysicalDeviceFeatures*
       VkPhysicalDeviceFeaturesinheritedQueries
       VkPhysicalDeviceFeaturesvariableMultisampleRate
       VkPhysicalDeviceFeaturessparseResidencyAliased
@@ -4594,6 +5015,7 @@ ___return (devicequeuecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -4876,6 +5298,12 @@ ___return (devicequeuecreateinfo);"))
       VkBool32
       "___return (___arg1->inheritedQueries);")
    (define-c-lambda
+      make-VkPhysicalDeviceFeatures*
+      (int)
+      VkPhysicalDeviceFeatures*
+      "VkPhysicalDeviceFeatures* vkphysicaldevicefeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceFeatures));
+      ___return (vkphysicaldevicefeatures);")
+   (define-c-lambda
       make-VkPhysicalDeviceFeatures
       (VkBool32
          VkBool32
@@ -4992,6 +5420,7 @@ physicaldevicefeatures->inheritedQueries=___arg55;
 ___return (physicaldevicefeatures);"))
 (begin-ffi
    (make-VkDeviceCreateInfo
+      make-VkDeviceCreateInfo*
       VkDeviceCreateInfopEnabledFeatures
       VkDeviceCreateInfoppEnabledExtensionNames
       VkDeviceCreateInfoenabledExtensionCount
@@ -5008,6 +5437,7 @@ ___return (physicaldevicefeatures);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5065,6 +5495,12 @@ ___return (physicaldevicefeatures);"))
       VkPhysicalDeviceFeatures*
       "___return (___arg1->pEnabledFeatures);")
    (define-c-lambda
+      make-VkDeviceCreateInfo*
+      (int)
+      VkDeviceCreateInfo*
+      "VkDeviceCreateInfo* vkdevicecreateinfo = malloc(___arg1 * sizeof(VkDeviceCreateInfo));
+      ___return (vkdevicecreateinfo);")
+   (define-c-lambda
       make-VkDeviceCreateInfo
       (VkStructureType
          void*
@@ -5091,6 +5527,7 @@ devicecreateinfo->pEnabledFeatures=___arg10;
 ___return (devicecreateinfo);"))
 (begin-ffi
    (make-VkInstanceCreateInfo
+      make-VkInstanceCreateInfo*
       VkInstanceCreateInfoppEnabledExtensionNames
       VkInstanceCreateInfoenabledExtensionCount
       VkInstanceCreateInfoppEnabledLayerNames
@@ -5105,6 +5542,7 @@ ___return (devicecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5152,15 +5590,21 @@ ___return (devicecreateinfo);"))
       char
       "___return (___arg1->ppEnabledExtensionNames);")
    (define-c-lambda
+      make-VkInstanceCreateInfo*
+      (int)
+      VkInstanceCreateInfo*
+      "VkInstanceCreateInfo* vkinstancecreateinfo = malloc(___arg1 * sizeof(VkInstanceCreateInfo));
+      ___return (vkinstancecreateinfo);")
+   (define-c-lambda
       make-VkInstanceCreateInfo
       (VkStructureType
          void*
          VkInstanceCreateFlags
          VkApplicationInfo*
          uint32_t
-         char**
+         (pointer char-string)
          uint32_t
-         char**)
+         (pointer char-string))
       VkInstanceCreateInfo*
       "VkInstanceCreateInfo *instancecreateinfo = malloc(sizeof(VkInstanceCreateInfo));
 instancecreateinfo->sType=___arg1;
@@ -5174,6 +5618,7 @@ instancecreateinfo->ppEnabledExtensionNames=___arg8;
 ___return (instancecreateinfo);"))
 (begin-ffi
    (make-VkQueueFamilyProperties
+      make-VkQueueFamilyProperties*
       VkQueueFamilyPropertiesminImageTransferGranularity
       VkQueueFamilyPropertiestimestampValidBits
       VkQueueFamilyPropertiesqueueCount
@@ -5184,6 +5629,7 @@ ___return (instancecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5211,6 +5657,12 @@ ___return (instancecreateinfo);"))
       VkExtent3D
       "___return (___arg1->minImageTransferGranularity);")
    (define-c-lambda
+      make-VkQueueFamilyProperties*
+      (int)
+      VkQueueFamilyProperties*
+      "VkQueueFamilyProperties* vkqueuefamilyproperties = malloc(___arg1 * sizeof(VkQueueFamilyProperties));
+      ___return (vkqueuefamilyproperties);")
+   (define-c-lambda
       make-VkQueueFamilyProperties
       (VkQueueFlags uint32_t uint32_t VkExtent3D)
       VkQueueFamilyProperties*
@@ -5221,11 +5673,17 @@ queuefamilyproperties->timestampValidBits=___arg3;
 queuefamilyproperties->minImageTransferGranularity=___arg4;
 ___return (queuefamilyproperties);"))
 (begin-ffi
-   (make-VkMemoryHeap VkMemoryHeapflags VkMemoryHeapsize VkMemoryHeap VkMemoryHeap*)
+   (make-VkMemoryHeap
+      make-VkMemoryHeap*
+      VkMemoryHeapflags
+      VkMemoryHeapsize
+      VkMemoryHeap
+      VkMemoryHeap*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5243,6 +5701,12 @@ ___return (queuefamilyproperties);"))
       VkMemoryHeapFlags
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkMemoryHeap*
+      (int)
+      VkMemoryHeap*
+      "VkMemoryHeap* vkmemoryheap = malloc(___arg1 * sizeof(VkMemoryHeap));
+      ___return (vkmemoryheap);")
+   (define-c-lambda
       make-VkMemoryHeap
       (VkDeviceSize VkMemoryHeapFlags)
       VkMemoryHeap*
@@ -5252,6 +5716,7 @@ memoryheap->flags=___arg2;
 ___return (memoryheap);"))
 (begin-ffi
    (make-VkMemoryType
+      make-VkMemoryType*
       VkMemoryTypeheapIndex
       VkMemoryTypepropertyFlags
       VkMemoryType
@@ -5260,6 +5725,7 @@ ___return (memoryheap);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5277,6 +5743,12 @@ ___return (memoryheap);"))
       uint32_t
       "___return (___arg1->heapIndex);")
    (define-c-lambda
+      make-VkMemoryType*
+      (int)
+      VkMemoryType*
+      "VkMemoryType* vkmemorytype = malloc(___arg1 * sizeof(VkMemoryType));
+      ___return (vkmemorytype);")
+   (define-c-lambda
       make-VkMemoryType
       (VkMemoryPropertyFlags uint32_t)
       VkMemoryType*
@@ -5286,6 +5758,7 @@ memorytype->heapIndex=___arg2;
 ___return (memorytype);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryProperties
+      make-VkPhysicalDeviceMemoryProperties*
       VkPhysicalDeviceMemoryPropertiesmemoryHeaps
       VkPhysicalDeviceMemoryPropertiesmemoryHeapCount
       VkPhysicalDeviceMemoryPropertiesmemoryTypes
@@ -5296,6 +5769,7 @@ ___return (memorytype);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5327,6 +5801,12 @@ ___return (memorytype);"))
       VkMemoryHeap*
       "___return (___arg1->memoryHeaps);")
    (define-c-lambda
+      make-VkPhysicalDeviceMemoryProperties*
+      (int)
+      VkPhysicalDeviceMemoryProperties*
+      "VkPhysicalDeviceMemoryProperties* vkphysicaldevicememoryproperties = malloc(___arg1 * sizeof(VkPhysicalDeviceMemoryProperties));
+      ___return (vkphysicaldevicememoryproperties);")
+   (define-c-lambda
       make-VkPhysicalDeviceMemoryProperties
       (uint32_t VkMemoryType* uint32_t VkMemoryHeap*)
       VkPhysicalDeviceMemoryProperties*
@@ -5338,6 +5818,7 @@ memcpy(physicaldevicememoryproperties->memoryHeaps,___arg4,sizeof(___arg4));
 ___return (physicaldevicememoryproperties);"))
 (begin-ffi
    (make-VkMemoryAllocateInfo
+      make-VkMemoryAllocateInfo*
       VkMemoryAllocateInfomemoryTypeIndex
       VkMemoryAllocateInfoallocationSize
       VkMemoryAllocateInfopNext
@@ -5348,6 +5829,7 @@ ___return (physicaldevicememoryproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5375,6 +5857,12 @@ ___return (physicaldevicememoryproperties);"))
       uint32_t
       "___return (___arg1->memoryTypeIndex);")
    (define-c-lambda
+      make-VkMemoryAllocateInfo*
+      (int)
+      VkMemoryAllocateInfo*
+      "VkMemoryAllocateInfo* vkmemoryallocateinfo = malloc(___arg1 * sizeof(VkMemoryAllocateInfo));
+      ___return (vkmemoryallocateinfo);")
+   (define-c-lambda
       make-VkMemoryAllocateInfo
       (VkStructureType void* VkDeviceSize uint32_t)
       VkMemoryAllocateInfo*
@@ -5386,6 +5874,7 @@ memoryallocateinfo->memoryTypeIndex=___arg4;
 ___return (memoryallocateinfo);"))
 (begin-ffi
    (make-VkMemoryRequirements
+      make-VkMemoryRequirements*
       VkMemoryRequirementsmemoryTypeBits
       VkMemoryRequirementsalignment
       VkMemoryRequirementssize
@@ -5395,6 +5884,7 @@ ___return (memoryallocateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5417,6 +5907,12 @@ ___return (memoryallocateinfo);"))
       uint32_t
       "___return (___arg1->memoryTypeBits);")
    (define-c-lambda
+      make-VkMemoryRequirements*
+      (int)
+      VkMemoryRequirements*
+      "VkMemoryRequirements* vkmemoryrequirements = malloc(___arg1 * sizeof(VkMemoryRequirements));
+      ___return (vkmemoryrequirements);")
+   (define-c-lambda
       make-VkMemoryRequirements
       (VkDeviceSize VkDeviceSize uint32_t)
       VkMemoryRequirements*
@@ -5427,6 +5923,7 @@ memoryrequirements->memoryTypeBits=___arg3;
 ___return (memoryrequirements);"))
 (begin-ffi
    (make-VkSparseImageFormatProperties
+      make-VkSparseImageFormatProperties*
       VkSparseImageFormatPropertiesflags
       VkSparseImageFormatPropertiesimageGranularity
       VkSparseImageFormatPropertiesaspectMask
@@ -5436,6 +5933,7 @@ ___return (memoryrequirements);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5458,6 +5956,12 @@ ___return (memoryrequirements);"))
       VkSparseImageFormatFlags
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkSparseImageFormatProperties*
+      (int)
+      VkSparseImageFormatProperties*
+      "VkSparseImageFormatProperties* vksparseimageformatproperties = malloc(___arg1 * sizeof(VkSparseImageFormatProperties));
+      ___return (vksparseimageformatproperties);")
+   (define-c-lambda
       make-VkSparseImageFormatProperties
       (VkImageAspectFlags VkExtent3D VkSparseImageFormatFlags)
       VkSparseImageFormatProperties*
@@ -5468,6 +5972,7 @@ sparseimageformatproperties->flags=___arg3;
 ___return (sparseimageformatproperties);"))
 (begin-ffi
    (make-VkSparseImageMemoryRequirements
+      make-VkSparseImageMemoryRequirements*
       VkSparseImageMemoryRequirementsimageMipTailStride
       VkSparseImageMemoryRequirementsimageMipTailOffset
       VkSparseImageMemoryRequirementsimageMipTailSize
@@ -5479,6 +5984,7 @@ ___return (sparseimageformatproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5515,6 +6021,12 @@ ___return (sparseimageformatproperties);"))
       VkDeviceSize
       "___return (___arg1->imageMipTailStride);")
    (define-c-lambda
+      make-VkSparseImageMemoryRequirements*
+      (int)
+      VkSparseImageMemoryRequirements*
+      "VkSparseImageMemoryRequirements* vksparseimagememoryrequirements = malloc(___arg1 * sizeof(VkSparseImageMemoryRequirements));
+      ___return (vksparseimagememoryrequirements);")
+   (define-c-lambda
       make-VkSparseImageMemoryRequirements
       (VkSparseImageFormatProperties uint32_t VkDeviceSize VkDeviceSize VkDeviceSize)
       VkSparseImageMemoryRequirements*
@@ -5527,6 +6039,7 @@ sparseimagememoryrequirements->imageMipTailStride=___arg5;
 ___return (sparseimagememoryrequirements);"))
 (begin-ffi
    (make-VkMappedMemoryRange
+      make-VkMappedMemoryRange*
       VkMappedMemoryRangesize
       VkMappedMemoryRangeoffset
       VkMappedMemoryRangememory
@@ -5538,6 +6051,7 @@ ___return (sparseimagememoryrequirements);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5570,6 +6084,12 @@ ___return (sparseimagememoryrequirements);"))
       VkDeviceSize
       "___return (___arg1->size);")
    (define-c-lambda
+      make-VkMappedMemoryRange*
+      (int)
+      VkMappedMemoryRange*
+      "VkMappedMemoryRange* vkmappedmemoryrange = malloc(___arg1 * sizeof(VkMappedMemoryRange));
+      ___return (vkmappedmemoryrange);")
+   (define-c-lambda
       make-VkMappedMemoryRange
       (VkStructureType void* VkDeviceMemory VkDeviceSize VkDeviceSize)
       VkMappedMemoryRange*
@@ -5582,6 +6102,7 @@ mappedmemoryrange->size=___arg5;
 ___return (mappedmemoryrange);"))
 (begin-ffi
    (make-VkFormatProperties
+      make-VkFormatProperties*
       VkFormatPropertiesbufferFeatures
       VkFormatPropertiesoptimalTilingFeatures
       VkFormatPropertieslinearTilingFeatures
@@ -5591,6 +6112,7 @@ ___return (mappedmemoryrange);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5613,6 +6135,12 @@ ___return (mappedmemoryrange);"))
       VkFormatFeatureFlags
       "___return (___arg1->bufferFeatures);")
    (define-c-lambda
+      make-VkFormatProperties*
+      (int)
+      VkFormatProperties*
+      "VkFormatProperties* vkformatproperties = malloc(___arg1 * sizeof(VkFormatProperties));
+      ___return (vkformatproperties);")
+   (define-c-lambda
       make-VkFormatProperties
       (VkFormatFeatureFlags VkFormatFeatureFlags VkFormatFeatureFlags)
       VkFormatProperties*
@@ -5623,6 +6151,7 @@ formatproperties->bufferFeatures=___arg3;
 ___return (formatproperties);"))
 (begin-ffi
    (make-VkImageFormatProperties
+      make-VkImageFormatProperties*
       VkImageFormatPropertiesmaxResourceSize
       VkImageFormatPropertiessampleCounts
       VkImageFormatPropertiesmaxArrayLayers
@@ -5634,6 +6163,7 @@ ___return (formatproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5666,6 +6196,12 @@ ___return (formatproperties);"))
       VkDeviceSize
       "___return (___arg1->maxResourceSize);")
    (define-c-lambda
+      make-VkImageFormatProperties*
+      (int)
+      VkImageFormatProperties*
+      "VkImageFormatProperties* vkimageformatproperties = malloc(___arg1 * sizeof(VkImageFormatProperties));
+      ___return (vkimageformatproperties);")
+   (define-c-lambda
       make-VkImageFormatProperties
       (VkExtent3D uint32_t uint32_t VkSampleCountFlags VkDeviceSize)
       VkImageFormatProperties*
@@ -5678,6 +6214,7 @@ imageformatproperties->maxResourceSize=___arg5;
 ___return (imageformatproperties);"))
 (begin-ffi
    (make-VkDescriptorBufferInfo
+      make-VkDescriptorBufferInfo*
       VkDescriptorBufferInforange
       VkDescriptorBufferInfooffset
       VkDescriptorBufferInfobuffer
@@ -5687,6 +6224,7 @@ ___return (imageformatproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5709,6 +6247,12 @@ ___return (imageformatproperties);"))
       VkDeviceSize
       "___return (___arg1->range);")
    (define-c-lambda
+      make-VkDescriptorBufferInfo*
+      (int)
+      VkDescriptorBufferInfo*
+      "VkDescriptorBufferInfo* vkdescriptorbufferinfo = malloc(___arg1 * sizeof(VkDescriptorBufferInfo));
+      ___return (vkdescriptorbufferinfo);")
+   (define-c-lambda
       make-VkDescriptorBufferInfo
       (VkBuffer VkDeviceSize VkDeviceSize)
       VkDescriptorBufferInfo*
@@ -5719,6 +6263,7 @@ descriptorbufferinfo->range=___arg3;
 ___return (descriptorbufferinfo);"))
 (begin-ffi
    (make-VkDescriptorImageInfo
+      make-VkDescriptorImageInfo*
       VkDescriptorImageInfoimageLayout
       VkDescriptorImageInfoimageView
       VkDescriptorImageInfosampler
@@ -5728,6 +6273,7 @@ ___return (descriptorbufferinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5750,6 +6296,12 @@ ___return (descriptorbufferinfo);"))
       VkImageLayout
       "___return (___arg1->imageLayout);")
    (define-c-lambda
+      make-VkDescriptorImageInfo*
+      (int)
+      VkDescriptorImageInfo*
+      "VkDescriptorImageInfo* vkdescriptorimageinfo = malloc(___arg1 * sizeof(VkDescriptorImageInfo));
+      ___return (vkdescriptorimageinfo);")
+   (define-c-lambda
       make-VkDescriptorImageInfo
       (VkSampler VkImageView VkImageLayout)
       VkDescriptorImageInfo*
@@ -5760,6 +6312,7 @@ descriptorimageinfo->imageLayout=___arg3;
 ___return (descriptorimageinfo);"))
 (begin-ffi
    (make-VkWriteDescriptorSet
+      make-VkWriteDescriptorSet*
       VkWriteDescriptorSetpTexelBufferView
       VkWriteDescriptorSetpBufferInfo
       VkWriteDescriptorSetpImageInfo
@@ -5776,6 +6329,7 @@ ___return (descriptorimageinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5833,6 +6387,12 @@ ___return (descriptorimageinfo);"))
       VkBufferView*
       "___return (___arg1->pTexelBufferView);")
    (define-c-lambda
+      make-VkWriteDescriptorSet*
+      (int)
+      VkWriteDescriptorSet*
+      "VkWriteDescriptorSet* vkwritedescriptorset = malloc(___arg1 * sizeof(VkWriteDescriptorSet));
+      ___return (vkwritedescriptorset);")
+   (define-c-lambda
       make-VkWriteDescriptorSet
       (VkStructureType
          void*
@@ -5859,6 +6419,7 @@ writedescriptorset->pTexelBufferView=___arg10;
 ___return (writedescriptorset);"))
 (begin-ffi
    (make-VkCopyDescriptorSet
+      make-VkCopyDescriptorSet*
       VkCopyDescriptorSetdescriptorCount
       VkCopyDescriptorSetdstArrayElement
       VkCopyDescriptorSetdstBinding
@@ -5874,6 +6435,7 @@ ___return (writedescriptorset);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -5926,6 +6488,12 @@ ___return (writedescriptorset);"))
       uint32_t
       "___return (___arg1->descriptorCount);")
    (define-c-lambda
+      make-VkCopyDescriptorSet*
+      (int)
+      VkCopyDescriptorSet*
+      "VkCopyDescriptorSet* vkcopydescriptorset = malloc(___arg1 * sizeof(VkCopyDescriptorSet));
+      ___return (vkcopydescriptorset);")
+   (define-c-lambda
       make-VkCopyDescriptorSet
       (VkStructureType
          void*
@@ -5950,6 +6518,7 @@ copydescriptorset->descriptorCount=___arg9;
 ___return (copydescriptorset);"))
 (begin-ffi
    (make-VkBufferCreateInfo
+      make-VkBufferCreateInfo*
       VkBufferCreateInfopQueueFamilyIndices
       VkBufferCreateInfoqueueFamilyIndexCount
       VkBufferCreateInfosharingMode
@@ -5964,6 +6533,7 @@ ___return (copydescriptorset);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6011,6 +6581,12 @@ ___return (copydescriptorset);"))
       uint32_t*
       "___return (___arg1->pQueueFamilyIndices);")
    (define-c-lambda
+      make-VkBufferCreateInfo*
+      (int)
+      VkBufferCreateInfo*
+      "VkBufferCreateInfo* vkbuffercreateinfo = malloc(___arg1 * sizeof(VkBufferCreateInfo));
+      ___return (vkbuffercreateinfo);")
+   (define-c-lambda
       make-VkBufferCreateInfo
       (VkStructureType
          void*
@@ -6033,6 +6609,7 @@ buffercreateinfo->pQueueFamilyIndices=___arg8;
 ___return (buffercreateinfo);"))
 (begin-ffi
    (make-VkBufferViewCreateInfo
+      make-VkBufferViewCreateInfo*
       VkBufferViewCreateInforange
       VkBufferViewCreateInfooffset
       VkBufferViewCreateInfoformat
@@ -6046,6 +6623,7 @@ ___return (buffercreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6088,6 +6666,12 @@ ___return (buffercreateinfo);"))
       VkDeviceSize
       "___return (___arg1->range);")
    (define-c-lambda
+      make-VkBufferViewCreateInfo*
+      (int)
+      VkBufferViewCreateInfo*
+      "VkBufferViewCreateInfo* vkbufferviewcreateinfo = malloc(___arg1 * sizeof(VkBufferViewCreateInfo));
+      ___return (vkbufferviewcreateinfo);")
+   (define-c-lambda
       make-VkBufferViewCreateInfo
       (VkStructureType
          void*
@@ -6108,6 +6692,7 @@ bufferviewcreateinfo->range=___arg7;
 ___return (bufferviewcreateinfo);"))
 (begin-ffi
    (make-VkImageSubresource
+      make-VkImageSubresource*
       VkImageSubresourcearrayLayer
       VkImageSubresourcemipLevel
       VkImageSubresourceaspectMask
@@ -6117,6 +6702,7 @@ ___return (bufferviewcreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6139,6 +6725,12 @@ ___return (bufferviewcreateinfo);"))
       uint32_t
       "___return (___arg1->arrayLayer);")
    (define-c-lambda
+      make-VkImageSubresource*
+      (int)
+      VkImageSubresource*
+      "VkImageSubresource* vkimagesubresource = malloc(___arg1 * sizeof(VkImageSubresource));
+      ___return (vkimagesubresource);")
+   (define-c-lambda
       make-VkImageSubresource
       (VkImageAspectFlags uint32_t uint32_t)
       VkImageSubresource*
@@ -6149,6 +6741,7 @@ imagesubresource->arrayLayer=___arg3;
 ___return (imagesubresource);"))
 (begin-ffi
    (make-VkImageSubresourceLayers
+      make-VkImageSubresourceLayers*
       VkImageSubresourceLayerslayerCount
       VkImageSubresourceLayersbaseArrayLayer
       VkImageSubresourceLayersmipLevel
@@ -6159,6 +6752,7 @@ ___return (imagesubresource);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6186,6 +6780,12 @@ ___return (imagesubresource);"))
       uint32_t
       "___return (___arg1->layerCount);")
    (define-c-lambda
+      make-VkImageSubresourceLayers*
+      (int)
+      VkImageSubresourceLayers*
+      "VkImageSubresourceLayers* vkimagesubresourcelayers = malloc(___arg1 * sizeof(VkImageSubresourceLayers));
+      ___return (vkimagesubresourcelayers);")
+   (define-c-lambda
       make-VkImageSubresourceLayers
       (VkImageAspectFlags uint32_t uint32_t uint32_t)
       VkImageSubresourceLayers*
@@ -6197,6 +6797,7 @@ imagesubresourcelayers->layerCount=___arg4;
 ___return (imagesubresourcelayers);"))
 (begin-ffi
    (make-VkImageSubresourceRange
+      make-VkImageSubresourceRange*
       VkImageSubresourceRangelayerCount
       VkImageSubresourceRangebaseArrayLayer
       VkImageSubresourceRangelevelCount
@@ -6208,6 +6809,7 @@ ___return (imagesubresourcelayers);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6240,6 +6842,12 @@ ___return (imagesubresourcelayers);"))
       uint32_t
       "___return (___arg1->layerCount);")
    (define-c-lambda
+      make-VkImageSubresourceRange*
+      (int)
+      VkImageSubresourceRange*
+      "VkImageSubresourceRange* vkimagesubresourcerange = malloc(___arg1 * sizeof(VkImageSubresourceRange));
+      ___return (vkimagesubresourcerange);")
+   (define-c-lambda
       make-VkImageSubresourceRange
       (VkImageAspectFlags uint32_t uint32_t uint32_t uint32_t)
       VkImageSubresourceRange*
@@ -6252,6 +6860,7 @@ imagesubresourcerange->layerCount=___arg5;
 ___return (imagesubresourcerange);"))
 (begin-ffi
    (make-VkMemoryBarrier
+      make-VkMemoryBarrier*
       VkMemoryBarrierdstAccessMask
       VkMemoryBarriersrcAccessMask
       VkMemoryBarrierpNext
@@ -6262,6 +6871,7 @@ ___return (imagesubresourcerange);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6289,6 +6899,12 @@ ___return (imagesubresourcerange);"))
       VkAccessFlags
       "___return (___arg1->dstAccessMask);")
    (define-c-lambda
+      make-VkMemoryBarrier*
+      (int)
+      VkMemoryBarrier*
+      "VkMemoryBarrier* vkmemorybarrier = malloc(___arg1 * sizeof(VkMemoryBarrier));
+      ___return (vkmemorybarrier);")
+   (define-c-lambda
       make-VkMemoryBarrier
       (VkStructureType void* VkAccessFlags VkAccessFlags)
       VkMemoryBarrier*
@@ -6300,6 +6916,7 @@ memorybarrier->dstAccessMask=___arg4;
 ___return (memorybarrier);"))
 (begin-ffi
    (make-VkBufferMemoryBarrier
+      make-VkBufferMemoryBarrier*
       VkBufferMemoryBarriersize
       VkBufferMemoryBarrieroffset
       VkBufferMemoryBarrierbuffer
@@ -6315,6 +6932,7 @@ ___return (memorybarrier);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6367,6 +6985,12 @@ ___return (memorybarrier);"))
       VkDeviceSize
       "___return (___arg1->size);")
    (define-c-lambda
+      make-VkBufferMemoryBarrier*
+      (int)
+      VkBufferMemoryBarrier*
+      "VkBufferMemoryBarrier* vkbuffermemorybarrier = malloc(___arg1 * sizeof(VkBufferMemoryBarrier));
+      ___return (vkbuffermemorybarrier);")
+   (define-c-lambda
       make-VkBufferMemoryBarrier
       (VkStructureType
          void*
@@ -6391,6 +7015,7 @@ buffermemorybarrier->size=___arg9;
 ___return (buffermemorybarrier);"))
 (begin-ffi
    (make-VkImageMemoryBarrier
+      make-VkImageMemoryBarrier*
       VkImageMemoryBarriersubresourceRange
       VkImageMemoryBarrierimage
       VkImageMemoryBarrierdstQueueFamilyIndex
@@ -6407,6 +7032,7 @@ ___return (buffermemorybarrier);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6464,6 +7090,12 @@ ___return (buffermemorybarrier);"))
       VkImageSubresourceRange
       "___return (___arg1->subresourceRange);")
    (define-c-lambda
+      make-VkImageMemoryBarrier*
+      (int)
+      VkImageMemoryBarrier*
+      "VkImageMemoryBarrier* vkimagememorybarrier = malloc(___arg1 * sizeof(VkImageMemoryBarrier));
+      ___return (vkimagememorybarrier);")
+   (define-c-lambda
       make-VkImageMemoryBarrier
       (VkStructureType
          void*
@@ -6490,6 +7122,7 @@ imagememorybarrier->subresourceRange=___arg10;
 ___return (imagememorybarrier);"))
 (begin-ffi
    (make-VkImageCreateInfo
+      make-VkImageCreateInfo*
       VkImageCreateInfoinitialLayout
       VkImageCreateInfopQueueFamilyIndices
       VkImageCreateInfoqueueFamilyIndexCount
@@ -6511,6 +7144,7 @@ ___return (imagememorybarrier);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6593,6 +7227,12 @@ ___return (imagememorybarrier);"))
       VkImageLayout
       "___return (___arg1->initialLayout);")
    (define-c-lambda
+      make-VkImageCreateInfo*
+      (int)
+      VkImageCreateInfo*
+      "VkImageCreateInfo* vkimagecreateinfo = malloc(___arg1 * sizeof(VkImageCreateInfo));
+      ___return (vkimagecreateinfo);")
+   (define-c-lambda
       make-VkImageCreateInfo
       (VkStructureType
          void*
@@ -6629,6 +7269,7 @@ imagecreateinfo->initialLayout=___arg15;
 ___return (imagecreateinfo);"))
 (begin-ffi
    (make-VkSubresourceLayout
+      make-VkSubresourceLayout*
       VkSubresourceLayoutdepthPitch
       VkSubresourceLayoutarrayPitch
       VkSubresourceLayoutrowPitch
@@ -6640,6 +7281,7 @@ ___return (imagecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6672,6 +7314,12 @@ ___return (imagecreateinfo);"))
       VkDeviceSize
       "___return (___arg1->depthPitch);")
    (define-c-lambda
+      make-VkSubresourceLayout*
+      (int)
+      VkSubresourceLayout*
+      "VkSubresourceLayout* vksubresourcelayout = malloc(___arg1 * sizeof(VkSubresourceLayout));
+      ___return (vksubresourcelayout);")
+   (define-c-lambda
       make-VkSubresourceLayout
       (VkDeviceSize VkDeviceSize VkDeviceSize VkDeviceSize VkDeviceSize)
       VkSubresourceLayout*
@@ -6684,6 +7332,7 @@ subresourcelayout->depthPitch=___arg5;
 ___return (subresourcelayout);"))
 (begin-ffi
    (make-VkImageViewCreateInfo
+      make-VkImageViewCreateInfo*
       VkImageViewCreateInfosubresourceRange
       VkImageViewCreateInfocomponents
       VkImageViewCreateInfoformat
@@ -6698,6 +7347,7 @@ ___return (subresourcelayout);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6745,6 +7395,12 @@ ___return (subresourcelayout);"))
       VkImageSubresourceRange
       "___return (___arg1->subresourceRange);")
    (define-c-lambda
+      make-VkImageViewCreateInfo*
+      (int)
+      VkImageViewCreateInfo*
+      "VkImageViewCreateInfo* vkimageviewcreateinfo = malloc(___arg1 * sizeof(VkImageViewCreateInfo));
+      ___return (vkimageviewcreateinfo);")
+   (define-c-lambda
       make-VkImageViewCreateInfo
       (VkStructureType
          void*
@@ -6767,6 +7423,7 @@ imageviewcreateinfo->subresourceRange=___arg8;
 ___return (imageviewcreateinfo);"))
 (begin-ffi
    (make-VkBufferCopy
+      make-VkBufferCopy*
       VkBufferCopysize
       VkBufferCopydstOffset
       VkBufferCopysrcOffset
@@ -6776,6 +7433,7 @@ ___return (imageviewcreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6798,6 +7456,12 @@ ___return (imageviewcreateinfo);"))
       VkDeviceSize
       "___return (___arg1->size);")
    (define-c-lambda
+      make-VkBufferCopy*
+      (int)
+      VkBufferCopy*
+      "VkBufferCopy* vkbuffercopy = malloc(___arg1 * sizeof(VkBufferCopy));
+      ___return (vkbuffercopy);")
+   (define-c-lambda
       make-VkBufferCopy
       (VkDeviceSize VkDeviceSize VkDeviceSize)
       VkBufferCopy*
@@ -6808,6 +7472,7 @@ buffercopy->size=___arg3;
 ___return (buffercopy);"))
 (begin-ffi
    (make-VkSparseMemoryBind
+      make-VkSparseMemoryBind*
       VkSparseMemoryBindflags
       VkSparseMemoryBindmemoryOffset
       VkSparseMemoryBindmemory
@@ -6819,6 +7484,7 @@ ___return (buffercopy);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6851,6 +7517,12 @@ ___return (buffercopy);"))
       VkSparseMemoryBindFlags
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkSparseMemoryBind*
+      (int)
+      VkSparseMemoryBind*
+      "VkSparseMemoryBind* vksparsememorybind = malloc(___arg1 * sizeof(VkSparseMemoryBind));
+      ___return (vksparsememorybind);")
+   (define-c-lambda
       make-VkSparseMemoryBind
       (VkDeviceSize VkDeviceSize VkDeviceMemory VkDeviceSize VkSparseMemoryBindFlags)
       VkSparseMemoryBind*
@@ -6863,6 +7535,7 @@ sparsememorybind->flags=___arg5;
 ___return (sparsememorybind);"))
 (begin-ffi
    (make-VkSparseImageMemoryBind
+      make-VkSparseImageMemoryBind*
       VkSparseImageMemoryBindflags
       VkSparseImageMemoryBindmemoryOffset
       VkSparseImageMemoryBindmemory
@@ -6875,6 +7548,7 @@ ___return (sparsememorybind);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6912,6 +7586,12 @@ ___return (sparsememorybind);"))
       VkSparseMemoryBindFlags
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkSparseImageMemoryBind*
+      (int)
+      VkSparseImageMemoryBind*
+      "VkSparseImageMemoryBind* vksparseimagememorybind = malloc(___arg1 * sizeof(VkSparseImageMemoryBind));
+      ___return (vksparseimagememorybind);")
+   (define-c-lambda
       make-VkSparseImageMemoryBind
       (VkImageSubresource
          VkOffset3D
@@ -6930,6 +7610,7 @@ sparseimagememorybind->flags=___arg6;
 ___return (sparseimagememorybind);"))
 (begin-ffi
    (make-VkSparseBufferMemoryBindInfo
+      make-VkSparseBufferMemoryBindInfo*
       VkSparseBufferMemoryBindInfopBinds
       VkSparseBufferMemoryBindInfobindCount
       VkSparseBufferMemoryBindInfobuffer
@@ -6939,6 +7620,7 @@ ___return (sparseimagememorybind);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -6961,6 +7643,12 @@ ___return (sparseimagememorybind);"))
       VkSparseMemoryBind*
       "___return (___arg1->pBinds);")
    (define-c-lambda
+      make-VkSparseBufferMemoryBindInfo*
+      (int)
+      VkSparseBufferMemoryBindInfo*
+      "VkSparseBufferMemoryBindInfo* vksparsebuffermemorybindinfo = malloc(___arg1 * sizeof(VkSparseBufferMemoryBindInfo));
+      ___return (vksparsebuffermemorybindinfo);")
+   (define-c-lambda
       make-VkSparseBufferMemoryBindInfo
       (VkBuffer uint32_t VkSparseMemoryBind*)
       VkSparseBufferMemoryBindInfo*
@@ -6971,6 +7659,7 @@ sparsebuffermemorybindinfo->pBinds=___arg3;
 ___return (sparsebuffermemorybindinfo);"))
 (begin-ffi
    (make-VkSparseImageOpaqueMemoryBindInfo
+      make-VkSparseImageOpaqueMemoryBindInfo*
       VkSparseImageOpaqueMemoryBindInfopBinds
       VkSparseImageOpaqueMemoryBindInfobindCount
       VkSparseImageOpaqueMemoryBindInfoimage
@@ -6980,6 +7669,7 @@ ___return (sparsebuffermemorybindinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7006,6 +7696,12 @@ ___return (sparsebuffermemorybindinfo);"))
       VkSparseMemoryBind*
       "___return (___arg1->pBinds);")
    (define-c-lambda
+      make-VkSparseImageOpaqueMemoryBindInfo*
+      (int)
+      VkSparseImageOpaqueMemoryBindInfo*
+      "VkSparseImageOpaqueMemoryBindInfo* vksparseimageopaquememorybindinfo = malloc(___arg1 * sizeof(VkSparseImageOpaqueMemoryBindInfo));
+      ___return (vksparseimageopaquememorybindinfo);")
+   (define-c-lambda
       make-VkSparseImageOpaqueMemoryBindInfo
       (VkImage uint32_t VkSparseMemoryBind*)
       VkSparseImageOpaqueMemoryBindInfo*
@@ -7016,6 +7712,7 @@ sparseimageopaquememorybindinfo->pBinds=___arg3;
 ___return (sparseimageopaquememorybindinfo);"))
 (begin-ffi
    (make-VkSparseImageMemoryBindInfo
+      make-VkSparseImageMemoryBindInfo*
       VkSparseImageMemoryBindInfopBinds
       VkSparseImageMemoryBindInfobindCount
       VkSparseImageMemoryBindInfoimage
@@ -7025,6 +7722,7 @@ ___return (sparseimageopaquememorybindinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7047,6 +7745,12 @@ ___return (sparseimageopaquememorybindinfo);"))
       VkSparseImageMemoryBind*
       "___return (___arg1->pBinds);")
    (define-c-lambda
+      make-VkSparseImageMemoryBindInfo*
+      (int)
+      VkSparseImageMemoryBindInfo*
+      "VkSparseImageMemoryBindInfo* vksparseimagememorybindinfo = malloc(___arg1 * sizeof(VkSparseImageMemoryBindInfo));
+      ___return (vksparseimagememorybindinfo);")
+   (define-c-lambda
       make-VkSparseImageMemoryBindInfo
       (VkImage uint32_t VkSparseImageMemoryBind*)
       VkSparseImageMemoryBindInfo*
@@ -7057,6 +7761,7 @@ sparseimagememorybindinfo->pBinds=___arg3;
 ___return (sparseimagememorybindinfo);"))
 (begin-ffi
    (make-VkBindSparseInfo
+      make-VkBindSparseInfo*
       VkBindSparseInfopSignalSemaphores
       VkBindSparseInfosignalSemaphoreCount
       VkBindSparseInfopImageBinds
@@ -7075,6 +7780,7 @@ ___return (sparseimagememorybindinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7142,6 +7848,12 @@ ___return (sparseimagememorybindinfo);"))
       VkSemaphore*
       "___return (___arg1->pSignalSemaphores);")
    (define-c-lambda
+      make-VkBindSparseInfo*
+      (int)
+      VkBindSparseInfo*
+      "VkBindSparseInfo* vkbindsparseinfo = malloc(___arg1 * sizeof(VkBindSparseInfo));
+      ___return (vkbindsparseinfo);")
+   (define-c-lambda
       make-VkBindSparseInfo
       (VkStructureType
          void*
@@ -7172,6 +7884,7 @@ bindsparseinfo->pSignalSemaphores=___arg12;
 ___return (bindsparseinfo);"))
 (begin-ffi
    (make-VkImageCopy
+      make-VkImageCopy*
       VkImageCopyextent
       VkImageCopydstOffset
       VkImageCopydstSubresource
@@ -7183,6 +7896,7 @@ ___return (bindsparseinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7215,6 +7929,12 @@ ___return (bindsparseinfo);"))
       VkExtent3D
       "___return (___arg1->extent);")
    (define-c-lambda
+      make-VkImageCopy*
+      (int)
+      VkImageCopy*
+      "VkImageCopy* vkimagecopy = malloc(___arg1 * sizeof(VkImageCopy));
+      ___return (vkimagecopy);")
+   (define-c-lambda
       make-VkImageCopy
       (VkImageSubresourceLayers VkOffset3D VkImageSubresourceLayers VkOffset3D VkExtent3D)
       VkImageCopy*
@@ -7227,6 +7947,7 @@ imagecopy->extent=___arg5;
 ___return (imagecopy);"))
 (begin-ffi
    (make-VkImageBlit
+      make-VkImageBlit*
       VkImageBlitdstOffsets
       VkImageBlitdstSubresource
       VkImageBlitsrcOffsets
@@ -7237,6 +7958,7 @@ ___return (imagecopy);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7264,6 +7986,12 @@ ___return (imagecopy);"))
       VkOffset3D*
       "___return (___arg1->dstOffsets);")
    (define-c-lambda
+      make-VkImageBlit*
+      (int)
+      VkImageBlit*
+      "VkImageBlit* vkimageblit = malloc(___arg1 * sizeof(VkImageBlit));
+      ___return (vkimageblit);")
+   (define-c-lambda
       make-VkImageBlit
       (VkImageSubresourceLayers VkOffset3D* VkImageSubresourceLayers VkOffset3D*)
       VkImageBlit*
@@ -7275,6 +8003,7 @@ memcpy(imageblit->dstOffsets,___arg4,sizeof(___arg4));
 ___return (imageblit);"))
 (begin-ffi
    (make-VkBufferImageCopy
+      make-VkBufferImageCopy*
       VkBufferImageCopyimageExtent
       VkBufferImageCopyimageOffset
       VkBufferImageCopyimageSubresource
@@ -7287,6 +8016,7 @@ ___return (imageblit);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7324,6 +8054,12 @@ ___return (imageblit);"))
       VkExtent3D
       "___return (___arg1->imageExtent);")
    (define-c-lambda
+      make-VkBufferImageCopy*
+      (int)
+      VkBufferImageCopy*
+      "VkBufferImageCopy* vkbufferimagecopy = malloc(___arg1 * sizeof(VkBufferImageCopy));
+      ___return (vkbufferimagecopy);")
+   (define-c-lambda
       make-VkBufferImageCopy
       (VkDeviceSize uint32_t uint32_t VkImageSubresourceLayers VkOffset3D VkExtent3D)
       VkBufferImageCopy*
@@ -7337,6 +8073,7 @@ bufferimagecopy->imageExtent=___arg6;
 ___return (bufferimagecopy);"))
 (begin-ffi
    (make-VkImageResolve
+      make-VkImageResolve*
       VkImageResolveextent
       VkImageResolvedstOffset
       VkImageResolvedstSubresource
@@ -7348,6 +8085,7 @@ ___return (bufferimagecopy);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7380,6 +8118,12 @@ ___return (bufferimagecopy);"))
       VkExtent3D
       "___return (___arg1->extent);")
    (define-c-lambda
+      make-VkImageResolve*
+      (int)
+      VkImageResolve*
+      "VkImageResolve* vkimageresolve = malloc(___arg1 * sizeof(VkImageResolve));
+      ___return (vkimageresolve);")
+   (define-c-lambda
       make-VkImageResolve
       (VkImageSubresourceLayers VkOffset3D VkImageSubresourceLayers VkOffset3D VkExtent3D)
       VkImageResolve*
@@ -7392,6 +8136,7 @@ imageresolve->extent=___arg5;
 ___return (imageresolve);"))
 (begin-ffi
    (make-VkShaderModuleCreateInfo
+      make-VkShaderModuleCreateInfo*
       VkShaderModuleCreateInfopCode
       VkShaderModuleCreateInfocodeSize
       VkShaderModuleCreateInfoflags
@@ -7403,6 +8148,7 @@ ___return (imageresolve);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7435,6 +8181,12 @@ ___return (imageresolve);"))
       uint32_t*
       "___return (___arg1->pCode);")
    (define-c-lambda
+      make-VkShaderModuleCreateInfo*
+      (int)
+      VkShaderModuleCreateInfo*
+      "VkShaderModuleCreateInfo* vkshadermodulecreateinfo = malloc(___arg1 * sizeof(VkShaderModuleCreateInfo));
+      ___return (vkshadermodulecreateinfo);")
+   (define-c-lambda
       make-VkShaderModuleCreateInfo
       (VkStructureType void* VkShaderModuleCreateFlags size_t uint32_t*)
       VkShaderModuleCreateInfo*
@@ -7447,6 +8199,7 @@ shadermodulecreateinfo->pCode=___arg5;
 ___return (shadermodulecreateinfo);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutBinding
+      make-VkDescriptorSetLayoutBinding*
       VkDescriptorSetLayoutBindingpImmutableSamplers
       VkDescriptorSetLayoutBindingstageFlags
       VkDescriptorSetLayoutBindingdescriptorCount
@@ -7458,6 +8211,7 @@ ___return (shadermodulecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7490,6 +8244,12 @@ ___return (shadermodulecreateinfo);"))
       VkSampler*
       "___return (___arg1->pImmutableSamplers);")
    (define-c-lambda
+      make-VkDescriptorSetLayoutBinding*
+      (int)
+      VkDescriptorSetLayoutBinding*
+      "VkDescriptorSetLayoutBinding* vkdescriptorsetlayoutbinding = malloc(___arg1 * sizeof(VkDescriptorSetLayoutBinding));
+      ___return (vkdescriptorsetlayoutbinding);")
+   (define-c-lambda
       make-VkDescriptorSetLayoutBinding
       (uint32_t VkDescriptorType uint32_t VkShaderStageFlags VkSampler*)
       VkDescriptorSetLayoutBinding*
@@ -7502,6 +8262,7 @@ descriptorsetlayoutbinding->pImmutableSamplers=___arg5;
 ___return (descriptorsetlayoutbinding);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutCreateInfo
+      make-VkDescriptorSetLayoutCreateInfo*
       VkDescriptorSetLayoutCreateInfopBindings
       VkDescriptorSetLayoutCreateInfobindingCount
       VkDescriptorSetLayoutCreateInfoflags
@@ -7513,6 +8274,7 @@ ___return (descriptorsetlayoutbinding);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7549,6 +8311,12 @@ ___return (descriptorsetlayoutbinding);"))
       VkDescriptorSetLayoutBinding*
       "___return (___arg1->pBindings);")
    (define-c-lambda
+      make-VkDescriptorSetLayoutCreateInfo*
+      (int)
+      VkDescriptorSetLayoutCreateInfo*
+      "VkDescriptorSetLayoutCreateInfo* vkdescriptorsetlayoutcreateinfo = malloc(___arg1 * sizeof(VkDescriptorSetLayoutCreateInfo));
+      ___return (vkdescriptorsetlayoutcreateinfo);")
+   (define-c-lambda
       make-VkDescriptorSetLayoutCreateInfo
       (VkStructureType
          void*
@@ -7565,6 +8333,7 @@ descriptorsetlayoutcreateinfo->pBindings=___arg5;
 ___return (descriptorsetlayoutcreateinfo);"))
 (begin-ffi
    (make-VkDescriptorPoolSize
+      make-VkDescriptorPoolSize*
       VkDescriptorPoolSizedescriptorCount
       VkDescriptorPoolSizetype
       VkDescriptorPoolSize
@@ -7573,6 +8342,7 @@ ___return (descriptorsetlayoutcreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7590,6 +8360,12 @@ ___return (descriptorsetlayoutcreateinfo);"))
       uint32_t
       "___return (___arg1->descriptorCount);")
    (define-c-lambda
+      make-VkDescriptorPoolSize*
+      (int)
+      VkDescriptorPoolSize*
+      "VkDescriptorPoolSize* vkdescriptorpoolsize = malloc(___arg1 * sizeof(VkDescriptorPoolSize));
+      ___return (vkdescriptorpoolsize);")
+   (define-c-lambda
       make-VkDescriptorPoolSize
       (VkDescriptorType uint32_t)
       VkDescriptorPoolSize*
@@ -7599,6 +8375,7 @@ descriptorpoolsize->descriptorCount=___arg2;
 ___return (descriptorpoolsize);"))
 (begin-ffi
    (make-VkDescriptorPoolCreateInfo
+      make-VkDescriptorPoolCreateInfo*
       VkDescriptorPoolCreateInfopPoolSizes
       VkDescriptorPoolCreateInfopoolSizeCount
       VkDescriptorPoolCreateInfomaxSets
@@ -7611,6 +8388,7 @@ ___return (descriptorpoolsize);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7648,6 +8426,12 @@ ___return (descriptorpoolsize);"))
       VkDescriptorPoolSize*
       "___return (___arg1->pPoolSizes);")
    (define-c-lambda
+      make-VkDescriptorPoolCreateInfo*
+      (int)
+      VkDescriptorPoolCreateInfo*
+      "VkDescriptorPoolCreateInfo* vkdescriptorpoolcreateinfo = malloc(___arg1 * sizeof(VkDescriptorPoolCreateInfo));
+      ___return (vkdescriptorpoolcreateinfo);")
+   (define-c-lambda
       make-VkDescriptorPoolCreateInfo
       (VkStructureType
          void*
@@ -7666,6 +8450,7 @@ descriptorpoolcreateinfo->pPoolSizes=___arg6;
 ___return (descriptorpoolcreateinfo);"))
 (begin-ffi
    (make-VkDescriptorSetAllocateInfo
+      make-VkDescriptorSetAllocateInfo*
       VkDescriptorSetAllocateInfopSetLayouts
       VkDescriptorSetAllocateInfodescriptorSetCount
       VkDescriptorSetAllocateInfodescriptorPool
@@ -7677,6 +8462,7 @@ ___return (descriptorpoolcreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7709,6 +8495,12 @@ ___return (descriptorpoolcreateinfo);"))
       VkDescriptorSetLayout*
       "___return (___arg1->pSetLayouts);")
    (define-c-lambda
+      make-VkDescriptorSetAllocateInfo*
+      (int)
+      VkDescriptorSetAllocateInfo*
+      "VkDescriptorSetAllocateInfo* vkdescriptorsetallocateinfo = malloc(___arg1 * sizeof(VkDescriptorSetAllocateInfo));
+      ___return (vkdescriptorsetallocateinfo);")
+   (define-c-lambda
       make-VkDescriptorSetAllocateInfo
       (VkStructureType void* VkDescriptorPool uint32_t VkDescriptorSetLayout*)
       VkDescriptorSetAllocateInfo*
@@ -7721,6 +8513,7 @@ descriptorsetallocateinfo->pSetLayouts=___arg5;
 ___return (descriptorsetallocateinfo);"))
 (begin-ffi
    (make-VkSpecializationMapEntry
+      make-VkSpecializationMapEntry*
       VkSpecializationMapEntrysize
       VkSpecializationMapEntryoffset
       VkSpecializationMapEntryconstantID
@@ -7730,6 +8523,7 @@ ___return (descriptorsetallocateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7752,6 +8546,12 @@ ___return (descriptorsetallocateinfo);"))
       size_t
       "___return (___arg1->size);")
    (define-c-lambda
+      make-VkSpecializationMapEntry*
+      (int)
+      VkSpecializationMapEntry*
+      "VkSpecializationMapEntry* vkspecializationmapentry = malloc(___arg1 * sizeof(VkSpecializationMapEntry));
+      ___return (vkspecializationmapentry);")
+   (define-c-lambda
       make-VkSpecializationMapEntry
       (uint32_t uint32_t size_t)
       VkSpecializationMapEntry*
@@ -7762,6 +8562,7 @@ specializationmapentry->size=___arg3;
 ___return (specializationmapentry);"))
 (begin-ffi
    (make-VkSpecializationInfo
+      make-VkSpecializationInfo*
       VkSpecializationInfopData
       VkSpecializationInfodataSize
       VkSpecializationInfopMapEntries
@@ -7772,6 +8573,7 @@ ___return (specializationmapentry);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7799,6 +8601,12 @@ ___return (specializationmapentry);"))
       void*
       "___return (___arg1->pData);")
    (define-c-lambda
+      make-VkSpecializationInfo*
+      (int)
+      VkSpecializationInfo*
+      "VkSpecializationInfo* vkspecializationinfo = malloc(___arg1 * sizeof(VkSpecializationInfo));
+      ___return (vkspecializationinfo);")
+   (define-c-lambda
       make-VkSpecializationInfo
       (uint32_t VkSpecializationMapEntry* size_t void*)
       VkSpecializationInfo*
@@ -7810,6 +8618,7 @@ specializationinfo->pData=___arg4;
 ___return (specializationinfo);"))
 (begin-ffi
    (make-VkPipelineShaderStageCreateInfo
+      make-VkPipelineShaderStageCreateInfo*
       VkPipelineShaderStageCreateInfopSpecializationInfo
       VkPipelineShaderStageCreateInfopName
       VkPipelineShaderStageCreateInfomodule
@@ -7823,6 +8632,7 @@ ___return (specializationinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7869,6 +8679,12 @@ ___return (specializationinfo);"))
       VkSpecializationInfo*
       "___return (___arg1->pSpecializationInfo);")
    (define-c-lambda
+      make-VkPipelineShaderStageCreateInfo*
+      (int)
+      VkPipelineShaderStageCreateInfo*
+      "VkPipelineShaderStageCreateInfo* vkpipelineshaderstagecreateinfo = malloc(___arg1 * sizeof(VkPipelineShaderStageCreateInfo));
+      ___return (vkpipelineshaderstagecreateinfo);")
+   (define-c-lambda
       make-VkPipelineShaderStageCreateInfo
       (VkStructureType
          void*
@@ -7889,6 +8705,7 @@ pipelineshaderstagecreateinfo->pSpecializationInfo=___arg7;
 ___return (pipelineshaderstagecreateinfo);"))
 (begin-ffi
    (make-VkComputePipelineCreateInfo
+      make-VkComputePipelineCreateInfo*
       VkComputePipelineCreateInfobasePipelineIndex
       VkComputePipelineCreateInfobasePipelineHandle
       VkComputePipelineCreateInfolayout
@@ -7902,6 +8719,7 @@ ___return (pipelineshaderstagecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7944,6 +8762,12 @@ ___return (pipelineshaderstagecreateinfo);"))
       int32_t
       "___return (___arg1->basePipelineIndex);")
    (define-c-lambda
+      make-VkComputePipelineCreateInfo*
+      (int)
+      VkComputePipelineCreateInfo*
+      "VkComputePipelineCreateInfo* vkcomputepipelinecreateinfo = malloc(___arg1 * sizeof(VkComputePipelineCreateInfo));
+      ___return (vkcomputepipelinecreateinfo);")
+   (define-c-lambda
       make-VkComputePipelineCreateInfo
       (VkStructureType
          void*
@@ -7964,6 +8788,7 @@ computepipelinecreateinfo->basePipelineIndex=___arg7;
 ___return (computepipelinecreateinfo);"))
 (begin-ffi
    (make-VkVertexInputBindingDescription
+      make-VkVertexInputBindingDescription*
       VkVertexInputBindingDescriptioninputRate
       VkVertexInputBindingDescriptionstride
       VkVertexInputBindingDescriptionbinding
@@ -7973,6 +8798,7 @@ ___return (computepipelinecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -7999,6 +8825,12 @@ ___return (computepipelinecreateinfo);"))
       VkVertexInputRate
       "___return (___arg1->inputRate);")
    (define-c-lambda
+      make-VkVertexInputBindingDescription*
+      (int)
+      VkVertexInputBindingDescription*
+      "VkVertexInputBindingDescription* vkvertexinputbindingdescription = malloc(___arg1 * sizeof(VkVertexInputBindingDescription));
+      ___return (vkvertexinputbindingdescription);")
+   (define-c-lambda
       make-VkVertexInputBindingDescription
       (uint32_t uint32_t VkVertexInputRate)
       VkVertexInputBindingDescription*
@@ -8009,6 +8841,7 @@ vertexinputbindingdescription->inputRate=___arg3;
 ___return (vertexinputbindingdescription);"))
 (begin-ffi
    (make-VkVertexInputAttributeDescription
+      make-VkVertexInputAttributeDescription*
       VkVertexInputAttributeDescriptionoffset
       VkVertexInputAttributeDescriptionformat
       VkVertexInputAttributeDescriptionbinding
@@ -8019,6 +8852,7 @@ ___return (vertexinputbindingdescription);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8050,6 +8884,12 @@ ___return (vertexinputbindingdescription);"))
       uint32_t
       "___return (___arg1->offset);")
    (define-c-lambda
+      make-VkVertexInputAttributeDescription*
+      (int)
+      VkVertexInputAttributeDescription*
+      "VkVertexInputAttributeDescription* vkvertexinputattributedescription = malloc(___arg1 * sizeof(VkVertexInputAttributeDescription));
+      ___return (vkvertexinputattributedescription);")
+   (define-c-lambda
       make-VkVertexInputAttributeDescription
       (uint32_t uint32_t VkFormat uint32_t)
       VkVertexInputAttributeDescription*
@@ -8061,6 +8901,7 @@ vertexinputattributedescription->offset=___arg4;
 ___return (vertexinputattributedescription);"))
 (begin-ffi
    (make-VkPipelineVertexInputStateCreateInfo
+      make-VkPipelineVertexInputStateCreateInfo*
       VkPipelineVertexInputStateCreateInfopVertexAttributeDescriptions
       VkPipelineVertexInputStateCreateInfovertexAttributeDescriptionCount
       VkPipelineVertexInputStateCreateInfopVertexBindingDescriptions
@@ -8074,6 +8915,7 @@ ___return (vertexinputattributedescription);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8120,6 +8962,12 @@ ___return (vertexinputattributedescription);"))
       VkVertexInputAttributeDescription*
       "___return (___arg1->pVertexAttributeDescriptions);")
    (define-c-lambda
+      make-VkPipelineVertexInputStateCreateInfo*
+      (int)
+      VkPipelineVertexInputStateCreateInfo*
+      "VkPipelineVertexInputStateCreateInfo* vkpipelinevertexinputstatecreateinfo = malloc(___arg1 * sizeof(VkPipelineVertexInputStateCreateInfo));
+      ___return (vkpipelinevertexinputstatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineVertexInputStateCreateInfo
       (VkStructureType
          void*
@@ -8140,6 +8988,7 @@ pipelinevertexinputstatecreateinfo->pVertexAttributeDescriptions=___arg7;
 ___return (pipelinevertexinputstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineInputAssemblyStateCreateInfo
+      make-VkPipelineInputAssemblyStateCreateInfo*
       VkPipelineInputAssemblyStateCreateInfoprimitiveRestartEnable
       VkPipelineInputAssemblyStateCreateInfotopology
       VkPipelineInputAssemblyStateCreateInfoflags
@@ -8151,6 +9000,7 @@ ___return (pipelinevertexinputstatecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8187,6 +9037,12 @@ ___return (pipelinevertexinputstatecreateinfo);"))
       VkBool32
       "___return (___arg1->primitiveRestartEnable);")
    (define-c-lambda
+      make-VkPipelineInputAssemblyStateCreateInfo*
+      (int)
+      VkPipelineInputAssemblyStateCreateInfo*
+      "VkPipelineInputAssemblyStateCreateInfo* vkpipelineinputassemblystatecreateinfo = malloc(___arg1 * sizeof(VkPipelineInputAssemblyStateCreateInfo));
+      ___return (vkpipelineinputassemblystatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineInputAssemblyStateCreateInfo
       (VkStructureType
          void*
@@ -8203,6 +9059,7 @@ pipelineinputassemblystatecreateinfo->primitiveRestartEnable=___arg5;
 ___return (pipelineinputassemblystatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineTessellationStateCreateInfo
+      make-VkPipelineTessellationStateCreateInfo*
       VkPipelineTessellationStateCreateInfopatchControlPoints
       VkPipelineTessellationStateCreateInfoflags
       VkPipelineTessellationStateCreateInfopNext
@@ -8213,6 +9070,7 @@ ___return (pipelineinputassemblystatecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8244,6 +9102,12 @@ ___return (pipelineinputassemblystatecreateinfo);"))
       uint32_t
       "___return (___arg1->patchControlPoints);")
    (define-c-lambda
+      make-VkPipelineTessellationStateCreateInfo*
+      (int)
+      VkPipelineTessellationStateCreateInfo*
+      "VkPipelineTessellationStateCreateInfo* vkpipelinetessellationstatecreateinfo = malloc(___arg1 * sizeof(VkPipelineTessellationStateCreateInfo));
+      ___return (vkpipelinetessellationstatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineTessellationStateCreateInfo
       (VkStructureType void* VkPipelineTessellationStateCreateFlags uint32_t)
       VkPipelineTessellationStateCreateInfo*
@@ -8255,6 +9119,7 @@ pipelinetessellationstatecreateinfo->patchControlPoints=___arg4;
 ___return (pipelinetessellationstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineViewportStateCreateInfo
+      make-VkPipelineViewportStateCreateInfo*
       VkPipelineViewportStateCreateInfopScissors
       VkPipelineViewportStateCreateInfoscissorCount
       VkPipelineViewportStateCreateInfopViewports
@@ -8268,6 +9133,7 @@ ___return (pipelinetessellationstatecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8314,6 +9180,12 @@ ___return (pipelinetessellationstatecreateinfo);"))
       VkRect2D*
       "___return (___arg1->pScissors);")
    (define-c-lambda
+      make-VkPipelineViewportStateCreateInfo*
+      (int)
+      VkPipelineViewportStateCreateInfo*
+      "VkPipelineViewportStateCreateInfo* vkpipelineviewportstatecreateinfo = malloc(___arg1 * sizeof(VkPipelineViewportStateCreateInfo));
+      ___return (vkpipelineviewportstatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineViewportStateCreateInfo
       (VkStructureType
          void*
@@ -8334,6 +9206,7 @@ pipelineviewportstatecreateinfo->pScissors=___arg7;
 ___return (pipelineviewportstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineRasterizationStateCreateInfo
+      make-VkPipelineRasterizationStateCreateInfo*
       VkPipelineRasterizationStateCreateInfolineWidth
       VkPipelineRasterizationStateCreateInfodepthBiasSlopeFactor
       VkPipelineRasterizationStateCreateInfodepthBiasClamp
@@ -8353,6 +9226,7 @@ ___return (pipelineviewportstatecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8429,6 +9303,12 @@ ___return (pipelineviewportstatecreateinfo);"))
       float
       "___return (___arg1->lineWidth);")
    (define-c-lambda
+      make-VkPipelineRasterizationStateCreateInfo*
+      (int)
+      VkPipelineRasterizationStateCreateInfo*
+      "VkPipelineRasterizationStateCreateInfo* vkpipelinerasterizationstatecreateinfo = malloc(___arg1 * sizeof(VkPipelineRasterizationStateCreateInfo));
+      ___return (vkpipelinerasterizationstatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineRasterizationStateCreateInfo
       (VkStructureType
          void*
@@ -8461,6 +9341,7 @@ pipelinerasterizationstatecreateinfo->lineWidth=___arg13;
 ___return (pipelinerasterizationstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineMultisampleStateCreateInfo
+      make-VkPipelineMultisampleStateCreateInfo*
       VkPipelineMultisampleStateCreateInfoalphaToOneEnable
       VkPipelineMultisampleStateCreateInfoalphaToCoverageEnable
       VkPipelineMultisampleStateCreateInfopSampleMask
@@ -8476,6 +9357,7 @@ ___return (pipelinerasterizationstatecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8532,6 +9414,12 @@ ___return (pipelinerasterizationstatecreateinfo);"))
       VkBool32
       "___return (___arg1->alphaToOneEnable);")
    (define-c-lambda
+      make-VkPipelineMultisampleStateCreateInfo*
+      (int)
+      VkPipelineMultisampleStateCreateInfo*
+      "VkPipelineMultisampleStateCreateInfo* vkpipelinemultisamplestatecreateinfo = malloc(___arg1 * sizeof(VkPipelineMultisampleStateCreateInfo));
+      ___return (vkpipelinemultisamplestatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineMultisampleStateCreateInfo
       (VkStructureType
          void*
@@ -8556,6 +9444,7 @@ pipelinemultisamplestatecreateinfo->alphaToOneEnable=___arg9;
 ___return (pipelinemultisamplestatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineColorBlendAttachmentState
+      make-VkPipelineColorBlendAttachmentState*
       VkPipelineColorBlendAttachmentStatecolorWriteMask
       VkPipelineColorBlendAttachmentStatealphaBlendOp
       VkPipelineColorBlendAttachmentStatedstAlphaBlendFactor
@@ -8570,6 +9459,7 @@ ___return (pipelinemultisamplestatecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8621,6 +9511,12 @@ ___return (pipelinemultisamplestatecreateinfo);"))
       VkColorComponentFlags
       "___return (___arg1->colorWriteMask);")
    (define-c-lambda
+      make-VkPipelineColorBlendAttachmentState*
+      (int)
+      VkPipelineColorBlendAttachmentState*
+      "VkPipelineColorBlendAttachmentState* vkpipelinecolorblendattachmentstate = malloc(___arg1 * sizeof(VkPipelineColorBlendAttachmentState));
+      ___return (vkpipelinecolorblendattachmentstate);")
+   (define-c-lambda
       make-VkPipelineColorBlendAttachmentState
       (VkBool32
          VkBlendFactor
@@ -8643,6 +9539,7 @@ pipelinecolorblendattachmentstate->colorWriteMask=___arg8;
 ___return (pipelinecolorblendattachmentstate);"))
 (begin-ffi
    (make-VkPipelineColorBlendStateCreateInfo
+      make-VkPipelineColorBlendStateCreateInfo*
       VkPipelineColorBlendStateCreateInfoblendConstants
       VkPipelineColorBlendStateCreateInfopAttachments
       VkPipelineColorBlendStateCreateInfoattachmentCount
@@ -8657,6 +9554,7 @@ ___return (pipelinecolorblendattachmentstate);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8708,6 +9606,12 @@ ___return (pipelinecolorblendattachmentstate);"))
       float*
       "___return (___arg1->blendConstants);")
    (define-c-lambda
+      make-VkPipelineColorBlendStateCreateInfo*
+      (int)
+      VkPipelineColorBlendStateCreateInfo*
+      "VkPipelineColorBlendStateCreateInfo* vkpipelinecolorblendstatecreateinfo = malloc(___arg1 * sizeof(VkPipelineColorBlendStateCreateInfo));
+      ___return (vkpipelinecolorblendstatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineColorBlendStateCreateInfo
       (VkStructureType
          void*
@@ -8730,6 +9634,7 @@ memcpy(pipelinecolorblendstatecreateinfo->blendConstants,___arg8,sizeof(___arg8)
 ___return (pipelinecolorblendstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineDynamicStateCreateInfo
+      make-VkPipelineDynamicStateCreateInfo*
       VkPipelineDynamicStateCreateInfopDynamicStates
       VkPipelineDynamicStateCreateInfodynamicStateCount
       VkPipelineDynamicStateCreateInfoflags
@@ -8741,6 +9646,7 @@ ___return (pipelinecolorblendstatecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8777,6 +9683,12 @@ ___return (pipelinecolorblendstatecreateinfo);"))
       VkDynamicState*
       "___return (___arg1->pDynamicStates);")
    (define-c-lambda
+      make-VkPipelineDynamicStateCreateInfo*
+      (int)
+      VkPipelineDynamicStateCreateInfo*
+      "VkPipelineDynamicStateCreateInfo* vkpipelinedynamicstatecreateinfo = malloc(___arg1 * sizeof(VkPipelineDynamicStateCreateInfo));
+      ___return (vkpipelinedynamicstatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineDynamicStateCreateInfo
       (VkStructureType void* VkPipelineDynamicStateCreateFlags uint32_t VkDynamicState*)
       VkPipelineDynamicStateCreateInfo*
@@ -8789,6 +9701,7 @@ pipelinedynamicstatecreateinfo->pDynamicStates=___arg5;
 ___return (pipelinedynamicstatecreateinfo);"))
 (begin-ffi
    (make-VkStencilOpState
+      make-VkStencilOpState*
       VkStencilOpStatereference
       VkStencilOpStatewriteMask
       VkStencilOpStatecompareMask
@@ -8802,6 +9715,7 @@ ___return (pipelinedynamicstatecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8844,6 +9758,12 @@ ___return (pipelinedynamicstatecreateinfo);"))
       uint32_t
       "___return (___arg1->reference);")
    (define-c-lambda
+      make-VkStencilOpState*
+      (int)
+      VkStencilOpState*
+      "VkStencilOpState* vkstencilopstate = malloc(___arg1 * sizeof(VkStencilOpState));
+      ___return (vkstencilopstate);")
+   (define-c-lambda
       make-VkStencilOpState
       (VkStencilOp VkStencilOp VkStencilOp VkCompareOp uint32_t uint32_t uint32_t)
       VkStencilOpState*
@@ -8858,6 +9778,7 @@ stencilopstate->reference=___arg7;
 ___return (stencilopstate);"))
 (begin-ffi
    (make-VkPipelineDepthStencilStateCreateInfo
+      make-VkPipelineDepthStencilStateCreateInfo*
       VkPipelineDepthStencilStateCreateInfomaxDepthBounds
       VkPipelineDepthStencilStateCreateInfominDepthBounds
       VkPipelineDepthStencilStateCreateInfoback
@@ -8876,6 +9797,7 @@ ___return (stencilopstate);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -8947,6 +9869,12 @@ ___return (stencilopstate);"))
       float
       "___return (___arg1->maxDepthBounds);")
    (define-c-lambda
+      make-VkPipelineDepthStencilStateCreateInfo*
+      (int)
+      VkPipelineDepthStencilStateCreateInfo*
+      "VkPipelineDepthStencilStateCreateInfo* vkpipelinedepthstencilstatecreateinfo = malloc(___arg1 * sizeof(VkPipelineDepthStencilStateCreateInfo));
+      ___return (vkpipelinedepthstencilstatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineDepthStencilStateCreateInfo
       (VkStructureType
          void*
@@ -8977,6 +9905,7 @@ pipelinedepthstencilstatecreateinfo->maxDepthBounds=___arg12;
 ___return (pipelinedepthstencilstatecreateinfo);"))
 (begin-ffi
    (make-VkGraphicsPipelineCreateInfo
+      make-VkGraphicsPipelineCreateInfo*
       VkGraphicsPipelineCreateInfobasePipelineIndex
       VkGraphicsPipelineCreateInfobasePipelineHandle
       VkGraphicsPipelineCreateInfosubpass
@@ -9002,6 +9931,7 @@ ___return (pipelinedepthstencilstatecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9104,6 +10034,12 @@ ___return (pipelinedepthstencilstatecreateinfo);"))
       int32_t
       "___return (___arg1->basePipelineIndex);")
    (define-c-lambda
+      make-VkGraphicsPipelineCreateInfo*
+      (int)
+      VkGraphicsPipelineCreateInfo*
+      "VkGraphicsPipelineCreateInfo* vkgraphicspipelinecreateinfo = malloc(___arg1 * sizeof(VkGraphicsPipelineCreateInfo));
+      ___return (vkgraphicspipelinecreateinfo);")
+   (define-c-lambda
       make-VkGraphicsPipelineCreateInfo
       (VkStructureType
          void*
@@ -9148,6 +10084,7 @@ graphicspipelinecreateinfo->basePipelineIndex=___arg19;
 ___return (graphicspipelinecreateinfo);"))
 (begin-ffi
    (make-VkPipelineCacheCreateInfo
+      make-VkPipelineCacheCreateInfo*
       VkPipelineCacheCreateInfopInitialData
       VkPipelineCacheCreateInfoinitialDataSize
       VkPipelineCacheCreateInfoflags
@@ -9159,6 +10096,7 @@ ___return (graphicspipelinecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9191,6 +10129,12 @@ ___return (graphicspipelinecreateinfo);"))
       void*
       "___return (___arg1->pInitialData);")
    (define-c-lambda
+      make-VkPipelineCacheCreateInfo*
+      (int)
+      VkPipelineCacheCreateInfo*
+      "VkPipelineCacheCreateInfo* vkpipelinecachecreateinfo = malloc(___arg1 * sizeof(VkPipelineCacheCreateInfo));
+      ___return (vkpipelinecachecreateinfo);")
+   (define-c-lambda
       make-VkPipelineCacheCreateInfo
       (VkStructureType void* VkPipelineCacheCreateFlags size_t void*)
       VkPipelineCacheCreateInfo*
@@ -9203,6 +10147,7 @@ pipelinecachecreateinfo->pInitialData=___arg5;
 ___return (pipelinecachecreateinfo);"))
 (begin-ffi
    (make-VkPushConstantRange
+      make-VkPushConstantRange*
       VkPushConstantRangesize
       VkPushConstantRangeoffset
       VkPushConstantRangestageFlags
@@ -9212,6 +10157,7 @@ ___return (pipelinecachecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9234,6 +10180,12 @@ ___return (pipelinecachecreateinfo);"))
       uint32_t
       "___return (___arg1->size);")
    (define-c-lambda
+      make-VkPushConstantRange*
+      (int)
+      VkPushConstantRange*
+      "VkPushConstantRange* vkpushconstantrange = malloc(___arg1 * sizeof(VkPushConstantRange));
+      ___return (vkpushconstantrange);")
+   (define-c-lambda
       make-VkPushConstantRange
       (VkShaderStageFlags uint32_t uint32_t)
       VkPushConstantRange*
@@ -9244,6 +10196,7 @@ pushconstantrange->size=___arg3;
 ___return (pushconstantrange);"))
 (begin-ffi
    (make-VkPipelineLayoutCreateInfo
+      make-VkPipelineLayoutCreateInfo*
       VkPipelineLayoutCreateInfopPushConstantRanges
       VkPipelineLayoutCreateInfopushConstantRangeCount
       VkPipelineLayoutCreateInfopSetLayouts
@@ -9257,6 +10210,7 @@ ___return (pushconstantrange);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9299,6 +10253,12 @@ ___return (pushconstantrange);"))
       VkPushConstantRange*
       "___return (___arg1->pPushConstantRanges);")
    (define-c-lambda
+      make-VkPipelineLayoutCreateInfo*
+      (int)
+      VkPipelineLayoutCreateInfo*
+      "VkPipelineLayoutCreateInfo* vkpipelinelayoutcreateinfo = malloc(___arg1 * sizeof(VkPipelineLayoutCreateInfo));
+      ___return (vkpipelinelayoutcreateinfo);")
+   (define-c-lambda
       make-VkPipelineLayoutCreateInfo
       (VkStructureType
          void*
@@ -9319,6 +10279,7 @@ pipelinelayoutcreateinfo->pPushConstantRanges=___arg7;
 ___return (pipelinelayoutcreateinfo);"))
 (begin-ffi
    (make-VkSamplerCreateInfo
+      make-VkSamplerCreateInfo*
       VkSamplerCreateInfounnormalizedCoordinates
       VkSamplerCreateInfoborderColor
       VkSamplerCreateInfomaxLod
@@ -9343,6 +10304,7 @@ ___return (pipelinelayoutcreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9440,6 +10402,12 @@ ___return (pipelinelayoutcreateinfo);"))
       VkBool32
       "___return (___arg1->unnormalizedCoordinates);")
    (define-c-lambda
+      make-VkSamplerCreateInfo*
+      (int)
+      VkSamplerCreateInfo*
+      "VkSamplerCreateInfo* vksamplercreateinfo = malloc(___arg1 * sizeof(VkSamplerCreateInfo));
+      ___return (vksamplercreateinfo);")
+   (define-c-lambda
       make-VkSamplerCreateInfo
       (VkStructureType
          void*
@@ -9482,6 +10450,7 @@ samplercreateinfo->unnormalizedCoordinates=___arg18;
 ___return (samplercreateinfo);"))
 (begin-ffi
    (make-VkCommandPoolCreateInfo
+      make-VkCommandPoolCreateInfo*
       VkCommandPoolCreateInfoqueueFamilyIndex
       VkCommandPoolCreateInfoflags
       VkCommandPoolCreateInfopNext
@@ -9492,6 +10461,7 @@ ___return (samplercreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9519,6 +10489,12 @@ ___return (samplercreateinfo);"))
       uint32_t
       "___return (___arg1->queueFamilyIndex);")
    (define-c-lambda
+      make-VkCommandPoolCreateInfo*
+      (int)
+      VkCommandPoolCreateInfo*
+      "VkCommandPoolCreateInfo* vkcommandpoolcreateinfo = malloc(___arg1 * sizeof(VkCommandPoolCreateInfo));
+      ___return (vkcommandpoolcreateinfo);")
+   (define-c-lambda
       make-VkCommandPoolCreateInfo
       (VkStructureType void* VkCommandPoolCreateFlags uint32_t)
       VkCommandPoolCreateInfo*
@@ -9530,6 +10506,7 @@ commandpoolcreateinfo->queueFamilyIndex=___arg4;
 ___return (commandpoolcreateinfo);"))
 (begin-ffi
    (make-VkCommandBufferAllocateInfo
+      make-VkCommandBufferAllocateInfo*
       VkCommandBufferAllocateInfocommandBufferCount
       VkCommandBufferAllocateInfolevel
       VkCommandBufferAllocateInfocommandPool
@@ -9541,6 +10518,7 @@ ___return (commandpoolcreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9573,6 +10551,12 @@ ___return (commandpoolcreateinfo);"))
       uint32_t
       "___return (___arg1->commandBufferCount);")
    (define-c-lambda
+      make-VkCommandBufferAllocateInfo*
+      (int)
+      VkCommandBufferAllocateInfo*
+      "VkCommandBufferAllocateInfo* vkcommandbufferallocateinfo = malloc(___arg1 * sizeof(VkCommandBufferAllocateInfo));
+      ___return (vkcommandbufferallocateinfo);")
+   (define-c-lambda
       make-VkCommandBufferAllocateInfo
       (VkStructureType void* VkCommandPool VkCommandBufferLevel uint32_t)
       VkCommandBufferAllocateInfo*
@@ -9585,6 +10569,7 @@ commandbufferallocateinfo->commandBufferCount=___arg5;
 ___return (commandbufferallocateinfo);"))
 (begin-ffi
    (make-VkCommandBufferInheritanceInfo
+      make-VkCommandBufferInheritanceInfo*
       VkCommandBufferInheritanceInfopipelineStatistics
       VkCommandBufferInheritanceInfoqueryFlags
       VkCommandBufferInheritanceInfoocclusionQueryEnable
@@ -9599,6 +10584,7 @@ ___return (commandbufferallocateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9650,6 +10636,12 @@ ___return (commandbufferallocateinfo);"))
       VkQueryPipelineStatisticFlags
       "___return (___arg1->pipelineStatistics);")
    (define-c-lambda
+      make-VkCommandBufferInheritanceInfo*
+      (int)
+      VkCommandBufferInheritanceInfo*
+      "VkCommandBufferInheritanceInfo* vkcommandbufferinheritanceinfo = malloc(___arg1 * sizeof(VkCommandBufferInheritanceInfo));
+      ___return (vkcommandbufferinheritanceinfo);")
+   (define-c-lambda
       make-VkCommandBufferInheritanceInfo
       (VkStructureType
          void*
@@ -9672,6 +10664,7 @@ commandbufferinheritanceinfo->pipelineStatistics=___arg8;
 ___return (commandbufferinheritanceinfo);"))
 (begin-ffi
    (make-VkCommandBufferBeginInfo
+      make-VkCommandBufferBeginInfo*
       VkCommandBufferBeginInfopInheritanceInfo
       VkCommandBufferBeginInfoflags
       VkCommandBufferBeginInfopNext
@@ -9682,6 +10675,7 @@ ___return (commandbufferinheritanceinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9709,6 +10703,12 @@ ___return (commandbufferinheritanceinfo);"))
       VkCommandBufferInheritanceInfo*
       "___return (___arg1->pInheritanceInfo);")
    (define-c-lambda
+      make-VkCommandBufferBeginInfo*
+      (int)
+      VkCommandBufferBeginInfo*
+      "VkCommandBufferBeginInfo* vkcommandbufferbegininfo = malloc(___arg1 * sizeof(VkCommandBufferBeginInfo));
+      ___return (vkcommandbufferbegininfo);")
+   (define-c-lambda
       make-VkCommandBufferBeginInfo
       (VkStructureType void* VkCommandBufferUsageFlags VkCommandBufferInheritanceInfo*)
       VkCommandBufferBeginInfo*
@@ -9720,6 +10720,7 @@ commandbufferbegininfo->pInheritanceInfo=___arg4;
 ___return (commandbufferbegininfo);"))
 (begin-ffi
    (make-VkRenderPassBeginInfo
+      make-VkRenderPassBeginInfo*
       VkRenderPassBeginInfopClearValues
       VkRenderPassBeginInfoclearValueCount
       VkRenderPassBeginInforenderArea
@@ -9733,6 +10734,7 @@ ___return (commandbufferbegininfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9775,6 +10777,12 @@ ___return (commandbufferbegininfo);"))
       VkClearValue*
       "___return (___arg1->pClearValues);")
    (define-c-lambda
+      make-VkRenderPassBeginInfo*
+      (int)
+      VkRenderPassBeginInfo*
+      "VkRenderPassBeginInfo* vkrenderpassbegininfo = malloc(___arg1 * sizeof(VkRenderPassBeginInfo));
+      ___return (vkrenderpassbegininfo);")
+   (define-c-lambda
       make-VkRenderPassBeginInfo
       (VkStructureType void* VkRenderPass VkFramebuffer VkRect2D uint32_t VkClearValue*)
       VkRenderPassBeginInfo*
@@ -9789,6 +10797,7 @@ renderpassbegininfo->pClearValues=___arg7;
 ___return (renderpassbegininfo);"))
 (begin-ffi
    (make-VkClearDepthStencilValue
+      make-VkClearDepthStencilValue*
       VkClearDepthStencilValuestencil
       VkClearDepthStencilValuedepth
       VkClearDepthStencilValue
@@ -9797,6 +10806,7 @@ ___return (renderpassbegininfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9814,6 +10824,12 @@ ___return (renderpassbegininfo);"))
       uint32_t
       "___return (___arg1->stencil);")
    (define-c-lambda
+      make-VkClearDepthStencilValue*
+      (int)
+      VkClearDepthStencilValue*
+      "VkClearDepthStencilValue* vkcleardepthstencilvalue = malloc(___arg1 * sizeof(VkClearDepthStencilValue));
+      ___return (vkcleardepthstencilvalue);")
+   (define-c-lambda
       make-VkClearDepthStencilValue
       (float uint32_t)
       VkClearDepthStencilValue*
@@ -9823,6 +10839,7 @@ cleardepthstencilvalue->stencil=___arg2;
 ___return (cleardepthstencilvalue);"))
 (begin-ffi
    (make-VkClearAttachment
+      make-VkClearAttachment*
       VkClearAttachmentclearValue
       VkClearAttachmentcolorAttachment
       VkClearAttachmentaspectMask
@@ -9832,6 +10849,7 @@ ___return (cleardepthstencilvalue);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9854,6 +10872,12 @@ ___return (cleardepthstencilvalue);"))
       VkClearValue
       "___return (___arg1->clearValue);")
    (define-c-lambda
+      make-VkClearAttachment*
+      (int)
+      VkClearAttachment*
+      "VkClearAttachment* vkclearattachment = malloc(___arg1 * sizeof(VkClearAttachment));
+      ___return (vkclearattachment);")
+   (define-c-lambda
       make-VkClearAttachment
       (VkImageAspectFlags uint32_t VkClearValue)
       VkClearAttachment*
@@ -9864,6 +10888,7 @@ clearattachment->clearValue=___arg3;
 ___return (clearattachment);"))
 (begin-ffi
    (make-VkAttachmentDescription
+      make-VkAttachmentDescription*
       VkAttachmentDescriptionfinalLayout
       VkAttachmentDescriptioninitialLayout
       VkAttachmentDescriptionstencilStoreOp
@@ -9879,6 +10904,7 @@ ___return (clearattachment);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9931,6 +10957,12 @@ ___return (clearattachment);"))
       VkImageLayout
       "___return (___arg1->finalLayout);")
    (define-c-lambda
+      make-VkAttachmentDescription*
+      (int)
+      VkAttachmentDescription*
+      "VkAttachmentDescription* vkattachmentdescription = malloc(___arg1 * sizeof(VkAttachmentDescription));
+      ___return (vkattachmentdescription);")
+   (define-c-lambda
       make-VkAttachmentDescription
       (VkAttachmentDescriptionFlags
          VkFormat
@@ -9955,6 +10987,7 @@ attachmentdescription->finalLayout=___arg9;
 ___return (attachmentdescription);"))
 (begin-ffi
    (make-VkAttachmentReference
+      make-VkAttachmentReference*
       VkAttachmentReferencelayout
       VkAttachmentReferenceattachment
       VkAttachmentReference
@@ -9963,6 +10996,7 @@ ___return (attachmentdescription);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -9980,6 +11014,12 @@ ___return (attachmentdescription);"))
       VkImageLayout
       "___return (___arg1->layout);")
    (define-c-lambda
+      make-VkAttachmentReference*
+      (int)
+      VkAttachmentReference*
+      "VkAttachmentReference* vkattachmentreference = malloc(___arg1 * sizeof(VkAttachmentReference));
+      ___return (vkattachmentreference);")
+   (define-c-lambda
       make-VkAttachmentReference
       (uint32_t VkImageLayout)
       VkAttachmentReference*
@@ -9989,6 +11029,7 @@ attachmentreference->layout=___arg2;
 ___return (attachmentreference);"))
 (begin-ffi
    (make-VkSubpassDescription
+      make-VkSubpassDescription*
       VkSubpassDescriptionpPreserveAttachments
       VkSubpassDescriptionpreserveAttachmentCount
       VkSubpassDescriptionpDepthStencilAttachment
@@ -10005,6 +11046,7 @@ ___return (attachmentreference);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10062,6 +11104,12 @@ ___return (attachmentreference);"))
       uint32_t*
       "___return (___arg1->pPreserveAttachments);")
    (define-c-lambda
+      make-VkSubpassDescription*
+      (int)
+      VkSubpassDescription*
+      "VkSubpassDescription* vksubpassdescription = malloc(___arg1 * sizeof(VkSubpassDescription));
+      ___return (vksubpassdescription);")
+   (define-c-lambda
       make-VkSubpassDescription
       (VkSubpassDescriptionFlags
          VkPipelineBindPoint
@@ -10088,6 +11136,7 @@ subpassdescription->pPreserveAttachments=___arg10;
 ___return (subpassdescription);"))
 (begin-ffi
    (make-VkSubpassDependency
+      make-VkSubpassDependency*
       VkSubpassDependencydependencyFlags
       VkSubpassDependencydstAccessMask
       VkSubpassDependencysrcAccessMask
@@ -10101,6 +11150,7 @@ ___return (subpassdescription);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10143,6 +11193,12 @@ ___return (subpassdescription);"))
       VkDependencyFlags
       "___return (___arg1->dependencyFlags);")
    (define-c-lambda
+      make-VkSubpassDependency*
+      (int)
+      VkSubpassDependency*
+      "VkSubpassDependency* vksubpassdependency = malloc(___arg1 * sizeof(VkSubpassDependency));
+      ___return (vksubpassdependency);")
+   (define-c-lambda
       make-VkSubpassDependency
       (uint32_t
          uint32_t
@@ -10163,6 +11219,7 @@ subpassdependency->dependencyFlags=___arg7;
 ___return (subpassdependency);"))
 (begin-ffi
    (make-VkRenderPassCreateInfo
+      make-VkRenderPassCreateInfo*
       VkRenderPassCreateInfopDependencies
       VkRenderPassCreateInfodependencyCount
       VkRenderPassCreateInfopSubpasses
@@ -10178,6 +11235,7 @@ ___return (subpassdependency);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10230,6 +11288,12 @@ ___return (subpassdependency);"))
       VkSubpassDependency*
       "___return (___arg1->pDependencies);")
    (define-c-lambda
+      make-VkRenderPassCreateInfo*
+      (int)
+      VkRenderPassCreateInfo*
+      "VkRenderPassCreateInfo* vkrenderpasscreateinfo = malloc(___arg1 * sizeof(VkRenderPassCreateInfo));
+      ___return (vkrenderpasscreateinfo);")
+   (define-c-lambda
       make-VkRenderPassCreateInfo
       (VkStructureType
          void*
@@ -10254,6 +11318,7 @@ renderpasscreateinfo->pDependencies=___arg9;
 ___return (renderpasscreateinfo);"))
 (begin-ffi
    (make-VkEventCreateInfo
+      make-VkEventCreateInfo*
       VkEventCreateInfoflags
       VkEventCreateInfopNext
       VkEventCreateInfosType
@@ -10263,6 +11328,7 @@ ___return (renderpasscreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10285,6 +11351,12 @@ ___return (renderpasscreateinfo);"))
       VkEventCreateFlags
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkEventCreateInfo*
+      (int)
+      VkEventCreateInfo*
+      "VkEventCreateInfo* vkeventcreateinfo = malloc(___arg1 * sizeof(VkEventCreateInfo));
+      ___return (vkeventcreateinfo);")
+   (define-c-lambda
       make-VkEventCreateInfo
       (VkStructureType void* VkEventCreateFlags)
       VkEventCreateInfo*
@@ -10295,6 +11367,7 @@ eventcreateinfo->flags=___arg3;
 ___return (eventcreateinfo);"))
 (begin-ffi
    (make-VkFenceCreateInfo
+      make-VkFenceCreateInfo*
       VkFenceCreateInfoflags
       VkFenceCreateInfopNext
       VkFenceCreateInfosType
@@ -10304,6 +11377,7 @@ ___return (eventcreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10326,6 +11400,12 @@ ___return (eventcreateinfo);"))
       VkFenceCreateFlags
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkFenceCreateInfo*
+      (int)
+      VkFenceCreateInfo*
+      "VkFenceCreateInfo* vkfencecreateinfo = malloc(___arg1 * sizeof(VkFenceCreateInfo));
+      ___return (vkfencecreateinfo);")
+   (define-c-lambda
       make-VkFenceCreateInfo
       (VkStructureType void* VkFenceCreateFlags)
       VkFenceCreateInfo*
@@ -10336,6 +11416,7 @@ fencecreateinfo->flags=___arg3;
 ___return (fencecreateinfo);"))
 (begin-ffi
    (make-VkSemaphoreCreateInfo
+      make-VkSemaphoreCreateInfo*
       VkSemaphoreCreateInfoflags
       VkSemaphoreCreateInfopNext
       VkSemaphoreCreateInfosType
@@ -10345,6 +11426,7 @@ ___return (fencecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10367,6 +11449,12 @@ ___return (fencecreateinfo);"))
       VkSemaphoreCreateFlags
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkSemaphoreCreateInfo*
+      (int)
+      VkSemaphoreCreateInfo*
+      "VkSemaphoreCreateInfo* vksemaphorecreateinfo = malloc(___arg1 * sizeof(VkSemaphoreCreateInfo));
+      ___return (vksemaphorecreateinfo);")
+   (define-c-lambda
       make-VkSemaphoreCreateInfo
       (VkStructureType void* VkSemaphoreCreateFlags)
       VkSemaphoreCreateInfo*
@@ -10377,6 +11465,7 @@ semaphorecreateinfo->flags=___arg3;
 ___return (semaphorecreateinfo);"))
 (begin-ffi
    (make-VkQueryPoolCreateInfo
+      make-VkQueryPoolCreateInfo*
       VkQueryPoolCreateInfopipelineStatistics
       VkQueryPoolCreateInfoqueryCount
       VkQueryPoolCreateInfoqueryType
@@ -10389,6 +11478,7 @@ ___return (semaphorecreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10426,6 +11516,12 @@ ___return (semaphorecreateinfo);"))
       VkQueryPipelineStatisticFlags
       "___return (___arg1->pipelineStatistics);")
    (define-c-lambda
+      make-VkQueryPoolCreateInfo*
+      (int)
+      VkQueryPoolCreateInfo*
+      "VkQueryPoolCreateInfo* vkquerypoolcreateinfo = malloc(___arg1 * sizeof(VkQueryPoolCreateInfo));
+      ___return (vkquerypoolcreateinfo);")
+   (define-c-lambda
       make-VkQueryPoolCreateInfo
       (VkStructureType
          void*
@@ -10444,6 +11540,7 @@ querypoolcreateinfo->pipelineStatistics=___arg6;
 ___return (querypoolcreateinfo);"))
 (begin-ffi
    (make-VkFramebufferCreateInfo
+      make-VkFramebufferCreateInfo*
       VkFramebufferCreateInfolayers
       VkFramebufferCreateInfoheight
       VkFramebufferCreateInfowidth
@@ -10459,6 +11556,7 @@ ___return (querypoolcreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10511,6 +11609,12 @@ ___return (querypoolcreateinfo);"))
       uint32_t
       "___return (___arg1->layers);")
    (define-c-lambda
+      make-VkFramebufferCreateInfo*
+      (int)
+      VkFramebufferCreateInfo*
+      "VkFramebufferCreateInfo* vkframebuffercreateinfo = malloc(___arg1 * sizeof(VkFramebufferCreateInfo));
+      ___return (vkframebuffercreateinfo);")
+   (define-c-lambda
       make-VkFramebufferCreateInfo
       (VkStructureType
          void*
@@ -10535,6 +11639,7 @@ framebuffercreateinfo->layers=___arg9;
 ___return (framebuffercreateinfo);"))
 (begin-ffi
    (make-VkDrawIndirectCommand
+      make-VkDrawIndirectCommand*
       VkDrawIndirectCommandfirstInstance
       VkDrawIndirectCommandfirstVertex
       VkDrawIndirectCommandinstanceCount
@@ -10545,6 +11650,7 @@ ___return (framebuffercreateinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10572,6 +11678,12 @@ ___return (framebuffercreateinfo);"))
       uint32_t
       "___return (___arg1->firstInstance);")
    (define-c-lambda
+      make-VkDrawIndirectCommand*
+      (int)
+      VkDrawIndirectCommand*
+      "VkDrawIndirectCommand* vkdrawindirectcommand = malloc(___arg1 * sizeof(VkDrawIndirectCommand));
+      ___return (vkdrawindirectcommand);")
+   (define-c-lambda
       make-VkDrawIndirectCommand
       (uint32_t uint32_t uint32_t uint32_t)
       VkDrawIndirectCommand*
@@ -10583,6 +11695,7 @@ drawindirectcommand->firstInstance=___arg4;
 ___return (drawindirectcommand);"))
 (begin-ffi
    (make-VkDrawIndexedIndirectCommand
+      make-VkDrawIndexedIndirectCommand*
       VkDrawIndexedIndirectCommandfirstInstance
       VkDrawIndexedIndirectCommandvertexOffset
       VkDrawIndexedIndirectCommandfirstIndex
@@ -10594,6 +11707,7 @@ ___return (drawindirectcommand);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10626,6 +11740,12 @@ ___return (drawindirectcommand);"))
       uint32_t
       "___return (___arg1->firstInstance);")
    (define-c-lambda
+      make-VkDrawIndexedIndirectCommand*
+      (int)
+      VkDrawIndexedIndirectCommand*
+      "VkDrawIndexedIndirectCommand* vkdrawindexedindirectcommand = malloc(___arg1 * sizeof(VkDrawIndexedIndirectCommand));
+      ___return (vkdrawindexedindirectcommand);")
+   (define-c-lambda
       make-VkDrawIndexedIndirectCommand
       (uint32_t uint32_t uint32_t int32_t uint32_t)
       VkDrawIndexedIndirectCommand*
@@ -10638,6 +11758,7 @@ drawindexedindirectcommand->firstInstance=___arg5;
 ___return (drawindexedindirectcommand);"))
 (begin-ffi
    (make-VkDispatchIndirectCommand
+      make-VkDispatchIndirectCommand*
       VkDispatchIndirectCommandz
       VkDispatchIndirectCommandy
       VkDispatchIndirectCommandx
@@ -10647,6 +11768,7 @@ ___return (drawindexedindirectcommand);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10669,6 +11791,12 @@ ___return (drawindexedindirectcommand);"))
       uint32_t
       "___return (___arg1->z);")
    (define-c-lambda
+      make-VkDispatchIndirectCommand*
+      (int)
+      VkDispatchIndirectCommand*
+      "VkDispatchIndirectCommand* vkdispatchindirectcommand = malloc(___arg1 * sizeof(VkDispatchIndirectCommand));
+      ___return (vkdispatchindirectcommand);")
+   (define-c-lambda
       make-VkDispatchIndirectCommand
       (uint32_t uint32_t uint32_t)
       VkDispatchIndirectCommand*
@@ -10679,6 +11807,7 @@ dispatchindirectcommand->z=___arg3;
 ___return (dispatchindirectcommand);"))
 (begin-ffi
    (make-VkSubmitInfo
+      make-VkSubmitInfo*
       VkSubmitInfopSignalSemaphores
       VkSubmitInfosignalSemaphoreCount
       VkSubmitInfopCommandBuffers
@@ -10694,6 +11823,7 @@ ___return (dispatchindirectcommand);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10742,6 +11872,12 @@ ___return (dispatchindirectcommand);"))
       VkSemaphore*
       "___return (___arg1->pSignalSemaphores);")
    (define-c-lambda
+      make-VkSubmitInfo*
+      (int)
+      VkSubmitInfo*
+      "VkSubmitInfo* vksubmitinfo = malloc(___arg1 * sizeof(VkSubmitInfo));
+      ___return (vksubmitinfo);")
+   (define-c-lambda
       make-VkSubmitInfo
       (VkStructureType
          void*
@@ -10766,6 +11902,7 @@ submitinfo->pSignalSemaphores=___arg9;
 ___return (submitinfo);"))
 (begin-ffi
    (make-VkDisplayPropertiesKHR
+      make-VkDisplayPropertiesKHR*
       VkDisplayPropertiesKHRpersistentContent
       VkDisplayPropertiesKHRplaneReorderPossible
       VkDisplayPropertiesKHRsupportedTransforms
@@ -10779,6 +11916,7 @@ ___return (submitinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10821,6 +11959,12 @@ ___return (submitinfo);"))
       VkBool32
       "___return (___arg1->persistentContent);")
    (define-c-lambda
+      make-VkDisplayPropertiesKHR*
+      (int)
+      VkDisplayPropertiesKHR*
+      "VkDisplayPropertiesKHR* vkdisplaypropertieskhr = malloc(___arg1 * sizeof(VkDisplayPropertiesKHR));
+      ___return (vkdisplaypropertieskhr);")
+   (define-c-lambda
       make-VkDisplayPropertiesKHR
       (VkDisplayKHR
          char*
@@ -10841,6 +11985,7 @@ displaypropertieskhr->persistentContent=___arg7;
 ___return (displaypropertieskhr);"))
 (begin-ffi
    (make-VkDisplayPlanePropertiesKHR
+      make-VkDisplayPlanePropertiesKHR*
       VkDisplayPlanePropertiesKHRcurrentStackIndex
       VkDisplayPlanePropertiesKHRcurrentDisplay
       VkDisplayPlanePropertiesKHR
@@ -10849,6 +11994,7 @@ ___return (displaypropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10866,6 +12012,12 @@ ___return (displaypropertieskhr);"))
       uint32_t
       "___return (___arg1->currentStackIndex);")
    (define-c-lambda
+      make-VkDisplayPlanePropertiesKHR*
+      (int)
+      VkDisplayPlanePropertiesKHR*
+      "VkDisplayPlanePropertiesKHR* vkdisplayplanepropertieskhr = malloc(___arg1 * sizeof(VkDisplayPlanePropertiesKHR));
+      ___return (vkdisplayplanepropertieskhr);")
+   (define-c-lambda
       make-VkDisplayPlanePropertiesKHR
       (VkDisplayKHR uint32_t)
       VkDisplayPlanePropertiesKHR*
@@ -10875,6 +12027,7 @@ displayplanepropertieskhr->currentStackIndex=___arg2;
 ___return (displayplanepropertieskhr);"))
 (begin-ffi
    (make-VkDisplayModeParametersKHR
+      make-VkDisplayModeParametersKHR*
       VkDisplayModeParametersKHRrefreshRate
       VkDisplayModeParametersKHRvisibleRegion
       VkDisplayModeParametersKHR
@@ -10883,6 +12036,7 @@ ___return (displayplanepropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10900,6 +12054,12 @@ ___return (displayplanepropertieskhr);"))
       uint32_t
       "___return (___arg1->refreshRate);")
    (define-c-lambda
+      make-VkDisplayModeParametersKHR*
+      (int)
+      VkDisplayModeParametersKHR*
+      "VkDisplayModeParametersKHR* vkdisplaymodeparameterskhr = malloc(___arg1 * sizeof(VkDisplayModeParametersKHR));
+      ___return (vkdisplaymodeparameterskhr);")
+   (define-c-lambda
       make-VkDisplayModeParametersKHR
       (VkExtent2D uint32_t)
       VkDisplayModeParametersKHR*
@@ -10909,6 +12069,7 @@ displaymodeparameterskhr->refreshRate=___arg2;
 ___return (displaymodeparameterskhr);"))
 (begin-ffi
    (make-VkDisplayModePropertiesKHR
+      make-VkDisplayModePropertiesKHR*
       VkDisplayModePropertiesKHRparameters
       VkDisplayModePropertiesKHRdisplayMode
       VkDisplayModePropertiesKHR
@@ -10917,6 +12078,7 @@ ___return (displaymodeparameterskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10934,6 +12096,12 @@ ___return (displaymodeparameterskhr);"))
       VkDisplayModeParametersKHR
       "___return (___arg1->parameters);")
    (define-c-lambda
+      make-VkDisplayModePropertiesKHR*
+      (int)
+      VkDisplayModePropertiesKHR*
+      "VkDisplayModePropertiesKHR* vkdisplaymodepropertieskhr = malloc(___arg1 * sizeof(VkDisplayModePropertiesKHR));
+      ___return (vkdisplaymodepropertieskhr);")
+   (define-c-lambda
       make-VkDisplayModePropertiesKHR
       (VkDisplayModeKHR VkDisplayModeParametersKHR)
       VkDisplayModePropertiesKHR*
@@ -10943,6 +12111,7 @@ displaymodepropertieskhr->parameters=___arg2;
 ___return (displaymodepropertieskhr);"))
 (begin-ffi
    (make-VkDisplayModeCreateInfoKHR
+      make-VkDisplayModeCreateInfoKHR*
       VkDisplayModeCreateInfoKHRparameters
       VkDisplayModeCreateInfoKHRflags
       VkDisplayModeCreateInfoKHRpNext
@@ -10953,6 +12122,7 @@ ___return (displaymodepropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -10980,6 +12150,12 @@ ___return (displaymodepropertieskhr);"))
       VkDisplayModeParametersKHR
       "___return (___arg1->parameters);")
    (define-c-lambda
+      make-VkDisplayModeCreateInfoKHR*
+      (int)
+      VkDisplayModeCreateInfoKHR*
+      "VkDisplayModeCreateInfoKHR* vkdisplaymodecreateinfokhr = malloc(___arg1 * sizeof(VkDisplayModeCreateInfoKHR));
+      ___return (vkdisplaymodecreateinfokhr);")
+   (define-c-lambda
       make-VkDisplayModeCreateInfoKHR
       (VkStructureType void* VkDisplayModeCreateFlagsKHR VkDisplayModeParametersKHR)
       VkDisplayModeCreateInfoKHR*
@@ -10991,6 +12167,7 @@ displaymodecreateinfokhr->parameters=___arg4;
 ___return (displaymodecreateinfokhr);"))
 (begin-ffi
    (make-VkDisplayPlaneCapabilitiesKHR
+      make-VkDisplayPlaneCapabilitiesKHR*
       VkDisplayPlaneCapabilitiesKHRmaxDstExtent
       VkDisplayPlaneCapabilitiesKHRminDstExtent
       VkDisplayPlaneCapabilitiesKHRmaxDstPosition
@@ -11006,6 +12183,7 @@ ___return (displaymodecreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11058,6 +12236,12 @@ ___return (displaymodecreateinfokhr);"))
       VkExtent2D
       "___return (___arg1->maxDstExtent);")
    (define-c-lambda
+      make-VkDisplayPlaneCapabilitiesKHR*
+      (int)
+      VkDisplayPlaneCapabilitiesKHR*
+      "VkDisplayPlaneCapabilitiesKHR* vkdisplayplanecapabilitieskhr = malloc(___arg1 * sizeof(VkDisplayPlaneCapabilitiesKHR));
+      ___return (vkdisplayplanecapabilitieskhr);")
+   (define-c-lambda
       make-VkDisplayPlaneCapabilitiesKHR
       (VkDisplayPlaneAlphaFlagsKHR
          VkOffset2D
@@ -11082,6 +12266,7 @@ displayplanecapabilitieskhr->maxDstExtent=___arg9;
 ___return (displayplanecapabilitieskhr);"))
 (begin-ffi
    (make-VkDisplaySurfaceCreateInfoKHR
+      make-VkDisplaySurfaceCreateInfoKHR*
       VkDisplaySurfaceCreateInfoKHRimageExtent
       VkDisplaySurfaceCreateInfoKHRalphaMode
       VkDisplaySurfaceCreateInfoKHRglobalAlpha
@@ -11098,6 +12283,7 @@ ___return (displayplanecapabilitieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11155,6 +12341,12 @@ ___return (displayplanecapabilitieskhr);"))
       VkExtent2D
       "___return (___arg1->imageExtent);")
    (define-c-lambda
+      make-VkDisplaySurfaceCreateInfoKHR*
+      (int)
+      VkDisplaySurfaceCreateInfoKHR*
+      "VkDisplaySurfaceCreateInfoKHR* vkdisplaysurfacecreateinfokhr = malloc(___arg1 * sizeof(VkDisplaySurfaceCreateInfoKHR));
+      ___return (vkdisplaysurfacecreateinfokhr);")
+   (define-c-lambda
       make-VkDisplaySurfaceCreateInfoKHR
       (VkStructureType
          void*
@@ -11181,6 +12373,7 @@ displaysurfacecreateinfokhr->imageExtent=___arg10;
 ___return (displaysurfacecreateinfokhr);"))
 (begin-ffi
    (make-VkDisplayPresentInfoKHR
+      make-VkDisplayPresentInfoKHR*
       VkDisplayPresentInfoKHRpersistent
       VkDisplayPresentInfoKHRdstRect
       VkDisplayPresentInfoKHRsrcRect
@@ -11192,6 +12385,7 @@ ___return (displaysurfacecreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11224,6 +12418,12 @@ ___return (displaysurfacecreateinfokhr);"))
       VkBool32
       "___return (___arg1->persistent);")
    (define-c-lambda
+      make-VkDisplayPresentInfoKHR*
+      (int)
+      VkDisplayPresentInfoKHR*
+      "VkDisplayPresentInfoKHR* vkdisplaypresentinfokhr = malloc(___arg1 * sizeof(VkDisplayPresentInfoKHR));
+      ___return (vkdisplaypresentinfokhr);")
+   (define-c-lambda
       make-VkDisplayPresentInfoKHR
       (VkStructureType void* VkRect2D VkRect2D VkBool32)
       VkDisplayPresentInfoKHR*
@@ -11236,6 +12436,7 @@ displaypresentinfokhr->persistent=___arg5;
 ___return (displaypresentinfokhr);"))
 (begin-ffi
    (make-VkSurfaceCapabilitiesKHR
+      make-VkSurfaceCapabilitiesKHR*
       VkSurfaceCapabilitiesKHRsupportedUsageFlags
       VkSurfaceCapabilitiesKHRsupportedCompositeAlpha
       VkSurfaceCapabilitiesKHRcurrentTransform
@@ -11252,6 +12453,7 @@ ___return (displaypresentinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11309,6 +12511,12 @@ ___return (displaypresentinfokhr);"))
       VkImageUsageFlags
       "___return (___arg1->supportedUsageFlags);")
    (define-c-lambda
+      make-VkSurfaceCapabilitiesKHR*
+      (int)
+      VkSurfaceCapabilitiesKHR*
+      "VkSurfaceCapabilitiesKHR* vksurfacecapabilitieskhr = malloc(___arg1 * sizeof(VkSurfaceCapabilitiesKHR));
+      ___return (vksurfacecapabilitieskhr);")
+   (define-c-lambda
       make-VkSurfaceCapabilitiesKHR
       (uint32_t
          uint32_t
@@ -11335,6 +12543,7 @@ surfacecapabilitieskhr->supportedUsageFlags=___arg10;
 ___return (surfacecapabilitieskhr);"))
 (begin-ffi
    (make-VkSurfaceFormatKHR
+      make-VkSurfaceFormatKHR*
       VkSurfaceFormatKHRcolorSpace
       VkSurfaceFormatKHRformat
       VkSurfaceFormatKHR
@@ -11343,6 +12552,7 @@ ___return (surfacecapabilitieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11360,6 +12570,12 @@ ___return (surfacecapabilitieskhr);"))
       VkColorSpaceKHR
       "___return (___arg1->colorSpace);")
    (define-c-lambda
+      make-VkSurfaceFormatKHR*
+      (int)
+      VkSurfaceFormatKHR*
+      "VkSurfaceFormatKHR* vksurfaceformatkhr = malloc(___arg1 * sizeof(VkSurfaceFormatKHR));
+      ___return (vksurfaceformatkhr);")
+   (define-c-lambda
       make-VkSurfaceFormatKHR
       (VkFormat VkColorSpaceKHR)
       VkSurfaceFormatKHR*
@@ -11369,6 +12585,7 @@ surfaceformatkhr->colorSpace=___arg2;
 ___return (surfaceformatkhr);"))
 (begin-ffi
    (make-VkSwapchainCreateInfoKHR
+      make-VkSwapchainCreateInfoKHR*
       VkSwapchainCreateInfoKHRoldSwapchain
       VkSwapchainCreateInfoKHRclipped
       VkSwapchainCreateInfoKHRpresentMode
@@ -11393,6 +12610,7 @@ ___return (surfaceformatkhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11490,6 +12708,12 @@ ___return (surfaceformatkhr);"))
       VkSwapchainKHR
       "___return (___arg1->oldSwapchain);")
    (define-c-lambda
+      make-VkSwapchainCreateInfoKHR*
+      (int)
+      VkSwapchainCreateInfoKHR*
+      "VkSwapchainCreateInfoKHR* vkswapchaincreateinfokhr = malloc(___arg1 * sizeof(VkSwapchainCreateInfoKHR));
+      ___return (vkswapchaincreateinfokhr);")
+   (define-c-lambda
       make-VkSwapchainCreateInfoKHR
       (VkStructureType
          void*
@@ -11532,6 +12756,7 @@ swapchaincreateinfokhr->oldSwapchain=___arg18;
 ___return (swapchaincreateinfokhr);"))
 (begin-ffi
    (make-VkPresentInfoKHR
+      make-VkPresentInfoKHR*
       VkPresentInfoKHRpResults
       VkPresentInfoKHRpImageIndices
       VkPresentInfoKHRpSwapchains
@@ -11546,6 +12771,7 @@ ___return (swapchaincreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11593,6 +12819,12 @@ ___return (swapchaincreateinfokhr);"))
       VkResult*
       "___return (___arg1->pResults);")
    (define-c-lambda
+      make-VkPresentInfoKHR*
+      (int)
+      VkPresentInfoKHR*
+      "VkPresentInfoKHR* vkpresentinfokhr = malloc(___arg1 * sizeof(VkPresentInfoKHR));
+      ___return (vkpresentinfokhr);")
+   (define-c-lambda
       make-VkPresentInfoKHR
       (VkStructureType
          void*
@@ -11619,6 +12851,7 @@ ___return (presentinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11638,6 +12871,7 @@ ___return (presentinfokhr);"))
    (c-define-type PFN_vkDebugReportCallbackEXT* (pointer PFN_vkDebugReportCallbackEXT)))
 (begin-ffi
    (make-VkDebugReportCallbackCreateInfoEXT
+      make-VkDebugReportCallbackCreateInfoEXT*
       VkDebugReportCallbackCreateInfoEXTpUserData
       VkDebugReportCallbackCreateInfoEXTpfnCallback
       VkDebugReportCallbackCreateInfoEXTflags
@@ -11649,6 +12883,7 @@ ___return (presentinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11685,6 +12920,12 @@ ___return (presentinfokhr);"))
       void*
       "___return (___arg1->pUserData);")
    (define-c-lambda
+      make-VkDebugReportCallbackCreateInfoEXT*
+      (int)
+      VkDebugReportCallbackCreateInfoEXT*
+      "VkDebugReportCallbackCreateInfoEXT* vkdebugreportcallbackcreateinfoext = malloc(___arg1 * sizeof(VkDebugReportCallbackCreateInfoEXT));
+      ___return (vkdebugreportcallbackcreateinfoext);")
+   (define-c-lambda
       make-VkDebugReportCallbackCreateInfoEXT
       (VkStructureType void* VkDebugReportFlagsEXT PFN_vkDebugReportCallbackEXT void*)
       VkDebugReportCallbackCreateInfoEXT*
@@ -11697,6 +12938,7 @@ debugreportcallbackcreateinfoext->pUserData=___arg5;
 ___return (debugreportcallbackcreateinfoext);"))
 (begin-ffi
    (make-VkValidationFlagsEXT
+      make-VkValidationFlagsEXT*
       VkValidationFlagsEXTpDisabledValidationChecks
       VkValidationFlagsEXTdisabledValidationCheckCount
       VkValidationFlagsEXTpNext
@@ -11707,6 +12949,7 @@ ___return (debugreportcallbackcreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11734,6 +12977,12 @@ ___return (debugreportcallbackcreateinfoext);"))
       VkValidationCheckEXT*
       "___return (___arg1->pDisabledValidationChecks);")
    (define-c-lambda
+      make-VkValidationFlagsEXT*
+      (int)
+      VkValidationFlagsEXT*
+      "VkValidationFlagsEXT* vkvalidationflagsext = malloc(___arg1 * sizeof(VkValidationFlagsEXT));
+      ___return (vkvalidationflagsext);")
+   (define-c-lambda
       make-VkValidationFlagsEXT
       (VkStructureType void* uint32_t VkValidationCheckEXT*)
       VkValidationFlagsEXT*
@@ -11745,6 +12994,7 @@ validationflagsext->pDisabledValidationChecks=___arg4;
 ___return (validationflagsext);"))
 (begin-ffi
    (make-VkValidationFeaturesEXT
+      make-VkValidationFeaturesEXT*
       VkValidationFeaturesEXTpDisabledValidationFeatures
       VkValidationFeaturesEXTdisabledValidationFeatureCount
       VkValidationFeaturesEXTpEnabledValidationFeatures
@@ -11757,6 +13007,7 @@ ___return (validationflagsext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11794,6 +13045,12 @@ ___return (validationflagsext);"))
       VkValidationFeatureDisableEXT*
       "___return (___arg1->pDisabledValidationFeatures);")
    (define-c-lambda
+      make-VkValidationFeaturesEXT*
+      (int)
+      VkValidationFeaturesEXT*
+      "VkValidationFeaturesEXT* vkvalidationfeaturesext = malloc(___arg1 * sizeof(VkValidationFeaturesEXT));
+      ___return (vkvalidationfeaturesext);")
+   (define-c-lambda
       make-VkValidationFeaturesEXT
       (VkStructureType
          void*
@@ -11812,6 +13069,7 @@ validationfeaturesext->pDisabledValidationFeatures=___arg6;
 ___return (validationfeaturesext);"))
 (begin-ffi
    (make-VkPipelineRasterizationStateRasterizationOrderAMD
+      make-VkPipelineRasterizationStateRasterizationOrderAMD*
       VkPipelineRasterizationStateRasterizationOrderAMDrasterizationOrder
       VkPipelineRasterizationStateRasterizationOrderAMDpNext
       VkPipelineRasterizationStateRasterizationOrderAMDsType
@@ -11821,6 +13079,7 @@ ___return (validationfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11847,6 +13106,12 @@ ___return (validationfeaturesext);"))
       VkRasterizationOrderAMD
       "___return (___arg1->rasterizationOrder);")
    (define-c-lambda
+      make-VkPipelineRasterizationStateRasterizationOrderAMD*
+      (int)
+      VkPipelineRasterizationStateRasterizationOrderAMD*
+      "VkPipelineRasterizationStateRasterizationOrderAMD* vkpipelinerasterizationstaterasterizationorderamd = malloc(___arg1 * sizeof(VkPipelineRasterizationStateRasterizationOrderAMD));
+      ___return (vkpipelinerasterizationstaterasterizationorderamd);")
+   (define-c-lambda
       make-VkPipelineRasterizationStateRasterizationOrderAMD
       (VkStructureType void* VkRasterizationOrderAMD)
       VkPipelineRasterizationStateRasterizationOrderAMD*
@@ -11857,6 +13122,7 @@ pipelinerasterizationstaterasterizationorderamd->rasterizationOrder=___arg3;
 ___return (pipelinerasterizationstaterasterizationorderamd);"))
 (begin-ffi
    (make-VkDebugMarkerObjectNameInfoEXT
+      make-VkDebugMarkerObjectNameInfoEXT*
       VkDebugMarkerObjectNameInfoEXTpObjectName
       VkDebugMarkerObjectNameInfoEXTobject
       VkDebugMarkerObjectNameInfoEXTobjectType
@@ -11868,6 +13134,7 @@ ___return (pipelinerasterizationstaterasterizationorderamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11904,6 +13171,12 @@ ___return (pipelinerasterizationstaterasterizationorderamd);"))
       char*
       "___return (___arg1->pObjectName);")
    (define-c-lambda
+      make-VkDebugMarkerObjectNameInfoEXT*
+      (int)
+      VkDebugMarkerObjectNameInfoEXT*
+      "VkDebugMarkerObjectNameInfoEXT* vkdebugmarkerobjectnameinfoext = malloc(___arg1 * sizeof(VkDebugMarkerObjectNameInfoEXT));
+      ___return (vkdebugmarkerobjectnameinfoext);")
+   (define-c-lambda
       make-VkDebugMarkerObjectNameInfoEXT
       (VkStructureType void* VkDebugReportObjectTypeEXT uint64_t char*)
       VkDebugMarkerObjectNameInfoEXT*
@@ -11916,6 +13189,7 @@ debugmarkerobjectnameinfoext->pObjectName=___arg5;
 ___return (debugmarkerobjectnameinfoext);"))
 (begin-ffi
    (make-VkDebugMarkerObjectTagInfoEXT
+      make-VkDebugMarkerObjectTagInfoEXT*
       VkDebugMarkerObjectTagInfoEXTpTag
       VkDebugMarkerObjectTagInfoEXTtagSize
       VkDebugMarkerObjectTagInfoEXTtagName
@@ -11929,6 +13203,7 @@ ___return (debugmarkerobjectnameinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -11971,6 +13246,12 @@ ___return (debugmarkerobjectnameinfoext);"))
       void*
       "___return (___arg1->pTag);")
    (define-c-lambda
+      make-VkDebugMarkerObjectTagInfoEXT*
+      (int)
+      VkDebugMarkerObjectTagInfoEXT*
+      "VkDebugMarkerObjectTagInfoEXT* vkdebugmarkerobjecttaginfoext = malloc(___arg1 * sizeof(VkDebugMarkerObjectTagInfoEXT));
+      ___return (vkdebugmarkerobjecttaginfoext);")
+   (define-c-lambda
       make-VkDebugMarkerObjectTagInfoEXT
       (VkStructureType void* VkDebugReportObjectTypeEXT uint64_t uint64_t size_t void*)
       VkDebugMarkerObjectTagInfoEXT*
@@ -11985,6 +13266,7 @@ debugmarkerobjecttaginfoext->pTag=___arg7;
 ___return (debugmarkerobjecttaginfoext);"))
 (begin-ffi
    (make-VkDebugMarkerMarkerInfoEXT
+      make-VkDebugMarkerMarkerInfoEXT*
       VkDebugMarkerMarkerInfoEXTcolor
       VkDebugMarkerMarkerInfoEXTpMarkerName
       VkDebugMarkerMarkerInfoEXTpNext
@@ -11995,6 +13277,7 @@ ___return (debugmarkerobjecttaginfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12022,6 +13305,12 @@ ___return (debugmarkerobjecttaginfoext);"))
       float*
       "___return (___arg1->color);")
    (define-c-lambda
+      make-VkDebugMarkerMarkerInfoEXT*
+      (int)
+      VkDebugMarkerMarkerInfoEXT*
+      "VkDebugMarkerMarkerInfoEXT* vkdebugmarkermarkerinfoext = malloc(___arg1 * sizeof(VkDebugMarkerMarkerInfoEXT));
+      ___return (vkdebugmarkermarkerinfoext);")
+   (define-c-lambda
       make-VkDebugMarkerMarkerInfoEXT
       (VkStructureType void* char* float*)
       VkDebugMarkerMarkerInfoEXT*
@@ -12033,6 +13322,7 @@ memcpy(debugmarkermarkerinfoext->color,___arg4,sizeof(___arg4));
 ___return (debugmarkermarkerinfoext);"))
 (begin-ffi
    (make-VkDedicatedAllocationImageCreateInfoNV
+      make-VkDedicatedAllocationImageCreateInfoNV*
       VkDedicatedAllocationImageCreateInfoNVdedicatedAllocation
       VkDedicatedAllocationImageCreateInfoNVpNext
       VkDedicatedAllocationImageCreateInfoNVsType
@@ -12042,6 +13332,7 @@ ___return (debugmarkermarkerinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12068,6 +13359,12 @@ ___return (debugmarkermarkerinfoext);"))
       VkBool32
       "___return (___arg1->dedicatedAllocation);")
    (define-c-lambda
+      make-VkDedicatedAllocationImageCreateInfoNV*
+      (int)
+      VkDedicatedAllocationImageCreateInfoNV*
+      "VkDedicatedAllocationImageCreateInfoNV* vkdedicatedallocationimagecreateinfonv = malloc(___arg1 * sizeof(VkDedicatedAllocationImageCreateInfoNV));
+      ___return (vkdedicatedallocationimagecreateinfonv);")
+   (define-c-lambda
       make-VkDedicatedAllocationImageCreateInfoNV
       (VkStructureType void* VkBool32)
       VkDedicatedAllocationImageCreateInfoNV*
@@ -12078,6 +13375,7 @@ dedicatedallocationimagecreateinfonv->dedicatedAllocation=___arg3;
 ___return (dedicatedallocationimagecreateinfonv);"))
 (begin-ffi
    (make-VkDedicatedAllocationBufferCreateInfoNV
+      make-VkDedicatedAllocationBufferCreateInfoNV*
       VkDedicatedAllocationBufferCreateInfoNVdedicatedAllocation
       VkDedicatedAllocationBufferCreateInfoNVpNext
       VkDedicatedAllocationBufferCreateInfoNVsType
@@ -12087,6 +13385,7 @@ ___return (dedicatedallocationimagecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12113,6 +13412,12 @@ ___return (dedicatedallocationimagecreateinfonv);"))
       VkBool32
       "___return (___arg1->dedicatedAllocation);")
    (define-c-lambda
+      make-VkDedicatedAllocationBufferCreateInfoNV*
+      (int)
+      VkDedicatedAllocationBufferCreateInfoNV*
+      "VkDedicatedAllocationBufferCreateInfoNV* vkdedicatedallocationbuffercreateinfonv = malloc(___arg1 * sizeof(VkDedicatedAllocationBufferCreateInfoNV));
+      ___return (vkdedicatedallocationbuffercreateinfonv);")
+   (define-c-lambda
       make-VkDedicatedAllocationBufferCreateInfoNV
       (VkStructureType void* VkBool32)
       VkDedicatedAllocationBufferCreateInfoNV*
@@ -12123,6 +13428,7 @@ dedicatedallocationbuffercreateinfonv->dedicatedAllocation=___arg3;
 ___return (dedicatedallocationbuffercreateinfonv);"))
 (begin-ffi
    (make-VkDedicatedAllocationMemoryAllocateInfoNV
+      make-VkDedicatedAllocationMemoryAllocateInfoNV*
       VkDedicatedAllocationMemoryAllocateInfoNVbuffer
       VkDedicatedAllocationMemoryAllocateInfoNVimage
       VkDedicatedAllocationMemoryAllocateInfoNVpNext
@@ -12133,6 +13439,7 @@ ___return (dedicatedallocationbuffercreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12164,6 +13471,12 @@ ___return (dedicatedallocationbuffercreateinfonv);"))
       VkBuffer
       "___return (___arg1->buffer);")
    (define-c-lambda
+      make-VkDedicatedAllocationMemoryAllocateInfoNV*
+      (int)
+      VkDedicatedAllocationMemoryAllocateInfoNV*
+      "VkDedicatedAllocationMemoryAllocateInfoNV* vkdedicatedallocationmemoryallocateinfonv = malloc(___arg1 * sizeof(VkDedicatedAllocationMemoryAllocateInfoNV));
+      ___return (vkdedicatedallocationmemoryallocateinfonv);")
+   (define-c-lambda
       make-VkDedicatedAllocationMemoryAllocateInfoNV
       (VkStructureType void* VkImage VkBuffer)
       VkDedicatedAllocationMemoryAllocateInfoNV*
@@ -12175,6 +13488,7 @@ dedicatedallocationmemoryallocateinfonv->buffer=___arg4;
 ___return (dedicatedallocationmemoryallocateinfonv);"))
 (begin-ffi
    (make-VkExternalImageFormatPropertiesNV
+      make-VkExternalImageFormatPropertiesNV*
       VkExternalImageFormatPropertiesNVcompatibleHandleTypes
       VkExternalImageFormatPropertiesNVexportFromImportedHandleTypes
       VkExternalImageFormatPropertiesNVexternalMemoryFeatures
@@ -12185,6 +13499,7 @@ ___return (dedicatedallocationmemoryallocateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12216,6 +13531,12 @@ ___return (dedicatedallocationmemoryallocateinfonv);"))
       VkExternalMemoryHandleTypeFlagsNV
       "___return (___arg1->compatibleHandleTypes);")
    (define-c-lambda
+      make-VkExternalImageFormatPropertiesNV*
+      (int)
+      VkExternalImageFormatPropertiesNV*
+      "VkExternalImageFormatPropertiesNV* vkexternalimageformatpropertiesnv = malloc(___arg1 * sizeof(VkExternalImageFormatPropertiesNV));
+      ___return (vkexternalimageformatpropertiesnv);")
+   (define-c-lambda
       make-VkExternalImageFormatPropertiesNV
       (VkImageFormatProperties
          VkExternalMemoryFeatureFlagsNV
@@ -12230,6 +13551,7 @@ externalimageformatpropertiesnv->compatibleHandleTypes=___arg4;
 ___return (externalimageformatpropertiesnv);"))
 (begin-ffi
    (make-VkExternalMemoryImageCreateInfoNV
+      make-VkExternalMemoryImageCreateInfoNV*
       VkExternalMemoryImageCreateInfoNVhandleTypes
       VkExternalMemoryImageCreateInfoNVpNext
       VkExternalMemoryImageCreateInfoNVsType
@@ -12239,6 +13561,7 @@ ___return (externalimageformatpropertiesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12265,6 +13588,12 @@ ___return (externalimageformatpropertiesnv);"))
       VkExternalMemoryHandleTypeFlagsNV
       "___return (___arg1->handleTypes);")
    (define-c-lambda
+      make-VkExternalMemoryImageCreateInfoNV*
+      (int)
+      VkExternalMemoryImageCreateInfoNV*
+      "VkExternalMemoryImageCreateInfoNV* vkexternalmemoryimagecreateinfonv = malloc(___arg1 * sizeof(VkExternalMemoryImageCreateInfoNV));
+      ___return (vkexternalmemoryimagecreateinfonv);")
+   (define-c-lambda
       make-VkExternalMemoryImageCreateInfoNV
       (VkStructureType void* VkExternalMemoryHandleTypeFlagsNV)
       VkExternalMemoryImageCreateInfoNV*
@@ -12275,6 +13604,7 @@ externalmemoryimagecreateinfonv->handleTypes=___arg3;
 ___return (externalmemoryimagecreateinfonv);"))
 (begin-ffi
    (make-VkExportMemoryAllocateInfoNV
+      make-VkExportMemoryAllocateInfoNV*
       VkExportMemoryAllocateInfoNVhandleTypes
       VkExportMemoryAllocateInfoNVpNext
       VkExportMemoryAllocateInfoNVsType
@@ -12284,6 +13614,7 @@ ___return (externalmemoryimagecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12306,6 +13637,12 @@ ___return (externalmemoryimagecreateinfonv);"))
       VkExternalMemoryHandleTypeFlagsNV
       "___return (___arg1->handleTypes);")
    (define-c-lambda
+      make-VkExportMemoryAllocateInfoNV*
+      (int)
+      VkExportMemoryAllocateInfoNV*
+      "VkExportMemoryAllocateInfoNV* vkexportmemoryallocateinfonv = malloc(___arg1 * sizeof(VkExportMemoryAllocateInfoNV));
+      ___return (vkexportmemoryallocateinfonv);")
+   (define-c-lambda
       make-VkExportMemoryAllocateInfoNV
       (VkStructureType void* VkExternalMemoryHandleTypeFlagsNV)
       VkExportMemoryAllocateInfoNV*
@@ -12316,6 +13653,7 @@ exportmemoryallocateinfonv->handleTypes=___arg3;
 ___return (exportmemoryallocateinfonv);"))
 (begin-ffi
    (make-VkDeviceGeneratedCommandsFeaturesNVX
+      make-VkDeviceGeneratedCommandsFeaturesNVX*
       VkDeviceGeneratedCommandsFeaturesNVXcomputeBindingPointSupport
       VkDeviceGeneratedCommandsFeaturesNVXpNext
       VkDeviceGeneratedCommandsFeaturesNVXsType
@@ -12325,6 +13663,7 @@ ___return (exportmemoryallocateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12351,6 +13690,12 @@ ___return (exportmemoryallocateinfonv);"))
       VkBool32
       "___return (___arg1->computeBindingPointSupport);")
    (define-c-lambda
+      make-VkDeviceGeneratedCommandsFeaturesNVX*
+      (int)
+      VkDeviceGeneratedCommandsFeaturesNVX*
+      "VkDeviceGeneratedCommandsFeaturesNVX* vkdevicegeneratedcommandsfeaturesnvx = malloc(___arg1 * sizeof(VkDeviceGeneratedCommandsFeaturesNVX));
+      ___return (vkdevicegeneratedcommandsfeaturesnvx);")
+   (define-c-lambda
       make-VkDeviceGeneratedCommandsFeaturesNVX
       (VkStructureType void* VkBool32)
       VkDeviceGeneratedCommandsFeaturesNVX*
@@ -12361,6 +13706,7 @@ devicegeneratedcommandsfeaturesnvx->computeBindingPointSupport=___arg3;
 ___return (devicegeneratedcommandsfeaturesnvx);"))
 (begin-ffi
    (make-VkDeviceGeneratedCommandsLimitsNVX
+      make-VkDeviceGeneratedCommandsLimitsNVX*
       VkDeviceGeneratedCommandsLimitsNVXminCommandsTokenBufferOffsetAlignment
       VkDeviceGeneratedCommandsLimitsNVXminSequenceIndexBufferOffsetAlignment
       VkDeviceGeneratedCommandsLimitsNVXminSequenceCountBufferOffsetAlignment
@@ -12374,6 +13720,7 @@ ___return (devicegeneratedcommandsfeaturesnvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12420,6 +13767,12 @@ ___return (devicegeneratedcommandsfeaturesnvx);"))
       uint32_t
       "___return (___arg1->minCommandsTokenBufferOffsetAlignment);")
    (define-c-lambda
+      make-VkDeviceGeneratedCommandsLimitsNVX*
+      (int)
+      VkDeviceGeneratedCommandsLimitsNVX*
+      "VkDeviceGeneratedCommandsLimitsNVX* vkdevicegeneratedcommandslimitsnvx = malloc(___arg1 * sizeof(VkDeviceGeneratedCommandsLimitsNVX));
+      ___return (vkdevicegeneratedcommandslimitsnvx);")
+   (define-c-lambda
       make-VkDeviceGeneratedCommandsLimitsNVX
       (VkStructureType void* uint32_t uint32_t uint32_t uint32_t uint32_t)
       VkDeviceGeneratedCommandsLimitsNVX*
@@ -12434,6 +13787,7 @@ devicegeneratedcommandslimitsnvx->minCommandsTokenBufferOffsetAlignment=___arg7;
 ___return (devicegeneratedcommandslimitsnvx);"))
 (begin-ffi
    (make-VkIndirectCommandsTokenNVX
+      make-VkIndirectCommandsTokenNVX*
       VkIndirectCommandsTokenNVXoffset
       VkIndirectCommandsTokenNVXbuffer
       VkIndirectCommandsTokenNVXtokenType
@@ -12443,6 +13797,7 @@ ___return (devicegeneratedcommandslimitsnvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12465,6 +13820,12 @@ ___return (devicegeneratedcommandslimitsnvx);"))
       VkDeviceSize
       "___return (___arg1->offset);")
    (define-c-lambda
+      make-VkIndirectCommandsTokenNVX*
+      (int)
+      VkIndirectCommandsTokenNVX*
+      "VkIndirectCommandsTokenNVX* vkindirectcommandstokennvx = malloc(___arg1 * sizeof(VkIndirectCommandsTokenNVX));
+      ___return (vkindirectcommandstokennvx);")
+   (define-c-lambda
       make-VkIndirectCommandsTokenNVX
       (VkIndirectCommandsTokenTypeNVX VkBuffer VkDeviceSize)
       VkIndirectCommandsTokenNVX*
@@ -12475,6 +13836,7 @@ indirectcommandstokennvx->offset=___arg3;
 ___return (indirectcommandstokennvx);"))
 (begin-ffi
    (make-VkIndirectCommandsLayoutTokenNVX
+      make-VkIndirectCommandsLayoutTokenNVX*
       VkIndirectCommandsLayoutTokenNVXdivisor
       VkIndirectCommandsLayoutTokenNVXdynamicCount
       VkIndirectCommandsLayoutTokenNVXbindingUnit
@@ -12485,6 +13847,7 @@ ___return (indirectcommandstokennvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12516,6 +13879,12 @@ ___return (indirectcommandstokennvx);"))
       uint32_t
       "___return (___arg1->divisor);")
    (define-c-lambda
+      make-VkIndirectCommandsLayoutTokenNVX*
+      (int)
+      VkIndirectCommandsLayoutTokenNVX*
+      "VkIndirectCommandsLayoutTokenNVX* vkindirectcommandslayouttokennvx = malloc(___arg1 * sizeof(VkIndirectCommandsLayoutTokenNVX));
+      ___return (vkindirectcommandslayouttokennvx);")
+   (define-c-lambda
       make-VkIndirectCommandsLayoutTokenNVX
       (VkIndirectCommandsTokenTypeNVX uint32_t uint32_t uint32_t)
       VkIndirectCommandsLayoutTokenNVX*
@@ -12527,6 +13896,7 @@ indirectcommandslayouttokennvx->divisor=___arg4;
 ___return (indirectcommandslayouttokennvx);"))
 (begin-ffi
    (make-VkIndirectCommandsLayoutCreateInfoNVX
+      make-VkIndirectCommandsLayoutCreateInfoNVX*
       VkIndirectCommandsLayoutCreateInfoNVXpTokens
       VkIndirectCommandsLayoutCreateInfoNVXtokenCount
       VkIndirectCommandsLayoutCreateInfoNVXflags
@@ -12539,6 +13909,7 @@ ___return (indirectcommandslayouttokennvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12580,6 +13951,12 @@ ___return (indirectcommandslayouttokennvx);"))
       VkIndirectCommandsLayoutTokenNVX*
       "___return (___arg1->pTokens);")
    (define-c-lambda
+      make-VkIndirectCommandsLayoutCreateInfoNVX*
+      (int)
+      VkIndirectCommandsLayoutCreateInfoNVX*
+      "VkIndirectCommandsLayoutCreateInfoNVX* vkindirectcommandslayoutcreateinfonvx = malloc(___arg1 * sizeof(VkIndirectCommandsLayoutCreateInfoNVX));
+      ___return (vkindirectcommandslayoutcreateinfonvx);")
+   (define-c-lambda
       make-VkIndirectCommandsLayoutCreateInfoNVX
       (VkStructureType
          void*
@@ -12598,6 +13975,7 @@ indirectcommandslayoutcreateinfonvx->pTokens=___arg6;
 ___return (indirectcommandslayoutcreateinfonvx);"))
 (begin-ffi
    (make-VkCmdProcessCommandsInfoNVX
+      make-VkCmdProcessCommandsInfoNVX*
       VkCmdProcessCommandsInfoNVXsequencesIndexOffset
       VkCmdProcessCommandsInfoNVXsequencesIndexBuffer
       VkCmdProcessCommandsInfoNVXsequencesCountOffset
@@ -12616,6 +13994,7 @@ ___return (indirectcommandslayoutcreateinfonvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12683,6 +14062,12 @@ ___return (indirectcommandslayoutcreateinfonvx);"))
       VkDeviceSize
       "___return (___arg1->sequencesIndexOffset);")
    (define-c-lambda
+      make-VkCmdProcessCommandsInfoNVX*
+      (int)
+      VkCmdProcessCommandsInfoNVX*
+      "VkCmdProcessCommandsInfoNVX* vkcmdprocesscommandsinfonvx = malloc(___arg1 * sizeof(VkCmdProcessCommandsInfoNVX));
+      ___return (vkcmdprocesscommandsinfonvx);")
+   (define-c-lambda
       make-VkCmdProcessCommandsInfoNVX
       (VkStructureType
          void*
@@ -12713,6 +14098,7 @@ cmdprocesscommandsinfonvx->sequencesIndexOffset=___arg12;
 ___return (cmdprocesscommandsinfonvx);"))
 (begin-ffi
    (make-VkCmdReserveSpaceForCommandsInfoNVX
+      make-VkCmdReserveSpaceForCommandsInfoNVX*
       VkCmdReserveSpaceForCommandsInfoNVXmaxSequencesCount
       VkCmdReserveSpaceForCommandsInfoNVXindirectCommandsLayout
       VkCmdReserveSpaceForCommandsInfoNVXobjectTable
@@ -12724,6 +14110,7 @@ ___return (cmdprocesscommandsinfonvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12760,6 +14147,12 @@ ___return (cmdprocesscommandsinfonvx);"))
       uint32_t
       "___return (___arg1->maxSequencesCount);")
    (define-c-lambda
+      make-VkCmdReserveSpaceForCommandsInfoNVX*
+      (int)
+      VkCmdReserveSpaceForCommandsInfoNVX*
+      "VkCmdReserveSpaceForCommandsInfoNVX* vkcmdreservespaceforcommandsinfonvx = malloc(___arg1 * sizeof(VkCmdReserveSpaceForCommandsInfoNVX));
+      ___return (vkcmdreservespaceforcommandsinfonvx);")
+   (define-c-lambda
       make-VkCmdReserveSpaceForCommandsInfoNVX
       (VkStructureType void* VkObjectTableNVX VkIndirectCommandsLayoutNVX uint32_t)
       VkCmdReserveSpaceForCommandsInfoNVX*
@@ -12772,6 +14165,7 @@ cmdreservespaceforcommandsinfonvx->maxSequencesCount=___arg5;
 ___return (cmdreservespaceforcommandsinfonvx);"))
 (begin-ffi
    (make-VkObjectTableCreateInfoNVX
+      make-VkObjectTableCreateInfoNVX*
       VkObjectTableCreateInfoNVXmaxPipelineLayouts
       VkObjectTableCreateInfoNVXmaxSampledImagesPerDescriptor
       VkObjectTableCreateInfoNVXmaxStorageImagesPerDescriptor
@@ -12789,6 +14183,7 @@ ___return (cmdreservespaceforcommandsinfonvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12851,6 +14246,12 @@ ___return (cmdreservespaceforcommandsinfonvx);"))
       uint32_t
       "___return (___arg1->maxPipelineLayouts);")
    (define-c-lambda
+      make-VkObjectTableCreateInfoNVX*
+      (int)
+      VkObjectTableCreateInfoNVX*
+      "VkObjectTableCreateInfoNVX* vkobjecttablecreateinfonvx = malloc(___arg1 * sizeof(VkObjectTableCreateInfoNVX));
+      ___return (vkobjecttablecreateinfonvx);")
+   (define-c-lambda
       make-VkObjectTableCreateInfoNVX
       (VkStructureType
          void*
@@ -12879,6 +14280,7 @@ objecttablecreateinfonvx->maxPipelineLayouts=___arg11;
 ___return (objecttablecreateinfonvx);"))
 (begin-ffi
    (make-VkObjectTableEntryNVX
+      make-VkObjectTableEntryNVX*
       VkObjectTableEntryNVXflags
       VkObjectTableEntryNVXtype
       VkObjectTableEntryNVX
@@ -12887,6 +14289,7 @@ ___return (objecttablecreateinfonvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12904,6 +14307,12 @@ ___return (objecttablecreateinfonvx);"))
       VkObjectEntryUsageFlagsNVX
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkObjectTableEntryNVX*
+      (int)
+      VkObjectTableEntryNVX*
+      "VkObjectTableEntryNVX* vkobjecttableentrynvx = malloc(___arg1 * sizeof(VkObjectTableEntryNVX));
+      ___return (vkobjecttableentrynvx);")
+   (define-c-lambda
       make-VkObjectTableEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX)
       VkObjectTableEntryNVX*
@@ -12913,6 +14322,7 @@ objecttableentrynvx->flags=___arg2;
 ___return (objecttableentrynvx);"))
 (begin-ffi
    (make-VkObjectTablePipelineEntryNVX
+      make-VkObjectTablePipelineEntryNVX*
       VkObjectTablePipelineEntryNVXpipeline
       VkObjectTablePipelineEntryNVXflags
       VkObjectTablePipelineEntryNVXtype
@@ -12922,6 +14332,7 @@ ___return (objecttableentrynvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12944,6 +14355,12 @@ ___return (objecttableentrynvx);"))
       VkPipeline
       "___return (___arg1->pipeline);")
    (define-c-lambda
+      make-VkObjectTablePipelineEntryNVX*
+      (int)
+      VkObjectTablePipelineEntryNVX*
+      "VkObjectTablePipelineEntryNVX* vkobjecttablepipelineentrynvx = malloc(___arg1 * sizeof(VkObjectTablePipelineEntryNVX));
+      ___return (vkobjecttablepipelineentrynvx);")
+   (define-c-lambda
       make-VkObjectTablePipelineEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX VkPipeline)
       VkObjectTablePipelineEntryNVX*
@@ -12954,6 +14371,7 @@ objecttablepipelineentrynvx->pipeline=___arg3;
 ___return (objecttablepipelineentrynvx);"))
 (begin-ffi
    (make-VkObjectTableDescriptorSetEntryNVX
+      make-VkObjectTableDescriptorSetEntryNVX*
       VkObjectTableDescriptorSetEntryNVXdescriptorSet
       VkObjectTableDescriptorSetEntryNVXpipelineLayout
       VkObjectTableDescriptorSetEntryNVXflags
@@ -12964,6 +14382,7 @@ ___return (objecttablepipelineentrynvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -12995,6 +14414,12 @@ ___return (objecttablepipelineentrynvx);"))
       VkDescriptorSet
       "___return (___arg1->descriptorSet);")
    (define-c-lambda
+      make-VkObjectTableDescriptorSetEntryNVX*
+      (int)
+      VkObjectTableDescriptorSetEntryNVX*
+      "VkObjectTableDescriptorSetEntryNVX* vkobjecttabledescriptorsetentrynvx = malloc(___arg1 * sizeof(VkObjectTableDescriptorSetEntryNVX));
+      ___return (vkobjecttabledescriptorsetentrynvx);")
+   (define-c-lambda
       make-VkObjectTableDescriptorSetEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX VkPipelineLayout VkDescriptorSet)
       VkObjectTableDescriptorSetEntryNVX*
@@ -13006,6 +14431,7 @@ objecttabledescriptorsetentrynvx->descriptorSet=___arg4;
 ___return (objecttabledescriptorsetentrynvx);"))
 (begin-ffi
    (make-VkObjectTableVertexBufferEntryNVX
+      make-VkObjectTableVertexBufferEntryNVX*
       VkObjectTableVertexBufferEntryNVXbuffer
       VkObjectTableVertexBufferEntryNVXflags
       VkObjectTableVertexBufferEntryNVXtype
@@ -13015,6 +14441,7 @@ ___return (objecttabledescriptorsetentrynvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13041,6 +14468,12 @@ ___return (objecttabledescriptorsetentrynvx);"))
       VkBuffer
       "___return (___arg1->buffer);")
    (define-c-lambda
+      make-VkObjectTableVertexBufferEntryNVX*
+      (int)
+      VkObjectTableVertexBufferEntryNVX*
+      "VkObjectTableVertexBufferEntryNVX* vkobjecttablevertexbufferentrynvx = malloc(___arg1 * sizeof(VkObjectTableVertexBufferEntryNVX));
+      ___return (vkobjecttablevertexbufferentrynvx);")
+   (define-c-lambda
       make-VkObjectTableVertexBufferEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX VkBuffer)
       VkObjectTableVertexBufferEntryNVX*
@@ -13051,6 +14484,7 @@ objecttablevertexbufferentrynvx->buffer=___arg3;
 ___return (objecttablevertexbufferentrynvx);"))
 (begin-ffi
    (make-VkObjectTableIndexBufferEntryNVX
+      make-VkObjectTableIndexBufferEntryNVX*
       VkObjectTableIndexBufferEntryNVXindexType
       VkObjectTableIndexBufferEntryNVXbuffer
       VkObjectTableIndexBufferEntryNVXflags
@@ -13061,6 +14495,7 @@ ___return (objecttablevertexbufferentrynvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13092,6 +14527,12 @@ ___return (objecttablevertexbufferentrynvx);"))
       VkIndexType
       "___return (___arg1->indexType);")
    (define-c-lambda
+      make-VkObjectTableIndexBufferEntryNVX*
+      (int)
+      VkObjectTableIndexBufferEntryNVX*
+      "VkObjectTableIndexBufferEntryNVX* vkobjecttableindexbufferentrynvx = malloc(___arg1 * sizeof(VkObjectTableIndexBufferEntryNVX));
+      ___return (vkobjecttableindexbufferentrynvx);")
+   (define-c-lambda
       make-VkObjectTableIndexBufferEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX VkBuffer VkIndexType)
       VkObjectTableIndexBufferEntryNVX*
@@ -13103,6 +14544,7 @@ objecttableindexbufferentrynvx->indexType=___arg4;
 ___return (objecttableindexbufferentrynvx);"))
 (begin-ffi
    (make-VkObjectTablePushConstantEntryNVX
+      make-VkObjectTablePushConstantEntryNVX*
       VkObjectTablePushConstantEntryNVXstageFlags
       VkObjectTablePushConstantEntryNVXpipelineLayout
       VkObjectTablePushConstantEntryNVXflags
@@ -13113,6 +14555,7 @@ ___return (objecttableindexbufferentrynvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13144,6 +14587,12 @@ ___return (objecttableindexbufferentrynvx);"))
       VkShaderStageFlags
       "___return (___arg1->stageFlags);")
    (define-c-lambda
+      make-VkObjectTablePushConstantEntryNVX*
+      (int)
+      VkObjectTablePushConstantEntryNVX*
+      "VkObjectTablePushConstantEntryNVX* vkobjecttablepushconstantentrynvx = malloc(___arg1 * sizeof(VkObjectTablePushConstantEntryNVX));
+      ___return (vkobjecttablepushconstantentrynvx);")
+   (define-c-lambda
       make-VkObjectTablePushConstantEntryNVX
       (VkObjectEntryTypeNVX
          VkObjectEntryUsageFlagsNVX
@@ -13158,6 +14607,7 @@ objecttablepushconstantentrynvx->stageFlags=___arg4;
 ___return (objecttablepushconstantentrynvx);"))
 (begin-ffi
    (make-VkPhysicalDeviceFeatures2
+      make-VkPhysicalDeviceFeatures2*
       VkPhysicalDeviceFeatures2features
       VkPhysicalDeviceFeatures2pNext
       VkPhysicalDeviceFeatures2sType
@@ -13167,6 +14617,7 @@ ___return (objecttablepushconstantentrynvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13189,6 +14640,12 @@ ___return (objecttablepushconstantentrynvx);"))
       VkPhysicalDeviceFeatures
       "___return (___arg1->features);")
    (define-c-lambda
+      make-VkPhysicalDeviceFeatures2*
+      (int)
+      VkPhysicalDeviceFeatures2*
+      "VkPhysicalDeviceFeatures2* vkphysicaldevicefeatures2 = malloc(___arg1 * sizeof(VkPhysicalDeviceFeatures2));
+      ___return (vkphysicaldevicefeatures2);")
+   (define-c-lambda
       make-VkPhysicalDeviceFeatures2
       (VkStructureType void* VkPhysicalDeviceFeatures)
       VkPhysicalDeviceFeatures2*
@@ -13199,18 +14656,26 @@ physicaldevicefeatures2->features=___arg3;
 ___return (physicaldevicefeatures2);"))
 (begin-ffi
    (make-VkPhysicalDeviceFeatures2KHR
+      make-VkPhysicalDeviceFeatures2KHR*
       VkPhysicalDeviceFeatures2KHR
       VkPhysicalDeviceFeatures2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkPhysicalDeviceFeatures2KHR (struct "VkPhysicalDeviceFeatures2KHR"))
    (c-define-type VkPhysicalDeviceFeatures2KHR* (pointer VkPhysicalDeviceFeatures2KHR))
+   (define-c-lambda
+      make-VkPhysicalDeviceFeatures2KHR*
+      (int)
+      VkPhysicalDeviceFeatures2KHR*
+      "VkPhysicalDeviceFeatures2KHR* vkphysicaldevicefeatures2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceFeatures2KHR));
+      ___return (vkphysicaldevicefeatures2khr);")
    (define-c-lambda
       make-VkPhysicalDeviceFeatures2KHR
       ()
@@ -13219,6 +14684,7 @@ ___return (physicaldevicefeatures2);"))
 ___return (physicaldevicefeatures2khr);"))
 (begin-ffi
    (make-VkPhysicalDeviceProperties2
+      make-VkPhysicalDeviceProperties2*
       VkPhysicalDeviceProperties2properties
       VkPhysicalDeviceProperties2pNext
       VkPhysicalDeviceProperties2sType
@@ -13228,6 +14694,7 @@ ___return (physicaldevicefeatures2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13250,6 +14717,12 @@ ___return (physicaldevicefeatures2khr);"))
       VkPhysicalDeviceProperties
       "___return (___arg1->properties);")
    (define-c-lambda
+      make-VkPhysicalDeviceProperties2*
+      (int)
+      VkPhysicalDeviceProperties2*
+      "VkPhysicalDeviceProperties2* vkphysicaldeviceproperties2 = malloc(___arg1 * sizeof(VkPhysicalDeviceProperties2));
+      ___return (vkphysicaldeviceproperties2);")
+   (define-c-lambda
       make-VkPhysicalDeviceProperties2
       (VkStructureType void* VkPhysicalDeviceProperties)
       VkPhysicalDeviceProperties2*
@@ -13260,12 +14733,14 @@ physicaldeviceproperties2->properties=___arg3;
 ___return (physicaldeviceproperties2);"))
 (begin-ffi
    (make-VkPhysicalDeviceProperties2KHR
+      make-VkPhysicalDeviceProperties2KHR*
       VkPhysicalDeviceProperties2KHR
       VkPhysicalDeviceProperties2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13277,6 +14752,12 @@ ___return (physicaldeviceproperties2);"))
       VkPhysicalDeviceProperties2KHR*
       (pointer VkPhysicalDeviceProperties2KHR))
    (define-c-lambda
+      make-VkPhysicalDeviceProperties2KHR*
+      (int)
+      VkPhysicalDeviceProperties2KHR*
+      "VkPhysicalDeviceProperties2KHR* vkphysicaldeviceproperties2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceProperties2KHR));
+      ___return (vkphysicaldeviceproperties2khr);")
+   (define-c-lambda
       make-VkPhysicalDeviceProperties2KHR
       ()
       VkPhysicalDeviceProperties2KHR*
@@ -13284,6 +14765,7 @@ ___return (physicaldeviceproperties2);"))
 ___return (physicaldeviceproperties2khr);"))
 (begin-ffi
    (make-VkFormatProperties2
+      make-VkFormatProperties2*
       VkFormatProperties2formatProperties
       VkFormatProperties2pNext
       VkFormatProperties2sType
@@ -13293,6 +14775,7 @@ ___return (physicaldeviceproperties2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13315,6 +14798,12 @@ ___return (physicaldeviceproperties2khr);"))
       VkFormatProperties
       "___return (___arg1->formatProperties);")
    (define-c-lambda
+      make-VkFormatProperties2*
+      (int)
+      VkFormatProperties2*
+      "VkFormatProperties2* vkformatproperties2 = malloc(___arg1 * sizeof(VkFormatProperties2));
+      ___return (vkformatproperties2);")
+   (define-c-lambda
       make-VkFormatProperties2
       (VkStructureType void* VkFormatProperties)
       VkFormatProperties2*
@@ -13324,17 +14813,27 @@ formatproperties2->pNext=___arg2;
 formatproperties2->formatProperties=___arg3;
 ___return (formatproperties2);"))
 (begin-ffi
-   (make-VkFormatProperties2KHR VkFormatProperties2KHR VkFormatProperties2KHR*)
+   (make-VkFormatProperties2KHR
+      make-VkFormatProperties2KHR*
+      VkFormatProperties2KHR
+      VkFormatProperties2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkFormatProperties2KHR (struct "VkFormatProperties2KHR"))
    (c-define-type VkFormatProperties2KHR* (pointer VkFormatProperties2KHR))
+   (define-c-lambda
+      make-VkFormatProperties2KHR*
+      (int)
+      VkFormatProperties2KHR*
+      "VkFormatProperties2KHR* vkformatproperties2khr = malloc(___arg1 * sizeof(VkFormatProperties2KHR));
+      ___return (vkformatproperties2khr);")
    (define-c-lambda
       make-VkFormatProperties2KHR
       ()
@@ -13343,6 +14842,7 @@ ___return (formatproperties2);"))
 ___return (formatproperties2khr);"))
 (begin-ffi
    (make-VkImageFormatProperties2
+      make-VkImageFormatProperties2*
       VkImageFormatProperties2imageFormatProperties
       VkImageFormatProperties2pNext
       VkImageFormatProperties2sType
@@ -13352,6 +14852,7 @@ ___return (formatproperties2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13374,6 +14875,12 @@ ___return (formatproperties2khr);"))
       VkImageFormatProperties
       "___return (___arg1->imageFormatProperties);")
    (define-c-lambda
+      make-VkImageFormatProperties2*
+      (int)
+      VkImageFormatProperties2*
+      "VkImageFormatProperties2* vkimageformatproperties2 = malloc(___arg1 * sizeof(VkImageFormatProperties2));
+      ___return (vkimageformatproperties2);")
+   (define-c-lambda
       make-VkImageFormatProperties2
       (VkStructureType void* VkImageFormatProperties)
       VkImageFormatProperties2*
@@ -13384,18 +14891,26 @@ imageformatproperties2->imageFormatProperties=___arg3;
 ___return (imageformatproperties2);"))
 (begin-ffi
    (make-VkImageFormatProperties2KHR
+      make-VkImageFormatProperties2KHR*
       VkImageFormatProperties2KHR
       VkImageFormatProperties2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkImageFormatProperties2KHR (struct "VkImageFormatProperties2KHR"))
    (c-define-type VkImageFormatProperties2KHR* (pointer VkImageFormatProperties2KHR))
+   (define-c-lambda
+      make-VkImageFormatProperties2KHR*
+      (int)
+      VkImageFormatProperties2KHR*
+      "VkImageFormatProperties2KHR* vkimageformatproperties2khr = malloc(___arg1 * sizeof(VkImageFormatProperties2KHR));
+      ___return (vkimageformatproperties2khr);")
    (define-c-lambda
       make-VkImageFormatProperties2KHR
       ()
@@ -13404,6 +14919,7 @@ ___return (imageformatproperties2);"))
 ___return (imageformatproperties2khr);"))
 (begin-ffi
    (make-VkPhysicalDeviceImageFormatInfo2
+      make-VkPhysicalDeviceImageFormatInfo2*
       VkPhysicalDeviceImageFormatInfo2flags
       VkPhysicalDeviceImageFormatInfo2usage
       VkPhysicalDeviceImageFormatInfo2tiling
@@ -13417,6 +14933,7 @@ ___return (imageformatproperties2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13463,6 +14980,12 @@ ___return (imageformatproperties2khr);"))
       VkImageCreateFlags
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkPhysicalDeviceImageFormatInfo2*
+      (int)
+      VkPhysicalDeviceImageFormatInfo2*
+      "VkPhysicalDeviceImageFormatInfo2* vkphysicaldeviceimageformatinfo2 = malloc(___arg1 * sizeof(VkPhysicalDeviceImageFormatInfo2));
+      ___return (vkphysicaldeviceimageformatinfo2);")
+   (define-c-lambda
       make-VkPhysicalDeviceImageFormatInfo2
       (VkStructureType
          void*
@@ -13483,12 +15006,14 @@ physicaldeviceimageformatinfo2->flags=___arg7;
 ___return (physicaldeviceimageformatinfo2);"))
 (begin-ffi
    (make-VkPhysicalDeviceImageFormatInfo2KHR
+      make-VkPhysicalDeviceImageFormatInfo2KHR*
       VkPhysicalDeviceImageFormatInfo2KHR
       VkPhysicalDeviceImageFormatInfo2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13500,6 +15025,12 @@ ___return (physicaldeviceimageformatinfo2);"))
       VkPhysicalDeviceImageFormatInfo2KHR*
       (pointer VkPhysicalDeviceImageFormatInfo2KHR))
    (define-c-lambda
+      make-VkPhysicalDeviceImageFormatInfo2KHR*
+      (int)
+      VkPhysicalDeviceImageFormatInfo2KHR*
+      "VkPhysicalDeviceImageFormatInfo2KHR* vkphysicaldeviceimageformatinfo2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceImageFormatInfo2KHR));
+      ___return (vkphysicaldeviceimageformatinfo2khr);")
+   (define-c-lambda
       make-VkPhysicalDeviceImageFormatInfo2KHR
       ()
       VkPhysicalDeviceImageFormatInfo2KHR*
@@ -13507,6 +15038,7 @@ ___return (physicaldeviceimageformatinfo2);"))
 ___return (physicaldeviceimageformatinfo2khr);"))
 (begin-ffi
    (make-VkQueueFamilyProperties2
+      make-VkQueueFamilyProperties2*
       VkQueueFamilyProperties2queueFamilyProperties
       VkQueueFamilyProperties2pNext
       VkQueueFamilyProperties2sType
@@ -13516,6 +15048,7 @@ ___return (physicaldeviceimageformatinfo2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13538,6 +15071,12 @@ ___return (physicaldeviceimageformatinfo2khr);"))
       VkQueueFamilyProperties
       "___return (___arg1->queueFamilyProperties);")
    (define-c-lambda
+      make-VkQueueFamilyProperties2*
+      (int)
+      VkQueueFamilyProperties2*
+      "VkQueueFamilyProperties2* vkqueuefamilyproperties2 = malloc(___arg1 * sizeof(VkQueueFamilyProperties2));
+      ___return (vkqueuefamilyproperties2);")
+   (define-c-lambda
       make-VkQueueFamilyProperties2
       (VkStructureType void* VkQueueFamilyProperties)
       VkQueueFamilyProperties2*
@@ -13548,18 +15087,26 @@ queuefamilyproperties2->queueFamilyProperties=___arg3;
 ___return (queuefamilyproperties2);"))
 (begin-ffi
    (make-VkQueueFamilyProperties2KHR
+      make-VkQueueFamilyProperties2KHR*
       VkQueueFamilyProperties2KHR
       VkQueueFamilyProperties2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkQueueFamilyProperties2KHR (struct "VkQueueFamilyProperties2KHR"))
    (c-define-type VkQueueFamilyProperties2KHR* (pointer VkQueueFamilyProperties2KHR))
+   (define-c-lambda
+      make-VkQueueFamilyProperties2KHR*
+      (int)
+      VkQueueFamilyProperties2KHR*
+      "VkQueueFamilyProperties2KHR* vkqueuefamilyproperties2khr = malloc(___arg1 * sizeof(VkQueueFamilyProperties2KHR));
+      ___return (vkqueuefamilyproperties2khr);")
    (define-c-lambda
       make-VkQueueFamilyProperties2KHR
       ()
@@ -13568,6 +15115,7 @@ ___return (queuefamilyproperties2);"))
 ___return (queuefamilyproperties2khr);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryProperties2
+      make-VkPhysicalDeviceMemoryProperties2*
       VkPhysicalDeviceMemoryProperties2memoryProperties
       VkPhysicalDeviceMemoryProperties2pNext
       VkPhysicalDeviceMemoryProperties2sType
@@ -13577,6 +15125,7 @@ ___return (queuefamilyproperties2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13603,6 +15152,12 @@ ___return (queuefamilyproperties2khr);"))
       VkPhysicalDeviceMemoryProperties
       "___return (___arg1->memoryProperties);")
    (define-c-lambda
+      make-VkPhysicalDeviceMemoryProperties2*
+      (int)
+      VkPhysicalDeviceMemoryProperties2*
+      "VkPhysicalDeviceMemoryProperties2* vkphysicaldevicememoryproperties2 = malloc(___arg1 * sizeof(VkPhysicalDeviceMemoryProperties2));
+      ___return (vkphysicaldevicememoryproperties2);")
+   (define-c-lambda
       make-VkPhysicalDeviceMemoryProperties2
       (VkStructureType void* VkPhysicalDeviceMemoryProperties)
       VkPhysicalDeviceMemoryProperties2*
@@ -13613,12 +15168,14 @@ physicaldevicememoryproperties2->memoryProperties=___arg3;
 ___return (physicaldevicememoryproperties2);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryProperties2KHR
+      make-VkPhysicalDeviceMemoryProperties2KHR*
       VkPhysicalDeviceMemoryProperties2KHR
       VkPhysicalDeviceMemoryProperties2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13630,6 +15187,12 @@ ___return (physicaldevicememoryproperties2);"))
       VkPhysicalDeviceMemoryProperties2KHR*
       (pointer VkPhysicalDeviceMemoryProperties2KHR))
    (define-c-lambda
+      make-VkPhysicalDeviceMemoryProperties2KHR*
+      (int)
+      VkPhysicalDeviceMemoryProperties2KHR*
+      "VkPhysicalDeviceMemoryProperties2KHR* vkphysicaldevicememoryproperties2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceMemoryProperties2KHR));
+      ___return (vkphysicaldevicememoryproperties2khr);")
+   (define-c-lambda
       make-VkPhysicalDeviceMemoryProperties2KHR
       ()
       VkPhysicalDeviceMemoryProperties2KHR*
@@ -13637,6 +15200,7 @@ ___return (physicaldevicememoryproperties2);"))
 ___return (physicaldevicememoryproperties2khr);"))
 (begin-ffi
    (make-VkSparseImageFormatProperties2
+      make-VkSparseImageFormatProperties2*
       VkSparseImageFormatProperties2properties
       VkSparseImageFormatProperties2pNext
       VkSparseImageFormatProperties2sType
@@ -13646,6 +15210,7 @@ ___return (physicaldevicememoryproperties2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13672,6 +15237,12 @@ ___return (physicaldevicememoryproperties2khr);"))
       VkSparseImageFormatProperties
       "___return (___arg1->properties);")
    (define-c-lambda
+      make-VkSparseImageFormatProperties2*
+      (int)
+      VkSparseImageFormatProperties2*
+      "VkSparseImageFormatProperties2* vksparseimageformatproperties2 = malloc(___arg1 * sizeof(VkSparseImageFormatProperties2));
+      ___return (vksparseimageformatproperties2);")
+   (define-c-lambda
       make-VkSparseImageFormatProperties2
       (VkStructureType void* VkSparseImageFormatProperties)
       VkSparseImageFormatProperties2*
@@ -13682,12 +15253,14 @@ sparseimageformatproperties2->properties=___arg3;
 ___return (sparseimageformatproperties2);"))
 (begin-ffi
    (make-VkSparseImageFormatProperties2KHR
+      make-VkSparseImageFormatProperties2KHR*
       VkSparseImageFormatProperties2KHR
       VkSparseImageFormatProperties2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13699,6 +15272,12 @@ ___return (sparseimageformatproperties2);"))
       VkSparseImageFormatProperties2KHR*
       (pointer VkSparseImageFormatProperties2KHR))
    (define-c-lambda
+      make-VkSparseImageFormatProperties2KHR*
+      (int)
+      VkSparseImageFormatProperties2KHR*
+      "VkSparseImageFormatProperties2KHR* vksparseimageformatproperties2khr = malloc(___arg1 * sizeof(VkSparseImageFormatProperties2KHR));
+      ___return (vksparseimageformatproperties2khr);")
+   (define-c-lambda
       make-VkSparseImageFormatProperties2KHR
       ()
       VkSparseImageFormatProperties2KHR*
@@ -13706,6 +15285,7 @@ ___return (sparseimageformatproperties2);"))
 ___return (sparseimageformatproperties2khr);"))
 (begin-ffi
    (make-VkPhysicalDeviceSparseImageFormatInfo2
+      make-VkPhysicalDeviceSparseImageFormatInfo2*
       VkPhysicalDeviceSparseImageFormatInfo2tiling
       VkPhysicalDeviceSparseImageFormatInfo2usage
       VkPhysicalDeviceSparseImageFormatInfo2samples
@@ -13719,6 +15299,7 @@ ___return (sparseimageformatproperties2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13765,6 +15346,12 @@ ___return (sparseimageformatproperties2khr);"))
       VkImageTiling
       "___return (___arg1->tiling);")
    (define-c-lambda
+      make-VkPhysicalDeviceSparseImageFormatInfo2*
+      (int)
+      VkPhysicalDeviceSparseImageFormatInfo2*
+      "VkPhysicalDeviceSparseImageFormatInfo2* vkphysicaldevicesparseimageformatinfo2 = malloc(___arg1 * sizeof(VkPhysicalDeviceSparseImageFormatInfo2));
+      ___return (vkphysicaldevicesparseimageformatinfo2);")
+   (define-c-lambda
       make-VkPhysicalDeviceSparseImageFormatInfo2
       (VkStructureType
          void*
@@ -13785,12 +15372,14 @@ physicaldevicesparseimageformatinfo2->tiling=___arg7;
 ___return (physicaldevicesparseimageformatinfo2);"))
 (begin-ffi
    (make-VkPhysicalDeviceSparseImageFormatInfo2KHR
+      make-VkPhysicalDeviceSparseImageFormatInfo2KHR*
       VkPhysicalDeviceSparseImageFormatInfo2KHR
       VkPhysicalDeviceSparseImageFormatInfo2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13802,6 +15391,12 @@ ___return (physicaldevicesparseimageformatinfo2);"))
       VkPhysicalDeviceSparseImageFormatInfo2KHR*
       (pointer VkPhysicalDeviceSparseImageFormatInfo2KHR))
    (define-c-lambda
+      make-VkPhysicalDeviceSparseImageFormatInfo2KHR*
+      (int)
+      VkPhysicalDeviceSparseImageFormatInfo2KHR*
+      "VkPhysicalDeviceSparseImageFormatInfo2KHR* vkphysicaldevicesparseimageformatinfo2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceSparseImageFormatInfo2KHR));
+      ___return (vkphysicaldevicesparseimageformatinfo2khr);")
+   (define-c-lambda
       make-VkPhysicalDeviceSparseImageFormatInfo2KHR
       ()
       VkPhysicalDeviceSparseImageFormatInfo2KHR*
@@ -13809,6 +15404,7 @@ ___return (physicaldevicesparseimageformatinfo2);"))
 ___return (physicaldevicesparseimageformatinfo2khr);"))
 (begin-ffi
    (make-VkPhysicalDevicePushDescriptorPropertiesKHR
+      make-VkPhysicalDevicePushDescriptorPropertiesKHR*
       VkPhysicalDevicePushDescriptorPropertiesKHRmaxPushDescriptors
       VkPhysicalDevicePushDescriptorPropertiesKHRpNext
       VkPhysicalDevicePushDescriptorPropertiesKHRsType
@@ -13818,6 +15414,7 @@ ___return (physicaldevicesparseimageformatinfo2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13844,6 +15441,12 @@ ___return (physicaldevicesparseimageformatinfo2khr);"))
       uint32_t
       "___return (___arg1->maxPushDescriptors);")
    (define-c-lambda
+      make-VkPhysicalDevicePushDescriptorPropertiesKHR*
+      (int)
+      VkPhysicalDevicePushDescriptorPropertiesKHR*
+      "VkPhysicalDevicePushDescriptorPropertiesKHR* vkphysicaldevicepushdescriptorpropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDevicePushDescriptorPropertiesKHR));
+      ___return (vkphysicaldevicepushdescriptorpropertieskhr);")
+   (define-c-lambda
       make-VkPhysicalDevicePushDescriptorPropertiesKHR
       (VkStructureType void* uint32_t)
       VkPhysicalDevicePushDescriptorPropertiesKHR*
@@ -13854,6 +15457,7 @@ physicaldevicepushdescriptorpropertieskhr->maxPushDescriptors=___arg3;
 ___return (physicaldevicepushdescriptorpropertieskhr);"))
 (begin-ffi
    (make-VkConformanceVersionKHR
+      make-VkConformanceVersionKHR*
       VkConformanceVersionKHRpatch
       VkConformanceVersionKHRsubminor
       VkConformanceVersionKHRminor
@@ -13864,6 +15468,7 @@ ___return (physicaldevicepushdescriptorpropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13891,6 +15496,12 @@ ___return (physicaldevicepushdescriptorpropertieskhr);"))
       uint8_t
       "___return (___arg1->patch);")
    (define-c-lambda
+      make-VkConformanceVersionKHR*
+      (int)
+      VkConformanceVersionKHR*
+      "VkConformanceVersionKHR* vkconformanceversionkhr = malloc(___arg1 * sizeof(VkConformanceVersionKHR));
+      ___return (vkconformanceversionkhr);")
+   (define-c-lambda
       make-VkConformanceVersionKHR
       (uint8_t uint8_t uint8_t uint8_t)
       VkConformanceVersionKHR*
@@ -13902,6 +15513,7 @@ conformanceversionkhr->patch=___arg4;
 ___return (conformanceversionkhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceDriverPropertiesKHR
+      make-VkPhysicalDeviceDriverPropertiesKHR*
       VkPhysicalDeviceDriverPropertiesKHRconformanceVersion
       VkPhysicalDeviceDriverPropertiesKHRdriverInfo
       VkPhysicalDeviceDriverPropertiesKHRdriverName
@@ -13914,6 +15526,7 @@ ___return (conformanceversionkhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13955,6 +15568,12 @@ ___return (conformanceversionkhr);"))
       VkConformanceVersionKHR
       "___return (___arg1->conformanceVersion);")
    (define-c-lambda
+      make-VkPhysicalDeviceDriverPropertiesKHR*
+      (int)
+      VkPhysicalDeviceDriverPropertiesKHR*
+      "VkPhysicalDeviceDriverPropertiesKHR* vkphysicaldevicedriverpropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceDriverPropertiesKHR));
+      ___return (vkphysicaldevicedriverpropertieskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceDriverPropertiesKHR
       (VkStructureType void* VkDriverIdKHR char* char* VkConformanceVersionKHR)
       VkPhysicalDeviceDriverPropertiesKHR*
@@ -13968,6 +15587,7 @@ physicaldevicedriverpropertieskhr->conformanceVersion=___arg6;
 ___return (physicaldevicedriverpropertieskhr);"))
 (begin-ffi
    (make-VkRectLayerKHR
+      make-VkRectLayerKHR*
       VkRectLayerKHRlayer
       VkRectLayerKHRextent
       VkRectLayerKHRoffset
@@ -13977,6 +15597,7 @@ ___return (physicaldevicedriverpropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -13999,6 +15620,12 @@ ___return (physicaldevicedriverpropertieskhr);"))
       uint32_t
       "___return (___arg1->layer);")
    (define-c-lambda
+      make-VkRectLayerKHR*
+      (int)
+      VkRectLayerKHR*
+      "VkRectLayerKHR* vkrectlayerkhr = malloc(___arg1 * sizeof(VkRectLayerKHR));
+      ___return (vkrectlayerkhr);")
+   (define-c-lambda
       make-VkRectLayerKHR
       (VkOffset2D VkExtent2D uint32_t)
       VkRectLayerKHR*
@@ -14009,6 +15636,7 @@ rectlayerkhr->layer=___arg3;
 ___return (rectlayerkhr);"))
 (begin-ffi
    (make-VkPresentRegionKHR
+      make-VkPresentRegionKHR*
       VkPresentRegionKHRpRectangles
       VkPresentRegionKHRrectangleCount
       VkPresentRegionKHR
@@ -14017,6 +15645,7 @@ ___return (rectlayerkhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14034,6 +15663,12 @@ ___return (rectlayerkhr);"))
       VkRectLayerKHR*
       "___return (___arg1->pRectangles);")
    (define-c-lambda
+      make-VkPresentRegionKHR*
+      (int)
+      VkPresentRegionKHR*
+      "VkPresentRegionKHR* vkpresentregionkhr = malloc(___arg1 * sizeof(VkPresentRegionKHR));
+      ___return (vkpresentregionkhr);")
+   (define-c-lambda
       make-VkPresentRegionKHR
       (uint32_t VkRectLayerKHR*)
       VkPresentRegionKHR*
@@ -14043,6 +15678,7 @@ presentregionkhr->pRectangles=___arg2;
 ___return (presentregionkhr);"))
 (begin-ffi
    (make-VkPresentRegionsKHR
+      make-VkPresentRegionsKHR*
       VkPresentRegionsKHRpRegions
       VkPresentRegionsKHRswapchainCount
       VkPresentRegionsKHRpNext
@@ -14053,6 +15689,7 @@ ___return (presentregionkhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14080,6 +15717,12 @@ ___return (presentregionkhr);"))
       VkPresentRegionKHR*
       "___return (___arg1->pRegions);")
    (define-c-lambda
+      make-VkPresentRegionsKHR*
+      (int)
+      VkPresentRegionsKHR*
+      "VkPresentRegionsKHR* vkpresentregionskhr = malloc(___arg1 * sizeof(VkPresentRegionsKHR));
+      ___return (vkpresentregionskhr);")
+   (define-c-lambda
       make-VkPresentRegionsKHR
       (VkStructureType void* uint32_t VkPresentRegionKHR*)
       VkPresentRegionsKHR*
@@ -14091,6 +15734,7 @@ presentregionskhr->pRegions=___arg4;
 ___return (presentregionskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceVariablePointersFeatures
+      make-VkPhysicalDeviceVariablePointersFeatures*
       VkPhysicalDeviceVariablePointersFeaturesvariablePointers
       VkPhysicalDeviceVariablePointersFeaturesvariablePointersStorageBuffer
       VkPhysicalDeviceVariablePointersFeaturespNext
@@ -14101,6 +15745,7 @@ ___return (presentregionskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14132,6 +15777,12 @@ ___return (presentregionskhr);"))
       VkBool32
       "___return (___arg1->variablePointers);")
    (define-c-lambda
+      make-VkPhysicalDeviceVariablePointersFeatures*
+      (int)
+      VkPhysicalDeviceVariablePointersFeatures*
+      "VkPhysicalDeviceVariablePointersFeatures* vkphysicaldevicevariablepointersfeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceVariablePointersFeatures));
+      ___return (vkphysicaldevicevariablepointersfeatures);")
+   (define-c-lambda
       make-VkPhysicalDeviceVariablePointersFeatures
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceVariablePointersFeatures*
@@ -14143,12 +15794,14 @@ physicaldevicevariablepointersfeatures->variablePointers=___arg4;
 ___return (physicaldevicevariablepointersfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceVariablePointersFeaturesKHR
+      make-VkPhysicalDeviceVariablePointersFeaturesKHR*
       VkPhysicalDeviceVariablePointersFeaturesKHR
       VkPhysicalDeviceVariablePointersFeaturesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14160,6 +15813,12 @@ ___return (physicaldevicevariablepointersfeatures);"))
       VkPhysicalDeviceVariablePointersFeaturesKHR*
       (pointer VkPhysicalDeviceVariablePointersFeaturesKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceVariablePointersFeaturesKHR*
+      (int)
+      VkPhysicalDeviceVariablePointersFeaturesKHR*
+      "VkPhysicalDeviceVariablePointersFeaturesKHR* vkphysicaldevicevariablepointersfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceVariablePointersFeaturesKHR));
+      ___return (vkphysicaldevicevariablepointersfeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceVariablePointersFeaturesKHR
       ()
       VkPhysicalDeviceVariablePointersFeaturesKHR*
@@ -14167,12 +15826,14 @@ ___return (physicaldevicevariablepointersfeatures);"))
 ___return (physicaldevicevariablepointersfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceVariablePointerFeaturesKHR
+      make-VkPhysicalDeviceVariablePointerFeaturesKHR*
       VkPhysicalDeviceVariablePointerFeaturesKHR
       VkPhysicalDeviceVariablePointerFeaturesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14184,6 +15845,12 @@ ___return (physicaldevicevariablepointersfeatureskhr);"))
       VkPhysicalDeviceVariablePointerFeaturesKHR*
       (pointer VkPhysicalDeviceVariablePointerFeaturesKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceVariablePointerFeaturesKHR*
+      (int)
+      VkPhysicalDeviceVariablePointerFeaturesKHR*
+      "VkPhysicalDeviceVariablePointerFeaturesKHR* vkphysicaldevicevariablepointerfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceVariablePointerFeaturesKHR));
+      ___return (vkphysicaldevicevariablepointerfeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceVariablePointerFeaturesKHR
       ()
       VkPhysicalDeviceVariablePointerFeaturesKHR*
@@ -14191,12 +15858,14 @@ ___return (physicaldevicevariablepointersfeatureskhr);"))
 ___return (physicaldevicevariablepointerfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceVariablePointerFeatures
+      make-VkPhysicalDeviceVariablePointerFeatures*
       VkPhysicalDeviceVariablePointerFeatures
       VkPhysicalDeviceVariablePointerFeatures*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14208,6 +15877,12 @@ ___return (physicaldevicevariablepointerfeatureskhr);"))
       VkPhysicalDeviceVariablePointerFeatures*
       (pointer VkPhysicalDeviceVariablePointerFeatures))
    (define-c-lambda
+      make-VkPhysicalDeviceVariablePointerFeatures*
+      (int)
+      VkPhysicalDeviceVariablePointerFeatures*
+      "VkPhysicalDeviceVariablePointerFeatures* vkphysicaldevicevariablepointerfeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceVariablePointerFeatures));
+      ___return (vkphysicaldevicevariablepointerfeatures);")
+   (define-c-lambda
       make-VkPhysicalDeviceVariablePointerFeatures
       ()
       VkPhysicalDeviceVariablePointerFeatures*
@@ -14215,6 +15890,7 @@ ___return (physicaldevicevariablepointerfeatureskhr);"))
 ___return (physicaldevicevariablepointerfeatures);"))
 (begin-ffi
    (make-VkExternalMemoryProperties
+      make-VkExternalMemoryProperties*
       VkExternalMemoryPropertiescompatibleHandleTypes
       VkExternalMemoryPropertiesexportFromImportedHandleTypes
       VkExternalMemoryPropertiesexternalMemoryFeatures
@@ -14224,6 +15900,7 @@ ___return (physicaldevicevariablepointerfeatures);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14246,6 +15923,12 @@ ___return (physicaldevicevariablepointerfeatures);"))
       VkExternalMemoryHandleTypeFlags
       "___return (___arg1->compatibleHandleTypes);")
    (define-c-lambda
+      make-VkExternalMemoryProperties*
+      (int)
+      VkExternalMemoryProperties*
+      "VkExternalMemoryProperties* vkexternalmemoryproperties = malloc(___arg1 * sizeof(VkExternalMemoryProperties));
+      ___return (vkexternalmemoryproperties);")
+   (define-c-lambda
       make-VkExternalMemoryProperties
       (VkExternalMemoryFeatureFlags
          VkExternalMemoryHandleTypeFlags
@@ -14258,18 +15941,26 @@ externalmemoryproperties->compatibleHandleTypes=___arg3;
 ___return (externalmemoryproperties);"))
 (begin-ffi
    (make-VkExternalMemoryPropertiesKHR
+      make-VkExternalMemoryPropertiesKHR*
       VkExternalMemoryPropertiesKHR
       VkExternalMemoryPropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkExternalMemoryPropertiesKHR (struct "VkExternalMemoryPropertiesKHR"))
    (c-define-type VkExternalMemoryPropertiesKHR* (pointer VkExternalMemoryPropertiesKHR))
+   (define-c-lambda
+      make-VkExternalMemoryPropertiesKHR*
+      (int)
+      VkExternalMemoryPropertiesKHR*
+      "VkExternalMemoryPropertiesKHR* vkexternalmemorypropertieskhr = malloc(___arg1 * sizeof(VkExternalMemoryPropertiesKHR));
+      ___return (vkexternalmemorypropertieskhr);")
    (define-c-lambda
       make-VkExternalMemoryPropertiesKHR
       ()
@@ -14278,6 +15969,7 @@ ___return (externalmemoryproperties);"))
 ___return (externalmemorypropertieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalImageFormatInfo
+      make-VkPhysicalDeviceExternalImageFormatInfo*
       VkPhysicalDeviceExternalImageFormatInfohandleType
       VkPhysicalDeviceExternalImageFormatInfopNext
       VkPhysicalDeviceExternalImageFormatInfosType
@@ -14287,6 +15979,7 @@ ___return (externalmemorypropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14313,6 +16006,12 @@ ___return (externalmemorypropertieskhr);"))
       VkExternalMemoryHandleTypeFlagBits
       "___return (___arg1->handleType);")
    (define-c-lambda
+      make-VkPhysicalDeviceExternalImageFormatInfo*
+      (int)
+      VkPhysicalDeviceExternalImageFormatInfo*
+      "VkPhysicalDeviceExternalImageFormatInfo* vkphysicaldeviceexternalimageformatinfo = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalImageFormatInfo));
+      ___return (vkphysicaldeviceexternalimageformatinfo);")
+   (define-c-lambda
       make-VkPhysicalDeviceExternalImageFormatInfo
       (VkStructureType void* VkExternalMemoryHandleTypeFlagBits)
       VkPhysicalDeviceExternalImageFormatInfo*
@@ -14323,12 +16022,14 @@ physicaldeviceexternalimageformatinfo->handleType=___arg3;
 ___return (physicaldeviceexternalimageformatinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalImageFormatInfoKHR
+      make-VkPhysicalDeviceExternalImageFormatInfoKHR*
       VkPhysicalDeviceExternalImageFormatInfoKHR
       VkPhysicalDeviceExternalImageFormatInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14340,6 +16041,12 @@ ___return (physicaldeviceexternalimageformatinfo);"))
       VkPhysicalDeviceExternalImageFormatInfoKHR*
       (pointer VkPhysicalDeviceExternalImageFormatInfoKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceExternalImageFormatInfoKHR*
+      (int)
+      VkPhysicalDeviceExternalImageFormatInfoKHR*
+      "VkPhysicalDeviceExternalImageFormatInfoKHR* vkphysicaldeviceexternalimageformatinfokhr = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalImageFormatInfoKHR));
+      ___return (vkphysicaldeviceexternalimageformatinfokhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceExternalImageFormatInfoKHR
       ()
       VkPhysicalDeviceExternalImageFormatInfoKHR*
@@ -14347,6 +16054,7 @@ ___return (physicaldeviceexternalimageformatinfo);"))
 ___return (physicaldeviceexternalimageformatinfokhr);"))
 (begin-ffi
    (make-VkExternalImageFormatProperties
+      make-VkExternalImageFormatProperties*
       VkExternalImageFormatPropertiesexternalMemoryProperties
       VkExternalImageFormatPropertiespNext
       VkExternalImageFormatPropertiessType
@@ -14356,6 +16064,7 @@ ___return (physicaldeviceexternalimageformatinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14382,6 +16091,12 @@ ___return (physicaldeviceexternalimageformatinfokhr);"))
       VkExternalMemoryProperties
       "___return (___arg1->externalMemoryProperties);")
    (define-c-lambda
+      make-VkExternalImageFormatProperties*
+      (int)
+      VkExternalImageFormatProperties*
+      "VkExternalImageFormatProperties* vkexternalimageformatproperties = malloc(___arg1 * sizeof(VkExternalImageFormatProperties));
+      ___return (vkexternalimageformatproperties);")
+   (define-c-lambda
       make-VkExternalImageFormatProperties
       (VkStructureType void* VkExternalMemoryProperties)
       VkExternalImageFormatProperties*
@@ -14392,12 +16107,14 @@ externalimageformatproperties->externalMemoryProperties=___arg3;
 ___return (externalimageformatproperties);"))
 (begin-ffi
    (make-VkExternalImageFormatPropertiesKHR
+      make-VkExternalImageFormatPropertiesKHR*
       VkExternalImageFormatPropertiesKHR
       VkExternalImageFormatPropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14409,6 +16126,12 @@ ___return (externalimageformatproperties);"))
       VkExternalImageFormatPropertiesKHR*
       (pointer VkExternalImageFormatPropertiesKHR))
    (define-c-lambda
+      make-VkExternalImageFormatPropertiesKHR*
+      (int)
+      VkExternalImageFormatPropertiesKHR*
+      "VkExternalImageFormatPropertiesKHR* vkexternalimageformatpropertieskhr = malloc(___arg1 * sizeof(VkExternalImageFormatPropertiesKHR));
+      ___return (vkexternalimageformatpropertieskhr);")
+   (define-c-lambda
       make-VkExternalImageFormatPropertiesKHR
       ()
       VkExternalImageFormatPropertiesKHR*
@@ -14416,6 +16139,7 @@ ___return (externalimageformatproperties);"))
 ___return (externalimageformatpropertieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalBufferInfo
+      make-VkPhysicalDeviceExternalBufferInfo*
       VkPhysicalDeviceExternalBufferInfohandleType
       VkPhysicalDeviceExternalBufferInfousage
       VkPhysicalDeviceExternalBufferInfoflags
@@ -14427,6 +16151,7 @@ ___return (externalimageformatpropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14463,6 +16188,12 @@ ___return (externalimageformatpropertieskhr);"))
       VkExternalMemoryHandleTypeFlagBits
       "___return (___arg1->handleType);")
    (define-c-lambda
+      make-VkPhysicalDeviceExternalBufferInfo*
+      (int)
+      VkPhysicalDeviceExternalBufferInfo*
+      "VkPhysicalDeviceExternalBufferInfo* vkphysicaldeviceexternalbufferinfo = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalBufferInfo));
+      ___return (vkphysicaldeviceexternalbufferinfo);")
+   (define-c-lambda
       make-VkPhysicalDeviceExternalBufferInfo
       (VkStructureType
          void*
@@ -14479,12 +16210,14 @@ physicaldeviceexternalbufferinfo->handleType=___arg5;
 ___return (physicaldeviceexternalbufferinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalBufferInfoKHR
+      make-VkPhysicalDeviceExternalBufferInfoKHR*
       VkPhysicalDeviceExternalBufferInfoKHR
       VkPhysicalDeviceExternalBufferInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14496,6 +16229,12 @@ ___return (physicaldeviceexternalbufferinfo);"))
       VkPhysicalDeviceExternalBufferInfoKHR*
       (pointer VkPhysicalDeviceExternalBufferInfoKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceExternalBufferInfoKHR*
+      (int)
+      VkPhysicalDeviceExternalBufferInfoKHR*
+      "VkPhysicalDeviceExternalBufferInfoKHR* vkphysicaldeviceexternalbufferinfokhr = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalBufferInfoKHR));
+      ___return (vkphysicaldeviceexternalbufferinfokhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceExternalBufferInfoKHR
       ()
       VkPhysicalDeviceExternalBufferInfoKHR*
@@ -14503,6 +16242,7 @@ ___return (physicaldeviceexternalbufferinfo);"))
 ___return (physicaldeviceexternalbufferinfokhr);"))
 (begin-ffi
    (make-VkExternalBufferProperties
+      make-VkExternalBufferProperties*
       VkExternalBufferPropertiesexternalMemoryProperties
       VkExternalBufferPropertiespNext
       VkExternalBufferPropertiessType
@@ -14512,6 +16252,7 @@ ___return (physicaldeviceexternalbufferinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14534,6 +16275,12 @@ ___return (physicaldeviceexternalbufferinfokhr);"))
       VkExternalMemoryProperties
       "___return (___arg1->externalMemoryProperties);")
    (define-c-lambda
+      make-VkExternalBufferProperties*
+      (int)
+      VkExternalBufferProperties*
+      "VkExternalBufferProperties* vkexternalbufferproperties = malloc(___arg1 * sizeof(VkExternalBufferProperties));
+      ___return (vkexternalbufferproperties);")
+   (define-c-lambda
       make-VkExternalBufferProperties
       (VkStructureType void* VkExternalMemoryProperties)
       VkExternalBufferProperties*
@@ -14544,18 +16291,26 @@ externalbufferproperties->externalMemoryProperties=___arg3;
 ___return (externalbufferproperties);"))
 (begin-ffi
    (make-VkExternalBufferPropertiesKHR
+      make-VkExternalBufferPropertiesKHR*
       VkExternalBufferPropertiesKHR
       VkExternalBufferPropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkExternalBufferPropertiesKHR (struct "VkExternalBufferPropertiesKHR"))
    (c-define-type VkExternalBufferPropertiesKHR* (pointer VkExternalBufferPropertiesKHR))
+   (define-c-lambda
+      make-VkExternalBufferPropertiesKHR*
+      (int)
+      VkExternalBufferPropertiesKHR*
+      "VkExternalBufferPropertiesKHR* vkexternalbufferpropertieskhr = malloc(___arg1 * sizeof(VkExternalBufferPropertiesKHR));
+      ___return (vkexternalbufferpropertieskhr);")
    (define-c-lambda
       make-VkExternalBufferPropertiesKHR
       ()
@@ -14564,6 +16319,7 @@ ___return (externalbufferproperties);"))
 ___return (externalbufferpropertieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceIDProperties
+      make-VkPhysicalDeviceIDProperties*
       VkPhysicalDeviceIDPropertiesdeviceLUIDValid
       VkPhysicalDeviceIDPropertiesdeviceNodeMask
       VkPhysicalDeviceIDPropertiesdeviceLUID
@@ -14577,6 +16333,7 @@ ___return (externalbufferpropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14619,6 +16376,12 @@ ___return (externalbufferpropertieskhr);"))
       VkBool32
       "___return (___arg1->deviceLUIDValid);")
    (define-c-lambda
+      make-VkPhysicalDeviceIDProperties*
+      (int)
+      VkPhysicalDeviceIDProperties*
+      "VkPhysicalDeviceIDProperties* vkphysicaldeviceidproperties = malloc(___arg1 * sizeof(VkPhysicalDeviceIDProperties));
+      ___return (vkphysicaldeviceidproperties);")
+   (define-c-lambda
       make-VkPhysicalDeviceIDProperties
       (VkStructureType void* uint8_t* uint8_t* uint8_t* uint32_t VkBool32)
       VkPhysicalDeviceIDProperties*
@@ -14633,12 +16396,14 @@ physicaldeviceidproperties->deviceLUIDValid=___arg7;
 ___return (physicaldeviceidproperties);"))
 (begin-ffi
    (make-VkPhysicalDeviceIDPropertiesKHR
+      make-VkPhysicalDeviceIDPropertiesKHR*
       VkPhysicalDeviceIDPropertiesKHR
       VkPhysicalDeviceIDPropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14650,6 +16415,12 @@ ___return (physicaldeviceidproperties);"))
       VkPhysicalDeviceIDPropertiesKHR*
       (pointer VkPhysicalDeviceIDPropertiesKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceIDPropertiesKHR*
+      (int)
+      VkPhysicalDeviceIDPropertiesKHR*
+      "VkPhysicalDeviceIDPropertiesKHR* vkphysicaldeviceidpropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceIDPropertiesKHR));
+      ___return (vkphysicaldeviceidpropertieskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceIDPropertiesKHR
       ()
       VkPhysicalDeviceIDPropertiesKHR*
@@ -14657,6 +16428,7 @@ ___return (physicaldeviceidproperties);"))
 ___return (physicaldeviceidpropertieskhr);"))
 (begin-ffi
    (make-VkExternalMemoryImageCreateInfo
+      make-VkExternalMemoryImageCreateInfo*
       VkExternalMemoryImageCreateInfohandleTypes
       VkExternalMemoryImageCreateInfopNext
       VkExternalMemoryImageCreateInfosType
@@ -14666,6 +16438,7 @@ ___return (physicaldeviceidpropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14692,6 +16465,12 @@ ___return (physicaldeviceidpropertieskhr);"))
       VkExternalMemoryHandleTypeFlags
       "___return (___arg1->handleTypes);")
    (define-c-lambda
+      make-VkExternalMemoryImageCreateInfo*
+      (int)
+      VkExternalMemoryImageCreateInfo*
+      "VkExternalMemoryImageCreateInfo* vkexternalmemoryimagecreateinfo = malloc(___arg1 * sizeof(VkExternalMemoryImageCreateInfo));
+      ___return (vkexternalmemoryimagecreateinfo);")
+   (define-c-lambda
       make-VkExternalMemoryImageCreateInfo
       (VkStructureType void* VkExternalMemoryHandleTypeFlags)
       VkExternalMemoryImageCreateInfo*
@@ -14702,12 +16481,14 @@ externalmemoryimagecreateinfo->handleTypes=___arg3;
 ___return (externalmemoryimagecreateinfo);"))
 (begin-ffi
    (make-VkExternalMemoryImageCreateInfoKHR
+      make-VkExternalMemoryImageCreateInfoKHR*
       VkExternalMemoryImageCreateInfoKHR
       VkExternalMemoryImageCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14719,6 +16500,12 @@ ___return (externalmemoryimagecreateinfo);"))
       VkExternalMemoryImageCreateInfoKHR*
       (pointer VkExternalMemoryImageCreateInfoKHR))
    (define-c-lambda
+      make-VkExternalMemoryImageCreateInfoKHR*
+      (int)
+      VkExternalMemoryImageCreateInfoKHR*
+      "VkExternalMemoryImageCreateInfoKHR* vkexternalmemoryimagecreateinfokhr = malloc(___arg1 * sizeof(VkExternalMemoryImageCreateInfoKHR));
+      ___return (vkexternalmemoryimagecreateinfokhr);")
+   (define-c-lambda
       make-VkExternalMemoryImageCreateInfoKHR
       ()
       VkExternalMemoryImageCreateInfoKHR*
@@ -14726,6 +16513,7 @@ ___return (externalmemoryimagecreateinfo);"))
 ___return (externalmemoryimagecreateinfokhr);"))
 (begin-ffi
    (make-VkExternalMemoryBufferCreateInfo
+      make-VkExternalMemoryBufferCreateInfo*
       VkExternalMemoryBufferCreateInfohandleTypes
       VkExternalMemoryBufferCreateInfopNext
       VkExternalMemoryBufferCreateInfosType
@@ -14735,6 +16523,7 @@ ___return (externalmemoryimagecreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14761,6 +16550,12 @@ ___return (externalmemoryimagecreateinfokhr);"))
       VkExternalMemoryHandleTypeFlags
       "___return (___arg1->handleTypes);")
    (define-c-lambda
+      make-VkExternalMemoryBufferCreateInfo*
+      (int)
+      VkExternalMemoryBufferCreateInfo*
+      "VkExternalMemoryBufferCreateInfo* vkexternalmemorybuffercreateinfo = malloc(___arg1 * sizeof(VkExternalMemoryBufferCreateInfo));
+      ___return (vkexternalmemorybuffercreateinfo);")
+   (define-c-lambda
       make-VkExternalMemoryBufferCreateInfo
       (VkStructureType void* VkExternalMemoryHandleTypeFlags)
       VkExternalMemoryBufferCreateInfo*
@@ -14771,12 +16566,14 @@ externalmemorybuffercreateinfo->handleTypes=___arg3;
 ___return (externalmemorybuffercreateinfo);"))
 (begin-ffi
    (make-VkExternalMemoryBufferCreateInfoKHR
+      make-VkExternalMemoryBufferCreateInfoKHR*
       VkExternalMemoryBufferCreateInfoKHR
       VkExternalMemoryBufferCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14788,6 +16585,12 @@ ___return (externalmemorybuffercreateinfo);"))
       VkExternalMemoryBufferCreateInfoKHR*
       (pointer VkExternalMemoryBufferCreateInfoKHR))
    (define-c-lambda
+      make-VkExternalMemoryBufferCreateInfoKHR*
+      (int)
+      VkExternalMemoryBufferCreateInfoKHR*
+      "VkExternalMemoryBufferCreateInfoKHR* vkexternalmemorybuffercreateinfokhr = malloc(___arg1 * sizeof(VkExternalMemoryBufferCreateInfoKHR));
+      ___return (vkexternalmemorybuffercreateinfokhr);")
+   (define-c-lambda
       make-VkExternalMemoryBufferCreateInfoKHR
       ()
       VkExternalMemoryBufferCreateInfoKHR*
@@ -14795,6 +16598,7 @@ ___return (externalmemorybuffercreateinfo);"))
 ___return (externalmemorybuffercreateinfokhr);"))
 (begin-ffi
    (make-VkExportMemoryAllocateInfo
+      make-VkExportMemoryAllocateInfo*
       VkExportMemoryAllocateInfohandleTypes
       VkExportMemoryAllocateInfopNext
       VkExportMemoryAllocateInfosType
@@ -14804,6 +16608,7 @@ ___return (externalmemorybuffercreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14826,6 +16631,12 @@ ___return (externalmemorybuffercreateinfokhr);"))
       VkExternalMemoryHandleTypeFlags
       "___return (___arg1->handleTypes);")
    (define-c-lambda
+      make-VkExportMemoryAllocateInfo*
+      (int)
+      VkExportMemoryAllocateInfo*
+      "VkExportMemoryAllocateInfo* vkexportmemoryallocateinfo = malloc(___arg1 * sizeof(VkExportMemoryAllocateInfo));
+      ___return (vkexportmemoryallocateinfo);")
+   (define-c-lambda
       make-VkExportMemoryAllocateInfo
       (VkStructureType void* VkExternalMemoryHandleTypeFlags)
       VkExportMemoryAllocateInfo*
@@ -14836,18 +16647,26 @@ exportmemoryallocateinfo->handleTypes=___arg3;
 ___return (exportmemoryallocateinfo);"))
 (begin-ffi
    (make-VkExportMemoryAllocateInfoKHR
+      make-VkExportMemoryAllocateInfoKHR*
       VkExportMemoryAllocateInfoKHR
       VkExportMemoryAllocateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkExportMemoryAllocateInfoKHR (struct "VkExportMemoryAllocateInfoKHR"))
    (c-define-type VkExportMemoryAllocateInfoKHR* (pointer VkExportMemoryAllocateInfoKHR))
+   (define-c-lambda
+      make-VkExportMemoryAllocateInfoKHR*
+      (int)
+      VkExportMemoryAllocateInfoKHR*
+      "VkExportMemoryAllocateInfoKHR* vkexportmemoryallocateinfokhr = malloc(___arg1 * sizeof(VkExportMemoryAllocateInfoKHR));
+      ___return (vkexportmemoryallocateinfokhr);")
    (define-c-lambda
       make-VkExportMemoryAllocateInfoKHR
       ()
@@ -14856,6 +16675,7 @@ ___return (exportmemoryallocateinfo);"))
 ___return (exportmemoryallocateinfokhr);"))
 (begin-ffi
    (make-VkImportMemoryFdInfoKHR
+      make-VkImportMemoryFdInfoKHR*
       VkImportMemoryFdInfoKHRfd
       VkImportMemoryFdInfoKHRhandleType
       VkImportMemoryFdInfoKHRpNext
@@ -14866,6 +16686,7 @@ ___return (exportmemoryallocateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14893,6 +16714,12 @@ ___return (exportmemoryallocateinfokhr);"))
       int
       "___return (___arg1->fd);")
    (define-c-lambda
+      make-VkImportMemoryFdInfoKHR*
+      (int)
+      VkImportMemoryFdInfoKHR*
+      "VkImportMemoryFdInfoKHR* vkimportmemoryfdinfokhr = malloc(___arg1 * sizeof(VkImportMemoryFdInfoKHR));
+      ___return (vkimportmemoryfdinfokhr);")
+   (define-c-lambda
       make-VkImportMemoryFdInfoKHR
       (VkStructureType void* VkExternalMemoryHandleTypeFlagBits int)
       VkImportMemoryFdInfoKHR*
@@ -14904,6 +16731,7 @@ importmemoryfdinfokhr->fd=___arg4;
 ___return (importmemoryfdinfokhr);"))
 (begin-ffi
    (make-VkMemoryFdPropertiesKHR
+      make-VkMemoryFdPropertiesKHR*
       VkMemoryFdPropertiesKHRmemoryTypeBits
       VkMemoryFdPropertiesKHRpNext
       VkMemoryFdPropertiesKHRsType
@@ -14913,6 +16741,7 @@ ___return (importmemoryfdinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14935,6 +16764,12 @@ ___return (importmemoryfdinfokhr);"))
       uint32_t
       "___return (___arg1->memoryTypeBits);")
    (define-c-lambda
+      make-VkMemoryFdPropertiesKHR*
+      (int)
+      VkMemoryFdPropertiesKHR*
+      "VkMemoryFdPropertiesKHR* vkmemoryfdpropertieskhr = malloc(___arg1 * sizeof(VkMemoryFdPropertiesKHR));
+      ___return (vkmemoryfdpropertieskhr);")
+   (define-c-lambda
       make-VkMemoryFdPropertiesKHR
       (VkStructureType void* uint32_t)
       VkMemoryFdPropertiesKHR*
@@ -14945,6 +16780,7 @@ memoryfdpropertieskhr->memoryTypeBits=___arg3;
 ___return (memoryfdpropertieskhr);"))
 (begin-ffi
    (make-VkMemoryGetFdInfoKHR
+      make-VkMemoryGetFdInfoKHR*
       VkMemoryGetFdInfoKHRhandleType
       VkMemoryGetFdInfoKHRmemory
       VkMemoryGetFdInfoKHRpNext
@@ -14955,6 +16791,7 @@ ___return (memoryfdpropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -14982,6 +16819,12 @@ ___return (memoryfdpropertieskhr);"))
       VkExternalMemoryHandleTypeFlagBits
       "___return (___arg1->handleType);")
    (define-c-lambda
+      make-VkMemoryGetFdInfoKHR*
+      (int)
+      VkMemoryGetFdInfoKHR*
+      "VkMemoryGetFdInfoKHR* vkmemorygetfdinfokhr = malloc(___arg1 * sizeof(VkMemoryGetFdInfoKHR));
+      ___return (vkmemorygetfdinfokhr);")
+   (define-c-lambda
       make-VkMemoryGetFdInfoKHR
       (VkStructureType void* VkDeviceMemory VkExternalMemoryHandleTypeFlagBits)
       VkMemoryGetFdInfoKHR*
@@ -14993,6 +16836,7 @@ memorygetfdinfokhr->handleType=___arg4;
 ___return (memorygetfdinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalSemaphoreInfo
+      make-VkPhysicalDeviceExternalSemaphoreInfo*
       VkPhysicalDeviceExternalSemaphoreInfohandleType
       VkPhysicalDeviceExternalSemaphoreInfopNext
       VkPhysicalDeviceExternalSemaphoreInfosType
@@ -15002,6 +16846,7 @@ ___return (memorygetfdinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15028,6 +16873,12 @@ ___return (memorygetfdinfokhr);"))
       VkExternalSemaphoreHandleTypeFlagBits
       "___return (___arg1->handleType);")
    (define-c-lambda
+      make-VkPhysicalDeviceExternalSemaphoreInfo*
+      (int)
+      VkPhysicalDeviceExternalSemaphoreInfo*
+      "VkPhysicalDeviceExternalSemaphoreInfo* vkphysicaldeviceexternalsemaphoreinfo = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalSemaphoreInfo));
+      ___return (vkphysicaldeviceexternalsemaphoreinfo);")
+   (define-c-lambda
       make-VkPhysicalDeviceExternalSemaphoreInfo
       (VkStructureType void* VkExternalSemaphoreHandleTypeFlagBits)
       VkPhysicalDeviceExternalSemaphoreInfo*
@@ -15038,12 +16889,14 @@ physicaldeviceexternalsemaphoreinfo->handleType=___arg3;
 ___return (physicaldeviceexternalsemaphoreinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalSemaphoreInfoKHR
+      make-VkPhysicalDeviceExternalSemaphoreInfoKHR*
       VkPhysicalDeviceExternalSemaphoreInfoKHR
       VkPhysicalDeviceExternalSemaphoreInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15055,6 +16908,12 @@ ___return (physicaldeviceexternalsemaphoreinfo);"))
       VkPhysicalDeviceExternalSemaphoreInfoKHR*
       (pointer VkPhysicalDeviceExternalSemaphoreInfoKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceExternalSemaphoreInfoKHR*
+      (int)
+      VkPhysicalDeviceExternalSemaphoreInfoKHR*
+      "VkPhysicalDeviceExternalSemaphoreInfoKHR* vkphysicaldeviceexternalsemaphoreinfokhr = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalSemaphoreInfoKHR));
+      ___return (vkphysicaldeviceexternalsemaphoreinfokhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceExternalSemaphoreInfoKHR
       ()
       VkPhysicalDeviceExternalSemaphoreInfoKHR*
@@ -15062,6 +16921,7 @@ ___return (physicaldeviceexternalsemaphoreinfo);"))
 ___return (physicaldeviceexternalsemaphoreinfokhr);"))
 (begin-ffi
    (make-VkExternalSemaphoreProperties
+      make-VkExternalSemaphoreProperties*
       VkExternalSemaphorePropertiesexternalSemaphoreFeatures
       VkExternalSemaphorePropertiescompatibleHandleTypes
       VkExternalSemaphorePropertiesexportFromImportedHandleTypes
@@ -15073,6 +16933,7 @@ ___return (physicaldeviceexternalsemaphoreinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15105,6 +16966,12 @@ ___return (physicaldeviceexternalsemaphoreinfokhr);"))
       VkExternalSemaphoreFeatureFlags
       "___return (___arg1->externalSemaphoreFeatures);")
    (define-c-lambda
+      make-VkExternalSemaphoreProperties*
+      (int)
+      VkExternalSemaphoreProperties*
+      "VkExternalSemaphoreProperties* vkexternalsemaphoreproperties = malloc(___arg1 * sizeof(VkExternalSemaphoreProperties));
+      ___return (vkexternalsemaphoreproperties);")
+   (define-c-lambda
       make-VkExternalSemaphoreProperties
       (VkStructureType
          void*
@@ -15121,12 +16988,14 @@ externalsemaphoreproperties->externalSemaphoreFeatures=___arg5;
 ___return (externalsemaphoreproperties);"))
 (begin-ffi
    (make-VkExternalSemaphorePropertiesKHR
+      make-VkExternalSemaphorePropertiesKHR*
       VkExternalSemaphorePropertiesKHR
       VkExternalSemaphorePropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15138,6 +17007,12 @@ ___return (externalsemaphoreproperties);"))
       VkExternalSemaphorePropertiesKHR*
       (pointer VkExternalSemaphorePropertiesKHR))
    (define-c-lambda
+      make-VkExternalSemaphorePropertiesKHR*
+      (int)
+      VkExternalSemaphorePropertiesKHR*
+      "VkExternalSemaphorePropertiesKHR* vkexternalsemaphorepropertieskhr = malloc(___arg1 * sizeof(VkExternalSemaphorePropertiesKHR));
+      ___return (vkexternalsemaphorepropertieskhr);")
+   (define-c-lambda
       make-VkExternalSemaphorePropertiesKHR
       ()
       VkExternalSemaphorePropertiesKHR*
@@ -15145,6 +17020,7 @@ ___return (externalsemaphoreproperties);"))
 ___return (externalsemaphorepropertieskhr);"))
 (begin-ffi
    (make-VkExportSemaphoreCreateInfo
+      make-VkExportSemaphoreCreateInfo*
       VkExportSemaphoreCreateInfohandleTypes
       VkExportSemaphoreCreateInfopNext
       VkExportSemaphoreCreateInfosType
@@ -15154,6 +17030,7 @@ ___return (externalsemaphorepropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15176,6 +17053,12 @@ ___return (externalsemaphorepropertieskhr);"))
       VkExternalSemaphoreHandleTypeFlags
       "___return (___arg1->handleTypes);")
    (define-c-lambda
+      make-VkExportSemaphoreCreateInfo*
+      (int)
+      VkExportSemaphoreCreateInfo*
+      "VkExportSemaphoreCreateInfo* vkexportsemaphorecreateinfo = malloc(___arg1 * sizeof(VkExportSemaphoreCreateInfo));
+      ___return (vkexportsemaphorecreateinfo);")
+   (define-c-lambda
       make-VkExportSemaphoreCreateInfo
       (VkStructureType void* VkExternalSemaphoreHandleTypeFlags)
       VkExportSemaphoreCreateInfo*
@@ -15186,12 +17069,14 @@ exportsemaphorecreateinfo->handleTypes=___arg3;
 ___return (exportsemaphorecreateinfo);"))
 (begin-ffi
    (make-VkExportSemaphoreCreateInfoKHR
+      make-VkExportSemaphoreCreateInfoKHR*
       VkExportSemaphoreCreateInfoKHR
       VkExportSemaphoreCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15203,6 +17088,12 @@ ___return (exportsemaphorecreateinfo);"))
       VkExportSemaphoreCreateInfoKHR*
       (pointer VkExportSemaphoreCreateInfoKHR))
    (define-c-lambda
+      make-VkExportSemaphoreCreateInfoKHR*
+      (int)
+      VkExportSemaphoreCreateInfoKHR*
+      "VkExportSemaphoreCreateInfoKHR* vkexportsemaphorecreateinfokhr = malloc(___arg1 * sizeof(VkExportSemaphoreCreateInfoKHR));
+      ___return (vkexportsemaphorecreateinfokhr);")
+   (define-c-lambda
       make-VkExportSemaphoreCreateInfoKHR
       ()
       VkExportSemaphoreCreateInfoKHR*
@@ -15210,6 +17101,7 @@ ___return (exportsemaphorecreateinfo);"))
 ___return (exportsemaphorecreateinfokhr);"))
 (begin-ffi
    (make-VkImportSemaphoreFdInfoKHR
+      make-VkImportSemaphoreFdInfoKHR*
       VkImportSemaphoreFdInfoKHRfd
       VkImportSemaphoreFdInfoKHRhandleType
       VkImportSemaphoreFdInfoKHRflags
@@ -15222,6 +17114,7 @@ ___return (exportsemaphorecreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15259,6 +17152,12 @@ ___return (exportsemaphorecreateinfokhr);"))
       int
       "___return (___arg1->fd);")
    (define-c-lambda
+      make-VkImportSemaphoreFdInfoKHR*
+      (int)
+      VkImportSemaphoreFdInfoKHR*
+      "VkImportSemaphoreFdInfoKHR* vkimportsemaphorefdinfokhr = malloc(___arg1 * sizeof(VkImportSemaphoreFdInfoKHR));
+      ___return (vkimportsemaphorefdinfokhr);")
+   (define-c-lambda
       make-VkImportSemaphoreFdInfoKHR
       (VkStructureType
          void*
@@ -15277,6 +17176,7 @@ importsemaphorefdinfokhr->fd=___arg6;
 ___return (importsemaphorefdinfokhr);"))
 (begin-ffi
    (make-VkSemaphoreGetFdInfoKHR
+      make-VkSemaphoreGetFdInfoKHR*
       VkSemaphoreGetFdInfoKHRhandleType
       VkSemaphoreGetFdInfoKHRsemaphore
       VkSemaphoreGetFdInfoKHRpNext
@@ -15287,6 +17187,7 @@ ___return (importsemaphorefdinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15314,6 +17215,12 @@ ___return (importsemaphorefdinfokhr);"))
       VkExternalSemaphoreHandleTypeFlagBits
       "___return (___arg1->handleType);")
    (define-c-lambda
+      make-VkSemaphoreGetFdInfoKHR*
+      (int)
+      VkSemaphoreGetFdInfoKHR*
+      "VkSemaphoreGetFdInfoKHR* vksemaphoregetfdinfokhr = malloc(___arg1 * sizeof(VkSemaphoreGetFdInfoKHR));
+      ___return (vksemaphoregetfdinfokhr);")
+   (define-c-lambda
       make-VkSemaphoreGetFdInfoKHR
       (VkStructureType void* VkSemaphore VkExternalSemaphoreHandleTypeFlagBits)
       VkSemaphoreGetFdInfoKHR*
@@ -15325,6 +17232,7 @@ semaphoregetfdinfokhr->handleType=___arg4;
 ___return (semaphoregetfdinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalFenceInfo
+      make-VkPhysicalDeviceExternalFenceInfo*
       VkPhysicalDeviceExternalFenceInfohandleType
       VkPhysicalDeviceExternalFenceInfopNext
       VkPhysicalDeviceExternalFenceInfosType
@@ -15334,6 +17242,7 @@ ___return (semaphoregetfdinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15360,6 +17269,12 @@ ___return (semaphoregetfdinfokhr);"))
       VkExternalFenceHandleTypeFlagBits
       "___return (___arg1->handleType);")
    (define-c-lambda
+      make-VkPhysicalDeviceExternalFenceInfo*
+      (int)
+      VkPhysicalDeviceExternalFenceInfo*
+      "VkPhysicalDeviceExternalFenceInfo* vkphysicaldeviceexternalfenceinfo = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalFenceInfo));
+      ___return (vkphysicaldeviceexternalfenceinfo);")
+   (define-c-lambda
       make-VkPhysicalDeviceExternalFenceInfo
       (VkStructureType void* VkExternalFenceHandleTypeFlagBits)
       VkPhysicalDeviceExternalFenceInfo*
@@ -15370,12 +17285,14 @@ physicaldeviceexternalfenceinfo->handleType=___arg3;
 ___return (physicaldeviceexternalfenceinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalFenceInfoKHR
+      make-VkPhysicalDeviceExternalFenceInfoKHR*
       VkPhysicalDeviceExternalFenceInfoKHR
       VkPhysicalDeviceExternalFenceInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15387,6 +17304,12 @@ ___return (physicaldeviceexternalfenceinfo);"))
       VkPhysicalDeviceExternalFenceInfoKHR*
       (pointer VkPhysicalDeviceExternalFenceInfoKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceExternalFenceInfoKHR*
+      (int)
+      VkPhysicalDeviceExternalFenceInfoKHR*
+      "VkPhysicalDeviceExternalFenceInfoKHR* vkphysicaldeviceexternalfenceinfokhr = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalFenceInfoKHR));
+      ___return (vkphysicaldeviceexternalfenceinfokhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceExternalFenceInfoKHR
       ()
       VkPhysicalDeviceExternalFenceInfoKHR*
@@ -15394,6 +17317,7 @@ ___return (physicaldeviceexternalfenceinfo);"))
 ___return (physicaldeviceexternalfenceinfokhr);"))
 (begin-ffi
    (make-VkExternalFenceProperties
+      make-VkExternalFenceProperties*
       VkExternalFencePropertiesexternalFenceFeatures
       VkExternalFencePropertiescompatibleHandleTypes
       VkExternalFencePropertiesexportFromImportedHandleTypes
@@ -15405,6 +17329,7 @@ ___return (physicaldeviceexternalfenceinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15437,6 +17362,12 @@ ___return (physicaldeviceexternalfenceinfokhr);"))
       VkExternalFenceFeatureFlags
       "___return (___arg1->externalFenceFeatures);")
    (define-c-lambda
+      make-VkExternalFenceProperties*
+      (int)
+      VkExternalFenceProperties*
+      "VkExternalFenceProperties* vkexternalfenceproperties = malloc(___arg1 * sizeof(VkExternalFenceProperties));
+      ___return (vkexternalfenceproperties);")
+   (define-c-lambda
       make-VkExternalFenceProperties
       (VkStructureType
          void*
@@ -15453,18 +17384,26 @@ externalfenceproperties->externalFenceFeatures=___arg5;
 ___return (externalfenceproperties);"))
 (begin-ffi
    (make-VkExternalFencePropertiesKHR
+      make-VkExternalFencePropertiesKHR*
       VkExternalFencePropertiesKHR
       VkExternalFencePropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkExternalFencePropertiesKHR (struct "VkExternalFencePropertiesKHR"))
    (c-define-type VkExternalFencePropertiesKHR* (pointer VkExternalFencePropertiesKHR))
+   (define-c-lambda
+      make-VkExternalFencePropertiesKHR*
+      (int)
+      VkExternalFencePropertiesKHR*
+      "VkExternalFencePropertiesKHR* vkexternalfencepropertieskhr = malloc(___arg1 * sizeof(VkExternalFencePropertiesKHR));
+      ___return (vkexternalfencepropertieskhr);")
    (define-c-lambda
       make-VkExternalFencePropertiesKHR
       ()
@@ -15473,6 +17412,7 @@ ___return (externalfenceproperties);"))
 ___return (externalfencepropertieskhr);"))
 (begin-ffi
    (make-VkExportFenceCreateInfo
+      make-VkExportFenceCreateInfo*
       VkExportFenceCreateInfohandleTypes
       VkExportFenceCreateInfopNext
       VkExportFenceCreateInfosType
@@ -15482,6 +17422,7 @@ ___return (externalfencepropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15504,6 +17445,12 @@ ___return (externalfencepropertieskhr);"))
       VkExternalFenceHandleTypeFlags
       "___return (___arg1->handleTypes);")
    (define-c-lambda
+      make-VkExportFenceCreateInfo*
+      (int)
+      VkExportFenceCreateInfo*
+      "VkExportFenceCreateInfo* vkexportfencecreateinfo = malloc(___arg1 * sizeof(VkExportFenceCreateInfo));
+      ___return (vkexportfencecreateinfo);")
+   (define-c-lambda
       make-VkExportFenceCreateInfo
       (VkStructureType void* VkExternalFenceHandleTypeFlags)
       VkExportFenceCreateInfo*
@@ -15514,18 +17461,26 @@ exportfencecreateinfo->handleTypes=___arg3;
 ___return (exportfencecreateinfo);"))
 (begin-ffi
    (make-VkExportFenceCreateInfoKHR
+      make-VkExportFenceCreateInfoKHR*
       VkExportFenceCreateInfoKHR
       VkExportFenceCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkExportFenceCreateInfoKHR (struct "VkExportFenceCreateInfoKHR"))
    (c-define-type VkExportFenceCreateInfoKHR* (pointer VkExportFenceCreateInfoKHR))
+   (define-c-lambda
+      make-VkExportFenceCreateInfoKHR*
+      (int)
+      VkExportFenceCreateInfoKHR*
+      "VkExportFenceCreateInfoKHR* vkexportfencecreateinfokhr = malloc(___arg1 * sizeof(VkExportFenceCreateInfoKHR));
+      ___return (vkexportfencecreateinfokhr);")
    (define-c-lambda
       make-VkExportFenceCreateInfoKHR
       ()
@@ -15534,6 +17489,7 @@ ___return (exportfencecreateinfo);"))
 ___return (exportfencecreateinfokhr);"))
 (begin-ffi
    (make-VkImportFenceFdInfoKHR
+      make-VkImportFenceFdInfoKHR*
       VkImportFenceFdInfoKHRfd
       VkImportFenceFdInfoKHRhandleType
       VkImportFenceFdInfoKHRflags
@@ -15546,6 +17502,7 @@ ___return (exportfencecreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15583,6 +17540,12 @@ ___return (exportfencecreateinfokhr);"))
       int
       "___return (___arg1->fd);")
    (define-c-lambda
+      make-VkImportFenceFdInfoKHR*
+      (int)
+      VkImportFenceFdInfoKHR*
+      "VkImportFenceFdInfoKHR* vkimportfencefdinfokhr = malloc(___arg1 * sizeof(VkImportFenceFdInfoKHR));
+      ___return (vkimportfencefdinfokhr);")
+   (define-c-lambda
       make-VkImportFenceFdInfoKHR
       (VkStructureType
          void*
@@ -15601,6 +17564,7 @@ importfencefdinfokhr->fd=___arg6;
 ___return (importfencefdinfokhr);"))
 (begin-ffi
    (make-VkFenceGetFdInfoKHR
+      make-VkFenceGetFdInfoKHR*
       VkFenceGetFdInfoKHRhandleType
       VkFenceGetFdInfoKHRfence
       VkFenceGetFdInfoKHRpNext
@@ -15611,6 +17575,7 @@ ___return (importfencefdinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15638,6 +17603,12 @@ ___return (importfencefdinfokhr);"))
       VkExternalFenceHandleTypeFlagBits
       "___return (___arg1->handleType);")
    (define-c-lambda
+      make-VkFenceGetFdInfoKHR*
+      (int)
+      VkFenceGetFdInfoKHR*
+      "VkFenceGetFdInfoKHR* vkfencegetfdinfokhr = malloc(___arg1 * sizeof(VkFenceGetFdInfoKHR));
+      ___return (vkfencegetfdinfokhr);")
+   (define-c-lambda
       make-VkFenceGetFdInfoKHR
       (VkStructureType void* VkFence VkExternalFenceHandleTypeFlagBits)
       VkFenceGetFdInfoKHR*
@@ -15649,6 +17620,7 @@ fencegetfdinfokhr->handleType=___arg4;
 ___return (fencegetfdinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewFeatures
+      make-VkPhysicalDeviceMultiviewFeatures*
       VkPhysicalDeviceMultiviewFeaturesmultiviewTessellationShader
       VkPhysicalDeviceMultiviewFeaturesmultiviewGeometryShader
       VkPhysicalDeviceMultiviewFeaturesmultiview
@@ -15660,6 +17632,7 @@ ___return (fencegetfdinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15696,6 +17669,12 @@ ___return (fencegetfdinfokhr);"))
       VkBool32
       "___return (___arg1->multiviewTessellationShader);")
    (define-c-lambda
+      make-VkPhysicalDeviceMultiviewFeatures*
+      (int)
+      VkPhysicalDeviceMultiviewFeatures*
+      "VkPhysicalDeviceMultiviewFeatures* vkphysicaldevicemultiviewfeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceMultiviewFeatures));
+      ___return (vkphysicaldevicemultiviewfeatures);")
+   (define-c-lambda
       make-VkPhysicalDeviceMultiviewFeatures
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
       VkPhysicalDeviceMultiviewFeatures*
@@ -15708,12 +17687,14 @@ physicaldevicemultiviewfeatures->multiviewTessellationShader=___arg5;
 ___return (physicaldevicemultiviewfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewFeaturesKHR
+      make-VkPhysicalDeviceMultiviewFeaturesKHR*
       VkPhysicalDeviceMultiviewFeaturesKHR
       VkPhysicalDeviceMultiviewFeaturesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15725,6 +17706,12 @@ ___return (physicaldevicemultiviewfeatures);"))
       VkPhysicalDeviceMultiviewFeaturesKHR*
       (pointer VkPhysicalDeviceMultiviewFeaturesKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceMultiviewFeaturesKHR*
+      (int)
+      VkPhysicalDeviceMultiviewFeaturesKHR*
+      "VkPhysicalDeviceMultiviewFeaturesKHR* vkphysicaldevicemultiviewfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceMultiviewFeaturesKHR));
+      ___return (vkphysicaldevicemultiviewfeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceMultiviewFeaturesKHR
       ()
       VkPhysicalDeviceMultiviewFeaturesKHR*
@@ -15732,6 +17719,7 @@ ___return (physicaldevicemultiviewfeatures);"))
 ___return (physicaldevicemultiviewfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewProperties
+      make-VkPhysicalDeviceMultiviewProperties*
       VkPhysicalDeviceMultiviewPropertiesmaxMultiviewInstanceIndex
       VkPhysicalDeviceMultiviewPropertiesmaxMultiviewViewCount
       VkPhysicalDeviceMultiviewPropertiespNext
@@ -15742,6 +17730,7 @@ ___return (physicaldevicemultiviewfeatureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15773,6 +17762,12 @@ ___return (physicaldevicemultiviewfeatureskhr);"))
       uint32_t
       "___return (___arg1->maxMultiviewInstanceIndex);")
    (define-c-lambda
+      make-VkPhysicalDeviceMultiviewProperties*
+      (int)
+      VkPhysicalDeviceMultiviewProperties*
+      "VkPhysicalDeviceMultiviewProperties* vkphysicaldevicemultiviewproperties = malloc(___arg1 * sizeof(VkPhysicalDeviceMultiviewProperties));
+      ___return (vkphysicaldevicemultiviewproperties);")
+   (define-c-lambda
       make-VkPhysicalDeviceMultiviewProperties
       (VkStructureType void* uint32_t uint32_t)
       VkPhysicalDeviceMultiviewProperties*
@@ -15784,12 +17779,14 @@ physicaldevicemultiviewproperties->maxMultiviewInstanceIndex=___arg4;
 ___return (physicaldevicemultiviewproperties);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewPropertiesKHR
+      make-VkPhysicalDeviceMultiviewPropertiesKHR*
       VkPhysicalDeviceMultiviewPropertiesKHR
       VkPhysicalDeviceMultiviewPropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15801,6 +17798,12 @@ ___return (physicaldevicemultiviewproperties);"))
       VkPhysicalDeviceMultiviewPropertiesKHR*
       (pointer VkPhysicalDeviceMultiviewPropertiesKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceMultiviewPropertiesKHR*
+      (int)
+      VkPhysicalDeviceMultiviewPropertiesKHR*
+      "VkPhysicalDeviceMultiviewPropertiesKHR* vkphysicaldevicemultiviewpropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceMultiviewPropertiesKHR));
+      ___return (vkphysicaldevicemultiviewpropertieskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceMultiviewPropertiesKHR
       ()
       VkPhysicalDeviceMultiviewPropertiesKHR*
@@ -15808,6 +17811,7 @@ ___return (physicaldevicemultiviewproperties);"))
 ___return (physicaldevicemultiviewpropertieskhr);"))
 (begin-ffi
    (make-VkRenderPassMultiviewCreateInfo
+      make-VkRenderPassMultiviewCreateInfo*
       VkRenderPassMultiviewCreateInfopCorrelationMasks
       VkRenderPassMultiviewCreateInfocorrelationMaskCount
       VkRenderPassMultiviewCreateInfopViewOffsets
@@ -15822,6 +17826,7 @@ ___return (physicaldevicemultiviewpropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15873,6 +17878,12 @@ ___return (physicaldevicemultiviewpropertieskhr);"))
       uint32_t*
       "___return (___arg1->pCorrelationMasks);")
    (define-c-lambda
+      make-VkRenderPassMultiviewCreateInfo*
+      (int)
+      VkRenderPassMultiviewCreateInfo*
+      "VkRenderPassMultiviewCreateInfo* vkrenderpassmultiviewcreateinfo = malloc(___arg1 * sizeof(VkRenderPassMultiviewCreateInfo));
+      ___return (vkrenderpassmultiviewcreateinfo);")
+   (define-c-lambda
       make-VkRenderPassMultiviewCreateInfo
       (VkStructureType void* uint32_t uint32_t* uint32_t int32_t* uint32_t uint32_t*)
       VkRenderPassMultiviewCreateInfo*
@@ -15888,12 +17899,14 @@ renderpassmultiviewcreateinfo->pCorrelationMasks=___arg8;
 ___return (renderpassmultiviewcreateinfo);"))
 (begin-ffi
    (make-VkRenderPassMultiviewCreateInfoKHR
+      make-VkRenderPassMultiviewCreateInfoKHR*
       VkRenderPassMultiviewCreateInfoKHR
       VkRenderPassMultiviewCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -15905,6 +17918,12 @@ ___return (renderpassmultiviewcreateinfo);"))
       VkRenderPassMultiviewCreateInfoKHR*
       (pointer VkRenderPassMultiviewCreateInfoKHR))
    (define-c-lambda
+      make-VkRenderPassMultiviewCreateInfoKHR*
+      (int)
+      VkRenderPassMultiviewCreateInfoKHR*
+      "VkRenderPassMultiviewCreateInfoKHR* vkrenderpassmultiviewcreateinfokhr = malloc(___arg1 * sizeof(VkRenderPassMultiviewCreateInfoKHR));
+      ___return (vkrenderpassmultiviewcreateinfokhr);")
+   (define-c-lambda
       make-VkRenderPassMultiviewCreateInfoKHR
       ()
       VkRenderPassMultiviewCreateInfoKHR*
@@ -15912,6 +17931,7 @@ ___return (renderpassmultiviewcreateinfo);"))
 ___return (renderpassmultiviewcreateinfokhr);"))
 (begin-ffi
    (make-VkSurfaceCapabilities2EXT
+      make-VkSurfaceCapabilities2EXT*
       VkSurfaceCapabilities2EXTsupportedSurfaceCounters
       VkSurfaceCapabilities2EXTsupportedUsageFlags
       VkSurfaceCapabilities2EXTsupportedCompositeAlpha
@@ -15931,6 +17951,7 @@ ___return (renderpassmultiviewcreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16003,6 +18024,12 @@ ___return (renderpassmultiviewcreateinfokhr);"))
       VkSurfaceCounterFlagsEXT
       "___return (___arg1->supportedSurfaceCounters);")
    (define-c-lambda
+      make-VkSurfaceCapabilities2EXT*
+      (int)
+      VkSurfaceCapabilities2EXT*
+      "VkSurfaceCapabilities2EXT* vksurfacecapabilities2ext = malloc(___arg1 * sizeof(VkSurfaceCapabilities2EXT));
+      ___return (vksurfacecapabilities2ext);")
+   (define-c-lambda
       make-VkSurfaceCapabilities2EXT
       (VkStructureType
          void*
@@ -16035,6 +18062,7 @@ surfacecapabilities2ext->supportedSurfaceCounters=___arg13;
 ___return (surfacecapabilities2ext);"))
 (begin-ffi
    (make-VkDisplayPowerInfoEXT
+      make-VkDisplayPowerInfoEXT*
       VkDisplayPowerInfoEXTpowerState
       VkDisplayPowerInfoEXTpNext
       VkDisplayPowerInfoEXTsType
@@ -16044,6 +18072,7 @@ ___return (surfacecapabilities2ext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16066,6 +18095,12 @@ ___return (surfacecapabilities2ext);"))
       VkDisplayPowerStateEXT
       "___return (___arg1->powerState);")
    (define-c-lambda
+      make-VkDisplayPowerInfoEXT*
+      (int)
+      VkDisplayPowerInfoEXT*
+      "VkDisplayPowerInfoEXT* vkdisplaypowerinfoext = malloc(___arg1 * sizeof(VkDisplayPowerInfoEXT));
+      ___return (vkdisplaypowerinfoext);")
+   (define-c-lambda
       make-VkDisplayPowerInfoEXT
       (VkStructureType void* VkDisplayPowerStateEXT)
       VkDisplayPowerInfoEXT*
@@ -16076,6 +18111,7 @@ displaypowerinfoext->powerState=___arg3;
 ___return (displaypowerinfoext);"))
 (begin-ffi
    (make-VkDeviceEventInfoEXT
+      make-VkDeviceEventInfoEXT*
       VkDeviceEventInfoEXTdeviceEvent
       VkDeviceEventInfoEXTpNext
       VkDeviceEventInfoEXTsType
@@ -16085,6 +18121,7 @@ ___return (displaypowerinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16107,6 +18144,12 @@ ___return (displaypowerinfoext);"))
       VkDeviceEventTypeEXT
       "___return (___arg1->deviceEvent);")
    (define-c-lambda
+      make-VkDeviceEventInfoEXT*
+      (int)
+      VkDeviceEventInfoEXT*
+      "VkDeviceEventInfoEXT* vkdeviceeventinfoext = malloc(___arg1 * sizeof(VkDeviceEventInfoEXT));
+      ___return (vkdeviceeventinfoext);")
+   (define-c-lambda
       make-VkDeviceEventInfoEXT
       (VkStructureType void* VkDeviceEventTypeEXT)
       VkDeviceEventInfoEXT*
@@ -16117,6 +18160,7 @@ deviceeventinfoext->deviceEvent=___arg3;
 ___return (deviceeventinfoext);"))
 (begin-ffi
    (make-VkDisplayEventInfoEXT
+      make-VkDisplayEventInfoEXT*
       VkDisplayEventInfoEXTdisplayEvent
       VkDisplayEventInfoEXTpNext
       VkDisplayEventInfoEXTsType
@@ -16126,6 +18170,7 @@ ___return (deviceeventinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16148,6 +18193,12 @@ ___return (deviceeventinfoext);"))
       VkDisplayEventTypeEXT
       "___return (___arg1->displayEvent);")
    (define-c-lambda
+      make-VkDisplayEventInfoEXT*
+      (int)
+      VkDisplayEventInfoEXT*
+      "VkDisplayEventInfoEXT* vkdisplayeventinfoext = malloc(___arg1 * sizeof(VkDisplayEventInfoEXT));
+      ___return (vkdisplayeventinfoext);")
+   (define-c-lambda
       make-VkDisplayEventInfoEXT
       (VkStructureType void* VkDisplayEventTypeEXT)
       VkDisplayEventInfoEXT*
@@ -16158,6 +18209,7 @@ displayeventinfoext->displayEvent=___arg3;
 ___return (displayeventinfoext);"))
 (begin-ffi
    (make-VkSwapchainCounterCreateInfoEXT
+      make-VkSwapchainCounterCreateInfoEXT*
       VkSwapchainCounterCreateInfoEXTsurfaceCounters
       VkSwapchainCounterCreateInfoEXTpNext
       VkSwapchainCounterCreateInfoEXTsType
@@ -16167,6 +18219,7 @@ ___return (displayeventinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16193,6 +18246,12 @@ ___return (displayeventinfoext);"))
       VkSurfaceCounterFlagsEXT
       "___return (___arg1->surfaceCounters);")
    (define-c-lambda
+      make-VkSwapchainCounterCreateInfoEXT*
+      (int)
+      VkSwapchainCounterCreateInfoEXT*
+      "VkSwapchainCounterCreateInfoEXT* vkswapchaincountercreateinfoext = malloc(___arg1 * sizeof(VkSwapchainCounterCreateInfoEXT));
+      ___return (vkswapchaincountercreateinfoext);")
+   (define-c-lambda
       make-VkSwapchainCounterCreateInfoEXT
       (VkStructureType void* VkSurfaceCounterFlagsEXT)
       VkSwapchainCounterCreateInfoEXT*
@@ -16203,6 +18262,7 @@ swapchaincountercreateinfoext->surfaceCounters=___arg3;
 ___return (swapchaincountercreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceGroupProperties
+      make-VkPhysicalDeviceGroupProperties*
       VkPhysicalDeviceGroupPropertiessubsetAllocation
       VkPhysicalDeviceGroupPropertiesphysicalDevices
       VkPhysicalDeviceGroupPropertiesphysicalDeviceCount
@@ -16214,6 +18274,7 @@ ___return (swapchaincountercreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16250,6 +18311,12 @@ ___return (swapchaincountercreateinfoext);"))
       VkBool32
       "___return (___arg1->subsetAllocation);")
    (define-c-lambda
+      make-VkPhysicalDeviceGroupProperties*
+      (int)
+      VkPhysicalDeviceGroupProperties*
+      "VkPhysicalDeviceGroupProperties* vkphysicaldevicegroupproperties = malloc(___arg1 * sizeof(VkPhysicalDeviceGroupProperties));
+      ___return (vkphysicaldevicegroupproperties);")
+   (define-c-lambda
       make-VkPhysicalDeviceGroupProperties
       (VkStructureType void* uint32_t VkPhysicalDevice* VkBool32)
       VkPhysicalDeviceGroupProperties*
@@ -16262,12 +18329,14 @@ physicaldevicegroupproperties->subsetAllocation=___arg5;
 ___return (physicaldevicegroupproperties);"))
 (begin-ffi
    (make-VkPhysicalDeviceGroupPropertiesKHR
+      make-VkPhysicalDeviceGroupPropertiesKHR*
       VkPhysicalDeviceGroupPropertiesKHR
       VkPhysicalDeviceGroupPropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16279,6 +18348,12 @@ ___return (physicaldevicegroupproperties);"))
       VkPhysicalDeviceGroupPropertiesKHR*
       (pointer VkPhysicalDeviceGroupPropertiesKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceGroupPropertiesKHR*
+      (int)
+      VkPhysicalDeviceGroupPropertiesKHR*
+      "VkPhysicalDeviceGroupPropertiesKHR* vkphysicaldevicegrouppropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceGroupPropertiesKHR));
+      ___return (vkphysicaldevicegrouppropertieskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceGroupPropertiesKHR
       ()
       VkPhysicalDeviceGroupPropertiesKHR*
@@ -16286,6 +18361,7 @@ ___return (physicaldevicegroupproperties);"))
 ___return (physicaldevicegrouppropertieskhr);"))
 (begin-ffi
    (make-VkMemoryAllocateFlagsInfo
+      make-VkMemoryAllocateFlagsInfo*
       VkMemoryAllocateFlagsInfodeviceMask
       VkMemoryAllocateFlagsInfoflags
       VkMemoryAllocateFlagsInfopNext
@@ -16296,6 +18372,7 @@ ___return (physicaldevicegrouppropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16323,6 +18400,12 @@ ___return (physicaldevicegrouppropertieskhr);"))
       uint32_t
       "___return (___arg1->deviceMask);")
    (define-c-lambda
+      make-VkMemoryAllocateFlagsInfo*
+      (int)
+      VkMemoryAllocateFlagsInfo*
+      "VkMemoryAllocateFlagsInfo* vkmemoryallocateflagsinfo = malloc(___arg1 * sizeof(VkMemoryAllocateFlagsInfo));
+      ___return (vkmemoryallocateflagsinfo);")
+   (define-c-lambda
       make-VkMemoryAllocateFlagsInfo
       (VkStructureType void* VkMemoryAllocateFlags uint32_t)
       VkMemoryAllocateFlagsInfo*
@@ -16334,18 +18417,26 @@ memoryallocateflagsinfo->deviceMask=___arg4;
 ___return (memoryallocateflagsinfo);"))
 (begin-ffi
    (make-VkMemoryAllocateFlagsInfoKHR
+      make-VkMemoryAllocateFlagsInfoKHR*
       VkMemoryAllocateFlagsInfoKHR
       VkMemoryAllocateFlagsInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryAllocateFlagsInfoKHR (struct "VkMemoryAllocateFlagsInfoKHR"))
    (c-define-type VkMemoryAllocateFlagsInfoKHR* (pointer VkMemoryAllocateFlagsInfoKHR))
+   (define-c-lambda
+      make-VkMemoryAllocateFlagsInfoKHR*
+      (int)
+      VkMemoryAllocateFlagsInfoKHR*
+      "VkMemoryAllocateFlagsInfoKHR* vkmemoryallocateflagsinfokhr = malloc(___arg1 * sizeof(VkMemoryAllocateFlagsInfoKHR));
+      ___return (vkmemoryallocateflagsinfokhr);")
    (define-c-lambda
       make-VkMemoryAllocateFlagsInfoKHR
       ()
@@ -16354,6 +18445,7 @@ ___return (memoryallocateflagsinfo);"))
 ___return (memoryallocateflagsinfokhr);"))
 (begin-ffi
    (make-VkBindBufferMemoryInfo
+      make-VkBindBufferMemoryInfo*
       VkBindBufferMemoryInfomemoryOffset
       VkBindBufferMemoryInfomemory
       VkBindBufferMemoryInfobuffer
@@ -16365,6 +18457,7 @@ ___return (memoryallocateflagsinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16397,6 +18490,12 @@ ___return (memoryallocateflagsinfokhr);"))
       VkDeviceSize
       "___return (___arg1->memoryOffset);")
    (define-c-lambda
+      make-VkBindBufferMemoryInfo*
+      (int)
+      VkBindBufferMemoryInfo*
+      "VkBindBufferMemoryInfo* vkbindbuffermemoryinfo = malloc(___arg1 * sizeof(VkBindBufferMemoryInfo));
+      ___return (vkbindbuffermemoryinfo);")
+   (define-c-lambda
       make-VkBindBufferMemoryInfo
       (VkStructureType void* VkBuffer VkDeviceMemory VkDeviceSize)
       VkBindBufferMemoryInfo*
@@ -16408,17 +18507,27 @@ bindbuffermemoryinfo->memory=___arg4;
 bindbuffermemoryinfo->memoryOffset=___arg5;
 ___return (bindbuffermemoryinfo);"))
 (begin-ffi
-   (make-VkBindBufferMemoryInfoKHR VkBindBufferMemoryInfoKHR VkBindBufferMemoryInfoKHR*)
+   (make-VkBindBufferMemoryInfoKHR
+      make-VkBindBufferMemoryInfoKHR*
+      VkBindBufferMemoryInfoKHR
+      VkBindBufferMemoryInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkBindBufferMemoryInfoKHR (struct "VkBindBufferMemoryInfoKHR"))
    (c-define-type VkBindBufferMemoryInfoKHR* (pointer VkBindBufferMemoryInfoKHR))
+   (define-c-lambda
+      make-VkBindBufferMemoryInfoKHR*
+      (int)
+      VkBindBufferMemoryInfoKHR*
+      "VkBindBufferMemoryInfoKHR* vkbindbuffermemoryinfokhr = malloc(___arg1 * sizeof(VkBindBufferMemoryInfoKHR));
+      ___return (vkbindbuffermemoryinfokhr);")
    (define-c-lambda
       make-VkBindBufferMemoryInfoKHR
       ()
@@ -16427,6 +18536,7 @@ ___return (bindbuffermemoryinfo);"))
 ___return (bindbuffermemoryinfokhr);"))
 (begin-ffi
    (make-VkBindBufferMemoryDeviceGroupInfo
+      make-VkBindBufferMemoryDeviceGroupInfo*
       VkBindBufferMemoryDeviceGroupInfopDeviceIndices
       VkBindBufferMemoryDeviceGroupInfodeviceIndexCount
       VkBindBufferMemoryDeviceGroupInfopNext
@@ -16437,6 +18547,7 @@ ___return (bindbuffermemoryinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16468,6 +18579,12 @@ ___return (bindbuffermemoryinfokhr);"))
       uint32_t*
       "___return (___arg1->pDeviceIndices);")
    (define-c-lambda
+      make-VkBindBufferMemoryDeviceGroupInfo*
+      (int)
+      VkBindBufferMemoryDeviceGroupInfo*
+      "VkBindBufferMemoryDeviceGroupInfo* vkbindbuffermemorydevicegroupinfo = malloc(___arg1 * sizeof(VkBindBufferMemoryDeviceGroupInfo));
+      ___return (vkbindbuffermemorydevicegroupinfo);")
+   (define-c-lambda
       make-VkBindBufferMemoryDeviceGroupInfo
       (VkStructureType void* uint32_t uint32_t*)
       VkBindBufferMemoryDeviceGroupInfo*
@@ -16479,12 +18596,14 @@ bindbuffermemorydevicegroupinfo->pDeviceIndices=___arg4;
 ___return (bindbuffermemorydevicegroupinfo);"))
 (begin-ffi
    (make-VkBindBufferMemoryDeviceGroupInfoKHR
+      make-VkBindBufferMemoryDeviceGroupInfoKHR*
       VkBindBufferMemoryDeviceGroupInfoKHR
       VkBindBufferMemoryDeviceGroupInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16496,6 +18615,12 @@ ___return (bindbuffermemorydevicegroupinfo);"))
       VkBindBufferMemoryDeviceGroupInfoKHR*
       (pointer VkBindBufferMemoryDeviceGroupInfoKHR))
    (define-c-lambda
+      make-VkBindBufferMemoryDeviceGroupInfoKHR*
+      (int)
+      VkBindBufferMemoryDeviceGroupInfoKHR*
+      "VkBindBufferMemoryDeviceGroupInfoKHR* vkbindbuffermemorydevicegroupinfokhr = malloc(___arg1 * sizeof(VkBindBufferMemoryDeviceGroupInfoKHR));
+      ___return (vkbindbuffermemorydevicegroupinfokhr);")
+   (define-c-lambda
       make-VkBindBufferMemoryDeviceGroupInfoKHR
       ()
       VkBindBufferMemoryDeviceGroupInfoKHR*
@@ -16503,6 +18628,7 @@ ___return (bindbuffermemorydevicegroupinfo);"))
 ___return (bindbuffermemorydevicegroupinfokhr);"))
 (begin-ffi
    (make-VkBindImageMemoryInfo
+      make-VkBindImageMemoryInfo*
       VkBindImageMemoryInfomemoryOffset
       VkBindImageMemoryInfomemory
       VkBindImageMemoryInfoimage
@@ -16514,6 +18640,7 @@ ___return (bindbuffermemorydevicegroupinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16546,6 +18673,12 @@ ___return (bindbuffermemorydevicegroupinfokhr);"))
       VkDeviceSize
       "___return (___arg1->memoryOffset);")
    (define-c-lambda
+      make-VkBindImageMemoryInfo*
+      (int)
+      VkBindImageMemoryInfo*
+      "VkBindImageMemoryInfo* vkbindimagememoryinfo = malloc(___arg1 * sizeof(VkBindImageMemoryInfo));
+      ___return (vkbindimagememoryinfo);")
+   (define-c-lambda
       make-VkBindImageMemoryInfo
       (VkStructureType void* VkImage VkDeviceMemory VkDeviceSize)
       VkBindImageMemoryInfo*
@@ -16557,17 +18690,27 @@ bindimagememoryinfo->memory=___arg4;
 bindimagememoryinfo->memoryOffset=___arg5;
 ___return (bindimagememoryinfo);"))
 (begin-ffi
-   (make-VkBindImageMemoryInfoKHR VkBindImageMemoryInfoKHR VkBindImageMemoryInfoKHR*)
+   (make-VkBindImageMemoryInfoKHR
+      make-VkBindImageMemoryInfoKHR*
+      VkBindImageMemoryInfoKHR
+      VkBindImageMemoryInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkBindImageMemoryInfoKHR (struct "VkBindImageMemoryInfoKHR"))
    (c-define-type VkBindImageMemoryInfoKHR* (pointer VkBindImageMemoryInfoKHR))
+   (define-c-lambda
+      make-VkBindImageMemoryInfoKHR*
+      (int)
+      VkBindImageMemoryInfoKHR*
+      "VkBindImageMemoryInfoKHR* vkbindimagememoryinfokhr = malloc(___arg1 * sizeof(VkBindImageMemoryInfoKHR));
+      ___return (vkbindimagememoryinfokhr);")
    (define-c-lambda
       make-VkBindImageMemoryInfoKHR
       ()
@@ -16576,6 +18719,7 @@ ___return (bindimagememoryinfo);"))
 ___return (bindimagememoryinfokhr);"))
 (begin-ffi
    (make-VkBindImageMemoryDeviceGroupInfo
+      make-VkBindImageMemoryDeviceGroupInfo*
       VkBindImageMemoryDeviceGroupInfopSplitInstanceBindRegions
       VkBindImageMemoryDeviceGroupInfosplitInstanceBindRegionCount
       VkBindImageMemoryDeviceGroupInfopDeviceIndices
@@ -16588,6 +18732,7 @@ ___return (bindimagememoryinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16629,6 +18774,12 @@ ___return (bindimagememoryinfokhr);"))
       VkRect2D*
       "___return (___arg1->pSplitInstanceBindRegions);")
    (define-c-lambda
+      make-VkBindImageMemoryDeviceGroupInfo*
+      (int)
+      VkBindImageMemoryDeviceGroupInfo*
+      "VkBindImageMemoryDeviceGroupInfo* vkbindimagememorydevicegroupinfo = malloc(___arg1 * sizeof(VkBindImageMemoryDeviceGroupInfo));
+      ___return (vkbindimagememorydevicegroupinfo);")
+   (define-c-lambda
       make-VkBindImageMemoryDeviceGroupInfo
       (VkStructureType void* uint32_t uint32_t* uint32_t VkRect2D*)
       VkBindImageMemoryDeviceGroupInfo*
@@ -16642,12 +18793,14 @@ bindimagememorydevicegroupinfo->pSplitInstanceBindRegions=___arg6;
 ___return (bindimagememorydevicegroupinfo);"))
 (begin-ffi
    (make-VkBindImageMemoryDeviceGroupInfoKHR
+      make-VkBindImageMemoryDeviceGroupInfoKHR*
       VkBindImageMemoryDeviceGroupInfoKHR
       VkBindImageMemoryDeviceGroupInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16659,6 +18812,12 @@ ___return (bindimagememorydevicegroupinfo);"))
       VkBindImageMemoryDeviceGroupInfoKHR*
       (pointer VkBindImageMemoryDeviceGroupInfoKHR))
    (define-c-lambda
+      make-VkBindImageMemoryDeviceGroupInfoKHR*
+      (int)
+      VkBindImageMemoryDeviceGroupInfoKHR*
+      "VkBindImageMemoryDeviceGroupInfoKHR* vkbindimagememorydevicegroupinfokhr = malloc(___arg1 * sizeof(VkBindImageMemoryDeviceGroupInfoKHR));
+      ___return (vkbindimagememorydevicegroupinfokhr);")
+   (define-c-lambda
       make-VkBindImageMemoryDeviceGroupInfoKHR
       ()
       VkBindImageMemoryDeviceGroupInfoKHR*
@@ -16666,6 +18825,7 @@ ___return (bindimagememorydevicegroupinfo);"))
 ___return (bindimagememorydevicegroupinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupRenderPassBeginInfo
+      make-VkDeviceGroupRenderPassBeginInfo*
       VkDeviceGroupRenderPassBeginInfopDeviceRenderAreas
       VkDeviceGroupRenderPassBeginInfodeviceRenderAreaCount
       VkDeviceGroupRenderPassBeginInfodeviceMask
@@ -16677,6 +18837,7 @@ ___return (bindimagememorydevicegroupinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16713,6 +18874,12 @@ ___return (bindimagememorydevicegroupinfokhr);"))
       VkRect2D*
       "___return (___arg1->pDeviceRenderAreas);")
    (define-c-lambda
+      make-VkDeviceGroupRenderPassBeginInfo*
+      (int)
+      VkDeviceGroupRenderPassBeginInfo*
+      "VkDeviceGroupRenderPassBeginInfo* vkdevicegrouprenderpassbegininfo = malloc(___arg1 * sizeof(VkDeviceGroupRenderPassBeginInfo));
+      ___return (vkdevicegrouprenderpassbegininfo);")
+   (define-c-lambda
       make-VkDeviceGroupRenderPassBeginInfo
       (VkStructureType void* uint32_t uint32_t VkRect2D*)
       VkDeviceGroupRenderPassBeginInfo*
@@ -16725,12 +18892,14 @@ devicegrouprenderpassbegininfo->pDeviceRenderAreas=___arg5;
 ___return (devicegrouprenderpassbegininfo);"))
 (begin-ffi
    (make-VkDeviceGroupRenderPassBeginInfoKHR
+      make-VkDeviceGroupRenderPassBeginInfoKHR*
       VkDeviceGroupRenderPassBeginInfoKHR
       VkDeviceGroupRenderPassBeginInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16742,6 +18911,12 @@ ___return (devicegrouprenderpassbegininfo);"))
       VkDeviceGroupRenderPassBeginInfoKHR*
       (pointer VkDeviceGroupRenderPassBeginInfoKHR))
    (define-c-lambda
+      make-VkDeviceGroupRenderPassBeginInfoKHR*
+      (int)
+      VkDeviceGroupRenderPassBeginInfoKHR*
+      "VkDeviceGroupRenderPassBeginInfoKHR* vkdevicegrouprenderpassbegininfokhr = malloc(___arg1 * sizeof(VkDeviceGroupRenderPassBeginInfoKHR));
+      ___return (vkdevicegrouprenderpassbegininfokhr);")
+   (define-c-lambda
       make-VkDeviceGroupRenderPassBeginInfoKHR
       ()
       VkDeviceGroupRenderPassBeginInfoKHR*
@@ -16749,6 +18924,7 @@ ___return (devicegrouprenderpassbegininfo);"))
 ___return (devicegrouprenderpassbegininfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupCommandBufferBeginInfo
+      make-VkDeviceGroupCommandBufferBeginInfo*
       VkDeviceGroupCommandBufferBeginInfodeviceMask
       VkDeviceGroupCommandBufferBeginInfopNext
       VkDeviceGroupCommandBufferBeginInfosType
@@ -16758,6 +18934,7 @@ ___return (devicegrouprenderpassbegininfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16784,6 +18961,12 @@ ___return (devicegrouprenderpassbegininfokhr);"))
       uint32_t
       "___return (___arg1->deviceMask);")
    (define-c-lambda
+      make-VkDeviceGroupCommandBufferBeginInfo*
+      (int)
+      VkDeviceGroupCommandBufferBeginInfo*
+      "VkDeviceGroupCommandBufferBeginInfo* vkdevicegroupcommandbufferbegininfo = malloc(___arg1 * sizeof(VkDeviceGroupCommandBufferBeginInfo));
+      ___return (vkdevicegroupcommandbufferbegininfo);")
+   (define-c-lambda
       make-VkDeviceGroupCommandBufferBeginInfo
       (VkStructureType void* uint32_t)
       VkDeviceGroupCommandBufferBeginInfo*
@@ -16794,12 +18977,14 @@ devicegroupcommandbufferbegininfo->deviceMask=___arg3;
 ___return (devicegroupcommandbufferbegininfo);"))
 (begin-ffi
    (make-VkDeviceGroupCommandBufferBeginInfoKHR
+      make-VkDeviceGroupCommandBufferBeginInfoKHR*
       VkDeviceGroupCommandBufferBeginInfoKHR
       VkDeviceGroupCommandBufferBeginInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16811,6 +18996,12 @@ ___return (devicegroupcommandbufferbegininfo);"))
       VkDeviceGroupCommandBufferBeginInfoKHR*
       (pointer VkDeviceGroupCommandBufferBeginInfoKHR))
    (define-c-lambda
+      make-VkDeviceGroupCommandBufferBeginInfoKHR*
+      (int)
+      VkDeviceGroupCommandBufferBeginInfoKHR*
+      "VkDeviceGroupCommandBufferBeginInfoKHR* vkdevicegroupcommandbufferbegininfokhr = malloc(___arg1 * sizeof(VkDeviceGroupCommandBufferBeginInfoKHR));
+      ___return (vkdevicegroupcommandbufferbegininfokhr);")
+   (define-c-lambda
       make-VkDeviceGroupCommandBufferBeginInfoKHR
       ()
       VkDeviceGroupCommandBufferBeginInfoKHR*
@@ -16818,6 +19009,7 @@ ___return (devicegroupcommandbufferbegininfo);"))
 ___return (devicegroupcommandbufferbegininfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupSubmitInfo
+      make-VkDeviceGroupSubmitInfo*
       VkDeviceGroupSubmitInfopSignalSemaphoreDeviceIndices
       VkDeviceGroupSubmitInfosignalSemaphoreCount
       VkDeviceGroupSubmitInfopCommandBufferDeviceMasks
@@ -16832,6 +19024,7 @@ ___return (devicegroupcommandbufferbegininfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16879,6 +19072,12 @@ ___return (devicegroupcommandbufferbegininfokhr);"))
       uint32_t*
       "___return (___arg1->pSignalSemaphoreDeviceIndices);")
    (define-c-lambda
+      make-VkDeviceGroupSubmitInfo*
+      (int)
+      VkDeviceGroupSubmitInfo*
+      "VkDeviceGroupSubmitInfo* vkdevicegroupsubmitinfo = malloc(___arg1 * sizeof(VkDeviceGroupSubmitInfo));
+      ___return (vkdevicegroupsubmitinfo);")
+   (define-c-lambda
       make-VkDeviceGroupSubmitInfo
       (VkStructureType void* uint32_t uint32_t* uint32_t uint32_t* uint32_t uint32_t*)
       VkDeviceGroupSubmitInfo*
@@ -16894,18 +19093,26 @@ devicegroupsubmitinfo->pSignalSemaphoreDeviceIndices=___arg8;
 ___return (devicegroupsubmitinfo);"))
 (begin-ffi
    (make-VkDeviceGroupSubmitInfoKHR
+      make-VkDeviceGroupSubmitInfoKHR*
       VkDeviceGroupSubmitInfoKHR
       VkDeviceGroupSubmitInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkDeviceGroupSubmitInfoKHR (struct "VkDeviceGroupSubmitInfoKHR"))
    (c-define-type VkDeviceGroupSubmitInfoKHR* (pointer VkDeviceGroupSubmitInfoKHR))
+   (define-c-lambda
+      make-VkDeviceGroupSubmitInfoKHR*
+      (int)
+      VkDeviceGroupSubmitInfoKHR*
+      "VkDeviceGroupSubmitInfoKHR* vkdevicegroupsubmitinfokhr = malloc(___arg1 * sizeof(VkDeviceGroupSubmitInfoKHR));
+      ___return (vkdevicegroupsubmitinfokhr);")
    (define-c-lambda
       make-VkDeviceGroupSubmitInfoKHR
       ()
@@ -16914,6 +19121,7 @@ ___return (devicegroupsubmitinfo);"))
 ___return (devicegroupsubmitinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupBindSparseInfo
+      make-VkDeviceGroupBindSparseInfo*
       VkDeviceGroupBindSparseInfomemoryDeviceIndex
       VkDeviceGroupBindSparseInforesourceDeviceIndex
       VkDeviceGroupBindSparseInfopNext
@@ -16924,6 +19132,7 @@ ___return (devicegroupsubmitinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16951,6 +19160,12 @@ ___return (devicegroupsubmitinfokhr);"))
       uint32_t
       "___return (___arg1->memoryDeviceIndex);")
    (define-c-lambda
+      make-VkDeviceGroupBindSparseInfo*
+      (int)
+      VkDeviceGroupBindSparseInfo*
+      "VkDeviceGroupBindSparseInfo* vkdevicegroupbindsparseinfo = malloc(___arg1 * sizeof(VkDeviceGroupBindSparseInfo));
+      ___return (vkdevicegroupbindsparseinfo);")
+   (define-c-lambda
       make-VkDeviceGroupBindSparseInfo
       (VkStructureType void* uint32_t uint32_t)
       VkDeviceGroupBindSparseInfo*
@@ -16962,12 +19177,14 @@ devicegroupbindsparseinfo->memoryDeviceIndex=___arg4;
 ___return (devicegroupbindsparseinfo);"))
 (begin-ffi
    (make-VkDeviceGroupBindSparseInfoKHR
+      make-VkDeviceGroupBindSparseInfoKHR*
       VkDeviceGroupBindSparseInfoKHR
       VkDeviceGroupBindSparseInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16979,6 +19196,12 @@ ___return (devicegroupbindsparseinfo);"))
       VkDeviceGroupBindSparseInfoKHR*
       (pointer VkDeviceGroupBindSparseInfoKHR))
    (define-c-lambda
+      make-VkDeviceGroupBindSparseInfoKHR*
+      (int)
+      VkDeviceGroupBindSparseInfoKHR*
+      "VkDeviceGroupBindSparseInfoKHR* vkdevicegroupbindsparseinfokhr = malloc(___arg1 * sizeof(VkDeviceGroupBindSparseInfoKHR));
+      ___return (vkdevicegroupbindsparseinfokhr);")
+   (define-c-lambda
       make-VkDeviceGroupBindSparseInfoKHR
       ()
       VkDeviceGroupBindSparseInfoKHR*
@@ -16986,6 +19209,7 @@ ___return (devicegroupbindsparseinfo);"))
 ___return (devicegroupbindsparseinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupPresentCapabilitiesKHR
+      make-VkDeviceGroupPresentCapabilitiesKHR*
       VkDeviceGroupPresentCapabilitiesKHRmodes
       VkDeviceGroupPresentCapabilitiesKHRpresentMask
       VkDeviceGroupPresentCapabilitiesKHRpNext
@@ -16996,6 +19220,7 @@ ___return (devicegroupbindsparseinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17027,6 +19252,12 @@ ___return (devicegroupbindsparseinfokhr);"))
       VkDeviceGroupPresentModeFlagsKHR
       "___return (___arg1->modes);")
    (define-c-lambda
+      make-VkDeviceGroupPresentCapabilitiesKHR*
+      (int)
+      VkDeviceGroupPresentCapabilitiesKHR*
+      "VkDeviceGroupPresentCapabilitiesKHR* vkdevicegrouppresentcapabilitieskhr = malloc(___arg1 * sizeof(VkDeviceGroupPresentCapabilitiesKHR));
+      ___return (vkdevicegrouppresentcapabilitieskhr);")
+   (define-c-lambda
       make-VkDeviceGroupPresentCapabilitiesKHR
       (VkStructureType void* uint32_t* VkDeviceGroupPresentModeFlagsKHR)
       VkDeviceGroupPresentCapabilitiesKHR*
@@ -17038,6 +19269,7 @@ devicegrouppresentcapabilitieskhr->modes=___arg4;
 ___return (devicegrouppresentcapabilitieskhr);"))
 (begin-ffi
    (make-VkImageSwapchainCreateInfoKHR
+      make-VkImageSwapchainCreateInfoKHR*
       VkImageSwapchainCreateInfoKHRswapchain
       VkImageSwapchainCreateInfoKHRpNext
       VkImageSwapchainCreateInfoKHRsType
@@ -17047,6 +19279,7 @@ ___return (devicegrouppresentcapabilitieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17069,6 +19302,12 @@ ___return (devicegrouppresentcapabilitieskhr);"))
       VkSwapchainKHR
       "___return (___arg1->swapchain);")
    (define-c-lambda
+      make-VkImageSwapchainCreateInfoKHR*
+      (int)
+      VkImageSwapchainCreateInfoKHR*
+      "VkImageSwapchainCreateInfoKHR* vkimageswapchaincreateinfokhr = malloc(___arg1 * sizeof(VkImageSwapchainCreateInfoKHR));
+      ___return (vkimageswapchaincreateinfokhr);")
+   (define-c-lambda
       make-VkImageSwapchainCreateInfoKHR
       (VkStructureType void* VkSwapchainKHR)
       VkImageSwapchainCreateInfoKHR*
@@ -17079,6 +19318,7 @@ imageswapchaincreateinfokhr->swapchain=___arg3;
 ___return (imageswapchaincreateinfokhr);"))
 (begin-ffi
    (make-VkBindImageMemorySwapchainInfoKHR
+      make-VkBindImageMemorySwapchainInfoKHR*
       VkBindImageMemorySwapchainInfoKHRimageIndex
       VkBindImageMemorySwapchainInfoKHRswapchain
       VkBindImageMemorySwapchainInfoKHRpNext
@@ -17089,6 +19329,7 @@ ___return (imageswapchaincreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17120,6 +19361,12 @@ ___return (imageswapchaincreateinfokhr);"))
       uint32_t
       "___return (___arg1->imageIndex);")
    (define-c-lambda
+      make-VkBindImageMemorySwapchainInfoKHR*
+      (int)
+      VkBindImageMemorySwapchainInfoKHR*
+      "VkBindImageMemorySwapchainInfoKHR* vkbindimagememoryswapchaininfokhr = malloc(___arg1 * sizeof(VkBindImageMemorySwapchainInfoKHR));
+      ___return (vkbindimagememoryswapchaininfokhr);")
+   (define-c-lambda
       make-VkBindImageMemorySwapchainInfoKHR
       (VkStructureType void* VkSwapchainKHR uint32_t)
       VkBindImageMemorySwapchainInfoKHR*
@@ -17131,6 +19378,7 @@ bindimagememoryswapchaininfokhr->imageIndex=___arg4;
 ___return (bindimagememoryswapchaininfokhr);"))
 (begin-ffi
    (make-VkAcquireNextImageInfoKHR
+      make-VkAcquireNextImageInfoKHR*
       VkAcquireNextImageInfoKHRdeviceMask
       VkAcquireNextImageInfoKHRfence
       VkAcquireNextImageInfoKHRsemaphore
@@ -17144,6 +19392,7 @@ ___return (bindimagememoryswapchaininfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17186,6 +19435,12 @@ ___return (bindimagememoryswapchaininfokhr);"))
       uint32_t
       "___return (___arg1->deviceMask);")
    (define-c-lambda
+      make-VkAcquireNextImageInfoKHR*
+      (int)
+      VkAcquireNextImageInfoKHR*
+      "VkAcquireNextImageInfoKHR* vkacquirenextimageinfokhr = malloc(___arg1 * sizeof(VkAcquireNextImageInfoKHR));
+      ___return (vkacquirenextimageinfokhr);")
+   (define-c-lambda
       make-VkAcquireNextImageInfoKHR
       (VkStructureType void* VkSwapchainKHR uint64_t VkSemaphore VkFence uint32_t)
       VkAcquireNextImageInfoKHR*
@@ -17200,6 +19455,7 @@ acquirenextimageinfokhr->deviceMask=___arg7;
 ___return (acquirenextimageinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupPresentInfoKHR
+      make-VkDeviceGroupPresentInfoKHR*
       VkDeviceGroupPresentInfoKHRmode
       VkDeviceGroupPresentInfoKHRpDeviceMasks
       VkDeviceGroupPresentInfoKHRswapchainCount
@@ -17211,6 +19467,7 @@ ___return (acquirenextimageinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17243,6 +19500,12 @@ ___return (acquirenextimageinfokhr);"))
       VkDeviceGroupPresentModeFlagBitsKHR
       "___return (___arg1->mode);")
    (define-c-lambda
+      make-VkDeviceGroupPresentInfoKHR*
+      (int)
+      VkDeviceGroupPresentInfoKHR*
+      "VkDeviceGroupPresentInfoKHR* vkdevicegrouppresentinfokhr = malloc(___arg1 * sizeof(VkDeviceGroupPresentInfoKHR));
+      ___return (vkdevicegrouppresentinfokhr);")
+   (define-c-lambda
       make-VkDeviceGroupPresentInfoKHR
       (VkStructureType void* uint32_t uint32_t* VkDeviceGroupPresentModeFlagBitsKHR)
       VkDeviceGroupPresentInfoKHR*
@@ -17255,6 +19518,7 @@ devicegrouppresentinfokhr->mode=___arg5;
 ___return (devicegrouppresentinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupDeviceCreateInfo
+      make-VkDeviceGroupDeviceCreateInfo*
       VkDeviceGroupDeviceCreateInfopPhysicalDevices
       VkDeviceGroupDeviceCreateInfophysicalDeviceCount
       VkDeviceGroupDeviceCreateInfopNext
@@ -17265,6 +19529,7 @@ ___return (devicegrouppresentinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17292,6 +19557,12 @@ ___return (devicegrouppresentinfokhr);"))
       VkPhysicalDevice*
       "___return (___arg1->pPhysicalDevices);")
    (define-c-lambda
+      make-VkDeviceGroupDeviceCreateInfo*
+      (int)
+      VkDeviceGroupDeviceCreateInfo*
+      "VkDeviceGroupDeviceCreateInfo* vkdevicegroupdevicecreateinfo = malloc(___arg1 * sizeof(VkDeviceGroupDeviceCreateInfo));
+      ___return (vkdevicegroupdevicecreateinfo);")
+   (define-c-lambda
       make-VkDeviceGroupDeviceCreateInfo
       (VkStructureType void* uint32_t VkPhysicalDevice*)
       VkDeviceGroupDeviceCreateInfo*
@@ -17303,12 +19574,14 @@ devicegroupdevicecreateinfo->pPhysicalDevices=___arg4;
 ___return (devicegroupdevicecreateinfo);"))
 (begin-ffi
    (make-VkDeviceGroupDeviceCreateInfoKHR
+      make-VkDeviceGroupDeviceCreateInfoKHR*
       VkDeviceGroupDeviceCreateInfoKHR
       VkDeviceGroupDeviceCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17320,6 +19593,12 @@ ___return (devicegroupdevicecreateinfo);"))
       VkDeviceGroupDeviceCreateInfoKHR*
       (pointer VkDeviceGroupDeviceCreateInfoKHR))
    (define-c-lambda
+      make-VkDeviceGroupDeviceCreateInfoKHR*
+      (int)
+      VkDeviceGroupDeviceCreateInfoKHR*
+      "VkDeviceGroupDeviceCreateInfoKHR* vkdevicegroupdevicecreateinfokhr = malloc(___arg1 * sizeof(VkDeviceGroupDeviceCreateInfoKHR));
+      ___return (vkdevicegroupdevicecreateinfokhr);")
+   (define-c-lambda
       make-VkDeviceGroupDeviceCreateInfoKHR
       ()
       VkDeviceGroupDeviceCreateInfoKHR*
@@ -17327,6 +19606,7 @@ ___return (devicegroupdevicecreateinfo);"))
 ___return (devicegroupdevicecreateinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupSwapchainCreateInfoKHR
+      make-VkDeviceGroupSwapchainCreateInfoKHR*
       VkDeviceGroupSwapchainCreateInfoKHRmodes
       VkDeviceGroupSwapchainCreateInfoKHRpNext
       VkDeviceGroupSwapchainCreateInfoKHRsType
@@ -17336,6 +19616,7 @@ ___return (devicegroupdevicecreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17362,6 +19643,12 @@ ___return (devicegroupdevicecreateinfokhr);"))
       VkDeviceGroupPresentModeFlagsKHR
       "___return (___arg1->modes);")
    (define-c-lambda
+      make-VkDeviceGroupSwapchainCreateInfoKHR*
+      (int)
+      VkDeviceGroupSwapchainCreateInfoKHR*
+      "VkDeviceGroupSwapchainCreateInfoKHR* vkdevicegroupswapchaincreateinfokhr = malloc(___arg1 * sizeof(VkDeviceGroupSwapchainCreateInfoKHR));
+      ___return (vkdevicegroupswapchaincreateinfokhr);")
+   (define-c-lambda
       make-VkDeviceGroupSwapchainCreateInfoKHR
       (VkStructureType void* VkDeviceGroupPresentModeFlagsKHR)
       VkDeviceGroupSwapchainCreateInfoKHR*
@@ -17372,6 +19659,7 @@ devicegroupswapchaincreateinfokhr->modes=___arg3;
 ___return (devicegroupswapchaincreateinfokhr);"))
 (begin-ffi
    (make-VkDescriptorUpdateTemplateEntry
+      make-VkDescriptorUpdateTemplateEntry*
       VkDescriptorUpdateTemplateEntrystride
       VkDescriptorUpdateTemplateEntryoffset
       VkDescriptorUpdateTemplateEntrydescriptorType
@@ -17384,6 +19672,7 @@ ___return (devicegroupswapchaincreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17425,6 +19714,12 @@ ___return (devicegroupswapchaincreateinfokhr);"))
       size_t
       "___return (___arg1->stride);")
    (define-c-lambda
+      make-VkDescriptorUpdateTemplateEntry*
+      (int)
+      VkDescriptorUpdateTemplateEntry*
+      "VkDescriptorUpdateTemplateEntry* vkdescriptorupdatetemplateentry = malloc(___arg1 * sizeof(VkDescriptorUpdateTemplateEntry));
+      ___return (vkdescriptorupdatetemplateentry);")
+   (define-c-lambda
       make-VkDescriptorUpdateTemplateEntry
       (uint32_t uint32_t uint32_t VkDescriptorType size_t size_t)
       VkDescriptorUpdateTemplateEntry*
@@ -17438,12 +19733,14 @@ descriptorupdatetemplateentry->stride=___arg6;
 ___return (descriptorupdatetemplateentry);"))
 (begin-ffi
    (make-VkDescriptorUpdateTemplateEntryKHR
+      make-VkDescriptorUpdateTemplateEntryKHR*
       VkDescriptorUpdateTemplateEntryKHR
       VkDescriptorUpdateTemplateEntryKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17455,6 +19752,12 @@ ___return (descriptorupdatetemplateentry);"))
       VkDescriptorUpdateTemplateEntryKHR*
       (pointer VkDescriptorUpdateTemplateEntryKHR))
    (define-c-lambda
+      make-VkDescriptorUpdateTemplateEntryKHR*
+      (int)
+      VkDescriptorUpdateTemplateEntryKHR*
+      "VkDescriptorUpdateTemplateEntryKHR* vkdescriptorupdatetemplateentrykhr = malloc(___arg1 * sizeof(VkDescriptorUpdateTemplateEntryKHR));
+      ___return (vkdescriptorupdatetemplateentrykhr);")
+   (define-c-lambda
       make-VkDescriptorUpdateTemplateEntryKHR
       ()
       VkDescriptorUpdateTemplateEntryKHR*
@@ -17462,6 +19765,7 @@ ___return (descriptorupdatetemplateentry);"))
 ___return (descriptorupdatetemplateentrykhr);"))
 (begin-ffi
    (make-VkDescriptorUpdateTemplateCreateInfo
+      make-VkDescriptorUpdateTemplateCreateInfo*
       VkDescriptorUpdateTemplateCreateInfoset
       VkDescriptorUpdateTemplateCreateInfopipelineLayout
       VkDescriptorUpdateTemplateCreateInfopipelineBindPoint
@@ -17478,6 +19782,7 @@ ___return (descriptorupdatetemplateentrykhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17539,6 +19844,12 @@ ___return (descriptorupdatetemplateentrykhr);"))
       uint32_t
       "___return (___arg1->set);")
    (define-c-lambda
+      make-VkDescriptorUpdateTemplateCreateInfo*
+      (int)
+      VkDescriptorUpdateTemplateCreateInfo*
+      "VkDescriptorUpdateTemplateCreateInfo* vkdescriptorupdatetemplatecreateinfo = malloc(___arg1 * sizeof(VkDescriptorUpdateTemplateCreateInfo));
+      ___return (vkdescriptorupdatetemplatecreateinfo);")
+   (define-c-lambda
       make-VkDescriptorUpdateTemplateCreateInfo
       (VkStructureType
          void*
@@ -17565,12 +19876,14 @@ descriptorupdatetemplatecreateinfo->set=___arg10;
 ___return (descriptorupdatetemplatecreateinfo);"))
 (begin-ffi
    (make-VkDescriptorUpdateTemplateCreateInfoKHR
+      make-VkDescriptorUpdateTemplateCreateInfoKHR*
       VkDescriptorUpdateTemplateCreateInfoKHR
       VkDescriptorUpdateTemplateCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17582,17 +19895,29 @@ ___return (descriptorupdatetemplatecreateinfo);"))
       VkDescriptorUpdateTemplateCreateInfoKHR*
       (pointer VkDescriptorUpdateTemplateCreateInfoKHR))
    (define-c-lambda
+      make-VkDescriptorUpdateTemplateCreateInfoKHR*
+      (int)
+      VkDescriptorUpdateTemplateCreateInfoKHR*
+      "VkDescriptorUpdateTemplateCreateInfoKHR* vkdescriptorupdatetemplatecreateinfokhr = malloc(___arg1 * sizeof(VkDescriptorUpdateTemplateCreateInfoKHR));
+      ___return (vkdescriptorupdatetemplatecreateinfokhr);")
+   (define-c-lambda
       make-VkDescriptorUpdateTemplateCreateInfoKHR
       ()
       VkDescriptorUpdateTemplateCreateInfoKHR*
       "VkDescriptorUpdateTemplateCreateInfoKHR *descriptorupdatetemplatecreateinfokhr = malloc(sizeof(VkDescriptorUpdateTemplateCreateInfoKHR));
 ___return (descriptorupdatetemplatecreateinfokhr);"))
 (begin-ffi
-   (make-VkXYColorEXT VkXYColorEXTy VkXYColorEXTx VkXYColorEXT VkXYColorEXT*)
+   (make-VkXYColorEXT
+      make-VkXYColorEXT*
+      VkXYColorEXTy
+      VkXYColorEXTx
+      VkXYColorEXT
+      VkXYColorEXT*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17601,6 +19926,12 @@ ___return (descriptorupdatetemplatecreateinfokhr);"))
    (c-define-type VkXYColorEXT* (pointer VkXYColorEXT))
    (define-c-lambda VkXYColorEXTx (VkXYColorEXT*) float "___return (___arg1->x);")
    (define-c-lambda VkXYColorEXTy (VkXYColorEXT*) float "___return (___arg1->y);")
+   (define-c-lambda
+      make-VkXYColorEXT*
+      (int)
+      VkXYColorEXT*
+      "VkXYColorEXT* vkxycolorext = malloc(___arg1 * sizeof(VkXYColorEXT));
+      ___return (vkxycolorext);")
    (define-c-lambda
       make-VkXYColorEXT
       (float float)
@@ -17611,6 +19942,7 @@ xycolorext->y=___arg2;
 ___return (xycolorext);"))
 (begin-ffi
    (make-VkHdrMetadataEXT
+      make-VkHdrMetadataEXT*
       VkHdrMetadataEXTmaxFrameAverageLightLevel
       VkHdrMetadataEXTmaxContentLightLevel
       VkHdrMetadataEXTminLuminance
@@ -17627,6 +19959,7 @@ ___return (xycolorext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17684,6 +20017,12 @@ ___return (xycolorext);"))
       float
       "___return (___arg1->maxFrameAverageLightLevel);")
    (define-c-lambda
+      make-VkHdrMetadataEXT*
+      (int)
+      VkHdrMetadataEXT*
+      "VkHdrMetadataEXT* vkhdrmetadataext = malloc(___arg1 * sizeof(VkHdrMetadataEXT));
+      ___return (vkhdrmetadataext);")
+   (define-c-lambda
       make-VkHdrMetadataEXT
       (VkStructureType
          void*
@@ -17710,6 +20049,7 @@ hdrmetadataext->maxFrameAverageLightLevel=___arg10;
 ___return (hdrmetadataext);"))
 (begin-ffi
    (make-VkDisplayNativeHdrSurfaceCapabilitiesAMD
+      make-VkDisplayNativeHdrSurfaceCapabilitiesAMD*
       VkDisplayNativeHdrSurfaceCapabilitiesAMDlocalDimmingSupport
       VkDisplayNativeHdrSurfaceCapabilitiesAMDpNext
       VkDisplayNativeHdrSurfaceCapabilitiesAMDsType
@@ -17719,6 +20059,7 @@ ___return (hdrmetadataext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17745,6 +20086,12 @@ ___return (hdrmetadataext);"))
       VkBool32
       "___return (___arg1->localDimmingSupport);")
    (define-c-lambda
+      make-VkDisplayNativeHdrSurfaceCapabilitiesAMD*
+      (int)
+      VkDisplayNativeHdrSurfaceCapabilitiesAMD*
+      "VkDisplayNativeHdrSurfaceCapabilitiesAMD* vkdisplaynativehdrsurfacecapabilitiesamd = malloc(___arg1 * sizeof(VkDisplayNativeHdrSurfaceCapabilitiesAMD));
+      ___return (vkdisplaynativehdrsurfacecapabilitiesamd);")
+   (define-c-lambda
       make-VkDisplayNativeHdrSurfaceCapabilitiesAMD
       (VkStructureType void* VkBool32)
       VkDisplayNativeHdrSurfaceCapabilitiesAMD*
@@ -17755,6 +20102,7 @@ displaynativehdrsurfacecapabilitiesamd->localDimmingSupport=___arg3;
 ___return (displaynativehdrsurfacecapabilitiesamd);"))
 (begin-ffi
    (make-VkSwapchainDisplayNativeHdrCreateInfoAMD
+      make-VkSwapchainDisplayNativeHdrCreateInfoAMD*
       VkSwapchainDisplayNativeHdrCreateInfoAMDlocalDimmingEnable
       VkSwapchainDisplayNativeHdrCreateInfoAMDpNext
       VkSwapchainDisplayNativeHdrCreateInfoAMDsType
@@ -17764,6 +20112,7 @@ ___return (displaynativehdrsurfacecapabilitiesamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17790,6 +20139,12 @@ ___return (displaynativehdrsurfacecapabilitiesamd);"))
       VkBool32
       "___return (___arg1->localDimmingEnable);")
    (define-c-lambda
+      make-VkSwapchainDisplayNativeHdrCreateInfoAMD*
+      (int)
+      VkSwapchainDisplayNativeHdrCreateInfoAMD*
+      "VkSwapchainDisplayNativeHdrCreateInfoAMD* vkswapchaindisplaynativehdrcreateinfoamd = malloc(___arg1 * sizeof(VkSwapchainDisplayNativeHdrCreateInfoAMD));
+      ___return (vkswapchaindisplaynativehdrcreateinfoamd);")
+   (define-c-lambda
       make-VkSwapchainDisplayNativeHdrCreateInfoAMD
       (VkStructureType void* VkBool32)
       VkSwapchainDisplayNativeHdrCreateInfoAMD*
@@ -17800,6 +20155,7 @@ swapchaindisplaynativehdrcreateinfoamd->localDimmingEnable=___arg3;
 ___return (swapchaindisplaynativehdrcreateinfoamd);"))
 (begin-ffi
    (make-VkRefreshCycleDurationGOOGLE
+      make-VkRefreshCycleDurationGOOGLE*
       VkRefreshCycleDurationGOOGLErefreshDuration
       VkRefreshCycleDurationGOOGLE
       VkRefreshCycleDurationGOOGLE*)
@@ -17807,6 +20163,7 @@ ___return (swapchaindisplaynativehdrcreateinfoamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17819,6 +20176,12 @@ ___return (swapchaindisplaynativehdrcreateinfoamd);"))
       uint64_t
       "___return (___arg1->refreshDuration);")
    (define-c-lambda
+      make-VkRefreshCycleDurationGOOGLE*
+      (int)
+      VkRefreshCycleDurationGOOGLE*
+      "VkRefreshCycleDurationGOOGLE* vkrefreshcycledurationgoogle = malloc(___arg1 * sizeof(VkRefreshCycleDurationGOOGLE));
+      ___return (vkrefreshcycledurationgoogle);")
+   (define-c-lambda
       make-VkRefreshCycleDurationGOOGLE
       (uint64_t)
       VkRefreshCycleDurationGOOGLE*
@@ -17827,6 +20190,7 @@ refreshcycledurationgoogle->refreshDuration=___arg1;
 ___return (refreshcycledurationgoogle);"))
 (begin-ffi
    (make-VkPastPresentationTimingGOOGLE
+      make-VkPastPresentationTimingGOOGLE*
       VkPastPresentationTimingGOOGLEpresentMargin
       VkPastPresentationTimingGOOGLEearliestPresentTime
       VkPastPresentationTimingGOOGLEactualPresentTime
@@ -17838,6 +20202,7 @@ ___return (refreshcycledurationgoogle);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17874,6 +20239,12 @@ ___return (refreshcycledurationgoogle);"))
       uint64_t
       "___return (___arg1->presentMargin);")
    (define-c-lambda
+      make-VkPastPresentationTimingGOOGLE*
+      (int)
+      VkPastPresentationTimingGOOGLE*
+      "VkPastPresentationTimingGOOGLE* vkpastpresentationtiminggoogle = malloc(___arg1 * sizeof(VkPastPresentationTimingGOOGLE));
+      ___return (vkpastpresentationtiminggoogle);")
+   (define-c-lambda
       make-VkPastPresentationTimingGOOGLE
       (uint32_t uint64_t uint64_t uint64_t uint64_t)
       VkPastPresentationTimingGOOGLE*
@@ -17886,6 +20257,7 @@ pastpresentationtiminggoogle->presentMargin=___arg5;
 ___return (pastpresentationtiminggoogle);"))
 (begin-ffi
    (make-VkPresentTimeGOOGLE
+      make-VkPresentTimeGOOGLE*
       VkPresentTimeGOOGLEdesiredPresentTime
       VkPresentTimeGOOGLEpresentID
       VkPresentTimeGOOGLE
@@ -17894,6 +20266,7 @@ ___return (pastpresentationtiminggoogle);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17911,6 +20284,12 @@ ___return (pastpresentationtiminggoogle);"))
       uint64_t
       "___return (___arg1->desiredPresentTime);")
    (define-c-lambda
+      make-VkPresentTimeGOOGLE*
+      (int)
+      VkPresentTimeGOOGLE*
+      "VkPresentTimeGOOGLE* vkpresenttimegoogle = malloc(___arg1 * sizeof(VkPresentTimeGOOGLE));
+      ___return (vkpresenttimegoogle);")
+   (define-c-lambda
       make-VkPresentTimeGOOGLE
       (uint32_t uint64_t)
       VkPresentTimeGOOGLE*
@@ -17920,6 +20299,7 @@ presenttimegoogle->desiredPresentTime=___arg2;
 ___return (presenttimegoogle);"))
 (begin-ffi
    (make-VkPresentTimesInfoGOOGLE
+      make-VkPresentTimesInfoGOOGLE*
       VkPresentTimesInfoGOOGLEpTimes
       VkPresentTimesInfoGOOGLEswapchainCount
       VkPresentTimesInfoGOOGLEpNext
@@ -17930,6 +20310,7 @@ ___return (presenttimegoogle);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17957,6 +20338,12 @@ ___return (presenttimegoogle);"))
       VkPresentTimeGOOGLE*
       "___return (___arg1->pTimes);")
    (define-c-lambda
+      make-VkPresentTimesInfoGOOGLE*
+      (int)
+      VkPresentTimesInfoGOOGLE*
+      "VkPresentTimesInfoGOOGLE* vkpresenttimesinfogoogle = malloc(___arg1 * sizeof(VkPresentTimesInfoGOOGLE));
+      ___return (vkpresenttimesinfogoogle);")
+   (define-c-lambda
       make-VkPresentTimesInfoGOOGLE
       (VkStructureType void* uint32_t VkPresentTimeGOOGLE*)
       VkPresentTimesInfoGOOGLE*
@@ -17968,6 +20355,7 @@ presenttimesinfogoogle->pTimes=___arg4;
 ___return (presenttimesinfogoogle);"))
 (begin-ffi
    (make-VkViewportWScalingNV
+      make-VkViewportWScalingNV*
       VkViewportWScalingNVycoeff
       VkViewportWScalingNVxcoeff
       VkViewportWScalingNV
@@ -17976,6 +20364,7 @@ ___return (presenttimesinfogoogle);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -17993,6 +20382,12 @@ ___return (presenttimesinfogoogle);"))
       float
       "___return (___arg1->ycoeff);")
    (define-c-lambda
+      make-VkViewportWScalingNV*
+      (int)
+      VkViewportWScalingNV*
+      "VkViewportWScalingNV* vkviewportwscalingnv = malloc(___arg1 * sizeof(VkViewportWScalingNV));
+      ___return (vkviewportwscalingnv);")
+   (define-c-lambda
       make-VkViewportWScalingNV
       (float float)
       VkViewportWScalingNV*
@@ -18002,6 +20397,7 @@ viewportwscalingnv->ycoeff=___arg2;
 ___return (viewportwscalingnv);"))
 (begin-ffi
    (make-VkPipelineViewportWScalingStateCreateInfoNV
+      make-VkPipelineViewportWScalingStateCreateInfoNV*
       VkPipelineViewportWScalingStateCreateInfoNVpViewportWScalings
       VkPipelineViewportWScalingStateCreateInfoNVviewportCount
       VkPipelineViewportWScalingStateCreateInfoNVviewportWScalingEnable
@@ -18013,6 +20409,7 @@ ___return (viewportwscalingnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18049,6 +20446,12 @@ ___return (viewportwscalingnv);"))
       VkViewportWScalingNV*
       "___return (___arg1->pViewportWScalings);")
    (define-c-lambda
+      make-VkPipelineViewportWScalingStateCreateInfoNV*
+      (int)
+      VkPipelineViewportWScalingStateCreateInfoNV*
+      "VkPipelineViewportWScalingStateCreateInfoNV* vkpipelineviewportwscalingstatecreateinfonv = malloc(___arg1 * sizeof(VkPipelineViewportWScalingStateCreateInfoNV));
+      ___return (vkpipelineviewportwscalingstatecreateinfonv);")
+   (define-c-lambda
       make-VkPipelineViewportWScalingStateCreateInfoNV
       (VkStructureType void* VkBool32 uint32_t VkViewportWScalingNV*)
       VkPipelineViewportWScalingStateCreateInfoNV*
@@ -18061,6 +20464,7 @@ pipelineviewportwscalingstatecreateinfonv->pViewportWScalings=___arg5;
 ___return (pipelineviewportwscalingstatecreateinfonv);"))
 (begin-ffi
    (make-VkViewportSwizzleNV
+      make-VkViewportSwizzleNV*
       VkViewportSwizzleNVw
       VkViewportSwizzleNVz
       VkViewportSwizzleNVy
@@ -18071,6 +20475,7 @@ ___return (pipelineviewportwscalingstatecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18098,6 +20503,12 @@ ___return (pipelineviewportwscalingstatecreateinfonv);"))
       VkViewportCoordinateSwizzleNV
       "___return (___arg1->w);")
    (define-c-lambda
+      make-VkViewportSwizzleNV*
+      (int)
+      VkViewportSwizzleNV*
+      "VkViewportSwizzleNV* vkviewportswizzlenv = malloc(___arg1 * sizeof(VkViewportSwizzleNV));
+      ___return (vkviewportswizzlenv);")
+   (define-c-lambda
       make-VkViewportSwizzleNV
       (VkViewportCoordinateSwizzleNV
          VkViewportCoordinateSwizzleNV
@@ -18112,6 +20523,7 @@ viewportswizzlenv->w=___arg4;
 ___return (viewportswizzlenv);"))
 (begin-ffi
    (make-VkPipelineViewportSwizzleStateCreateInfoNV
+      make-VkPipelineViewportSwizzleStateCreateInfoNV*
       VkPipelineViewportSwizzleStateCreateInfoNVpViewportSwizzles
       VkPipelineViewportSwizzleStateCreateInfoNVviewportCount
       VkPipelineViewportSwizzleStateCreateInfoNVflags
@@ -18123,6 +20535,7 @@ ___return (viewportswizzlenv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18159,6 +20572,12 @@ ___return (viewportswizzlenv);"))
       VkViewportSwizzleNV*
       "___return (___arg1->pViewportSwizzles);")
    (define-c-lambda
+      make-VkPipelineViewportSwizzleStateCreateInfoNV*
+      (int)
+      VkPipelineViewportSwizzleStateCreateInfoNV*
+      "VkPipelineViewportSwizzleStateCreateInfoNV* vkpipelineviewportswizzlestatecreateinfonv = malloc(___arg1 * sizeof(VkPipelineViewportSwizzleStateCreateInfoNV));
+      ___return (vkpipelineviewportswizzlestatecreateinfonv);")
+   (define-c-lambda
       make-VkPipelineViewportSwizzleStateCreateInfoNV
       (VkStructureType
          void*
@@ -18175,6 +20594,7 @@ pipelineviewportswizzlestatecreateinfonv->pViewportSwizzles=___arg5;
 ___return (pipelineviewportswizzlestatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceDiscardRectanglePropertiesEXT
+      make-VkPhysicalDeviceDiscardRectanglePropertiesEXT*
       VkPhysicalDeviceDiscardRectanglePropertiesEXTmaxDiscardRectangles
       VkPhysicalDeviceDiscardRectanglePropertiesEXTpNext
       VkPhysicalDeviceDiscardRectanglePropertiesEXTsType
@@ -18184,6 +20604,7 @@ ___return (pipelineviewportswizzlestatecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18210,6 +20631,12 @@ ___return (pipelineviewportswizzlestatecreateinfonv);"))
       uint32_t
       "___return (___arg1->maxDiscardRectangles);")
    (define-c-lambda
+      make-VkPhysicalDeviceDiscardRectanglePropertiesEXT*
+      (int)
+      VkPhysicalDeviceDiscardRectanglePropertiesEXT*
+      "VkPhysicalDeviceDiscardRectanglePropertiesEXT* vkphysicaldevicediscardrectanglepropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceDiscardRectanglePropertiesEXT));
+      ___return (vkphysicaldevicediscardrectanglepropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceDiscardRectanglePropertiesEXT
       (VkStructureType void* uint32_t)
       VkPhysicalDeviceDiscardRectanglePropertiesEXT*
@@ -18220,6 +20647,7 @@ physicaldevicediscardrectanglepropertiesext->maxDiscardRectangles=___arg3;
 ___return (physicaldevicediscardrectanglepropertiesext);"))
 (begin-ffi
    (make-VkPipelineDiscardRectangleStateCreateInfoEXT
+      make-VkPipelineDiscardRectangleStateCreateInfoEXT*
       VkPipelineDiscardRectangleStateCreateInfoEXTpDiscardRectangles
       VkPipelineDiscardRectangleStateCreateInfoEXTdiscardRectangleCount
       VkPipelineDiscardRectangleStateCreateInfoEXTdiscardRectangleMode
@@ -18232,6 +20660,7 @@ ___return (physicaldevicediscardrectanglepropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18273,6 +20702,12 @@ ___return (physicaldevicediscardrectanglepropertiesext);"))
       VkRect2D*
       "___return (___arg1->pDiscardRectangles);")
    (define-c-lambda
+      make-VkPipelineDiscardRectangleStateCreateInfoEXT*
+      (int)
+      VkPipelineDiscardRectangleStateCreateInfoEXT*
+      "VkPipelineDiscardRectangleStateCreateInfoEXT* vkpipelinediscardrectanglestatecreateinfoext = malloc(___arg1 * sizeof(VkPipelineDiscardRectangleStateCreateInfoEXT));
+      ___return (vkpipelinediscardrectanglestatecreateinfoext);")
+   (define-c-lambda
       make-VkPipelineDiscardRectangleStateCreateInfoEXT
       (VkStructureType
          void*
@@ -18291,6 +20726,7 @@ pipelinediscardrectanglestatecreateinfoext->pDiscardRectangles=___arg6;
 ___return (pipelinediscardrectanglestatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
+      make-VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX*
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVXperViewPositionAllComponents
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVXpNext
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVXsType
@@ -18300,6 +20736,7 @@ ___return (pipelinediscardrectanglestatecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18326,6 +20763,12 @@ ___return (pipelinediscardrectanglestatecreateinfoext);"))
       VkBool32
       "___return (___arg1->perViewPositionAllComponents);")
    (define-c-lambda
+      make-VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX*
+      (int)
+      VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX*
+      "VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX* vkphysicaldevicemultiviewperviewattributespropertiesnvx = malloc(___arg1 * sizeof(VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX));
+      ___return (vkphysicaldevicemultiviewperviewattributespropertiesnvx);")
+   (define-c-lambda
       make-VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX*
@@ -18336,6 +20779,7 @@ physicaldevicemultiviewperviewattributespropertiesnvx->perViewPositionAllCompone
 ___return (physicaldevicemultiviewperviewattributespropertiesnvx);"))
 (begin-ffi
    (make-VkInputAttachmentAspectReference
+      make-VkInputAttachmentAspectReference*
       VkInputAttachmentAspectReferenceaspectMask
       VkInputAttachmentAspectReferenceinputAttachmentIndex
       VkInputAttachmentAspectReferencesubpass
@@ -18345,6 +20789,7 @@ ___return (physicaldevicemultiviewperviewattributespropertiesnvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18371,6 +20816,12 @@ ___return (physicaldevicemultiviewperviewattributespropertiesnvx);"))
       VkImageAspectFlags
       "___return (___arg1->aspectMask);")
    (define-c-lambda
+      make-VkInputAttachmentAspectReference*
+      (int)
+      VkInputAttachmentAspectReference*
+      "VkInputAttachmentAspectReference* vkinputattachmentaspectreference = malloc(___arg1 * sizeof(VkInputAttachmentAspectReference));
+      ___return (vkinputattachmentaspectreference);")
+   (define-c-lambda
       make-VkInputAttachmentAspectReference
       (uint32_t uint32_t VkImageAspectFlags)
       VkInputAttachmentAspectReference*
@@ -18381,12 +20832,14 @@ inputattachmentaspectreference->aspectMask=___arg3;
 ___return (inputattachmentaspectreference);"))
 (begin-ffi
    (make-VkInputAttachmentAspectReferenceKHR
+      make-VkInputAttachmentAspectReferenceKHR*
       VkInputAttachmentAspectReferenceKHR
       VkInputAttachmentAspectReferenceKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18398,6 +20851,12 @@ ___return (inputattachmentaspectreference);"))
       VkInputAttachmentAspectReferenceKHR*
       (pointer VkInputAttachmentAspectReferenceKHR))
    (define-c-lambda
+      make-VkInputAttachmentAspectReferenceKHR*
+      (int)
+      VkInputAttachmentAspectReferenceKHR*
+      "VkInputAttachmentAspectReferenceKHR* vkinputattachmentaspectreferencekhr = malloc(___arg1 * sizeof(VkInputAttachmentAspectReferenceKHR));
+      ___return (vkinputattachmentaspectreferencekhr);")
+   (define-c-lambda
       make-VkInputAttachmentAspectReferenceKHR
       ()
       VkInputAttachmentAspectReferenceKHR*
@@ -18405,6 +20864,7 @@ ___return (inputattachmentaspectreference);"))
 ___return (inputattachmentaspectreferencekhr);"))
 (begin-ffi
    (make-VkRenderPassInputAttachmentAspectCreateInfo
+      make-VkRenderPassInputAttachmentAspectCreateInfo*
       VkRenderPassInputAttachmentAspectCreateInfopAspectReferences
       VkRenderPassInputAttachmentAspectCreateInfoaspectReferenceCount
       VkRenderPassInputAttachmentAspectCreateInfopNext
@@ -18415,6 +20875,7 @@ ___return (inputattachmentaspectreferencekhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18446,6 +20907,12 @@ ___return (inputattachmentaspectreferencekhr);"))
       VkInputAttachmentAspectReference*
       "___return (___arg1->pAspectReferences);")
    (define-c-lambda
+      make-VkRenderPassInputAttachmentAspectCreateInfo*
+      (int)
+      VkRenderPassInputAttachmentAspectCreateInfo*
+      "VkRenderPassInputAttachmentAspectCreateInfo* vkrenderpassinputattachmentaspectcreateinfo = malloc(___arg1 * sizeof(VkRenderPassInputAttachmentAspectCreateInfo));
+      ___return (vkrenderpassinputattachmentaspectcreateinfo);")
+   (define-c-lambda
       make-VkRenderPassInputAttachmentAspectCreateInfo
       (VkStructureType void* uint32_t VkInputAttachmentAspectReference*)
       VkRenderPassInputAttachmentAspectCreateInfo*
@@ -18457,12 +20924,14 @@ renderpassinputattachmentaspectcreateinfo->pAspectReferences=___arg4;
 ___return (renderpassinputattachmentaspectcreateinfo);"))
 (begin-ffi
    (make-VkRenderPassInputAttachmentAspectCreateInfoKHR
+      make-VkRenderPassInputAttachmentAspectCreateInfoKHR*
       VkRenderPassInputAttachmentAspectCreateInfoKHR
       VkRenderPassInputAttachmentAspectCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18474,6 +20943,12 @@ ___return (renderpassinputattachmentaspectcreateinfo);"))
       VkRenderPassInputAttachmentAspectCreateInfoKHR*
       (pointer VkRenderPassInputAttachmentAspectCreateInfoKHR))
    (define-c-lambda
+      make-VkRenderPassInputAttachmentAspectCreateInfoKHR*
+      (int)
+      VkRenderPassInputAttachmentAspectCreateInfoKHR*
+      "VkRenderPassInputAttachmentAspectCreateInfoKHR* vkrenderpassinputattachmentaspectcreateinfokhr = malloc(___arg1 * sizeof(VkRenderPassInputAttachmentAspectCreateInfoKHR));
+      ___return (vkrenderpassinputattachmentaspectcreateinfokhr);")
+   (define-c-lambda
       make-VkRenderPassInputAttachmentAspectCreateInfoKHR
       ()
       VkRenderPassInputAttachmentAspectCreateInfoKHR*
@@ -18481,6 +20956,7 @@ ___return (renderpassinputattachmentaspectcreateinfo);"))
 ___return (renderpassinputattachmentaspectcreateinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceSurfaceInfo2KHR
+      make-VkPhysicalDeviceSurfaceInfo2KHR*
       VkPhysicalDeviceSurfaceInfo2KHRsurface
       VkPhysicalDeviceSurfaceInfo2KHRpNext
       VkPhysicalDeviceSurfaceInfo2KHRsType
@@ -18490,6 +20966,7 @@ ___return (renderpassinputattachmentaspectcreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18516,6 +20993,12 @@ ___return (renderpassinputattachmentaspectcreateinfokhr);"))
       VkSurfaceKHR
       "___return (___arg1->surface);")
    (define-c-lambda
+      make-VkPhysicalDeviceSurfaceInfo2KHR*
+      (int)
+      VkPhysicalDeviceSurfaceInfo2KHR*
+      "VkPhysicalDeviceSurfaceInfo2KHR* vkphysicaldevicesurfaceinfo2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceSurfaceInfo2KHR));
+      ___return (vkphysicaldevicesurfaceinfo2khr);")
+   (define-c-lambda
       make-VkPhysicalDeviceSurfaceInfo2KHR
       (VkStructureType void* VkSurfaceKHR)
       VkPhysicalDeviceSurfaceInfo2KHR*
@@ -18526,6 +21009,7 @@ physicaldevicesurfaceinfo2khr->surface=___arg3;
 ___return (physicaldevicesurfaceinfo2khr);"))
 (begin-ffi
    (make-VkSurfaceCapabilities2KHR
+      make-VkSurfaceCapabilities2KHR*
       VkSurfaceCapabilities2KHRsurfaceCapabilities
       VkSurfaceCapabilities2KHRpNext
       VkSurfaceCapabilities2KHRsType
@@ -18535,6 +21019,7 @@ ___return (physicaldevicesurfaceinfo2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18557,6 +21042,12 @@ ___return (physicaldevicesurfaceinfo2khr);"))
       VkSurfaceCapabilitiesKHR
       "___return (___arg1->surfaceCapabilities);")
    (define-c-lambda
+      make-VkSurfaceCapabilities2KHR*
+      (int)
+      VkSurfaceCapabilities2KHR*
+      "VkSurfaceCapabilities2KHR* vksurfacecapabilities2khr = malloc(___arg1 * sizeof(VkSurfaceCapabilities2KHR));
+      ___return (vksurfacecapabilities2khr);")
+   (define-c-lambda
       make-VkSurfaceCapabilities2KHR
       (VkStructureType void* VkSurfaceCapabilitiesKHR)
       VkSurfaceCapabilities2KHR*
@@ -18567,6 +21058,7 @@ surfacecapabilities2khr->surfaceCapabilities=___arg3;
 ___return (surfacecapabilities2khr);"))
 (begin-ffi
    (make-VkSurfaceFormat2KHR
+      make-VkSurfaceFormat2KHR*
       VkSurfaceFormat2KHRsurfaceFormat
       VkSurfaceFormat2KHRpNext
       VkSurfaceFormat2KHRsType
@@ -18576,6 +21068,7 @@ ___return (surfacecapabilities2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18598,6 +21091,12 @@ ___return (surfacecapabilities2khr);"))
       VkSurfaceFormatKHR
       "___return (___arg1->surfaceFormat);")
    (define-c-lambda
+      make-VkSurfaceFormat2KHR*
+      (int)
+      VkSurfaceFormat2KHR*
+      "VkSurfaceFormat2KHR* vksurfaceformat2khr = malloc(___arg1 * sizeof(VkSurfaceFormat2KHR));
+      ___return (vksurfaceformat2khr);")
+   (define-c-lambda
       make-VkSurfaceFormat2KHR
       (VkStructureType void* VkSurfaceFormatKHR)
       VkSurfaceFormat2KHR*
@@ -18608,6 +21107,7 @@ surfaceformat2khr->surfaceFormat=___arg3;
 ___return (surfaceformat2khr);"))
 (begin-ffi
    (make-VkDisplayProperties2KHR
+      make-VkDisplayProperties2KHR*
       VkDisplayProperties2KHRdisplayProperties
       VkDisplayProperties2KHRpNext
       VkDisplayProperties2KHRsType
@@ -18617,6 +21117,7 @@ ___return (surfaceformat2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18639,6 +21140,12 @@ ___return (surfaceformat2khr);"))
       VkDisplayPropertiesKHR
       "___return (___arg1->displayProperties);")
    (define-c-lambda
+      make-VkDisplayProperties2KHR*
+      (int)
+      VkDisplayProperties2KHR*
+      "VkDisplayProperties2KHR* vkdisplayproperties2khr = malloc(___arg1 * sizeof(VkDisplayProperties2KHR));
+      ___return (vkdisplayproperties2khr);")
+   (define-c-lambda
       make-VkDisplayProperties2KHR
       (VkStructureType void* VkDisplayPropertiesKHR)
       VkDisplayProperties2KHR*
@@ -18649,6 +21156,7 @@ displayproperties2khr->displayProperties=___arg3;
 ___return (displayproperties2khr);"))
 (begin-ffi
    (make-VkDisplayPlaneProperties2KHR
+      make-VkDisplayPlaneProperties2KHR*
       VkDisplayPlaneProperties2KHRdisplayPlaneProperties
       VkDisplayPlaneProperties2KHRpNext
       VkDisplayPlaneProperties2KHRsType
@@ -18658,6 +21166,7 @@ ___return (displayproperties2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18680,6 +21189,12 @@ ___return (displayproperties2khr);"))
       VkDisplayPlanePropertiesKHR
       "___return (___arg1->displayPlaneProperties);")
    (define-c-lambda
+      make-VkDisplayPlaneProperties2KHR*
+      (int)
+      VkDisplayPlaneProperties2KHR*
+      "VkDisplayPlaneProperties2KHR* vkdisplayplaneproperties2khr = malloc(___arg1 * sizeof(VkDisplayPlaneProperties2KHR));
+      ___return (vkdisplayplaneproperties2khr);")
+   (define-c-lambda
       make-VkDisplayPlaneProperties2KHR
       (VkStructureType void* VkDisplayPlanePropertiesKHR)
       VkDisplayPlaneProperties2KHR*
@@ -18690,6 +21205,7 @@ displayplaneproperties2khr->displayPlaneProperties=___arg3;
 ___return (displayplaneproperties2khr);"))
 (begin-ffi
    (make-VkDisplayModeProperties2KHR
+      make-VkDisplayModeProperties2KHR*
       VkDisplayModeProperties2KHRdisplayModeProperties
       VkDisplayModeProperties2KHRpNext
       VkDisplayModeProperties2KHRsType
@@ -18699,6 +21215,7 @@ ___return (displayplaneproperties2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18721,6 +21238,12 @@ ___return (displayplaneproperties2khr);"))
       VkDisplayModePropertiesKHR
       "___return (___arg1->displayModeProperties);")
    (define-c-lambda
+      make-VkDisplayModeProperties2KHR*
+      (int)
+      VkDisplayModeProperties2KHR*
+      "VkDisplayModeProperties2KHR* vkdisplaymodeproperties2khr = malloc(___arg1 * sizeof(VkDisplayModeProperties2KHR));
+      ___return (vkdisplaymodeproperties2khr);")
+   (define-c-lambda
       make-VkDisplayModeProperties2KHR
       (VkStructureType void* VkDisplayModePropertiesKHR)
       VkDisplayModeProperties2KHR*
@@ -18731,6 +21254,7 @@ displaymodeproperties2khr->displayModeProperties=___arg3;
 ___return (displaymodeproperties2khr);"))
 (begin-ffi
    (make-VkDisplayPlaneInfo2KHR
+      make-VkDisplayPlaneInfo2KHR*
       VkDisplayPlaneInfo2KHRplaneIndex
       VkDisplayPlaneInfo2KHRmode
       VkDisplayPlaneInfo2KHRpNext
@@ -18741,6 +21265,7 @@ ___return (displaymodeproperties2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18768,6 +21293,12 @@ ___return (displaymodeproperties2khr);"))
       uint32_t
       "___return (___arg1->planeIndex);")
    (define-c-lambda
+      make-VkDisplayPlaneInfo2KHR*
+      (int)
+      VkDisplayPlaneInfo2KHR*
+      "VkDisplayPlaneInfo2KHR* vkdisplayplaneinfo2khr = malloc(___arg1 * sizeof(VkDisplayPlaneInfo2KHR));
+      ___return (vkdisplayplaneinfo2khr);")
+   (define-c-lambda
       make-VkDisplayPlaneInfo2KHR
       (VkStructureType void* VkDisplayModeKHR uint32_t)
       VkDisplayPlaneInfo2KHR*
@@ -18779,6 +21310,7 @@ displayplaneinfo2khr->planeIndex=___arg4;
 ___return (displayplaneinfo2khr);"))
 (begin-ffi
    (make-VkDisplayPlaneCapabilities2KHR
+      make-VkDisplayPlaneCapabilities2KHR*
       VkDisplayPlaneCapabilities2KHRcapabilities
       VkDisplayPlaneCapabilities2KHRpNext
       VkDisplayPlaneCapabilities2KHRsType
@@ -18788,6 +21320,7 @@ ___return (displayplaneinfo2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18814,6 +21347,12 @@ ___return (displayplaneinfo2khr);"))
       VkDisplayPlaneCapabilitiesKHR
       "___return (___arg1->capabilities);")
    (define-c-lambda
+      make-VkDisplayPlaneCapabilities2KHR*
+      (int)
+      VkDisplayPlaneCapabilities2KHR*
+      "VkDisplayPlaneCapabilities2KHR* vkdisplayplanecapabilities2khr = malloc(___arg1 * sizeof(VkDisplayPlaneCapabilities2KHR));
+      ___return (vkdisplayplanecapabilities2khr);")
+   (define-c-lambda
       make-VkDisplayPlaneCapabilities2KHR
       (VkStructureType void* VkDisplayPlaneCapabilitiesKHR)
       VkDisplayPlaneCapabilities2KHR*
@@ -18824,6 +21363,7 @@ displayplanecapabilities2khr->capabilities=___arg3;
 ___return (displayplanecapabilities2khr);"))
 (begin-ffi
    (make-VkSharedPresentSurfaceCapabilitiesKHR
+      make-VkSharedPresentSurfaceCapabilitiesKHR*
       VkSharedPresentSurfaceCapabilitiesKHRsharedPresentSupportedUsageFlags
       VkSharedPresentSurfaceCapabilitiesKHRpNext
       VkSharedPresentSurfaceCapabilitiesKHRsType
@@ -18833,6 +21373,7 @@ ___return (displayplanecapabilities2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18859,6 +21400,12 @@ ___return (displayplanecapabilities2khr);"))
       VkImageUsageFlags
       "___return (___arg1->sharedPresentSupportedUsageFlags);")
    (define-c-lambda
+      make-VkSharedPresentSurfaceCapabilitiesKHR*
+      (int)
+      VkSharedPresentSurfaceCapabilitiesKHR*
+      "VkSharedPresentSurfaceCapabilitiesKHR* vksharedpresentsurfacecapabilitieskhr = malloc(___arg1 * sizeof(VkSharedPresentSurfaceCapabilitiesKHR));
+      ___return (vksharedpresentsurfacecapabilitieskhr);")
+   (define-c-lambda
       make-VkSharedPresentSurfaceCapabilitiesKHR
       (VkStructureType void* VkImageUsageFlags)
       VkSharedPresentSurfaceCapabilitiesKHR*
@@ -18869,6 +21416,7 @@ sharedpresentsurfacecapabilitieskhr->sharedPresentSupportedUsageFlags=___arg3;
 ___return (sharedpresentsurfacecapabilitieskhr);"))
 (begin-ffi
    (make-VkPhysicalDevice16BitStorageFeatures
+      make-VkPhysicalDevice16BitStorageFeatures*
       VkPhysicalDevice16BitStorageFeaturesstorageInputOutput16
       VkPhysicalDevice16BitStorageFeaturesstoragePushConstant16
       VkPhysicalDevice16BitStorageFeaturesuniformAndStorageBuffer16BitAccess
@@ -18881,6 +21429,7 @@ ___return (sharedpresentsurfacecapabilitieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18922,6 +21471,12 @@ ___return (sharedpresentsurfacecapabilitieskhr);"))
       VkBool32
       "___return (___arg1->storageInputOutput16);")
    (define-c-lambda
+      make-VkPhysicalDevice16BitStorageFeatures*
+      (int)
+      VkPhysicalDevice16BitStorageFeatures*
+      "VkPhysicalDevice16BitStorageFeatures* vkphysicaldevice16bitstoragefeatures = malloc(___arg1 * sizeof(VkPhysicalDevice16BitStorageFeatures));
+      ___return (vkphysicaldevice16bitstoragefeatures);")
+   (define-c-lambda
       make-VkPhysicalDevice16BitStorageFeatures
       (VkStructureType void* VkBool32 VkBool32 VkBool32 VkBool32)
       VkPhysicalDevice16BitStorageFeatures*
@@ -18935,12 +21490,14 @@ physicaldevice16bitstoragefeatures->storageInputOutput16=___arg6;
 ___return (physicaldevice16bitstoragefeatures);"))
 (begin-ffi
    (make-VkPhysicalDevice16BitStorageFeaturesKHR
+      make-VkPhysicalDevice16BitStorageFeaturesKHR*
       VkPhysicalDevice16BitStorageFeaturesKHR
       VkPhysicalDevice16BitStorageFeaturesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -18952,6 +21509,12 @@ ___return (physicaldevice16bitstoragefeatures);"))
       VkPhysicalDevice16BitStorageFeaturesKHR*
       (pointer VkPhysicalDevice16BitStorageFeaturesKHR))
    (define-c-lambda
+      make-VkPhysicalDevice16BitStorageFeaturesKHR*
+      (int)
+      VkPhysicalDevice16BitStorageFeaturesKHR*
+      "VkPhysicalDevice16BitStorageFeaturesKHR* vkphysicaldevice16bitstoragefeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDevice16BitStorageFeaturesKHR));
+      ___return (vkphysicaldevice16bitstoragefeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDevice16BitStorageFeaturesKHR
       ()
       VkPhysicalDevice16BitStorageFeaturesKHR*
@@ -18959,6 +21522,7 @@ ___return (physicaldevice16bitstoragefeatures);"))
 ___return (physicaldevice16bitstoragefeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceSubgroupProperties
+      make-VkPhysicalDeviceSubgroupProperties*
       VkPhysicalDeviceSubgroupPropertiesquadOperationsInAllStages
       VkPhysicalDeviceSubgroupPropertiessupportedOperations
       VkPhysicalDeviceSubgroupPropertiessupportedStages
@@ -18971,6 +21535,7 @@ ___return (physicaldevice16bitstoragefeatureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19012,6 +21577,12 @@ ___return (physicaldevice16bitstoragefeatureskhr);"))
       VkBool32
       "___return (___arg1->quadOperationsInAllStages);")
    (define-c-lambda
+      make-VkPhysicalDeviceSubgroupProperties*
+      (int)
+      VkPhysicalDeviceSubgroupProperties*
+      "VkPhysicalDeviceSubgroupProperties* vkphysicaldevicesubgroupproperties = malloc(___arg1 * sizeof(VkPhysicalDeviceSubgroupProperties));
+      ___return (vkphysicaldevicesubgroupproperties);")
+   (define-c-lambda
       make-VkPhysicalDeviceSubgroupProperties
       (VkStructureType void* uint32_t VkShaderStageFlags VkSubgroupFeatureFlags VkBool32)
       VkPhysicalDeviceSubgroupProperties*
@@ -19025,6 +21596,7 @@ physicaldevicesubgroupproperties->quadOperationsInAllStages=___arg6;
 ___return (physicaldevicesubgroupproperties);"))
 (begin-ffi
    (make-VkBufferMemoryRequirementsInfo2
+      make-VkBufferMemoryRequirementsInfo2*
       VkBufferMemoryRequirementsInfo2buffer
       VkBufferMemoryRequirementsInfo2pNext
       VkBufferMemoryRequirementsInfo2sType
@@ -19034,6 +21606,7 @@ ___return (physicaldevicesubgroupproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19060,6 +21633,12 @@ ___return (physicaldevicesubgroupproperties);"))
       VkBuffer
       "___return (___arg1->buffer);")
    (define-c-lambda
+      make-VkBufferMemoryRequirementsInfo2*
+      (int)
+      VkBufferMemoryRequirementsInfo2*
+      "VkBufferMemoryRequirementsInfo2* vkbuffermemoryrequirementsinfo2 = malloc(___arg1 * sizeof(VkBufferMemoryRequirementsInfo2));
+      ___return (vkbuffermemoryrequirementsinfo2);")
+   (define-c-lambda
       make-VkBufferMemoryRequirementsInfo2
       (VkStructureType void* VkBuffer)
       VkBufferMemoryRequirementsInfo2*
@@ -19070,12 +21649,14 @@ buffermemoryrequirementsinfo2->buffer=___arg3;
 ___return (buffermemoryrequirementsinfo2);"))
 (begin-ffi
    (make-VkBufferMemoryRequirementsInfo2KHR
+      make-VkBufferMemoryRequirementsInfo2KHR*
       VkBufferMemoryRequirementsInfo2KHR
       VkBufferMemoryRequirementsInfo2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19087,6 +21668,12 @@ ___return (buffermemoryrequirementsinfo2);"))
       VkBufferMemoryRequirementsInfo2KHR*
       (pointer VkBufferMemoryRequirementsInfo2KHR))
    (define-c-lambda
+      make-VkBufferMemoryRequirementsInfo2KHR*
+      (int)
+      VkBufferMemoryRequirementsInfo2KHR*
+      "VkBufferMemoryRequirementsInfo2KHR* vkbuffermemoryrequirementsinfo2khr = malloc(___arg1 * sizeof(VkBufferMemoryRequirementsInfo2KHR));
+      ___return (vkbuffermemoryrequirementsinfo2khr);")
+   (define-c-lambda
       make-VkBufferMemoryRequirementsInfo2KHR
       ()
       VkBufferMemoryRequirementsInfo2KHR*
@@ -19094,6 +21681,7 @@ ___return (buffermemoryrequirementsinfo2);"))
 ___return (buffermemoryrequirementsinfo2khr);"))
 (begin-ffi
    (make-VkImageMemoryRequirementsInfo2
+      make-VkImageMemoryRequirementsInfo2*
       VkImageMemoryRequirementsInfo2image
       VkImageMemoryRequirementsInfo2pNext
       VkImageMemoryRequirementsInfo2sType
@@ -19103,6 +21691,7 @@ ___return (buffermemoryrequirementsinfo2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19129,6 +21718,12 @@ ___return (buffermemoryrequirementsinfo2khr);"))
       VkImage
       "___return (___arg1->image);")
    (define-c-lambda
+      make-VkImageMemoryRequirementsInfo2*
+      (int)
+      VkImageMemoryRequirementsInfo2*
+      "VkImageMemoryRequirementsInfo2* vkimagememoryrequirementsinfo2 = malloc(___arg1 * sizeof(VkImageMemoryRequirementsInfo2));
+      ___return (vkimagememoryrequirementsinfo2);")
+   (define-c-lambda
       make-VkImageMemoryRequirementsInfo2
       (VkStructureType void* VkImage)
       VkImageMemoryRequirementsInfo2*
@@ -19139,12 +21734,14 @@ imagememoryrequirementsinfo2->image=___arg3;
 ___return (imagememoryrequirementsinfo2);"))
 (begin-ffi
    (make-VkImageMemoryRequirementsInfo2KHR
+      make-VkImageMemoryRequirementsInfo2KHR*
       VkImageMemoryRequirementsInfo2KHR
       VkImageMemoryRequirementsInfo2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19156,6 +21753,12 @@ ___return (imagememoryrequirementsinfo2);"))
       VkImageMemoryRequirementsInfo2KHR*
       (pointer VkImageMemoryRequirementsInfo2KHR))
    (define-c-lambda
+      make-VkImageMemoryRequirementsInfo2KHR*
+      (int)
+      VkImageMemoryRequirementsInfo2KHR*
+      "VkImageMemoryRequirementsInfo2KHR* vkimagememoryrequirementsinfo2khr = malloc(___arg1 * sizeof(VkImageMemoryRequirementsInfo2KHR));
+      ___return (vkimagememoryrequirementsinfo2khr);")
+   (define-c-lambda
       make-VkImageMemoryRequirementsInfo2KHR
       ()
       VkImageMemoryRequirementsInfo2KHR*
@@ -19163,6 +21766,7 @@ ___return (imagememoryrequirementsinfo2);"))
 ___return (imagememoryrequirementsinfo2khr);"))
 (begin-ffi
    (make-VkImageSparseMemoryRequirementsInfo2
+      make-VkImageSparseMemoryRequirementsInfo2*
       VkImageSparseMemoryRequirementsInfo2image
       VkImageSparseMemoryRequirementsInfo2pNext
       VkImageSparseMemoryRequirementsInfo2sType
@@ -19172,6 +21776,7 @@ ___return (imagememoryrequirementsinfo2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19198,6 +21803,12 @@ ___return (imagememoryrequirementsinfo2khr);"))
       VkImage
       "___return (___arg1->image);")
    (define-c-lambda
+      make-VkImageSparseMemoryRequirementsInfo2*
+      (int)
+      VkImageSparseMemoryRequirementsInfo2*
+      "VkImageSparseMemoryRequirementsInfo2* vkimagesparsememoryrequirementsinfo2 = malloc(___arg1 * sizeof(VkImageSparseMemoryRequirementsInfo2));
+      ___return (vkimagesparsememoryrequirementsinfo2);")
+   (define-c-lambda
       make-VkImageSparseMemoryRequirementsInfo2
       (VkStructureType void* VkImage)
       VkImageSparseMemoryRequirementsInfo2*
@@ -19208,12 +21819,14 @@ imagesparsememoryrequirementsinfo2->image=___arg3;
 ___return (imagesparsememoryrequirementsinfo2);"))
 (begin-ffi
    (make-VkImageSparseMemoryRequirementsInfo2KHR
+      make-VkImageSparseMemoryRequirementsInfo2KHR*
       VkImageSparseMemoryRequirementsInfo2KHR
       VkImageSparseMemoryRequirementsInfo2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19225,6 +21838,12 @@ ___return (imagesparsememoryrequirementsinfo2);"))
       VkImageSparseMemoryRequirementsInfo2KHR*
       (pointer VkImageSparseMemoryRequirementsInfo2KHR))
    (define-c-lambda
+      make-VkImageSparseMemoryRequirementsInfo2KHR*
+      (int)
+      VkImageSparseMemoryRequirementsInfo2KHR*
+      "VkImageSparseMemoryRequirementsInfo2KHR* vkimagesparsememoryrequirementsinfo2khr = malloc(___arg1 * sizeof(VkImageSparseMemoryRequirementsInfo2KHR));
+      ___return (vkimagesparsememoryrequirementsinfo2khr);")
+   (define-c-lambda
       make-VkImageSparseMemoryRequirementsInfo2KHR
       ()
       VkImageSparseMemoryRequirementsInfo2KHR*
@@ -19232,6 +21851,7 @@ ___return (imagesparsememoryrequirementsinfo2);"))
 ___return (imagesparsememoryrequirementsinfo2khr);"))
 (begin-ffi
    (make-VkMemoryRequirements2
+      make-VkMemoryRequirements2*
       VkMemoryRequirements2memoryRequirements
       VkMemoryRequirements2pNext
       VkMemoryRequirements2sType
@@ -19241,6 +21861,7 @@ ___return (imagesparsememoryrequirementsinfo2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19263,6 +21884,12 @@ ___return (imagesparsememoryrequirementsinfo2khr);"))
       VkMemoryRequirements
       "___return (___arg1->memoryRequirements);")
    (define-c-lambda
+      make-VkMemoryRequirements2*
+      (int)
+      VkMemoryRequirements2*
+      "VkMemoryRequirements2* vkmemoryrequirements2 = malloc(___arg1 * sizeof(VkMemoryRequirements2));
+      ___return (vkmemoryrequirements2);")
+   (define-c-lambda
       make-VkMemoryRequirements2
       (VkStructureType void* VkMemoryRequirements)
       VkMemoryRequirements2*
@@ -19272,17 +21899,27 @@ memoryrequirements2->pNext=___arg2;
 memoryrequirements2->memoryRequirements=___arg3;
 ___return (memoryrequirements2);"))
 (begin-ffi
-   (make-VkMemoryRequirements2KHR VkMemoryRequirements2KHR VkMemoryRequirements2KHR*)
+   (make-VkMemoryRequirements2KHR
+      make-VkMemoryRequirements2KHR*
+      VkMemoryRequirements2KHR
+      VkMemoryRequirements2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkMemoryRequirements2KHR (struct "VkMemoryRequirements2KHR"))
    (c-define-type VkMemoryRequirements2KHR* (pointer VkMemoryRequirements2KHR))
+   (define-c-lambda
+      make-VkMemoryRequirements2KHR*
+      (int)
+      VkMemoryRequirements2KHR*
+      "VkMemoryRequirements2KHR* vkmemoryrequirements2khr = malloc(___arg1 * sizeof(VkMemoryRequirements2KHR));
+      ___return (vkmemoryrequirements2khr);")
    (define-c-lambda
       make-VkMemoryRequirements2KHR
       ()
@@ -19291,6 +21928,7 @@ ___return (memoryrequirements2);"))
 ___return (memoryrequirements2khr);"))
 (begin-ffi
    (make-VkSparseImageMemoryRequirements2
+      make-VkSparseImageMemoryRequirements2*
       VkSparseImageMemoryRequirements2memoryRequirements
       VkSparseImageMemoryRequirements2pNext
       VkSparseImageMemoryRequirements2sType
@@ -19300,6 +21938,7 @@ ___return (memoryrequirements2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19326,6 +21965,12 @@ ___return (memoryrequirements2khr);"))
       VkSparseImageMemoryRequirements
       "___return (___arg1->memoryRequirements);")
    (define-c-lambda
+      make-VkSparseImageMemoryRequirements2*
+      (int)
+      VkSparseImageMemoryRequirements2*
+      "VkSparseImageMemoryRequirements2* vksparseimagememoryrequirements2 = malloc(___arg1 * sizeof(VkSparseImageMemoryRequirements2));
+      ___return (vksparseimagememoryrequirements2);")
+   (define-c-lambda
       make-VkSparseImageMemoryRequirements2
       (VkStructureType void* VkSparseImageMemoryRequirements)
       VkSparseImageMemoryRequirements2*
@@ -19336,12 +21981,14 @@ sparseimagememoryrequirements2->memoryRequirements=___arg3;
 ___return (sparseimagememoryrequirements2);"))
 (begin-ffi
    (make-VkSparseImageMemoryRequirements2KHR
+      make-VkSparseImageMemoryRequirements2KHR*
       VkSparseImageMemoryRequirements2KHR
       VkSparseImageMemoryRequirements2KHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19353,6 +22000,12 @@ ___return (sparseimagememoryrequirements2);"))
       VkSparseImageMemoryRequirements2KHR*
       (pointer VkSparseImageMemoryRequirements2KHR))
    (define-c-lambda
+      make-VkSparseImageMemoryRequirements2KHR*
+      (int)
+      VkSparseImageMemoryRequirements2KHR*
+      "VkSparseImageMemoryRequirements2KHR* vksparseimagememoryrequirements2khr = malloc(___arg1 * sizeof(VkSparseImageMemoryRequirements2KHR));
+      ___return (vksparseimagememoryrequirements2khr);")
+   (define-c-lambda
       make-VkSparseImageMemoryRequirements2KHR
       ()
       VkSparseImageMemoryRequirements2KHR*
@@ -19360,6 +22013,7 @@ ___return (sparseimagememoryrequirements2);"))
 ___return (sparseimagememoryrequirements2khr);"))
 (begin-ffi
    (make-VkPhysicalDevicePointClippingProperties
+      make-VkPhysicalDevicePointClippingProperties*
       VkPhysicalDevicePointClippingPropertiespointClippingBehavior
       VkPhysicalDevicePointClippingPropertiespNext
       VkPhysicalDevicePointClippingPropertiessType
@@ -19369,6 +22023,7 @@ ___return (sparseimagememoryrequirements2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19395,6 +22050,12 @@ ___return (sparseimagememoryrequirements2khr);"))
       VkPointClippingBehavior
       "___return (___arg1->pointClippingBehavior);")
    (define-c-lambda
+      make-VkPhysicalDevicePointClippingProperties*
+      (int)
+      VkPhysicalDevicePointClippingProperties*
+      "VkPhysicalDevicePointClippingProperties* vkphysicaldevicepointclippingproperties = malloc(___arg1 * sizeof(VkPhysicalDevicePointClippingProperties));
+      ___return (vkphysicaldevicepointclippingproperties);")
+   (define-c-lambda
       make-VkPhysicalDevicePointClippingProperties
       (VkStructureType void* VkPointClippingBehavior)
       VkPhysicalDevicePointClippingProperties*
@@ -19405,12 +22066,14 @@ physicaldevicepointclippingproperties->pointClippingBehavior=___arg3;
 ___return (physicaldevicepointclippingproperties);"))
 (begin-ffi
    (make-VkPhysicalDevicePointClippingPropertiesKHR
+      make-VkPhysicalDevicePointClippingPropertiesKHR*
       VkPhysicalDevicePointClippingPropertiesKHR
       VkPhysicalDevicePointClippingPropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19422,6 +22085,12 @@ ___return (physicaldevicepointclippingproperties);"))
       VkPhysicalDevicePointClippingPropertiesKHR*
       (pointer VkPhysicalDevicePointClippingPropertiesKHR))
    (define-c-lambda
+      make-VkPhysicalDevicePointClippingPropertiesKHR*
+      (int)
+      VkPhysicalDevicePointClippingPropertiesKHR*
+      "VkPhysicalDevicePointClippingPropertiesKHR* vkphysicaldevicepointclippingpropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDevicePointClippingPropertiesKHR));
+      ___return (vkphysicaldevicepointclippingpropertieskhr);")
+   (define-c-lambda
       make-VkPhysicalDevicePointClippingPropertiesKHR
       ()
       VkPhysicalDevicePointClippingPropertiesKHR*
@@ -19429,6 +22098,7 @@ ___return (physicaldevicepointclippingproperties);"))
 ___return (physicaldevicepointclippingpropertieskhr);"))
 (begin-ffi
    (make-VkMemoryDedicatedRequirements
+      make-VkMemoryDedicatedRequirements*
       VkMemoryDedicatedRequirementsrequiresDedicatedAllocation
       VkMemoryDedicatedRequirementsprefersDedicatedAllocation
       VkMemoryDedicatedRequirementspNext
@@ -19439,6 +22109,7 @@ ___return (physicaldevicepointclippingpropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19466,6 +22137,12 @@ ___return (physicaldevicepointclippingpropertieskhr);"))
       VkBool32
       "___return (___arg1->requiresDedicatedAllocation);")
    (define-c-lambda
+      make-VkMemoryDedicatedRequirements*
+      (int)
+      VkMemoryDedicatedRequirements*
+      "VkMemoryDedicatedRequirements* vkmemorydedicatedrequirements = malloc(___arg1 * sizeof(VkMemoryDedicatedRequirements));
+      ___return (vkmemorydedicatedrequirements);")
+   (define-c-lambda
       make-VkMemoryDedicatedRequirements
       (VkStructureType void* VkBool32 VkBool32)
       VkMemoryDedicatedRequirements*
@@ -19477,12 +22154,14 @@ memorydedicatedrequirements->requiresDedicatedAllocation=___arg4;
 ___return (memorydedicatedrequirements);"))
 (begin-ffi
    (make-VkMemoryDedicatedRequirementsKHR
+      make-VkMemoryDedicatedRequirementsKHR*
       VkMemoryDedicatedRequirementsKHR
       VkMemoryDedicatedRequirementsKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19494,6 +22173,12 @@ ___return (memorydedicatedrequirements);"))
       VkMemoryDedicatedRequirementsKHR*
       (pointer VkMemoryDedicatedRequirementsKHR))
    (define-c-lambda
+      make-VkMemoryDedicatedRequirementsKHR*
+      (int)
+      VkMemoryDedicatedRequirementsKHR*
+      "VkMemoryDedicatedRequirementsKHR* vkmemorydedicatedrequirementskhr = malloc(___arg1 * sizeof(VkMemoryDedicatedRequirementsKHR));
+      ___return (vkmemorydedicatedrequirementskhr);")
+   (define-c-lambda
       make-VkMemoryDedicatedRequirementsKHR
       ()
       VkMemoryDedicatedRequirementsKHR*
@@ -19501,6 +22186,7 @@ ___return (memorydedicatedrequirements);"))
 ___return (memorydedicatedrequirementskhr);"))
 (begin-ffi
    (make-VkMemoryDedicatedAllocateInfo
+      make-VkMemoryDedicatedAllocateInfo*
       VkMemoryDedicatedAllocateInfobuffer
       VkMemoryDedicatedAllocateInfoimage
       VkMemoryDedicatedAllocateInfopNext
@@ -19511,6 +22197,7 @@ ___return (memorydedicatedrequirementskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19538,6 +22225,12 @@ ___return (memorydedicatedrequirementskhr);"))
       VkBuffer
       "___return (___arg1->buffer);")
    (define-c-lambda
+      make-VkMemoryDedicatedAllocateInfo*
+      (int)
+      VkMemoryDedicatedAllocateInfo*
+      "VkMemoryDedicatedAllocateInfo* vkmemorydedicatedallocateinfo = malloc(___arg1 * sizeof(VkMemoryDedicatedAllocateInfo));
+      ___return (vkmemorydedicatedallocateinfo);")
+   (define-c-lambda
       make-VkMemoryDedicatedAllocateInfo
       (VkStructureType void* VkImage VkBuffer)
       VkMemoryDedicatedAllocateInfo*
@@ -19549,12 +22242,14 @@ memorydedicatedallocateinfo->buffer=___arg4;
 ___return (memorydedicatedallocateinfo);"))
 (begin-ffi
    (make-VkMemoryDedicatedAllocateInfoKHR
+      make-VkMemoryDedicatedAllocateInfoKHR*
       VkMemoryDedicatedAllocateInfoKHR
       VkMemoryDedicatedAllocateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19566,6 +22261,12 @@ ___return (memorydedicatedallocateinfo);"))
       VkMemoryDedicatedAllocateInfoKHR*
       (pointer VkMemoryDedicatedAllocateInfoKHR))
    (define-c-lambda
+      make-VkMemoryDedicatedAllocateInfoKHR*
+      (int)
+      VkMemoryDedicatedAllocateInfoKHR*
+      "VkMemoryDedicatedAllocateInfoKHR* vkmemorydedicatedallocateinfokhr = malloc(___arg1 * sizeof(VkMemoryDedicatedAllocateInfoKHR));
+      ___return (vkmemorydedicatedallocateinfokhr);")
+   (define-c-lambda
       make-VkMemoryDedicatedAllocateInfoKHR
       ()
       VkMemoryDedicatedAllocateInfoKHR*
@@ -19573,6 +22274,7 @@ ___return (memorydedicatedallocateinfo);"))
 ___return (memorydedicatedallocateinfokhr);"))
 (begin-ffi
    (make-VkImageViewUsageCreateInfo
+      make-VkImageViewUsageCreateInfo*
       VkImageViewUsageCreateInfousage
       VkImageViewUsageCreateInfopNext
       VkImageViewUsageCreateInfosType
@@ -19582,6 +22284,7 @@ ___return (memorydedicatedallocateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19604,6 +22307,12 @@ ___return (memorydedicatedallocateinfokhr);"))
       VkImageUsageFlags
       "___return (___arg1->usage);")
    (define-c-lambda
+      make-VkImageViewUsageCreateInfo*
+      (int)
+      VkImageViewUsageCreateInfo*
+      "VkImageViewUsageCreateInfo* vkimageviewusagecreateinfo = malloc(___arg1 * sizeof(VkImageViewUsageCreateInfo));
+      ___return (vkimageviewusagecreateinfo);")
+   (define-c-lambda
       make-VkImageViewUsageCreateInfo
       (VkStructureType void* VkImageUsageFlags)
       VkImageViewUsageCreateInfo*
@@ -19614,18 +22323,26 @@ imageviewusagecreateinfo->usage=___arg3;
 ___return (imageviewusagecreateinfo);"))
 (begin-ffi
    (make-VkImageViewUsageCreateInfoKHR
+      make-VkImageViewUsageCreateInfoKHR*
       VkImageViewUsageCreateInfoKHR
       VkImageViewUsageCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkImageViewUsageCreateInfoKHR (struct "VkImageViewUsageCreateInfoKHR"))
    (c-define-type VkImageViewUsageCreateInfoKHR* (pointer VkImageViewUsageCreateInfoKHR))
+   (define-c-lambda
+      make-VkImageViewUsageCreateInfoKHR*
+      (int)
+      VkImageViewUsageCreateInfoKHR*
+      "VkImageViewUsageCreateInfoKHR* vkimageviewusagecreateinfokhr = malloc(___arg1 * sizeof(VkImageViewUsageCreateInfoKHR));
+      ___return (vkimageviewusagecreateinfokhr);")
    (define-c-lambda
       make-VkImageViewUsageCreateInfoKHR
       ()
@@ -19634,6 +22351,7 @@ ___return (imageviewusagecreateinfo);"))
 ___return (imageviewusagecreateinfokhr);"))
 (begin-ffi
    (make-VkPipelineTessellationDomainOriginStateCreateInfo
+      make-VkPipelineTessellationDomainOriginStateCreateInfo*
       VkPipelineTessellationDomainOriginStateCreateInfodomainOrigin
       VkPipelineTessellationDomainOriginStateCreateInfopNext
       VkPipelineTessellationDomainOriginStateCreateInfosType
@@ -19643,6 +22361,7 @@ ___return (imageviewusagecreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19669,6 +22388,12 @@ ___return (imageviewusagecreateinfokhr);"))
       VkTessellationDomainOrigin
       "___return (___arg1->domainOrigin);")
    (define-c-lambda
+      make-VkPipelineTessellationDomainOriginStateCreateInfo*
+      (int)
+      VkPipelineTessellationDomainOriginStateCreateInfo*
+      "VkPipelineTessellationDomainOriginStateCreateInfo* vkpipelinetessellationdomainoriginstatecreateinfo = malloc(___arg1 * sizeof(VkPipelineTessellationDomainOriginStateCreateInfo));
+      ___return (vkpipelinetessellationdomainoriginstatecreateinfo);")
+   (define-c-lambda
       make-VkPipelineTessellationDomainOriginStateCreateInfo
       (VkStructureType void* VkTessellationDomainOrigin)
       VkPipelineTessellationDomainOriginStateCreateInfo*
@@ -19679,12 +22404,14 @@ pipelinetessellationdomainoriginstatecreateinfo->domainOrigin=___arg3;
 ___return (pipelinetessellationdomainoriginstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineTessellationDomainOriginStateCreateInfoKHR
+      make-VkPipelineTessellationDomainOriginStateCreateInfoKHR*
       VkPipelineTessellationDomainOriginStateCreateInfoKHR
       VkPipelineTessellationDomainOriginStateCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19696,6 +22423,12 @@ ___return (pipelinetessellationdomainoriginstatecreateinfo);"))
       VkPipelineTessellationDomainOriginStateCreateInfoKHR*
       (pointer VkPipelineTessellationDomainOriginStateCreateInfoKHR))
    (define-c-lambda
+      make-VkPipelineTessellationDomainOriginStateCreateInfoKHR*
+      (int)
+      VkPipelineTessellationDomainOriginStateCreateInfoKHR*
+      "VkPipelineTessellationDomainOriginStateCreateInfoKHR* vkpipelinetessellationdomainoriginstatecreateinfokhr = malloc(___arg1 * sizeof(VkPipelineTessellationDomainOriginStateCreateInfoKHR));
+      ___return (vkpipelinetessellationdomainoriginstatecreateinfokhr);")
+   (define-c-lambda
       make-VkPipelineTessellationDomainOriginStateCreateInfoKHR
       ()
       VkPipelineTessellationDomainOriginStateCreateInfoKHR*
@@ -19703,6 +22436,7 @@ ___return (pipelinetessellationdomainoriginstatecreateinfo);"))
 ___return (pipelinetessellationdomainoriginstatecreateinfokhr);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionInfo
+      make-VkSamplerYcbcrConversionInfo*
       VkSamplerYcbcrConversionInfoconversion
       VkSamplerYcbcrConversionInfopNext
       VkSamplerYcbcrConversionInfosType
@@ -19712,6 +22446,7 @@ ___return (pipelinetessellationdomainoriginstatecreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19734,6 +22469,12 @@ ___return (pipelinetessellationdomainoriginstatecreateinfokhr);"))
       VkSamplerYcbcrConversion
       "___return (___arg1->conversion);")
    (define-c-lambda
+      make-VkSamplerYcbcrConversionInfo*
+      (int)
+      VkSamplerYcbcrConversionInfo*
+      "VkSamplerYcbcrConversionInfo* vksamplerycbcrconversioninfo = malloc(___arg1 * sizeof(VkSamplerYcbcrConversionInfo));
+      ___return (vksamplerycbcrconversioninfo);")
+   (define-c-lambda
       make-VkSamplerYcbcrConversionInfo
       (VkStructureType void* VkSamplerYcbcrConversion)
       VkSamplerYcbcrConversionInfo*
@@ -19744,12 +22485,14 @@ samplerycbcrconversioninfo->conversion=___arg3;
 ___return (samplerycbcrconversioninfo);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionInfoKHR
+      make-VkSamplerYcbcrConversionInfoKHR*
       VkSamplerYcbcrConversionInfoKHR
       VkSamplerYcbcrConversionInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19761,6 +22504,12 @@ ___return (samplerycbcrconversioninfo);"))
       VkSamplerYcbcrConversionInfoKHR*
       (pointer VkSamplerYcbcrConversionInfoKHR))
    (define-c-lambda
+      make-VkSamplerYcbcrConversionInfoKHR*
+      (int)
+      VkSamplerYcbcrConversionInfoKHR*
+      "VkSamplerYcbcrConversionInfoKHR* vksamplerycbcrconversioninfokhr = malloc(___arg1 * sizeof(VkSamplerYcbcrConversionInfoKHR));
+      ___return (vksamplerycbcrconversioninfokhr);")
+   (define-c-lambda
       make-VkSamplerYcbcrConversionInfoKHR
       ()
       VkSamplerYcbcrConversionInfoKHR*
@@ -19768,6 +22517,7 @@ ___return (samplerycbcrconversioninfo);"))
 ___return (samplerycbcrconversioninfokhr);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionCreateInfo
+      make-VkSamplerYcbcrConversionCreateInfo*
       VkSamplerYcbcrConversionCreateInfoforceExplicitReconstruction
       VkSamplerYcbcrConversionCreateInfochromaFilter
       VkSamplerYcbcrConversionCreateInfoyChromaOffset
@@ -19784,6 +22534,7 @@ ___return (samplerycbcrconversioninfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19845,6 +22596,12 @@ ___return (samplerycbcrconversioninfokhr);"))
       VkBool32
       "___return (___arg1->forceExplicitReconstruction);")
    (define-c-lambda
+      make-VkSamplerYcbcrConversionCreateInfo*
+      (int)
+      VkSamplerYcbcrConversionCreateInfo*
+      "VkSamplerYcbcrConversionCreateInfo* vksamplerycbcrconversioncreateinfo = malloc(___arg1 * sizeof(VkSamplerYcbcrConversionCreateInfo));
+      ___return (vksamplerycbcrconversioncreateinfo);")
+   (define-c-lambda
       make-VkSamplerYcbcrConversionCreateInfo
       (VkStructureType
          void*
@@ -19871,12 +22628,14 @@ samplerycbcrconversioncreateinfo->forceExplicitReconstruction=___arg10;
 ___return (samplerycbcrconversioncreateinfo);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionCreateInfoKHR
+      make-VkSamplerYcbcrConversionCreateInfoKHR*
       VkSamplerYcbcrConversionCreateInfoKHR
       VkSamplerYcbcrConversionCreateInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19888,6 +22647,12 @@ ___return (samplerycbcrconversioncreateinfo);"))
       VkSamplerYcbcrConversionCreateInfoKHR*
       (pointer VkSamplerYcbcrConversionCreateInfoKHR))
    (define-c-lambda
+      make-VkSamplerYcbcrConversionCreateInfoKHR*
+      (int)
+      VkSamplerYcbcrConversionCreateInfoKHR*
+      "VkSamplerYcbcrConversionCreateInfoKHR* vksamplerycbcrconversioncreateinfokhr = malloc(___arg1 * sizeof(VkSamplerYcbcrConversionCreateInfoKHR));
+      ___return (vksamplerycbcrconversioncreateinfokhr);")
+   (define-c-lambda
       make-VkSamplerYcbcrConversionCreateInfoKHR
       ()
       VkSamplerYcbcrConversionCreateInfoKHR*
@@ -19895,6 +22660,7 @@ ___return (samplerycbcrconversioncreateinfo);"))
 ___return (samplerycbcrconversioncreateinfokhr);"))
 (begin-ffi
    (make-VkBindImagePlaneMemoryInfo
+      make-VkBindImagePlaneMemoryInfo*
       VkBindImagePlaneMemoryInfoplaneAspect
       VkBindImagePlaneMemoryInfopNext
       VkBindImagePlaneMemoryInfosType
@@ -19904,6 +22670,7 @@ ___return (samplerycbcrconversioncreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19926,6 +22693,12 @@ ___return (samplerycbcrconversioncreateinfokhr);"))
       VkImageAspectFlagBits
       "___return (___arg1->planeAspect);")
    (define-c-lambda
+      make-VkBindImagePlaneMemoryInfo*
+      (int)
+      VkBindImagePlaneMemoryInfo*
+      "VkBindImagePlaneMemoryInfo* vkbindimageplanememoryinfo = malloc(___arg1 * sizeof(VkBindImagePlaneMemoryInfo));
+      ___return (vkbindimageplanememoryinfo);")
+   (define-c-lambda
       make-VkBindImagePlaneMemoryInfo
       (VkStructureType void* VkImageAspectFlagBits)
       VkBindImagePlaneMemoryInfo*
@@ -19936,18 +22709,26 @@ bindimageplanememoryinfo->planeAspect=___arg3;
 ___return (bindimageplanememoryinfo);"))
 (begin-ffi
    (make-VkBindImagePlaneMemoryInfoKHR
+      make-VkBindImagePlaneMemoryInfoKHR*
       VkBindImagePlaneMemoryInfoKHR
       VkBindImagePlaneMemoryInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
    (c-define-type VkBindImagePlaneMemoryInfoKHR (struct "VkBindImagePlaneMemoryInfoKHR"))
    (c-define-type VkBindImagePlaneMemoryInfoKHR* (pointer VkBindImagePlaneMemoryInfoKHR))
+   (define-c-lambda
+      make-VkBindImagePlaneMemoryInfoKHR*
+      (int)
+      VkBindImagePlaneMemoryInfoKHR*
+      "VkBindImagePlaneMemoryInfoKHR* vkbindimageplanememoryinfokhr = malloc(___arg1 * sizeof(VkBindImagePlaneMemoryInfoKHR));
+      ___return (vkbindimageplanememoryinfokhr);")
    (define-c-lambda
       make-VkBindImagePlaneMemoryInfoKHR
       ()
@@ -19956,6 +22737,7 @@ ___return (bindimageplanememoryinfo);"))
 ___return (bindimageplanememoryinfokhr);"))
 (begin-ffi
    (make-VkImagePlaneMemoryRequirementsInfo
+      make-VkImagePlaneMemoryRequirementsInfo*
       VkImagePlaneMemoryRequirementsInfoplaneAspect
       VkImagePlaneMemoryRequirementsInfopNext
       VkImagePlaneMemoryRequirementsInfosType
@@ -19965,6 +22747,7 @@ ___return (bindimageplanememoryinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -19991,6 +22774,12 @@ ___return (bindimageplanememoryinfokhr);"))
       VkImageAspectFlagBits
       "___return (___arg1->planeAspect);")
    (define-c-lambda
+      make-VkImagePlaneMemoryRequirementsInfo*
+      (int)
+      VkImagePlaneMemoryRequirementsInfo*
+      "VkImagePlaneMemoryRequirementsInfo* vkimageplanememoryrequirementsinfo = malloc(___arg1 * sizeof(VkImagePlaneMemoryRequirementsInfo));
+      ___return (vkimageplanememoryrequirementsinfo);")
+   (define-c-lambda
       make-VkImagePlaneMemoryRequirementsInfo
       (VkStructureType void* VkImageAspectFlagBits)
       VkImagePlaneMemoryRequirementsInfo*
@@ -20001,12 +22790,14 @@ imageplanememoryrequirementsinfo->planeAspect=___arg3;
 ___return (imageplanememoryrequirementsinfo);"))
 (begin-ffi
    (make-VkImagePlaneMemoryRequirementsInfoKHR
+      make-VkImagePlaneMemoryRequirementsInfoKHR*
       VkImagePlaneMemoryRequirementsInfoKHR
       VkImagePlaneMemoryRequirementsInfoKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20018,6 +22809,12 @@ ___return (imageplanememoryrequirementsinfo);"))
       VkImagePlaneMemoryRequirementsInfoKHR*
       (pointer VkImagePlaneMemoryRequirementsInfoKHR))
    (define-c-lambda
+      make-VkImagePlaneMemoryRequirementsInfoKHR*
+      (int)
+      VkImagePlaneMemoryRequirementsInfoKHR*
+      "VkImagePlaneMemoryRequirementsInfoKHR* vkimageplanememoryrequirementsinfokhr = malloc(___arg1 * sizeof(VkImagePlaneMemoryRequirementsInfoKHR));
+      ___return (vkimageplanememoryrequirementsinfokhr);")
+   (define-c-lambda
       make-VkImagePlaneMemoryRequirementsInfoKHR
       ()
       VkImagePlaneMemoryRequirementsInfoKHR*
@@ -20025,6 +22822,7 @@ ___return (imageplanememoryrequirementsinfo);"))
 ___return (imageplanememoryrequirementsinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceSamplerYcbcrConversionFeatures
+      make-VkPhysicalDeviceSamplerYcbcrConversionFeatures*
       VkPhysicalDeviceSamplerYcbcrConversionFeaturessamplerYcbcrConversion
       VkPhysicalDeviceSamplerYcbcrConversionFeaturespNext
       VkPhysicalDeviceSamplerYcbcrConversionFeaturessType
@@ -20034,6 +22832,7 @@ ___return (imageplanememoryrequirementsinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20060,6 +22859,12 @@ ___return (imageplanememoryrequirementsinfokhr);"))
       VkBool32
       "___return (___arg1->samplerYcbcrConversion);")
    (define-c-lambda
+      make-VkPhysicalDeviceSamplerYcbcrConversionFeatures*
+      (int)
+      VkPhysicalDeviceSamplerYcbcrConversionFeatures*
+      "VkPhysicalDeviceSamplerYcbcrConversionFeatures* vkphysicaldevicesamplerycbcrconversionfeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceSamplerYcbcrConversionFeatures));
+      ___return (vkphysicaldevicesamplerycbcrconversionfeatures);")
+   (define-c-lambda
       make-VkPhysicalDeviceSamplerYcbcrConversionFeatures
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceSamplerYcbcrConversionFeatures*
@@ -20070,12 +22875,14 @@ physicaldevicesamplerycbcrconversionfeatures->samplerYcbcrConversion=___arg3;
 ___return (physicaldevicesamplerycbcrconversionfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
+      make-VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR*
       VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
       VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20087,6 +22894,12 @@ ___return (physicaldevicesamplerycbcrconversionfeatures);"))
       VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR*
       (pointer VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR*
+      (int)
+      VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR*
+      "VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR* vkphysicaldevicesamplerycbcrconversionfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR));
+      ___return (vkphysicaldevicesamplerycbcrconversionfeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
       ()
       VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR*
@@ -20094,6 +22907,7 @@ ___return (physicaldevicesamplerycbcrconversionfeatures);"))
 ___return (physicaldevicesamplerycbcrconversionfeatureskhr);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionImageFormatProperties
+      make-VkSamplerYcbcrConversionImageFormatProperties*
       VkSamplerYcbcrConversionImageFormatPropertiescombinedImageSamplerDescriptorCount
       VkSamplerYcbcrConversionImageFormatPropertiespNext
       VkSamplerYcbcrConversionImageFormatPropertiessType
@@ -20103,6 +22917,7 @@ ___return (physicaldevicesamplerycbcrconversionfeatureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20129,6 +22944,12 @@ ___return (physicaldevicesamplerycbcrconversionfeatureskhr);"))
       uint32_t
       "___return (___arg1->combinedImageSamplerDescriptorCount);")
    (define-c-lambda
+      make-VkSamplerYcbcrConversionImageFormatProperties*
+      (int)
+      VkSamplerYcbcrConversionImageFormatProperties*
+      "VkSamplerYcbcrConversionImageFormatProperties* vksamplerycbcrconversionimageformatproperties = malloc(___arg1 * sizeof(VkSamplerYcbcrConversionImageFormatProperties));
+      ___return (vksamplerycbcrconversionimageformatproperties);")
+   (define-c-lambda
       make-VkSamplerYcbcrConversionImageFormatProperties
       (VkStructureType void* uint32_t)
       VkSamplerYcbcrConversionImageFormatProperties*
@@ -20139,12 +22960,14 @@ samplerycbcrconversionimageformatproperties->combinedImageSamplerDescriptorCount
 ___return (samplerycbcrconversionimageformatproperties);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionImageFormatPropertiesKHR
+      make-VkSamplerYcbcrConversionImageFormatPropertiesKHR*
       VkSamplerYcbcrConversionImageFormatPropertiesKHR
       VkSamplerYcbcrConversionImageFormatPropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20156,6 +22979,12 @@ ___return (samplerycbcrconversionimageformatproperties);"))
       VkSamplerYcbcrConversionImageFormatPropertiesKHR*
       (pointer VkSamplerYcbcrConversionImageFormatPropertiesKHR))
    (define-c-lambda
+      make-VkSamplerYcbcrConversionImageFormatPropertiesKHR*
+      (int)
+      VkSamplerYcbcrConversionImageFormatPropertiesKHR*
+      "VkSamplerYcbcrConversionImageFormatPropertiesKHR* vksamplerycbcrconversionimageformatpropertieskhr = malloc(___arg1 * sizeof(VkSamplerYcbcrConversionImageFormatPropertiesKHR));
+      ___return (vksamplerycbcrconversionimageformatpropertieskhr);")
+   (define-c-lambda
       make-VkSamplerYcbcrConversionImageFormatPropertiesKHR
       ()
       VkSamplerYcbcrConversionImageFormatPropertiesKHR*
@@ -20163,6 +22992,7 @@ ___return (samplerycbcrconversionimageformatproperties);"))
 ___return (samplerycbcrconversionimageformatpropertieskhr);"))
 (begin-ffi
    (make-VkTextureLODGatherFormatPropertiesAMD
+      make-VkTextureLODGatherFormatPropertiesAMD*
       VkTextureLODGatherFormatPropertiesAMDsupportsTextureGatherLODBiasAMD
       VkTextureLODGatherFormatPropertiesAMDpNext
       VkTextureLODGatherFormatPropertiesAMDsType
@@ -20172,6 +23002,7 @@ ___return (samplerycbcrconversionimageformatpropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20198,6 +23029,12 @@ ___return (samplerycbcrconversionimageformatpropertieskhr);"))
       VkBool32
       "___return (___arg1->supportsTextureGatherLODBiasAMD);")
    (define-c-lambda
+      make-VkTextureLODGatherFormatPropertiesAMD*
+      (int)
+      VkTextureLODGatherFormatPropertiesAMD*
+      "VkTextureLODGatherFormatPropertiesAMD* vktexturelodgatherformatpropertiesamd = malloc(___arg1 * sizeof(VkTextureLODGatherFormatPropertiesAMD));
+      ___return (vktexturelodgatherformatpropertiesamd);")
+   (define-c-lambda
       make-VkTextureLODGatherFormatPropertiesAMD
       (VkStructureType void* VkBool32)
       VkTextureLODGatherFormatPropertiesAMD*
@@ -20208,6 +23045,7 @@ texturelodgatherformatpropertiesamd->supportsTextureGatherLODBiasAMD=___arg3;
 ___return (texturelodgatherformatpropertiesamd);"))
 (begin-ffi
    (make-VkConditionalRenderingBeginInfoEXT
+      make-VkConditionalRenderingBeginInfoEXT*
       VkConditionalRenderingBeginInfoEXTflags
       VkConditionalRenderingBeginInfoEXToffset
       VkConditionalRenderingBeginInfoEXTbuffer
@@ -20219,6 +23057,7 @@ ___return (texturelodgatherformatpropertiesamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20255,6 +23094,12 @@ ___return (texturelodgatherformatpropertiesamd);"))
       VkConditionalRenderingFlagsEXT
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkConditionalRenderingBeginInfoEXT*
+      (int)
+      VkConditionalRenderingBeginInfoEXT*
+      "VkConditionalRenderingBeginInfoEXT* vkconditionalrenderingbegininfoext = malloc(___arg1 * sizeof(VkConditionalRenderingBeginInfoEXT));
+      ___return (vkconditionalrenderingbegininfoext);")
+   (define-c-lambda
       make-VkConditionalRenderingBeginInfoEXT
       (VkStructureType void* VkBuffer VkDeviceSize VkConditionalRenderingFlagsEXT)
       VkConditionalRenderingBeginInfoEXT*
@@ -20267,6 +23112,7 @@ conditionalrenderingbegininfoext->flags=___arg5;
 ___return (conditionalrenderingbegininfoext);"))
 (begin-ffi
    (make-VkProtectedSubmitInfo
+      make-VkProtectedSubmitInfo*
       VkProtectedSubmitInfoprotectedSubmit
       VkProtectedSubmitInfopNext
       VkProtectedSubmitInfosType
@@ -20276,6 +23122,7 @@ ___return (conditionalrenderingbegininfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20298,6 +23145,12 @@ ___return (conditionalrenderingbegininfoext);"))
       VkBool32
       "___return (___arg1->protectedSubmit);")
    (define-c-lambda
+      make-VkProtectedSubmitInfo*
+      (int)
+      VkProtectedSubmitInfo*
+      "VkProtectedSubmitInfo* vkprotectedsubmitinfo = malloc(___arg1 * sizeof(VkProtectedSubmitInfo));
+      ___return (vkprotectedsubmitinfo);")
+   (define-c-lambda
       make-VkProtectedSubmitInfo
       (VkStructureType void* VkBool32)
       VkProtectedSubmitInfo*
@@ -20308,6 +23161,7 @@ protectedsubmitinfo->protectedSubmit=___arg3;
 ___return (protectedsubmitinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceProtectedMemoryFeatures
+      make-VkPhysicalDeviceProtectedMemoryFeatures*
       VkPhysicalDeviceProtectedMemoryFeaturesprotectedMemory
       VkPhysicalDeviceProtectedMemoryFeaturespNext
       VkPhysicalDeviceProtectedMemoryFeaturessType
@@ -20317,6 +23171,7 @@ ___return (protectedsubmitinfo);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20343,6 +23198,12 @@ ___return (protectedsubmitinfo);"))
       VkBool32
       "___return (___arg1->protectedMemory);")
    (define-c-lambda
+      make-VkPhysicalDeviceProtectedMemoryFeatures*
+      (int)
+      VkPhysicalDeviceProtectedMemoryFeatures*
+      "VkPhysicalDeviceProtectedMemoryFeatures* vkphysicaldeviceprotectedmemoryfeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceProtectedMemoryFeatures));
+      ___return (vkphysicaldeviceprotectedmemoryfeatures);")
+   (define-c-lambda
       make-VkPhysicalDeviceProtectedMemoryFeatures
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceProtectedMemoryFeatures*
@@ -20353,6 +23214,7 @@ physicaldeviceprotectedmemoryfeatures->protectedMemory=___arg3;
 ___return (physicaldeviceprotectedmemoryfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceProtectedMemoryProperties
+      make-VkPhysicalDeviceProtectedMemoryProperties*
       VkPhysicalDeviceProtectedMemoryPropertiesprotectedNoFault
       VkPhysicalDeviceProtectedMemoryPropertiespNext
       VkPhysicalDeviceProtectedMemoryPropertiessType
@@ -20362,6 +23224,7 @@ ___return (physicaldeviceprotectedmemoryfeatures);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20388,6 +23251,12 @@ ___return (physicaldeviceprotectedmemoryfeatures);"))
       VkBool32
       "___return (___arg1->protectedNoFault);")
    (define-c-lambda
+      make-VkPhysicalDeviceProtectedMemoryProperties*
+      (int)
+      VkPhysicalDeviceProtectedMemoryProperties*
+      "VkPhysicalDeviceProtectedMemoryProperties* vkphysicaldeviceprotectedmemoryproperties = malloc(___arg1 * sizeof(VkPhysicalDeviceProtectedMemoryProperties));
+      ___return (vkphysicaldeviceprotectedmemoryproperties);")
+   (define-c-lambda
       make-VkPhysicalDeviceProtectedMemoryProperties
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceProtectedMemoryProperties*
@@ -20398,6 +23267,7 @@ physicaldeviceprotectedmemoryproperties->protectedNoFault=___arg3;
 ___return (physicaldeviceprotectedmemoryproperties);"))
 (begin-ffi
    (make-VkDeviceQueueInfo2
+      make-VkDeviceQueueInfo2*
       VkDeviceQueueInfo2queueIndex
       VkDeviceQueueInfo2queueFamilyIndex
       VkDeviceQueueInfo2flags
@@ -20409,6 +23279,7 @@ ___return (physicaldeviceprotectedmemoryproperties);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20441,6 +23312,12 @@ ___return (physicaldeviceprotectedmemoryproperties);"))
       uint32_t
       "___return (___arg1->queueIndex);")
    (define-c-lambda
+      make-VkDeviceQueueInfo2*
+      (int)
+      VkDeviceQueueInfo2*
+      "VkDeviceQueueInfo2* vkdevicequeueinfo2 = malloc(___arg1 * sizeof(VkDeviceQueueInfo2));
+      ___return (vkdevicequeueinfo2);")
+   (define-c-lambda
       make-VkDeviceQueueInfo2
       (VkStructureType void* VkDeviceQueueCreateFlags uint32_t uint32_t)
       VkDeviceQueueInfo2*
@@ -20453,6 +23330,7 @@ devicequeueinfo2->queueIndex=___arg5;
 ___return (devicequeueinfo2);"))
 (begin-ffi
    (make-VkPipelineCoverageToColorStateCreateInfoNV
+      make-VkPipelineCoverageToColorStateCreateInfoNV*
       VkPipelineCoverageToColorStateCreateInfoNVcoverageToColorLocation
       VkPipelineCoverageToColorStateCreateInfoNVcoverageToColorEnable
       VkPipelineCoverageToColorStateCreateInfoNVflags
@@ -20464,6 +23342,7 @@ ___return (devicequeueinfo2);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20500,6 +23379,12 @@ ___return (devicequeueinfo2);"))
       uint32_t
       "___return (___arg1->coverageToColorLocation);")
    (define-c-lambda
+      make-VkPipelineCoverageToColorStateCreateInfoNV*
+      (int)
+      VkPipelineCoverageToColorStateCreateInfoNV*
+      "VkPipelineCoverageToColorStateCreateInfoNV* vkpipelinecoveragetocolorstatecreateinfonv = malloc(___arg1 * sizeof(VkPipelineCoverageToColorStateCreateInfoNV));
+      ___return (vkpipelinecoveragetocolorstatecreateinfonv);")
+   (define-c-lambda
       make-VkPipelineCoverageToColorStateCreateInfoNV
       (VkStructureType
          void*
@@ -20516,6 +23401,7 @@ pipelinecoveragetocolorstatecreateinfonv->coverageToColorLocation=___arg5;
 ___return (pipelinecoveragetocolorstatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
+      make-VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT*
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXTfilterMinmaxImageComponentMapping
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXTfilterMinmaxSingleComponentFormats
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXTpNext
@@ -20526,6 +23412,7 @@ ___return (pipelinecoveragetocolorstatecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20557,6 +23444,12 @@ ___return (pipelinecoveragetocolorstatecreateinfonv);"))
       VkBool32
       "___return (___arg1->filterMinmaxImageComponentMapping);")
    (define-c-lambda
+      make-VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT*
+      (int)
+      VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT*
+      "VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT* vkphysicaldevicesamplerfilterminmaxpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT));
+      ___return (vkphysicaldevicesamplerfilterminmaxpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT*
@@ -20568,6 +23461,7 @@ physicaldevicesamplerfilterminmaxpropertiesext->filterMinmaxImageComponentMappin
 ___return (physicaldevicesamplerfilterminmaxpropertiesext);"))
 (begin-ffi
    (make-VkSampleLocationEXT
+      make-VkSampleLocationEXT*
       VkSampleLocationEXTy
       VkSampleLocationEXTx
       VkSampleLocationEXT
@@ -20576,6 +23470,7 @@ ___return (physicaldevicesamplerfilterminmaxpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20593,6 +23488,12 @@ ___return (physicaldevicesamplerfilterminmaxpropertiesext);"))
       float
       "___return (___arg1->y);")
    (define-c-lambda
+      make-VkSampleLocationEXT*
+      (int)
+      VkSampleLocationEXT*
+      "VkSampleLocationEXT* vksamplelocationext = malloc(___arg1 * sizeof(VkSampleLocationEXT));
+      ___return (vksamplelocationext);")
+   (define-c-lambda
       make-VkSampleLocationEXT
       (float float)
       VkSampleLocationEXT*
@@ -20602,6 +23503,7 @@ samplelocationext->y=___arg2;
 ___return (samplelocationext);"))
 (begin-ffi
    (make-VkSampleLocationsInfoEXT
+      make-VkSampleLocationsInfoEXT*
       VkSampleLocationsInfoEXTpSampleLocations
       VkSampleLocationsInfoEXTsampleLocationsCount
       VkSampleLocationsInfoEXTsampleLocationGridSize
@@ -20614,6 +23516,7 @@ ___return (samplelocationext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20651,6 +23554,12 @@ ___return (samplelocationext);"))
       VkSampleLocationEXT*
       "___return (___arg1->pSampleLocations);")
    (define-c-lambda
+      make-VkSampleLocationsInfoEXT*
+      (int)
+      VkSampleLocationsInfoEXT*
+      "VkSampleLocationsInfoEXT* vksamplelocationsinfoext = malloc(___arg1 * sizeof(VkSampleLocationsInfoEXT));
+      ___return (vksamplelocationsinfoext);")
+   (define-c-lambda
       make-VkSampleLocationsInfoEXT
       (VkStructureType
          void*
@@ -20669,6 +23578,7 @@ samplelocationsinfoext->pSampleLocations=___arg6;
 ___return (samplelocationsinfoext);"))
 (begin-ffi
    (make-VkAttachmentSampleLocationsEXT
+      make-VkAttachmentSampleLocationsEXT*
       VkAttachmentSampleLocationsEXTsampleLocationsInfo
       VkAttachmentSampleLocationsEXTattachmentIndex
       VkAttachmentSampleLocationsEXT
@@ -20677,6 +23587,7 @@ ___return (samplelocationsinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20698,6 +23609,12 @@ ___return (samplelocationsinfoext);"))
       VkSampleLocationsInfoEXT
       "___return (___arg1->sampleLocationsInfo);")
    (define-c-lambda
+      make-VkAttachmentSampleLocationsEXT*
+      (int)
+      VkAttachmentSampleLocationsEXT*
+      "VkAttachmentSampleLocationsEXT* vkattachmentsamplelocationsext = malloc(___arg1 * sizeof(VkAttachmentSampleLocationsEXT));
+      ___return (vkattachmentsamplelocationsext);")
+   (define-c-lambda
       make-VkAttachmentSampleLocationsEXT
       (uint32_t VkSampleLocationsInfoEXT)
       VkAttachmentSampleLocationsEXT*
@@ -20707,6 +23624,7 @@ attachmentsamplelocationsext->sampleLocationsInfo=___arg2;
 ___return (attachmentsamplelocationsext);"))
 (begin-ffi
    (make-VkSubpassSampleLocationsEXT
+      make-VkSubpassSampleLocationsEXT*
       VkSubpassSampleLocationsEXTsampleLocationsInfo
       VkSubpassSampleLocationsEXTsubpassIndex
       VkSubpassSampleLocationsEXT
@@ -20715,6 +23633,7 @@ ___return (attachmentsamplelocationsext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20732,6 +23651,12 @@ ___return (attachmentsamplelocationsext);"))
       VkSampleLocationsInfoEXT
       "___return (___arg1->sampleLocationsInfo);")
    (define-c-lambda
+      make-VkSubpassSampleLocationsEXT*
+      (int)
+      VkSubpassSampleLocationsEXT*
+      "VkSubpassSampleLocationsEXT* vksubpasssamplelocationsext = malloc(___arg1 * sizeof(VkSubpassSampleLocationsEXT));
+      ___return (vksubpasssamplelocationsext);")
+   (define-c-lambda
       make-VkSubpassSampleLocationsEXT
       (uint32_t VkSampleLocationsInfoEXT)
       VkSubpassSampleLocationsEXT*
@@ -20741,6 +23666,7 @@ subpasssamplelocationsext->sampleLocationsInfo=___arg2;
 ___return (subpasssamplelocationsext);"))
 (begin-ffi
    (make-VkRenderPassSampleLocationsBeginInfoEXT
+      make-VkRenderPassSampleLocationsBeginInfoEXT*
       VkRenderPassSampleLocationsBeginInfoEXTpPostSubpassSampleLocations
       VkRenderPassSampleLocationsBeginInfoEXTpostSubpassSampleLocationsCount
       VkRenderPassSampleLocationsBeginInfoEXTpAttachmentInitialSampleLocations
@@ -20753,6 +23679,7 @@ ___return (subpasssamplelocationsext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20794,6 +23721,12 @@ ___return (subpasssamplelocationsext);"))
       VkSubpassSampleLocationsEXT*
       "___return (___arg1->pPostSubpassSampleLocations);")
    (define-c-lambda
+      make-VkRenderPassSampleLocationsBeginInfoEXT*
+      (int)
+      VkRenderPassSampleLocationsBeginInfoEXT*
+      "VkRenderPassSampleLocationsBeginInfoEXT* vkrenderpasssamplelocationsbegininfoext = malloc(___arg1 * sizeof(VkRenderPassSampleLocationsBeginInfoEXT));
+      ___return (vkrenderpasssamplelocationsbegininfoext);")
+   (define-c-lambda
       make-VkRenderPassSampleLocationsBeginInfoEXT
       (VkStructureType
          void*
@@ -20812,6 +23745,7 @@ renderpasssamplelocationsbegininfoext->pPostSubpassSampleLocations=___arg6;
 ___return (renderpasssamplelocationsbegininfoext);"))
 (begin-ffi
    (make-VkPipelineSampleLocationsStateCreateInfoEXT
+      make-VkPipelineSampleLocationsStateCreateInfoEXT*
       VkPipelineSampleLocationsStateCreateInfoEXTsampleLocationsInfo
       VkPipelineSampleLocationsStateCreateInfoEXTsampleLocationsEnable
       VkPipelineSampleLocationsStateCreateInfoEXTpNext
@@ -20822,6 +23756,7 @@ ___return (renderpasssamplelocationsbegininfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20853,6 +23788,12 @@ ___return (renderpasssamplelocationsbegininfoext);"))
       VkSampleLocationsInfoEXT
       "___return (___arg1->sampleLocationsInfo);")
    (define-c-lambda
+      make-VkPipelineSampleLocationsStateCreateInfoEXT*
+      (int)
+      VkPipelineSampleLocationsStateCreateInfoEXT*
+      "VkPipelineSampleLocationsStateCreateInfoEXT* vkpipelinesamplelocationsstatecreateinfoext = malloc(___arg1 * sizeof(VkPipelineSampleLocationsStateCreateInfoEXT));
+      ___return (vkpipelinesamplelocationsstatecreateinfoext);")
+   (define-c-lambda
       make-VkPipelineSampleLocationsStateCreateInfoEXT
       (VkStructureType void* VkBool32 VkSampleLocationsInfoEXT)
       VkPipelineSampleLocationsStateCreateInfoEXT*
@@ -20864,6 +23805,7 @@ pipelinesamplelocationsstatecreateinfoext->sampleLocationsInfo=___arg4;
 ___return (pipelinesamplelocationsstatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceSampleLocationsPropertiesEXT
+      make-VkPhysicalDeviceSampleLocationsPropertiesEXT*
       VkPhysicalDeviceSampleLocationsPropertiesEXTvariableSampleLocations
       VkPhysicalDeviceSampleLocationsPropertiesEXTsampleLocationSubPixelBits
       VkPhysicalDeviceSampleLocationsPropertiesEXTsampleLocationCoordinateRange
@@ -20877,6 +23819,7 @@ ___return (pipelinesamplelocationsstatecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20923,6 +23866,12 @@ ___return (pipelinesamplelocationsstatecreateinfoext);"))
       VkBool32
       "___return (___arg1->variableSampleLocations);")
    (define-c-lambda
+      make-VkPhysicalDeviceSampleLocationsPropertiesEXT*
+      (int)
+      VkPhysicalDeviceSampleLocationsPropertiesEXT*
+      "VkPhysicalDeviceSampleLocationsPropertiesEXT* vkphysicaldevicesamplelocationspropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceSampleLocationsPropertiesEXT));
+      ___return (vkphysicaldevicesamplelocationspropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceSampleLocationsPropertiesEXT
       (VkStructureType void* VkSampleCountFlags VkExtent2D float* uint32_t VkBool32)
       VkPhysicalDeviceSampleLocationsPropertiesEXT*
@@ -20937,6 +23886,7 @@ physicaldevicesamplelocationspropertiesext->variableSampleLocations=___arg7;
 ___return (physicaldevicesamplelocationspropertiesext);"))
 (begin-ffi
    (make-VkMultisamplePropertiesEXT
+      make-VkMultisamplePropertiesEXT*
       VkMultisamplePropertiesEXTmaxSampleLocationGridSize
       VkMultisamplePropertiesEXTpNext
       VkMultisamplePropertiesEXTsType
@@ -20946,6 +23896,7 @@ ___return (physicaldevicesamplelocationspropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -20968,6 +23919,12 @@ ___return (physicaldevicesamplelocationspropertiesext);"))
       VkExtent2D
       "___return (___arg1->maxSampleLocationGridSize);")
    (define-c-lambda
+      make-VkMultisamplePropertiesEXT*
+      (int)
+      VkMultisamplePropertiesEXT*
+      "VkMultisamplePropertiesEXT* vkmultisamplepropertiesext = malloc(___arg1 * sizeof(VkMultisamplePropertiesEXT));
+      ___return (vkmultisamplepropertiesext);")
+   (define-c-lambda
       make-VkMultisamplePropertiesEXT
       (VkStructureType void* VkExtent2D)
       VkMultisamplePropertiesEXT*
@@ -20978,6 +23935,7 @@ multisamplepropertiesext->maxSampleLocationGridSize=___arg3;
 ___return (multisamplepropertiesext);"))
 (begin-ffi
    (make-VkSamplerReductionModeCreateInfoEXT
+      make-VkSamplerReductionModeCreateInfoEXT*
       VkSamplerReductionModeCreateInfoEXTreductionMode
       VkSamplerReductionModeCreateInfoEXTpNext
       VkSamplerReductionModeCreateInfoEXTsType
@@ -20987,6 +23945,7 @@ ___return (multisamplepropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21013,6 +23972,12 @@ ___return (multisamplepropertiesext);"))
       VkSamplerReductionModeEXT
       "___return (___arg1->reductionMode);")
    (define-c-lambda
+      make-VkSamplerReductionModeCreateInfoEXT*
+      (int)
+      VkSamplerReductionModeCreateInfoEXT*
+      "VkSamplerReductionModeCreateInfoEXT* vksamplerreductionmodecreateinfoext = malloc(___arg1 * sizeof(VkSamplerReductionModeCreateInfoEXT));
+      ___return (vksamplerreductionmodecreateinfoext);")
+   (define-c-lambda
       make-VkSamplerReductionModeCreateInfoEXT
       (VkStructureType void* VkSamplerReductionModeEXT)
       VkSamplerReductionModeCreateInfoEXT*
@@ -21023,6 +23988,7 @@ samplerreductionmodecreateinfoext->reductionMode=___arg3;
 ___return (samplerreductionmodecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
+      make-VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT*
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXTadvancedBlendCoherentOperations
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXTpNext
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXTsType
@@ -21032,6 +23998,7 @@ ___return (samplerreductionmodecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21058,6 +24025,12 @@ ___return (samplerreductionmodecreateinfoext);"))
       VkBool32
       "___return (___arg1->advancedBlendCoherentOperations);")
    (define-c-lambda
+      make-VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT*
+      (int)
+      VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT*
+      "VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT* vkphysicaldeviceblendoperationadvancedfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT));
+      ___return (vkphysicaldeviceblendoperationadvancedfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT*
@@ -21068,6 +24041,7 @@ physicaldeviceblendoperationadvancedfeaturesext->advancedBlendCoherentOperations
 ___return (physicaldeviceblendoperationadvancedfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
+      make-VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT*
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXTadvancedBlendAllOperations
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXTadvancedBlendCorrelatedOverlap
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXTadvancedBlendNonPremultipliedDstColor
@@ -21082,6 +24056,7 @@ ___return (physicaldeviceblendoperationadvancedfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21133,6 +24108,12 @@ ___return (physicaldeviceblendoperationadvancedfeaturesext);"))
       VkBool32
       "___return (___arg1->advancedBlendAllOperations);")
    (define-c-lambda
+      make-VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT*
+      (int)
+      VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT*
+      "VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT* vkphysicaldeviceblendoperationadvancedpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT));
+      ___return (vkphysicaldeviceblendoperationadvancedpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
       (VkStructureType void* uint32_t VkBool32 VkBool32 VkBool32 VkBool32 VkBool32)
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT*
@@ -21148,6 +24129,7 @@ physicaldeviceblendoperationadvancedpropertiesext->advancedBlendAllOperations=__
 ___return (physicaldeviceblendoperationadvancedpropertiesext);"))
 (begin-ffi
    (make-VkPipelineColorBlendAdvancedStateCreateInfoEXT
+      make-VkPipelineColorBlendAdvancedStateCreateInfoEXT*
       VkPipelineColorBlendAdvancedStateCreateInfoEXTblendOverlap
       VkPipelineColorBlendAdvancedStateCreateInfoEXTdstPremultiplied
       VkPipelineColorBlendAdvancedStateCreateInfoEXTsrcPremultiplied
@@ -21159,6 +24141,7 @@ ___return (physicaldeviceblendoperationadvancedpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21195,6 +24178,12 @@ ___return (physicaldeviceblendoperationadvancedpropertiesext);"))
       VkBlendOverlapEXT
       "___return (___arg1->blendOverlap);")
    (define-c-lambda
+      make-VkPipelineColorBlendAdvancedStateCreateInfoEXT*
+      (int)
+      VkPipelineColorBlendAdvancedStateCreateInfoEXT*
+      "VkPipelineColorBlendAdvancedStateCreateInfoEXT* vkpipelinecolorblendadvancedstatecreateinfoext = malloc(___arg1 * sizeof(VkPipelineColorBlendAdvancedStateCreateInfoEXT));
+      ___return (vkpipelinecolorblendadvancedstatecreateinfoext);")
+   (define-c-lambda
       make-VkPipelineColorBlendAdvancedStateCreateInfoEXT
       (VkStructureType void* VkBool32 VkBool32 VkBlendOverlapEXT)
       VkPipelineColorBlendAdvancedStateCreateInfoEXT*
@@ -21207,6 +24196,7 @@ pipelinecolorblendadvancedstatecreateinfoext->blendOverlap=___arg5;
 ___return (pipelinecolorblendadvancedstatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceInlineUniformBlockFeaturesEXT
+      make-VkPhysicalDeviceInlineUniformBlockFeaturesEXT*
       VkPhysicalDeviceInlineUniformBlockFeaturesEXTdescriptorBindingInlineUniformBlockUpdateAfterBind
       VkPhysicalDeviceInlineUniformBlockFeaturesEXTinlineUniformBlock
       VkPhysicalDeviceInlineUniformBlockFeaturesEXTpNext
@@ -21217,6 +24207,7 @@ ___return (pipelinecolorblendadvancedstatecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21248,6 +24239,12 @@ ___return (pipelinecolorblendadvancedstatecreateinfoext);"))
       VkBool32
       "___return (___arg1->descriptorBindingInlineUniformBlockUpdateAfterBind);")
    (define-c-lambda
+      make-VkPhysicalDeviceInlineUniformBlockFeaturesEXT*
+      (int)
+      VkPhysicalDeviceInlineUniformBlockFeaturesEXT*
+      "VkPhysicalDeviceInlineUniformBlockFeaturesEXT* vkphysicaldeviceinlineuniformblockfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceInlineUniformBlockFeaturesEXT));
+      ___return (vkphysicaldeviceinlineuniformblockfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceInlineUniformBlockFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceInlineUniformBlockFeaturesEXT*
@@ -21259,6 +24256,7 @@ physicaldeviceinlineuniformblockfeaturesext->descriptorBindingInlineUniformBlock
 ___return (physicaldeviceinlineuniformblockfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceInlineUniformBlockPropertiesEXT
+      make-VkPhysicalDeviceInlineUniformBlockPropertiesEXT*
       VkPhysicalDeviceInlineUniformBlockPropertiesEXTmaxDescriptorSetUpdateAfterBindInlineUniformBlocks
       VkPhysicalDeviceInlineUniformBlockPropertiesEXTmaxDescriptorSetInlineUniformBlocks
       VkPhysicalDeviceInlineUniformBlockPropertiesEXTmaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks
@@ -21272,6 +24270,7 @@ ___return (physicaldeviceinlineuniformblockfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21318,6 +24317,12 @@ ___return (physicaldeviceinlineuniformblockfeaturesext);"))
       uint32_t
       "___return (___arg1->maxDescriptorSetUpdateAfterBindInlineUniformBlocks);")
    (define-c-lambda
+      make-VkPhysicalDeviceInlineUniformBlockPropertiesEXT*
+      (int)
+      VkPhysicalDeviceInlineUniformBlockPropertiesEXT*
+      "VkPhysicalDeviceInlineUniformBlockPropertiesEXT* vkphysicaldeviceinlineuniformblockpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceInlineUniformBlockPropertiesEXT));
+      ___return (vkphysicaldeviceinlineuniformblockpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceInlineUniformBlockPropertiesEXT
       (VkStructureType void* uint32_t uint32_t uint32_t uint32_t uint32_t)
       VkPhysicalDeviceInlineUniformBlockPropertiesEXT*
@@ -21332,6 +24337,7 @@ physicaldeviceinlineuniformblockpropertiesext->maxDescriptorSetUpdateAfterBindIn
 ___return (physicaldeviceinlineuniformblockpropertiesext);"))
 (begin-ffi
    (make-VkWriteDescriptorSetInlineUniformBlockEXT
+      make-VkWriteDescriptorSetInlineUniformBlockEXT*
       VkWriteDescriptorSetInlineUniformBlockEXTpData
       VkWriteDescriptorSetInlineUniformBlockEXTdataSize
       VkWriteDescriptorSetInlineUniformBlockEXTpNext
@@ -21342,6 +24348,7 @@ ___return (physicaldeviceinlineuniformblockpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21373,6 +24380,12 @@ ___return (physicaldeviceinlineuniformblockpropertiesext);"))
       void*
       "___return (___arg1->pData);")
    (define-c-lambda
+      make-VkWriteDescriptorSetInlineUniformBlockEXT*
+      (int)
+      VkWriteDescriptorSetInlineUniformBlockEXT*
+      "VkWriteDescriptorSetInlineUniformBlockEXT* vkwritedescriptorsetinlineuniformblockext = malloc(___arg1 * sizeof(VkWriteDescriptorSetInlineUniformBlockEXT));
+      ___return (vkwritedescriptorsetinlineuniformblockext);")
+   (define-c-lambda
       make-VkWriteDescriptorSetInlineUniformBlockEXT
       (VkStructureType void* uint32_t void*)
       VkWriteDescriptorSetInlineUniformBlockEXT*
@@ -21384,6 +24397,7 @@ writedescriptorsetinlineuniformblockext->pData=___arg4;
 ___return (writedescriptorsetinlineuniformblockext);"))
 (begin-ffi
    (make-VkDescriptorPoolInlineUniformBlockCreateInfoEXT
+      make-VkDescriptorPoolInlineUniformBlockCreateInfoEXT*
       VkDescriptorPoolInlineUniformBlockCreateInfoEXTmaxInlineUniformBlockBindings
       VkDescriptorPoolInlineUniformBlockCreateInfoEXTpNext
       VkDescriptorPoolInlineUniformBlockCreateInfoEXTsType
@@ -21393,6 +24407,7 @@ ___return (writedescriptorsetinlineuniformblockext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21419,6 +24434,12 @@ ___return (writedescriptorsetinlineuniformblockext);"))
       uint32_t
       "___return (___arg1->maxInlineUniformBlockBindings);")
    (define-c-lambda
+      make-VkDescriptorPoolInlineUniformBlockCreateInfoEXT*
+      (int)
+      VkDescriptorPoolInlineUniformBlockCreateInfoEXT*
+      "VkDescriptorPoolInlineUniformBlockCreateInfoEXT* vkdescriptorpoolinlineuniformblockcreateinfoext = malloc(___arg1 * sizeof(VkDescriptorPoolInlineUniformBlockCreateInfoEXT));
+      ___return (vkdescriptorpoolinlineuniformblockcreateinfoext);")
+   (define-c-lambda
       make-VkDescriptorPoolInlineUniformBlockCreateInfoEXT
       (VkStructureType void* uint32_t)
       VkDescriptorPoolInlineUniformBlockCreateInfoEXT*
@@ -21429,6 +24450,7 @@ descriptorpoolinlineuniformblockcreateinfoext->maxInlineUniformBlockBindings=___
 ___return (descriptorpoolinlineuniformblockcreateinfoext);"))
 (begin-ffi
    (make-VkPipelineCoverageModulationStateCreateInfoNV
+      make-VkPipelineCoverageModulationStateCreateInfoNV*
       VkPipelineCoverageModulationStateCreateInfoNVpCoverageModulationTable
       VkPipelineCoverageModulationStateCreateInfoNVcoverageModulationTableCount
       VkPipelineCoverageModulationStateCreateInfoNVcoverageModulationTableEnable
@@ -21442,6 +24464,7 @@ ___return (descriptorpoolinlineuniformblockcreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21488,6 +24511,12 @@ ___return (descriptorpoolinlineuniformblockcreateinfoext);"))
       float*
       "___return (___arg1->pCoverageModulationTable);")
    (define-c-lambda
+      make-VkPipelineCoverageModulationStateCreateInfoNV*
+      (int)
+      VkPipelineCoverageModulationStateCreateInfoNV*
+      "VkPipelineCoverageModulationStateCreateInfoNV* vkpipelinecoveragemodulationstatecreateinfonv = malloc(___arg1 * sizeof(VkPipelineCoverageModulationStateCreateInfoNV));
+      ___return (vkpipelinecoveragemodulationstatecreateinfonv);")
+   (define-c-lambda
       make-VkPipelineCoverageModulationStateCreateInfoNV
       (VkStructureType
          void*
@@ -21508,6 +24537,7 @@ pipelinecoveragemodulationstatecreateinfonv->pCoverageModulationTable=___arg7;
 ___return (pipelinecoveragemodulationstatecreateinfonv);"))
 (begin-ffi
    (make-VkImageFormatListCreateInfoKHR
+      make-VkImageFormatListCreateInfoKHR*
       VkImageFormatListCreateInfoKHRpViewFormats
       VkImageFormatListCreateInfoKHRviewFormatCount
       VkImageFormatListCreateInfoKHRpNext
@@ -21518,6 +24548,7 @@ ___return (pipelinecoveragemodulationstatecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21549,6 +24580,12 @@ ___return (pipelinecoveragemodulationstatecreateinfonv);"))
       VkFormat*
       "___return (___arg1->pViewFormats);")
    (define-c-lambda
+      make-VkImageFormatListCreateInfoKHR*
+      (int)
+      VkImageFormatListCreateInfoKHR*
+      "VkImageFormatListCreateInfoKHR* vkimageformatlistcreateinfokhr = malloc(___arg1 * sizeof(VkImageFormatListCreateInfoKHR));
+      ___return (vkimageformatlistcreateinfokhr);")
+   (define-c-lambda
       make-VkImageFormatListCreateInfoKHR
       (VkStructureType void* uint32_t VkFormat*)
       VkImageFormatListCreateInfoKHR*
@@ -21560,6 +24597,7 @@ imageformatlistcreateinfokhr->pViewFormats=___arg4;
 ___return (imageformatlistcreateinfokhr);"))
 (begin-ffi
    (make-VkValidationCacheCreateInfoEXT
+      make-VkValidationCacheCreateInfoEXT*
       VkValidationCacheCreateInfoEXTpInitialData
       VkValidationCacheCreateInfoEXTinitialDataSize
       VkValidationCacheCreateInfoEXTflags
@@ -21571,6 +24609,7 @@ ___return (imageformatlistcreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21607,6 +24646,12 @@ ___return (imageformatlistcreateinfokhr);"))
       void*
       "___return (___arg1->pInitialData);")
    (define-c-lambda
+      make-VkValidationCacheCreateInfoEXT*
+      (int)
+      VkValidationCacheCreateInfoEXT*
+      "VkValidationCacheCreateInfoEXT* vkvalidationcachecreateinfoext = malloc(___arg1 * sizeof(VkValidationCacheCreateInfoEXT));
+      ___return (vkvalidationcachecreateinfoext);")
+   (define-c-lambda
       make-VkValidationCacheCreateInfoEXT
       (VkStructureType void* VkValidationCacheCreateFlagsEXT size_t void*)
       VkValidationCacheCreateInfoEXT*
@@ -21619,6 +24664,7 @@ validationcachecreateinfoext->pInitialData=___arg5;
 ___return (validationcachecreateinfoext);"))
 (begin-ffi
    (make-VkShaderModuleValidationCacheCreateInfoEXT
+      make-VkShaderModuleValidationCacheCreateInfoEXT*
       VkShaderModuleValidationCacheCreateInfoEXTvalidationCache
       VkShaderModuleValidationCacheCreateInfoEXTpNext
       VkShaderModuleValidationCacheCreateInfoEXTsType
@@ -21628,6 +24674,7 @@ ___return (validationcachecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21654,6 +24701,12 @@ ___return (validationcachecreateinfoext);"))
       VkValidationCacheEXT
       "___return (___arg1->validationCache);")
    (define-c-lambda
+      make-VkShaderModuleValidationCacheCreateInfoEXT*
+      (int)
+      VkShaderModuleValidationCacheCreateInfoEXT*
+      "VkShaderModuleValidationCacheCreateInfoEXT* vkshadermodulevalidationcachecreateinfoext = malloc(___arg1 * sizeof(VkShaderModuleValidationCacheCreateInfoEXT));
+      ___return (vkshadermodulevalidationcachecreateinfoext);")
+   (define-c-lambda
       make-VkShaderModuleValidationCacheCreateInfoEXT
       (VkStructureType void* VkValidationCacheEXT)
       VkShaderModuleValidationCacheCreateInfoEXT*
@@ -21664,6 +24717,7 @@ shadermodulevalidationcachecreateinfoext->validationCache=___arg3;
 ___return (shadermodulevalidationcachecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceMaintenance3Properties
+      make-VkPhysicalDeviceMaintenance3Properties*
       VkPhysicalDeviceMaintenance3PropertiesmaxMemoryAllocationSize
       VkPhysicalDeviceMaintenance3PropertiesmaxPerSetDescriptors
       VkPhysicalDeviceMaintenance3PropertiespNext
@@ -21674,6 +24728,7 @@ ___return (shadermodulevalidationcachecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21705,6 +24760,12 @@ ___return (shadermodulevalidationcachecreateinfoext);"))
       VkDeviceSize
       "___return (___arg1->maxMemoryAllocationSize);")
    (define-c-lambda
+      make-VkPhysicalDeviceMaintenance3Properties*
+      (int)
+      VkPhysicalDeviceMaintenance3Properties*
+      "VkPhysicalDeviceMaintenance3Properties* vkphysicaldevicemaintenance3properties = malloc(___arg1 * sizeof(VkPhysicalDeviceMaintenance3Properties));
+      ___return (vkphysicaldevicemaintenance3properties);")
+   (define-c-lambda
       make-VkPhysicalDeviceMaintenance3Properties
       (VkStructureType void* uint32_t VkDeviceSize)
       VkPhysicalDeviceMaintenance3Properties*
@@ -21716,12 +24777,14 @@ physicaldevicemaintenance3properties->maxMemoryAllocationSize=___arg4;
 ___return (physicaldevicemaintenance3properties);"))
 (begin-ffi
    (make-VkPhysicalDeviceMaintenance3PropertiesKHR
+      make-VkPhysicalDeviceMaintenance3PropertiesKHR*
       VkPhysicalDeviceMaintenance3PropertiesKHR
       VkPhysicalDeviceMaintenance3PropertiesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21733,6 +24796,12 @@ ___return (physicaldevicemaintenance3properties);"))
       VkPhysicalDeviceMaintenance3PropertiesKHR*
       (pointer VkPhysicalDeviceMaintenance3PropertiesKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceMaintenance3PropertiesKHR*
+      (int)
+      VkPhysicalDeviceMaintenance3PropertiesKHR*
+      "VkPhysicalDeviceMaintenance3PropertiesKHR* vkphysicaldevicemaintenance3propertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceMaintenance3PropertiesKHR));
+      ___return (vkphysicaldevicemaintenance3propertieskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceMaintenance3PropertiesKHR
       ()
       VkPhysicalDeviceMaintenance3PropertiesKHR*
@@ -21740,6 +24809,7 @@ ___return (physicaldevicemaintenance3properties);"))
 ___return (physicaldevicemaintenance3propertieskhr);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutSupport
+      make-VkDescriptorSetLayoutSupport*
       VkDescriptorSetLayoutSupportsupported
       VkDescriptorSetLayoutSupportpNext
       VkDescriptorSetLayoutSupportsType
@@ -21749,6 +24819,7 @@ ___return (physicaldevicemaintenance3propertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21771,6 +24842,12 @@ ___return (physicaldevicemaintenance3propertieskhr);"))
       VkBool32
       "___return (___arg1->supported);")
    (define-c-lambda
+      make-VkDescriptorSetLayoutSupport*
+      (int)
+      VkDescriptorSetLayoutSupport*
+      "VkDescriptorSetLayoutSupport* vkdescriptorsetlayoutsupport = malloc(___arg1 * sizeof(VkDescriptorSetLayoutSupport));
+      ___return (vkdescriptorsetlayoutsupport);")
+   (define-c-lambda
       make-VkDescriptorSetLayoutSupport
       (VkStructureType void* VkBool32)
       VkDescriptorSetLayoutSupport*
@@ -21781,12 +24858,14 @@ descriptorsetlayoutsupport->supported=___arg3;
 ___return (descriptorsetlayoutsupport);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutSupportKHR
+      make-VkDescriptorSetLayoutSupportKHR*
       VkDescriptorSetLayoutSupportKHR
       VkDescriptorSetLayoutSupportKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21798,6 +24877,12 @@ ___return (descriptorsetlayoutsupport);"))
       VkDescriptorSetLayoutSupportKHR*
       (pointer VkDescriptorSetLayoutSupportKHR))
    (define-c-lambda
+      make-VkDescriptorSetLayoutSupportKHR*
+      (int)
+      VkDescriptorSetLayoutSupportKHR*
+      "VkDescriptorSetLayoutSupportKHR* vkdescriptorsetlayoutsupportkhr = malloc(___arg1 * sizeof(VkDescriptorSetLayoutSupportKHR));
+      ___return (vkdescriptorsetlayoutsupportkhr);")
+   (define-c-lambda
       make-VkDescriptorSetLayoutSupportKHR
       ()
       VkDescriptorSetLayoutSupportKHR*
@@ -21805,6 +24890,7 @@ ___return (descriptorsetlayoutsupport);"))
 ___return (descriptorsetlayoutsupportkhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderDrawParametersFeatures
+      make-VkPhysicalDeviceShaderDrawParametersFeatures*
       VkPhysicalDeviceShaderDrawParametersFeaturesshaderDrawParameters
       VkPhysicalDeviceShaderDrawParametersFeaturespNext
       VkPhysicalDeviceShaderDrawParametersFeaturessType
@@ -21814,6 +24900,7 @@ ___return (descriptorsetlayoutsupportkhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21840,6 +24927,12 @@ ___return (descriptorsetlayoutsupportkhr);"))
       VkBool32
       "___return (___arg1->shaderDrawParameters);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderDrawParametersFeatures*
+      (int)
+      VkPhysicalDeviceShaderDrawParametersFeatures*
+      "VkPhysicalDeviceShaderDrawParametersFeatures* vkphysicaldeviceshaderdrawparametersfeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderDrawParametersFeatures));
+      ___return (vkphysicaldeviceshaderdrawparametersfeatures);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderDrawParametersFeatures
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceShaderDrawParametersFeatures*
@@ -21850,12 +24943,14 @@ physicaldeviceshaderdrawparametersfeatures->shaderDrawParameters=___arg3;
 ___return (physicaldeviceshaderdrawparametersfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderDrawParameterFeatures
+      make-VkPhysicalDeviceShaderDrawParameterFeatures*
       VkPhysicalDeviceShaderDrawParameterFeatures
       VkPhysicalDeviceShaderDrawParameterFeatures*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21867,6 +24962,12 @@ ___return (physicaldeviceshaderdrawparametersfeatures);"))
       VkPhysicalDeviceShaderDrawParameterFeatures*
       (pointer VkPhysicalDeviceShaderDrawParameterFeatures))
    (define-c-lambda
+      make-VkPhysicalDeviceShaderDrawParameterFeatures*
+      (int)
+      VkPhysicalDeviceShaderDrawParameterFeatures*
+      "VkPhysicalDeviceShaderDrawParameterFeatures* vkphysicaldeviceshaderdrawparameterfeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderDrawParameterFeatures));
+      ___return (vkphysicaldeviceshaderdrawparameterfeatures);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderDrawParameterFeatures
       ()
       VkPhysicalDeviceShaderDrawParameterFeatures*
@@ -21874,6 +24975,7 @@ ___return (physicaldeviceshaderdrawparametersfeatures);"))
 ___return (physicaldeviceshaderdrawparameterfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderFloat16Int8FeaturesKHR
+      make-VkPhysicalDeviceShaderFloat16Int8FeaturesKHR*
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHRshaderInt8
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHRshaderFloat16
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHRpNext
@@ -21884,6 +24986,7 @@ ___return (physicaldeviceshaderdrawparameterfeatures);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21915,6 +25018,12 @@ ___return (physicaldeviceshaderdrawparameterfeatures);"))
       VkBool32
       "___return (___arg1->shaderInt8);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderFloat16Int8FeaturesKHR*
+      (int)
+      VkPhysicalDeviceShaderFloat16Int8FeaturesKHR*
+      "VkPhysicalDeviceShaderFloat16Int8FeaturesKHR* vkphysicaldeviceshaderfloat16int8featureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderFloat16Int8FeaturesKHR));
+      ___return (vkphysicaldeviceshaderfloat16int8featureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderFloat16Int8FeaturesKHR
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHR*
@@ -21926,12 +25035,14 @@ physicaldeviceshaderfloat16int8featureskhr->shaderInt8=___arg4;
 ___return (physicaldeviceshaderfloat16int8featureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceFloat16Int8FeaturesKHR
+      make-VkPhysicalDeviceFloat16Int8FeaturesKHR*
       VkPhysicalDeviceFloat16Int8FeaturesKHR
       VkPhysicalDeviceFloat16Int8FeaturesKHR*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -21943,6 +25054,12 @@ ___return (physicaldeviceshaderfloat16int8featureskhr);"))
       VkPhysicalDeviceFloat16Int8FeaturesKHR*
       (pointer VkPhysicalDeviceFloat16Int8FeaturesKHR))
    (define-c-lambda
+      make-VkPhysicalDeviceFloat16Int8FeaturesKHR*
+      (int)
+      VkPhysicalDeviceFloat16Int8FeaturesKHR*
+      "VkPhysicalDeviceFloat16Int8FeaturesKHR* vkphysicaldevicefloat16int8featureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceFloat16Int8FeaturesKHR));
+      ___return (vkphysicaldevicefloat16int8featureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceFloat16Int8FeaturesKHR
       ()
       VkPhysicalDeviceFloat16Int8FeaturesKHR*
@@ -21950,6 +25067,7 @@ ___return (physicaldeviceshaderfloat16int8featureskhr);"))
 ___return (physicaldevicefloat16int8featureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceFloatControlsPropertiesKHR
+      make-VkPhysicalDeviceFloatControlsPropertiesKHR*
       VkPhysicalDeviceFloatControlsPropertiesKHRshaderRoundingModeRTZFloat64
       VkPhysicalDeviceFloatControlsPropertiesKHRshaderRoundingModeRTZFloat32
       VkPhysicalDeviceFloatControlsPropertiesKHRshaderRoundingModeRTZFloat16
@@ -21975,6 +25093,7 @@ ___return (physicaldevicefloat16int8featureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22081,6 +25200,12 @@ ___return (physicaldevicefloat16int8featureskhr);"))
       VkBool32
       "___return (___arg1->shaderRoundingModeRTZFloat64);")
    (define-c-lambda
+      make-VkPhysicalDeviceFloatControlsPropertiesKHR*
+      (int)
+      VkPhysicalDeviceFloatControlsPropertiesKHR*
+      "VkPhysicalDeviceFloatControlsPropertiesKHR* vkphysicaldevicefloatcontrolspropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceFloatControlsPropertiesKHR));
+      ___return (vkphysicaldevicefloatcontrolspropertieskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceFloatControlsPropertiesKHR
       (VkStructureType
          void*
@@ -22125,6 +25250,7 @@ physicaldevicefloatcontrolspropertieskhr->shaderRoundingModeRTZFloat64=___arg19;
 ___return (physicaldevicefloatcontrolspropertieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceHostQueryResetFeaturesEXT
+      make-VkPhysicalDeviceHostQueryResetFeaturesEXT*
       VkPhysicalDeviceHostQueryResetFeaturesEXThostQueryReset
       VkPhysicalDeviceHostQueryResetFeaturesEXTpNext
       VkPhysicalDeviceHostQueryResetFeaturesEXTsType
@@ -22134,6 +25260,7 @@ ___return (physicaldevicefloatcontrolspropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22160,6 +25287,12 @@ ___return (physicaldevicefloatcontrolspropertieskhr);"))
       VkBool32
       "___return (___arg1->hostQueryReset);")
    (define-c-lambda
+      make-VkPhysicalDeviceHostQueryResetFeaturesEXT*
+      (int)
+      VkPhysicalDeviceHostQueryResetFeaturesEXT*
+      "VkPhysicalDeviceHostQueryResetFeaturesEXT* vkphysicaldevicehostqueryresetfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceHostQueryResetFeaturesEXT));
+      ___return (vkphysicaldevicehostqueryresetfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceHostQueryResetFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceHostQueryResetFeaturesEXT*
@@ -22170,6 +25303,7 @@ physicaldevicehostqueryresetfeaturesext->hostQueryReset=___arg3;
 ___return (physicaldevicehostqueryresetfeaturesext);"))
 (begin-ffi
    (make-VkShaderResourceUsageAMD
+      make-VkShaderResourceUsageAMD*
       VkShaderResourceUsageAMDscratchMemUsageInBytes
       VkShaderResourceUsageAMDldsUsageSizeInBytes
       VkShaderResourceUsageAMDldsSizePerLocalWorkGroup
@@ -22181,6 +25315,7 @@ ___return (physicaldevicehostqueryresetfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22213,6 +25348,12 @@ ___return (physicaldevicehostqueryresetfeaturesext);"))
       size_t
       "___return (___arg1->scratchMemUsageInBytes);")
    (define-c-lambda
+      make-VkShaderResourceUsageAMD*
+      (int)
+      VkShaderResourceUsageAMD*
+      "VkShaderResourceUsageAMD* vkshaderresourceusageamd = malloc(___arg1 * sizeof(VkShaderResourceUsageAMD));
+      ___return (vkshaderresourceusageamd);")
+   (define-c-lambda
       make-VkShaderResourceUsageAMD
       (uint32_t uint32_t uint32_t size_t size_t)
       VkShaderResourceUsageAMD*
@@ -22225,6 +25366,7 @@ shaderresourceusageamd->scratchMemUsageInBytes=___arg5;
 ___return (shaderresourceusageamd);"))
 (begin-ffi
    (make-VkShaderStatisticsInfoAMD
+      make-VkShaderStatisticsInfoAMD*
       VkShaderStatisticsInfoAMDcomputeWorkGroupSize
       VkShaderStatisticsInfoAMDnumAvailableSgprs
       VkShaderStatisticsInfoAMDnumAvailableVgprs
@@ -22238,6 +25380,7 @@ ___return (shaderresourceusageamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22280,6 +25423,12 @@ ___return (shaderresourceusageamd);"))
       uint32_t*
       "___return (___arg1->computeWorkGroupSize);")
    (define-c-lambda
+      make-VkShaderStatisticsInfoAMD*
+      (int)
+      VkShaderStatisticsInfoAMD*
+      "VkShaderStatisticsInfoAMD* vkshaderstatisticsinfoamd = malloc(___arg1 * sizeof(VkShaderStatisticsInfoAMD));
+      ___return (vkshaderstatisticsinfoamd);")
+   (define-c-lambda
       make-VkShaderStatisticsInfoAMD
       (VkShaderStageFlags
          VkShaderResourceUsageAMD
@@ -22300,6 +25449,7 @@ memcpy(shaderstatisticsinfoamd->computeWorkGroupSize,___arg7,sizeof(___arg7));
 ___return (shaderstatisticsinfoamd);"))
 (begin-ffi
    (make-VkDeviceQueueGlobalPriorityCreateInfoEXT
+      make-VkDeviceQueueGlobalPriorityCreateInfoEXT*
       VkDeviceQueueGlobalPriorityCreateInfoEXTglobalPriority
       VkDeviceQueueGlobalPriorityCreateInfoEXTpNext
       VkDeviceQueueGlobalPriorityCreateInfoEXTsType
@@ -22309,6 +25459,7 @@ ___return (shaderstatisticsinfoamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22335,6 +25486,12 @@ ___return (shaderstatisticsinfoamd);"))
       VkQueueGlobalPriorityEXT
       "___return (___arg1->globalPriority);")
    (define-c-lambda
+      make-VkDeviceQueueGlobalPriorityCreateInfoEXT*
+      (int)
+      VkDeviceQueueGlobalPriorityCreateInfoEXT*
+      "VkDeviceQueueGlobalPriorityCreateInfoEXT* vkdevicequeueglobalprioritycreateinfoext = malloc(___arg1 * sizeof(VkDeviceQueueGlobalPriorityCreateInfoEXT));
+      ___return (vkdevicequeueglobalprioritycreateinfoext);")
+   (define-c-lambda
       make-VkDeviceQueueGlobalPriorityCreateInfoEXT
       (VkStructureType void* VkQueueGlobalPriorityEXT)
       VkDeviceQueueGlobalPriorityCreateInfoEXT*
@@ -22345,6 +25502,7 @@ devicequeueglobalprioritycreateinfoext->globalPriority=___arg3;
 ___return (devicequeueglobalprioritycreateinfoext);"))
 (begin-ffi
    (make-VkDebugUtilsObjectNameInfoEXT
+      make-VkDebugUtilsObjectNameInfoEXT*
       VkDebugUtilsObjectNameInfoEXTpObjectName
       VkDebugUtilsObjectNameInfoEXTobjectHandle
       VkDebugUtilsObjectNameInfoEXTobjectType
@@ -22356,6 +25514,7 @@ ___return (devicequeueglobalprioritycreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22388,6 +25547,12 @@ ___return (devicequeueglobalprioritycreateinfoext);"))
       char*
       "___return (___arg1->pObjectName);")
    (define-c-lambda
+      make-VkDebugUtilsObjectNameInfoEXT*
+      (int)
+      VkDebugUtilsObjectNameInfoEXT*
+      "VkDebugUtilsObjectNameInfoEXT* vkdebugutilsobjectnameinfoext = malloc(___arg1 * sizeof(VkDebugUtilsObjectNameInfoEXT));
+      ___return (vkdebugutilsobjectnameinfoext);")
+   (define-c-lambda
       make-VkDebugUtilsObjectNameInfoEXT
       (VkStructureType void* VkObjectType uint64_t char*)
       VkDebugUtilsObjectNameInfoEXT*
@@ -22400,6 +25565,7 @@ debugutilsobjectnameinfoext->pObjectName=___arg5;
 ___return (debugutilsobjectnameinfoext);"))
 (begin-ffi
    (make-VkDebugUtilsObjectTagInfoEXT
+      make-VkDebugUtilsObjectTagInfoEXT*
       VkDebugUtilsObjectTagInfoEXTpTag
       VkDebugUtilsObjectTagInfoEXTtagSize
       VkDebugUtilsObjectTagInfoEXTtagName
@@ -22413,6 +25579,7 @@ ___return (debugutilsobjectnameinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22455,6 +25622,12 @@ ___return (debugutilsobjectnameinfoext);"))
       void*
       "___return (___arg1->pTag);")
    (define-c-lambda
+      make-VkDebugUtilsObjectTagInfoEXT*
+      (int)
+      VkDebugUtilsObjectTagInfoEXT*
+      "VkDebugUtilsObjectTagInfoEXT* vkdebugutilsobjecttaginfoext = malloc(___arg1 * sizeof(VkDebugUtilsObjectTagInfoEXT));
+      ___return (vkdebugutilsobjecttaginfoext);")
+   (define-c-lambda
       make-VkDebugUtilsObjectTagInfoEXT
       (VkStructureType void* VkObjectType uint64_t uint64_t size_t void*)
       VkDebugUtilsObjectTagInfoEXT*
@@ -22469,6 +25642,7 @@ debugutilsobjecttaginfoext->pTag=___arg7;
 ___return (debugutilsobjecttaginfoext);"))
 (begin-ffi
    (make-VkDebugUtilsLabelEXT
+      make-VkDebugUtilsLabelEXT*
       VkDebugUtilsLabelEXTcolor
       VkDebugUtilsLabelEXTpLabelName
       VkDebugUtilsLabelEXTpNext
@@ -22479,6 +25653,7 @@ ___return (debugutilsobjecttaginfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22506,6 +25681,12 @@ ___return (debugutilsobjecttaginfoext);"))
       float*
       "___return (___arg1->color);")
    (define-c-lambda
+      make-VkDebugUtilsLabelEXT*
+      (int)
+      VkDebugUtilsLabelEXT*
+      "VkDebugUtilsLabelEXT* vkdebugutilslabelext = malloc(___arg1 * sizeof(VkDebugUtilsLabelEXT));
+      ___return (vkdebugutilslabelext);")
+   (define-c-lambda
       make-VkDebugUtilsLabelEXT
       (VkStructureType void* char* float*)
       VkDebugUtilsLabelEXT*
@@ -22517,6 +25698,7 @@ memcpy(debugutilslabelext->color,___arg4,sizeof(___arg4));
 ___return (debugutilslabelext);"))
 (begin-ffi
    (make-VkDebugUtilsMessengerCallbackDataEXT
+      make-VkDebugUtilsMessengerCallbackDataEXT*
       VkDebugUtilsMessengerCallbackDataEXTpObjects
       VkDebugUtilsMessengerCallbackDataEXTobjectCount
       VkDebugUtilsMessengerCallbackDataEXTpCmdBufLabels
@@ -22535,6 +25717,7 @@ ___return (debugutilslabelext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22606,6 +25789,12 @@ ___return (debugutilslabelext);"))
       VkDebugUtilsObjectNameInfoEXT*
       "___return (___arg1->pObjects);")
    (define-c-lambda
+      make-VkDebugUtilsMessengerCallbackDataEXT*
+      (int)
+      VkDebugUtilsMessengerCallbackDataEXT*
+      "VkDebugUtilsMessengerCallbackDataEXT* vkdebugutilsmessengercallbackdataext = malloc(___arg1 * sizeof(VkDebugUtilsMessengerCallbackDataEXT));
+      ___return (vkdebugutilsmessengercallbackdataext);")
+   (define-c-lambda
       make-VkDebugUtilsMessengerCallbackDataEXT
       (VkStructureType
          void*
@@ -22640,6 +25829,7 @@ ___return (debugutilsmessengercallbackdataext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22657,6 +25847,7 @@ ___return (debugutilsmessengercallbackdataext);"))
       (pointer PFN_vkDebugUtilsMessengerCallbackEXT)))
 (begin-ffi
    (make-VkDebugUtilsMessengerCreateInfoEXT
+      make-VkDebugUtilsMessengerCreateInfoEXT*
       VkDebugUtilsMessengerCreateInfoEXTpUserData
       VkDebugUtilsMessengerCreateInfoEXTpfnUserCallback
       VkDebugUtilsMessengerCreateInfoEXTmessageType
@@ -22670,6 +25861,7 @@ ___return (debugutilsmessengercallbackdataext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22716,6 +25908,12 @@ ___return (debugutilsmessengercallbackdataext);"))
       void*
       "___return (___arg1->pUserData);")
    (define-c-lambda
+      make-VkDebugUtilsMessengerCreateInfoEXT*
+      (int)
+      VkDebugUtilsMessengerCreateInfoEXT*
+      "VkDebugUtilsMessengerCreateInfoEXT* vkdebugutilsmessengercreateinfoext = malloc(___arg1 * sizeof(VkDebugUtilsMessengerCreateInfoEXT));
+      ___return (vkdebugutilsmessengercreateinfoext);")
+   (define-c-lambda
       make-VkDebugUtilsMessengerCreateInfoEXT
       (VkStructureType
          void*
@@ -22736,6 +25934,7 @@ debugutilsmessengercreateinfoext->pUserData=___arg7;
 ___return (debugutilsmessengercreateinfoext);"))
 (begin-ffi
    (make-VkImportMemoryHostPointerInfoEXT
+      make-VkImportMemoryHostPointerInfoEXT*
       VkImportMemoryHostPointerInfoEXTpHostPointer
       VkImportMemoryHostPointerInfoEXThandleType
       VkImportMemoryHostPointerInfoEXTpNext
@@ -22746,6 +25945,7 @@ ___return (debugutilsmessengercreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22777,6 +25977,12 @@ ___return (debugutilsmessengercreateinfoext);"))
       void*
       "___return (___arg1->pHostPointer);")
    (define-c-lambda
+      make-VkImportMemoryHostPointerInfoEXT*
+      (int)
+      VkImportMemoryHostPointerInfoEXT*
+      "VkImportMemoryHostPointerInfoEXT* vkimportmemoryhostpointerinfoext = malloc(___arg1 * sizeof(VkImportMemoryHostPointerInfoEXT));
+      ___return (vkimportmemoryhostpointerinfoext);")
+   (define-c-lambda
       make-VkImportMemoryHostPointerInfoEXT
       (VkStructureType void* VkExternalMemoryHandleTypeFlagBits void*)
       VkImportMemoryHostPointerInfoEXT*
@@ -22788,6 +25994,7 @@ importmemoryhostpointerinfoext->pHostPointer=___arg4;
 ___return (importmemoryhostpointerinfoext);"))
 (begin-ffi
    (make-VkMemoryHostPointerPropertiesEXT
+      make-VkMemoryHostPointerPropertiesEXT*
       VkMemoryHostPointerPropertiesEXTmemoryTypeBits
       VkMemoryHostPointerPropertiesEXTpNext
       VkMemoryHostPointerPropertiesEXTsType
@@ -22797,6 +26004,7 @@ ___return (importmemoryhostpointerinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22823,6 +26031,12 @@ ___return (importmemoryhostpointerinfoext);"))
       uint32_t
       "___return (___arg1->memoryTypeBits);")
    (define-c-lambda
+      make-VkMemoryHostPointerPropertiesEXT*
+      (int)
+      VkMemoryHostPointerPropertiesEXT*
+      "VkMemoryHostPointerPropertiesEXT* vkmemoryhostpointerpropertiesext = malloc(___arg1 * sizeof(VkMemoryHostPointerPropertiesEXT));
+      ___return (vkmemoryhostpointerpropertiesext);")
+   (define-c-lambda
       make-VkMemoryHostPointerPropertiesEXT
       (VkStructureType void* uint32_t)
       VkMemoryHostPointerPropertiesEXT*
@@ -22833,6 +26047,7 @@ memoryhostpointerpropertiesext->memoryTypeBits=___arg3;
 ___return (memoryhostpointerpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalMemoryHostPropertiesEXT
+      make-VkPhysicalDeviceExternalMemoryHostPropertiesEXT*
       VkPhysicalDeviceExternalMemoryHostPropertiesEXTminImportedHostPointerAlignment
       VkPhysicalDeviceExternalMemoryHostPropertiesEXTpNext
       VkPhysicalDeviceExternalMemoryHostPropertiesEXTsType
@@ -22842,6 +26057,7 @@ ___return (memoryhostpointerpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22868,6 +26084,12 @@ ___return (memoryhostpointerpropertiesext);"))
       VkDeviceSize
       "___return (___arg1->minImportedHostPointerAlignment);")
    (define-c-lambda
+      make-VkPhysicalDeviceExternalMemoryHostPropertiesEXT*
+      (int)
+      VkPhysicalDeviceExternalMemoryHostPropertiesEXT*
+      "VkPhysicalDeviceExternalMemoryHostPropertiesEXT* vkphysicaldeviceexternalmemoryhostpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalMemoryHostPropertiesEXT));
+      ___return (vkphysicaldeviceexternalmemoryhostpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceExternalMemoryHostPropertiesEXT
       (VkStructureType void* VkDeviceSize)
       VkPhysicalDeviceExternalMemoryHostPropertiesEXT*
@@ -22878,6 +26100,7 @@ physicaldeviceexternalmemoryhostpropertiesext->minImportedHostPointerAlignment=_
 ___return (physicaldeviceexternalmemoryhostpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceConservativeRasterizationPropertiesEXT
+      make-VkPhysicalDeviceConservativeRasterizationPropertiesEXT*
       VkPhysicalDeviceConservativeRasterizationPropertiesEXTconservativeRasterizationPostDepthCoverage
       VkPhysicalDeviceConservativeRasterizationPropertiesEXTfullyCoveredFragmentShaderInputVariable
       VkPhysicalDeviceConservativeRasterizationPropertiesEXTdegenerateLinesRasterized
@@ -22895,6 +26118,7 @@ ___return (physicaldeviceexternalmemoryhostpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -22961,6 +26185,12 @@ ___return (physicaldeviceexternalmemoryhostpropertiesext);"))
       VkBool32
       "___return (___arg1->conservativeRasterizationPostDepthCoverage);")
    (define-c-lambda
+      make-VkPhysicalDeviceConservativeRasterizationPropertiesEXT*
+      (int)
+      VkPhysicalDeviceConservativeRasterizationPropertiesEXT*
+      "VkPhysicalDeviceConservativeRasterizationPropertiesEXT* vkphysicaldeviceconservativerasterizationpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceConservativeRasterizationPropertiesEXT));
+      ___return (vkphysicaldeviceconservativerasterizationpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceConservativeRasterizationPropertiesEXT
       (VkStructureType
          void*
@@ -22989,6 +26219,7 @@ physicaldeviceconservativerasterizationpropertiesext->conservativeRasterizationP
 ___return (physicaldeviceconservativerasterizationpropertiesext);"))
 (begin-ffi
    (make-VkCalibratedTimestampInfoEXT
+      make-VkCalibratedTimestampInfoEXT*
       VkCalibratedTimestampInfoEXTtimeDomain
       VkCalibratedTimestampInfoEXTpNext
       VkCalibratedTimestampInfoEXTsType
@@ -22998,6 +26229,7 @@ ___return (physicaldeviceconservativerasterizationpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23020,6 +26252,12 @@ ___return (physicaldeviceconservativerasterizationpropertiesext);"))
       VkTimeDomainEXT
       "___return (___arg1->timeDomain);")
    (define-c-lambda
+      make-VkCalibratedTimestampInfoEXT*
+      (int)
+      VkCalibratedTimestampInfoEXT*
+      "VkCalibratedTimestampInfoEXT* vkcalibratedtimestampinfoext = malloc(___arg1 * sizeof(VkCalibratedTimestampInfoEXT));
+      ___return (vkcalibratedtimestampinfoext);")
+   (define-c-lambda
       make-VkCalibratedTimestampInfoEXT
       (VkStructureType void* VkTimeDomainEXT)
       VkCalibratedTimestampInfoEXT*
@@ -23030,6 +26268,7 @@ calibratedtimestampinfoext->timeDomain=___arg3;
 ___return (calibratedtimestampinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderCorePropertiesAMD
+      make-VkPhysicalDeviceShaderCorePropertiesAMD*
       VkPhysicalDeviceShaderCorePropertiesAMDvgprAllocationGranularity
       VkPhysicalDeviceShaderCorePropertiesAMDmaxVgprAllocation
       VkPhysicalDeviceShaderCorePropertiesAMDminVgprAllocation
@@ -23052,6 +26291,7 @@ ___return (calibratedtimestampinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23143,6 +26383,12 @@ ___return (calibratedtimestampinfoext);"))
       uint32_t
       "___return (___arg1->vgprAllocationGranularity);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderCorePropertiesAMD*
+      (int)
+      VkPhysicalDeviceShaderCorePropertiesAMD*
+      "VkPhysicalDeviceShaderCorePropertiesAMD* vkphysicaldeviceshadercorepropertiesamd = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderCorePropertiesAMD));
+      ___return (vkphysicaldeviceshadercorepropertiesamd);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderCorePropertiesAMD
       (VkStructureType
          void*
@@ -23181,6 +26427,7 @@ physicaldeviceshadercorepropertiesamd->vgprAllocationGranularity=___arg16;
 ___return (physicaldeviceshadercorepropertiesamd);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderCoreProperties2AMD
+      make-VkPhysicalDeviceShaderCoreProperties2AMD*
       VkPhysicalDeviceShaderCoreProperties2AMDactiveComputeUnitCount
       VkPhysicalDeviceShaderCoreProperties2AMDshaderCoreFeatures
       VkPhysicalDeviceShaderCoreProperties2AMDpNext
@@ -23191,6 +26438,7 @@ ___return (physicaldeviceshadercorepropertiesamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23222,6 +26470,12 @@ ___return (physicaldeviceshadercorepropertiesamd);"))
       uint32_t
       "___return (___arg1->activeComputeUnitCount);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderCoreProperties2AMD*
+      (int)
+      VkPhysicalDeviceShaderCoreProperties2AMD*
+      "VkPhysicalDeviceShaderCoreProperties2AMD* vkphysicaldeviceshadercoreproperties2amd = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderCoreProperties2AMD));
+      ___return (vkphysicaldeviceshadercoreproperties2amd);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderCoreProperties2AMD
       (VkStructureType void* VkShaderCorePropertiesFlagsAMD uint32_t)
       VkPhysicalDeviceShaderCoreProperties2AMD*
@@ -23233,6 +26487,7 @@ physicaldeviceshadercoreproperties2amd->activeComputeUnitCount=___arg4;
 ___return (physicaldeviceshadercoreproperties2amd);"))
 (begin-ffi
    (make-VkPipelineRasterizationConservativeStateCreateInfoEXT
+      make-VkPipelineRasterizationConservativeStateCreateInfoEXT*
       VkPipelineRasterizationConservativeStateCreateInfoEXTextraPrimitiveOverestimationSize
       VkPipelineRasterizationConservativeStateCreateInfoEXTconservativeRasterizationMode
       VkPipelineRasterizationConservativeStateCreateInfoEXTflags
@@ -23244,6 +26499,7 @@ ___return (physicaldeviceshadercoreproperties2amd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23280,6 +26536,12 @@ ___return (physicaldeviceshadercoreproperties2amd);"))
       float
       "___return (___arg1->extraPrimitiveOverestimationSize);")
    (define-c-lambda
+      make-VkPipelineRasterizationConservativeStateCreateInfoEXT*
+      (int)
+      VkPipelineRasterizationConservativeStateCreateInfoEXT*
+      "VkPipelineRasterizationConservativeStateCreateInfoEXT* vkpipelinerasterizationconservativestatecreateinfoext = malloc(___arg1 * sizeof(VkPipelineRasterizationConservativeStateCreateInfoEXT));
+      ___return (vkpipelinerasterizationconservativestatecreateinfoext);")
+   (define-c-lambda
       make-VkPipelineRasterizationConservativeStateCreateInfoEXT
       (VkStructureType
          void*
@@ -23296,6 +26558,7 @@ pipelinerasterizationconservativestatecreateinfoext->extraPrimitiveOverestimatio
 ___return (pipelinerasterizationconservativestatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceDescriptorIndexingFeaturesEXT
+      make-VkPhysicalDeviceDescriptorIndexingFeaturesEXT*
       VkPhysicalDeviceDescriptorIndexingFeaturesEXTruntimeDescriptorArray
       VkPhysicalDeviceDescriptorIndexingFeaturesEXTdescriptorBindingVariableDescriptorCount
       VkPhysicalDeviceDescriptorIndexingFeaturesEXTdescriptorBindingPartiallyBound
@@ -23324,6 +26587,7 @@ ___return (pipelinerasterizationconservativestatecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23445,6 +26709,12 @@ ___return (pipelinerasterizationconservativestatecreateinfoext);"))
       VkBool32
       "___return (___arg1->runtimeDescriptorArray);")
    (define-c-lambda
+      make-VkPhysicalDeviceDescriptorIndexingFeaturesEXT*
+      (int)
+      VkPhysicalDeviceDescriptorIndexingFeaturesEXT*
+      "VkPhysicalDeviceDescriptorIndexingFeaturesEXT* vkphysicaldevicedescriptorindexingfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceDescriptorIndexingFeaturesEXT));
+      ___return (vkphysicaldevicedescriptorindexingfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceDescriptorIndexingFeaturesEXT
       (VkStructureType
          void*
@@ -23495,6 +26765,7 @@ physicaldevicedescriptorindexingfeaturesext->runtimeDescriptorArray=___arg22;
 ___return (physicaldevicedescriptorindexingfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceDescriptorIndexingPropertiesEXT
+      make-VkPhysicalDeviceDescriptorIndexingPropertiesEXT*
       VkPhysicalDeviceDescriptorIndexingPropertiesEXTmaxDescriptorSetUpdateAfterBindInputAttachments
       VkPhysicalDeviceDescriptorIndexingPropertiesEXTmaxDescriptorSetUpdateAfterBindStorageImages
       VkPhysicalDeviceDescriptorIndexingPropertiesEXTmaxDescriptorSetUpdateAfterBindSampledImages
@@ -23526,6 +26797,7 @@ ___return (physicaldevicedescriptorindexingfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23662,6 +26934,12 @@ ___return (physicaldevicedescriptorindexingfeaturesext);"))
       uint32_t
       "___return (___arg1->maxDescriptorSetUpdateAfterBindInputAttachments);")
    (define-c-lambda
+      make-VkPhysicalDeviceDescriptorIndexingPropertiesEXT*
+      (int)
+      VkPhysicalDeviceDescriptorIndexingPropertiesEXT*
+      "VkPhysicalDeviceDescriptorIndexingPropertiesEXT* vkphysicaldevicedescriptorindexingpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceDescriptorIndexingPropertiesEXT));
+      ___return (vkphysicaldevicedescriptorindexingpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceDescriptorIndexingPropertiesEXT
       (VkStructureType
          void*
@@ -23718,6 +26996,7 @@ physicaldevicedescriptorindexingpropertiesext->maxDescriptorSetUpdateAfterBindIn
 ___return (physicaldevicedescriptorindexingpropertiesext);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
+      make-VkDescriptorSetLayoutBindingFlagsCreateInfoEXT*
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXTpBindingFlags
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXTbindingCount
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXTpNext
@@ -23728,6 +27007,7 @@ ___return (physicaldevicedescriptorindexingpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23759,6 +27039,12 @@ ___return (physicaldevicedescriptorindexingpropertiesext);"))
       VkDescriptorBindingFlagsEXT*
       "___return (___arg1->pBindingFlags);")
    (define-c-lambda
+      make-VkDescriptorSetLayoutBindingFlagsCreateInfoEXT*
+      (int)
+      VkDescriptorSetLayoutBindingFlagsCreateInfoEXT*
+      "VkDescriptorSetLayoutBindingFlagsCreateInfoEXT* vkdescriptorsetlayoutbindingflagscreateinfoext = malloc(___arg1 * sizeof(VkDescriptorSetLayoutBindingFlagsCreateInfoEXT));
+      ___return (vkdescriptorsetlayoutbindingflagscreateinfoext);")
+   (define-c-lambda
       make-VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
       (VkStructureType void* uint32_t VkDescriptorBindingFlagsEXT*)
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXT*
@@ -23770,6 +27056,7 @@ descriptorsetlayoutbindingflagscreateinfoext->pBindingFlags=___arg4;
 ___return (descriptorsetlayoutbindingflagscreateinfoext);"))
 (begin-ffi
    (make-VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
+      make-VkDescriptorSetVariableDescriptorCountAllocateInfoEXT*
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXTpDescriptorCounts
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXTdescriptorSetCount
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXTpNext
@@ -23780,6 +27067,7 @@ ___return (descriptorsetlayoutbindingflagscreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23811,6 +27099,12 @@ ___return (descriptorsetlayoutbindingflagscreateinfoext);"))
       uint32_t*
       "___return (___arg1->pDescriptorCounts);")
    (define-c-lambda
+      make-VkDescriptorSetVariableDescriptorCountAllocateInfoEXT*
+      (int)
+      VkDescriptorSetVariableDescriptorCountAllocateInfoEXT*
+      "VkDescriptorSetVariableDescriptorCountAllocateInfoEXT* vkdescriptorsetvariabledescriptorcountallocateinfoext = malloc(___arg1 * sizeof(VkDescriptorSetVariableDescriptorCountAllocateInfoEXT));
+      ___return (vkdescriptorsetvariabledescriptorcountallocateinfoext);")
+   (define-c-lambda
       make-VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
       (VkStructureType void* uint32_t uint32_t*)
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXT*
@@ -23822,6 +27116,7 @@ descriptorsetvariabledescriptorcountallocateinfoext->pDescriptorCounts=___arg4;
 ___return (descriptorsetvariabledescriptorcountallocateinfoext);"))
 (begin-ffi
    (make-VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
+      make-VkDescriptorSetVariableDescriptorCountLayoutSupportEXT*
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXTmaxVariableDescriptorCount
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXTpNext
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXTsType
@@ -23831,6 +27126,7 @@ ___return (descriptorsetvariabledescriptorcountallocateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23857,6 +27153,12 @@ ___return (descriptorsetvariabledescriptorcountallocateinfoext);"))
       uint32_t
       "___return (___arg1->maxVariableDescriptorCount);")
    (define-c-lambda
+      make-VkDescriptorSetVariableDescriptorCountLayoutSupportEXT*
+      (int)
+      VkDescriptorSetVariableDescriptorCountLayoutSupportEXT*
+      "VkDescriptorSetVariableDescriptorCountLayoutSupportEXT* vkdescriptorsetvariabledescriptorcountlayoutsupportext = malloc(___arg1 * sizeof(VkDescriptorSetVariableDescriptorCountLayoutSupportEXT));
+      ___return (vkdescriptorsetvariabledescriptorcountlayoutsupportext);")
+   (define-c-lambda
       make-VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
       (VkStructureType void* uint32_t)
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXT*
@@ -23867,6 +27169,7 @@ descriptorsetvariabledescriptorcountlayoutsupportext->maxVariableDescriptorCount
 ___return (descriptorsetvariabledescriptorcountlayoutsupportext);"))
 (begin-ffi
    (make-VkAttachmentDescription2KHR
+      make-VkAttachmentDescription2KHR*
       VkAttachmentDescription2KHRfinalLayout
       VkAttachmentDescription2KHRinitialLayout
       VkAttachmentDescription2KHRstencilStoreOp
@@ -23884,6 +27187,7 @@ ___return (descriptorsetvariabledescriptorcountlayoutsupportext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -23946,6 +27250,12 @@ ___return (descriptorsetvariabledescriptorcountlayoutsupportext);"))
       VkImageLayout
       "___return (___arg1->finalLayout);")
    (define-c-lambda
+      make-VkAttachmentDescription2KHR*
+      (int)
+      VkAttachmentDescription2KHR*
+      "VkAttachmentDescription2KHR* vkattachmentdescription2khr = malloc(___arg1 * sizeof(VkAttachmentDescription2KHR));
+      ___return (vkattachmentdescription2khr);")
+   (define-c-lambda
       make-VkAttachmentDescription2KHR
       (VkStructureType
          void*
@@ -23974,6 +27284,7 @@ attachmentdescription2khr->finalLayout=___arg11;
 ___return (attachmentdescription2khr);"))
 (begin-ffi
    (make-VkAttachmentReference2KHR
+      make-VkAttachmentReference2KHR*
       VkAttachmentReference2KHRaspectMask
       VkAttachmentReference2KHRlayout
       VkAttachmentReference2KHRattachment
@@ -23985,6 +27296,7 @@ ___return (attachmentdescription2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24017,6 +27329,12 @@ ___return (attachmentdescription2khr);"))
       VkImageAspectFlags
       "___return (___arg1->aspectMask);")
    (define-c-lambda
+      make-VkAttachmentReference2KHR*
+      (int)
+      VkAttachmentReference2KHR*
+      "VkAttachmentReference2KHR* vkattachmentreference2khr = malloc(___arg1 * sizeof(VkAttachmentReference2KHR));
+      ___return (vkattachmentreference2khr);")
+   (define-c-lambda
       make-VkAttachmentReference2KHR
       (VkStructureType void* uint32_t VkImageLayout VkImageAspectFlags)
       VkAttachmentReference2KHR*
@@ -24029,6 +27347,7 @@ attachmentreference2khr->aspectMask=___arg5;
 ___return (attachmentreference2khr);"))
 (begin-ffi
    (make-VkSubpassDescription2KHR
+      make-VkSubpassDescription2KHR*
       VkSubpassDescription2KHRpPreserveAttachments
       VkSubpassDescription2KHRpreserveAttachmentCount
       VkSubpassDescription2KHRpDepthStencilAttachment
@@ -24048,6 +27367,7 @@ ___return (attachmentreference2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24120,6 +27440,12 @@ ___return (attachmentreference2khr);"))
       uint32_t*
       "___return (___arg1->pPreserveAttachments);")
    (define-c-lambda
+      make-VkSubpassDescription2KHR*
+      (int)
+      VkSubpassDescription2KHR*
+      "VkSubpassDescription2KHR* vksubpassdescription2khr = malloc(___arg1 * sizeof(VkSubpassDescription2KHR));
+      ___return (vksubpassdescription2khr);")
+   (define-c-lambda
       make-VkSubpassDescription2KHR
       (VkStructureType
          void*
@@ -24152,6 +27478,7 @@ subpassdescription2khr->pPreserveAttachments=___arg13;
 ___return (subpassdescription2khr);"))
 (begin-ffi
    (make-VkSubpassDependency2KHR
+      make-VkSubpassDependency2KHR*
       VkSubpassDependency2KHRviewOffset
       VkSubpassDependency2KHRdependencyFlags
       VkSubpassDependency2KHRdstAccessMask
@@ -24168,6 +27495,7 @@ ___return (subpassdescription2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24225,6 +27553,12 @@ ___return (subpassdescription2khr);"))
       int32_t
       "___return (___arg1->viewOffset);")
    (define-c-lambda
+      make-VkSubpassDependency2KHR*
+      (int)
+      VkSubpassDependency2KHR*
+      "VkSubpassDependency2KHR* vksubpassdependency2khr = malloc(___arg1 * sizeof(VkSubpassDependency2KHR));
+      ___return (vksubpassdependency2khr);")
+   (define-c-lambda
       make-VkSubpassDependency2KHR
       (VkStructureType
          void*
@@ -24251,6 +27585,7 @@ subpassdependency2khr->viewOffset=___arg10;
 ___return (subpassdependency2khr);"))
 (begin-ffi
    (make-VkRenderPassCreateInfo2KHR
+      make-VkRenderPassCreateInfo2KHR*
       VkRenderPassCreateInfo2KHRpCorrelatedViewMasks
       VkRenderPassCreateInfo2KHRcorrelatedViewMaskCount
       VkRenderPassCreateInfo2KHRpDependencies
@@ -24268,6 +27603,7 @@ ___return (subpassdependency2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24330,6 +27666,12 @@ ___return (subpassdependency2khr);"))
       uint32_t*
       "___return (___arg1->pCorrelatedViewMasks);")
    (define-c-lambda
+      make-VkRenderPassCreateInfo2KHR*
+      (int)
+      VkRenderPassCreateInfo2KHR*
+      "VkRenderPassCreateInfo2KHR* vkrenderpasscreateinfo2khr = malloc(___arg1 * sizeof(VkRenderPassCreateInfo2KHR));
+      ___return (vkrenderpasscreateinfo2khr);")
+   (define-c-lambda
       make-VkRenderPassCreateInfo2KHR
       (VkStructureType
          void*
@@ -24358,6 +27700,7 @@ renderpasscreateinfo2khr->pCorrelatedViewMasks=___arg11;
 ___return (renderpasscreateinfo2khr);"))
 (begin-ffi
    (make-VkSubpassBeginInfoKHR
+      make-VkSubpassBeginInfoKHR*
       VkSubpassBeginInfoKHRcontents
       VkSubpassBeginInfoKHRpNext
       VkSubpassBeginInfoKHRsType
@@ -24367,6 +27710,7 @@ ___return (renderpasscreateinfo2khr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24389,6 +27733,12 @@ ___return (renderpasscreateinfo2khr);"))
       VkSubpassContents
       "___return (___arg1->contents);")
    (define-c-lambda
+      make-VkSubpassBeginInfoKHR*
+      (int)
+      VkSubpassBeginInfoKHR*
+      "VkSubpassBeginInfoKHR* vksubpassbegininfokhr = malloc(___arg1 * sizeof(VkSubpassBeginInfoKHR));
+      ___return (vksubpassbegininfokhr);")
+   (define-c-lambda
       make-VkSubpassBeginInfoKHR
       (VkStructureType void* VkSubpassContents)
       VkSubpassBeginInfoKHR*
@@ -24399,6 +27749,7 @@ subpassbegininfokhr->contents=___arg3;
 ___return (subpassbegininfokhr);"))
 (begin-ffi
    (make-VkSubpassEndInfoKHR
+      make-VkSubpassEndInfoKHR*
       VkSubpassEndInfoKHRpNext
       VkSubpassEndInfoKHRsType
       VkSubpassEndInfoKHR
@@ -24407,6 +27758,7 @@ ___return (subpassbegininfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24424,6 +27776,12 @@ ___return (subpassbegininfokhr);"))
       void*
       "___return (___arg1->pNext);")
    (define-c-lambda
+      make-VkSubpassEndInfoKHR*
+      (int)
+      VkSubpassEndInfoKHR*
+      "VkSubpassEndInfoKHR* vksubpassendinfokhr = malloc(___arg1 * sizeof(VkSubpassEndInfoKHR));
+      ___return (vksubpassendinfokhr);")
+   (define-c-lambda
       make-VkSubpassEndInfoKHR
       (VkStructureType void*)
       VkSubpassEndInfoKHR*
@@ -24433,6 +27791,7 @@ subpassendinfokhr->pNext=___arg2;
 ___return (subpassendinfokhr);"))
 (begin-ffi
    (make-VkVertexInputBindingDivisorDescriptionEXT
+      make-VkVertexInputBindingDivisorDescriptionEXT*
       VkVertexInputBindingDivisorDescriptionEXTdivisor
       VkVertexInputBindingDivisorDescriptionEXTbinding
       VkVertexInputBindingDivisorDescriptionEXT
@@ -24441,6 +27800,7 @@ ___return (subpassendinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24462,6 +27822,12 @@ ___return (subpassendinfokhr);"))
       uint32_t
       "___return (___arg1->divisor);")
    (define-c-lambda
+      make-VkVertexInputBindingDivisorDescriptionEXT*
+      (int)
+      VkVertexInputBindingDivisorDescriptionEXT*
+      "VkVertexInputBindingDivisorDescriptionEXT* vkvertexinputbindingdivisordescriptionext = malloc(___arg1 * sizeof(VkVertexInputBindingDivisorDescriptionEXT));
+      ___return (vkvertexinputbindingdivisordescriptionext);")
+   (define-c-lambda
       make-VkVertexInputBindingDivisorDescriptionEXT
       (uint32_t uint32_t)
       VkVertexInputBindingDivisorDescriptionEXT*
@@ -24471,6 +27837,7 @@ vertexinputbindingdivisordescriptionext->divisor=___arg2;
 ___return (vertexinputbindingdivisordescriptionext);"))
 (begin-ffi
    (make-VkPipelineVertexInputDivisorStateCreateInfoEXT
+      make-VkPipelineVertexInputDivisorStateCreateInfoEXT*
       VkPipelineVertexInputDivisorStateCreateInfoEXTpVertexBindingDivisors
       VkPipelineVertexInputDivisorStateCreateInfoEXTvertexBindingDivisorCount
       VkPipelineVertexInputDivisorStateCreateInfoEXTpNext
@@ -24481,6 +27848,7 @@ ___return (vertexinputbindingdivisordescriptionext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24512,6 +27880,12 @@ ___return (vertexinputbindingdivisordescriptionext);"))
       VkVertexInputBindingDivisorDescriptionEXT*
       "___return (___arg1->pVertexBindingDivisors);")
    (define-c-lambda
+      make-VkPipelineVertexInputDivisorStateCreateInfoEXT*
+      (int)
+      VkPipelineVertexInputDivisorStateCreateInfoEXT*
+      "VkPipelineVertexInputDivisorStateCreateInfoEXT* vkpipelinevertexinputdivisorstatecreateinfoext = malloc(___arg1 * sizeof(VkPipelineVertexInputDivisorStateCreateInfoEXT));
+      ___return (vkpipelinevertexinputdivisorstatecreateinfoext);")
+   (define-c-lambda
       make-VkPipelineVertexInputDivisorStateCreateInfoEXT
       (VkStructureType void* uint32_t VkVertexInputBindingDivisorDescriptionEXT*)
       VkPipelineVertexInputDivisorStateCreateInfoEXT*
@@ -24523,6 +27897,7 @@ pipelinevertexinputdivisorstatecreateinfoext->pVertexBindingDivisors=___arg4;
 ___return (pipelinevertexinputdivisorstatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
+      make-VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT*
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXTmaxVertexAttribDivisor
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXTpNext
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXTsType
@@ -24532,6 +27907,7 @@ ___return (pipelinevertexinputdivisorstatecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24558,6 +27934,12 @@ ___return (pipelinevertexinputdivisorstatecreateinfoext);"))
       uint32_t
       "___return (___arg1->maxVertexAttribDivisor);")
    (define-c-lambda
+      make-VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT*
+      (int)
+      VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT*
+      "VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT* vkphysicaldevicevertexattributedivisorpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT));
+      ___return (vkphysicaldevicevertexattributedivisorpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
       (VkStructureType void* uint32_t)
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT*
@@ -24568,6 +27950,7 @@ physicaldevicevertexattributedivisorpropertiesext->maxVertexAttribDivisor=___arg
 ___return (physicaldevicevertexattributedivisorpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDevicePCIBusInfoPropertiesEXT
+      make-VkPhysicalDevicePCIBusInfoPropertiesEXT*
       VkPhysicalDevicePCIBusInfoPropertiesEXTpciFunction
       VkPhysicalDevicePCIBusInfoPropertiesEXTpciDevice
       VkPhysicalDevicePCIBusInfoPropertiesEXTpciBus
@@ -24580,6 +27963,7 @@ ___return (physicaldevicevertexattributedivisorpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24621,6 +28005,12 @@ ___return (physicaldevicevertexattributedivisorpropertiesext);"))
       uint32_t
       "___return (___arg1->pciFunction);")
    (define-c-lambda
+      make-VkPhysicalDevicePCIBusInfoPropertiesEXT*
+      (int)
+      VkPhysicalDevicePCIBusInfoPropertiesEXT*
+      "VkPhysicalDevicePCIBusInfoPropertiesEXT* vkphysicaldevicepcibusinfopropertiesext = malloc(___arg1 * sizeof(VkPhysicalDevicePCIBusInfoPropertiesEXT));
+      ___return (vkphysicaldevicepcibusinfopropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDevicePCIBusInfoPropertiesEXT
       (VkStructureType void* uint32_t uint32_t uint32_t uint32_t)
       VkPhysicalDevicePCIBusInfoPropertiesEXT*
@@ -24634,6 +28024,7 @@ physicaldevicepcibusinfopropertiesext->pciFunction=___arg6;
 ___return (physicaldevicepcibusinfopropertiesext);"))
 (begin-ffi
    (make-VkCommandBufferInheritanceConditionalRenderingInfoEXT
+      make-VkCommandBufferInheritanceConditionalRenderingInfoEXT*
       VkCommandBufferInheritanceConditionalRenderingInfoEXTconditionalRenderingEnable
       VkCommandBufferInheritanceConditionalRenderingInfoEXTpNext
       VkCommandBufferInheritanceConditionalRenderingInfoEXTsType
@@ -24643,6 +28034,7 @@ ___return (physicaldevicepcibusinfopropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24669,6 +28061,12 @@ ___return (physicaldevicepcibusinfopropertiesext);"))
       VkBool32
       "___return (___arg1->conditionalRenderingEnable);")
    (define-c-lambda
+      make-VkCommandBufferInheritanceConditionalRenderingInfoEXT*
+      (int)
+      VkCommandBufferInheritanceConditionalRenderingInfoEXT*
+      "VkCommandBufferInheritanceConditionalRenderingInfoEXT* vkcommandbufferinheritanceconditionalrenderinginfoext = malloc(___arg1 * sizeof(VkCommandBufferInheritanceConditionalRenderingInfoEXT));
+      ___return (vkcommandbufferinheritanceconditionalrenderinginfoext);")
+   (define-c-lambda
       make-VkCommandBufferInheritanceConditionalRenderingInfoEXT
       (VkStructureType void* VkBool32)
       VkCommandBufferInheritanceConditionalRenderingInfoEXT*
@@ -24679,6 +28077,7 @@ commandbufferinheritanceconditionalrenderinginfoext->conditionalRenderingEnable=
 ___return (commandbufferinheritanceconditionalrenderinginfoext);"))
 (begin-ffi
    (make-VkPhysicalDevice8BitStorageFeaturesKHR
+      make-VkPhysicalDevice8BitStorageFeaturesKHR*
       VkPhysicalDevice8BitStorageFeaturesKHRstoragePushConstant8
       VkPhysicalDevice8BitStorageFeaturesKHRuniformAndStorageBuffer8BitAccess
       VkPhysicalDevice8BitStorageFeaturesKHRstorageBuffer8BitAccess
@@ -24690,6 +28089,7 @@ ___return (commandbufferinheritanceconditionalrenderinginfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24726,6 +28126,12 @@ ___return (commandbufferinheritanceconditionalrenderinginfoext);"))
       VkBool32
       "___return (___arg1->storagePushConstant8);")
    (define-c-lambda
+      make-VkPhysicalDevice8BitStorageFeaturesKHR*
+      (int)
+      VkPhysicalDevice8BitStorageFeaturesKHR*
+      "VkPhysicalDevice8BitStorageFeaturesKHR* vkphysicaldevice8bitstoragefeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDevice8BitStorageFeaturesKHR));
+      ___return (vkphysicaldevice8bitstoragefeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDevice8BitStorageFeaturesKHR
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
       VkPhysicalDevice8BitStorageFeaturesKHR*
@@ -24738,6 +28144,7 @@ physicaldevice8bitstoragefeatureskhr->storagePushConstant8=___arg5;
 ___return (physicaldevice8bitstoragefeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceConditionalRenderingFeaturesEXT
+      make-VkPhysicalDeviceConditionalRenderingFeaturesEXT*
       VkPhysicalDeviceConditionalRenderingFeaturesEXTinheritedConditionalRendering
       VkPhysicalDeviceConditionalRenderingFeaturesEXTconditionalRendering
       VkPhysicalDeviceConditionalRenderingFeaturesEXTpNext
@@ -24748,6 +28155,7 @@ ___return (physicaldevice8bitstoragefeatureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24779,6 +28187,12 @@ ___return (physicaldevice8bitstoragefeatureskhr);"))
       VkBool32
       "___return (___arg1->inheritedConditionalRendering);")
    (define-c-lambda
+      make-VkPhysicalDeviceConditionalRenderingFeaturesEXT*
+      (int)
+      VkPhysicalDeviceConditionalRenderingFeaturesEXT*
+      "VkPhysicalDeviceConditionalRenderingFeaturesEXT* vkphysicaldeviceconditionalrenderingfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceConditionalRenderingFeaturesEXT));
+      ___return (vkphysicaldeviceconditionalrenderingfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceConditionalRenderingFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceConditionalRenderingFeaturesEXT*
@@ -24790,6 +28204,7 @@ physicaldeviceconditionalrenderingfeaturesext->inheritedConditionalRendering=___
 ___return (physicaldeviceconditionalrenderingfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceVulkanMemoryModelFeaturesKHR
+      make-VkPhysicalDeviceVulkanMemoryModelFeaturesKHR*
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHRvulkanMemoryModelAvailabilityVisibilityChains
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHRvulkanMemoryModelDeviceScope
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHRvulkanMemoryModel
@@ -24801,6 +28216,7 @@ ___return (physicaldeviceconditionalrenderingfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24837,6 +28253,12 @@ ___return (physicaldeviceconditionalrenderingfeaturesext);"))
       VkBool32
       "___return (___arg1->vulkanMemoryModelAvailabilityVisibilityChains);")
    (define-c-lambda
+      make-VkPhysicalDeviceVulkanMemoryModelFeaturesKHR*
+      (int)
+      VkPhysicalDeviceVulkanMemoryModelFeaturesKHR*
+      "VkPhysicalDeviceVulkanMemoryModelFeaturesKHR* vkphysicaldevicevulkanmemorymodelfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceVulkanMemoryModelFeaturesKHR));
+      ___return (vkphysicaldevicevulkanmemorymodelfeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceVulkanMemoryModelFeaturesKHR
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHR*
@@ -24849,6 +28271,7 @@ physicaldevicevulkanmemorymodelfeatureskhr->vulkanMemoryModelAvailabilityVisibil
 ___return (physicaldevicevulkanmemorymodelfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderAtomicInt64FeaturesKHR
+      make-VkPhysicalDeviceShaderAtomicInt64FeaturesKHR*
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHRshaderSharedInt64Atomics
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHRshaderBufferInt64Atomics
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHRpNext
@@ -24859,6 +28282,7 @@ ___return (physicaldevicevulkanmemorymodelfeatureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24890,6 +28314,12 @@ ___return (physicaldevicevulkanmemorymodelfeatureskhr);"))
       VkBool32
       "___return (___arg1->shaderSharedInt64Atomics);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderAtomicInt64FeaturesKHR*
+      (int)
+      VkPhysicalDeviceShaderAtomicInt64FeaturesKHR*
+      "VkPhysicalDeviceShaderAtomicInt64FeaturesKHR* vkphysicaldeviceshaderatomicint64featureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderAtomicInt64FeaturesKHR));
+      ___return (vkphysicaldeviceshaderatomicint64featureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderAtomicInt64FeaturesKHR
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHR*
@@ -24901,6 +28331,7 @@ physicaldeviceshaderatomicint64featureskhr->shaderSharedInt64Atomics=___arg4;
 ___return (physicaldeviceshaderatomicint64featureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
+      make-VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT*
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXTvertexAttributeInstanceRateZeroDivisor
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXTvertexAttributeInstanceRateDivisor
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXTpNext
@@ -24911,6 +28342,7 @@ ___return (physicaldeviceshaderatomicint64featureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24942,6 +28374,12 @@ ___return (physicaldeviceshaderatomicint64featureskhr);"))
       VkBool32
       "___return (___arg1->vertexAttributeInstanceRateZeroDivisor);")
    (define-c-lambda
+      make-VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT*
+      (int)
+      VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT*
+      "VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT* vkphysicaldevicevertexattributedivisorfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT));
+      ___return (vkphysicaldevicevertexattributedivisorfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT*
@@ -24953,6 +28391,7 @@ physicaldevicevertexattributedivisorfeaturesext->vertexAttributeInstanceRateZero
 ___return (physicaldevicevertexattributedivisorfeaturesext);"))
 (begin-ffi
    (make-VkQueueFamilyCheckpointPropertiesNV
+      make-VkQueueFamilyCheckpointPropertiesNV*
       VkQueueFamilyCheckpointPropertiesNVcheckpointExecutionStageMask
       VkQueueFamilyCheckpointPropertiesNVpNext
       VkQueueFamilyCheckpointPropertiesNVsType
@@ -24962,6 +28401,7 @@ ___return (physicaldevicevertexattributedivisorfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -24988,6 +28428,12 @@ ___return (physicaldevicevertexattributedivisorfeaturesext);"))
       VkPipelineStageFlags
       "___return (___arg1->checkpointExecutionStageMask);")
    (define-c-lambda
+      make-VkQueueFamilyCheckpointPropertiesNV*
+      (int)
+      VkQueueFamilyCheckpointPropertiesNV*
+      "VkQueueFamilyCheckpointPropertiesNV* vkqueuefamilycheckpointpropertiesnv = malloc(___arg1 * sizeof(VkQueueFamilyCheckpointPropertiesNV));
+      ___return (vkqueuefamilycheckpointpropertiesnv);")
+   (define-c-lambda
       make-VkQueueFamilyCheckpointPropertiesNV
       (VkStructureType void* VkPipelineStageFlags)
       VkQueueFamilyCheckpointPropertiesNV*
@@ -24998,6 +28444,7 @@ queuefamilycheckpointpropertiesnv->checkpointExecutionStageMask=___arg3;
 ___return (queuefamilycheckpointpropertiesnv);"))
 (begin-ffi
    (make-VkCheckpointDataNV
+      make-VkCheckpointDataNV*
       VkCheckpointDataNVpCheckpointMarker
       VkCheckpointDataNVstage
       VkCheckpointDataNVpNext
@@ -25008,6 +28455,7 @@ ___return (queuefamilycheckpointpropertiesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25035,6 +28483,12 @@ ___return (queuefamilycheckpointpropertiesnv);"))
       void*
       "___return (___arg1->pCheckpointMarker);")
    (define-c-lambda
+      make-VkCheckpointDataNV*
+      (int)
+      VkCheckpointDataNV*
+      "VkCheckpointDataNV* vkcheckpointdatanv = malloc(___arg1 * sizeof(VkCheckpointDataNV));
+      ___return (vkcheckpointdatanv);")
+   (define-c-lambda
       make-VkCheckpointDataNV
       (VkStructureType void* VkPipelineStageFlagBits void*)
       VkCheckpointDataNV*
@@ -25046,6 +28500,7 @@ checkpointdatanv->pCheckpointMarker=___arg4;
 ___return (checkpointdatanv);"))
 (begin-ffi
    (make-VkPhysicalDeviceDepthStencilResolvePropertiesKHR
+      make-VkPhysicalDeviceDepthStencilResolvePropertiesKHR*
       VkPhysicalDeviceDepthStencilResolvePropertiesKHRindependentResolve
       VkPhysicalDeviceDepthStencilResolvePropertiesKHRindependentResolveNone
       VkPhysicalDeviceDepthStencilResolvePropertiesKHRsupportedStencilResolveModes
@@ -25058,6 +28513,7 @@ ___return (checkpointdatanv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25099,6 +28555,12 @@ ___return (checkpointdatanv);"))
       VkBool32
       "___return (___arg1->independentResolve);")
    (define-c-lambda
+      make-VkPhysicalDeviceDepthStencilResolvePropertiesKHR*
+      (int)
+      VkPhysicalDeviceDepthStencilResolvePropertiesKHR*
+      "VkPhysicalDeviceDepthStencilResolvePropertiesKHR* vkphysicaldevicedepthstencilresolvepropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceDepthStencilResolvePropertiesKHR));
+      ___return (vkphysicaldevicedepthstencilresolvepropertieskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceDepthStencilResolvePropertiesKHR
       (VkStructureType
          void*
@@ -25117,6 +28579,7 @@ physicaldevicedepthstencilresolvepropertieskhr->independentResolve=___arg6;
 ___return (physicaldevicedepthstencilresolvepropertieskhr);"))
 (begin-ffi
    (make-VkSubpassDescriptionDepthStencilResolveKHR
+      make-VkSubpassDescriptionDepthStencilResolveKHR*
       VkSubpassDescriptionDepthStencilResolveKHRpDepthStencilResolveAttachment
       VkSubpassDescriptionDepthStencilResolveKHRstencilResolveMode
       VkSubpassDescriptionDepthStencilResolveKHRdepthResolveMode
@@ -25128,6 +28591,7 @@ ___return (physicaldevicedepthstencilresolvepropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25164,6 +28628,12 @@ ___return (physicaldevicedepthstencilresolvepropertieskhr);"))
       VkAttachmentReference2KHR*
       "___return (___arg1->pDepthStencilResolveAttachment);")
    (define-c-lambda
+      make-VkSubpassDescriptionDepthStencilResolveKHR*
+      (int)
+      VkSubpassDescriptionDepthStencilResolveKHR*
+      "VkSubpassDescriptionDepthStencilResolveKHR* vksubpassdescriptiondepthstencilresolvekhr = malloc(___arg1 * sizeof(VkSubpassDescriptionDepthStencilResolveKHR));
+      ___return (vksubpassdescriptiondepthstencilresolvekhr);")
+   (define-c-lambda
       make-VkSubpassDescriptionDepthStencilResolveKHR
       (VkStructureType
          void*
@@ -25180,6 +28650,7 @@ subpassdescriptiondepthstencilresolvekhr->pDepthStencilResolveAttachment=___arg5
 ___return (subpassdescriptiondepthstencilresolvekhr);"))
 (begin-ffi
    (make-VkImageViewASTCDecodeModeEXT
+      make-VkImageViewASTCDecodeModeEXT*
       VkImageViewASTCDecodeModeEXTdecodeMode
       VkImageViewASTCDecodeModeEXTpNext
       VkImageViewASTCDecodeModeEXTsType
@@ -25189,6 +28660,7 @@ ___return (subpassdescriptiondepthstencilresolvekhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25211,6 +28683,12 @@ ___return (subpassdescriptiondepthstencilresolvekhr);"))
       VkFormat
       "___return (___arg1->decodeMode);")
    (define-c-lambda
+      make-VkImageViewASTCDecodeModeEXT*
+      (int)
+      VkImageViewASTCDecodeModeEXT*
+      "VkImageViewASTCDecodeModeEXT* vkimageviewastcdecodemodeext = malloc(___arg1 * sizeof(VkImageViewASTCDecodeModeEXT));
+      ___return (vkimageviewastcdecodemodeext);")
+   (define-c-lambda
       make-VkImageViewASTCDecodeModeEXT
       (VkStructureType void* VkFormat)
       VkImageViewASTCDecodeModeEXT*
@@ -25221,6 +28699,7 @@ imageviewastcdecodemodeext->decodeMode=___arg3;
 ___return (imageviewastcdecodemodeext);"))
 (begin-ffi
    (make-VkPhysicalDeviceASTCDecodeFeaturesEXT
+      make-VkPhysicalDeviceASTCDecodeFeaturesEXT*
       VkPhysicalDeviceASTCDecodeFeaturesEXTdecodeModeSharedExponent
       VkPhysicalDeviceASTCDecodeFeaturesEXTpNext
       VkPhysicalDeviceASTCDecodeFeaturesEXTsType
@@ -25230,6 +28709,7 @@ ___return (imageviewastcdecodemodeext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25256,6 +28736,12 @@ ___return (imageviewastcdecodemodeext);"))
       VkBool32
       "___return (___arg1->decodeModeSharedExponent);")
    (define-c-lambda
+      make-VkPhysicalDeviceASTCDecodeFeaturesEXT*
+      (int)
+      VkPhysicalDeviceASTCDecodeFeaturesEXT*
+      "VkPhysicalDeviceASTCDecodeFeaturesEXT* vkphysicaldeviceastcdecodefeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceASTCDecodeFeaturesEXT));
+      ___return (vkphysicaldeviceastcdecodefeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceASTCDecodeFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceASTCDecodeFeaturesEXT*
@@ -25266,6 +28752,7 @@ physicaldeviceastcdecodefeaturesext->decodeModeSharedExponent=___arg3;
 ___return (physicaldeviceastcdecodefeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceTransformFeedbackFeaturesEXT
+      make-VkPhysicalDeviceTransformFeedbackFeaturesEXT*
       VkPhysicalDeviceTransformFeedbackFeaturesEXTgeometryStreams
       VkPhysicalDeviceTransformFeedbackFeaturesEXTtransformFeedback
       VkPhysicalDeviceTransformFeedbackFeaturesEXTpNext
@@ -25276,6 +28763,7 @@ ___return (physicaldeviceastcdecodefeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25307,6 +28795,12 @@ ___return (physicaldeviceastcdecodefeaturesext);"))
       VkBool32
       "___return (___arg1->geometryStreams);")
    (define-c-lambda
+      make-VkPhysicalDeviceTransformFeedbackFeaturesEXT*
+      (int)
+      VkPhysicalDeviceTransformFeedbackFeaturesEXT*
+      "VkPhysicalDeviceTransformFeedbackFeaturesEXT* vkphysicaldevicetransformfeedbackfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceTransformFeedbackFeaturesEXT));
+      ___return (vkphysicaldevicetransformfeedbackfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceTransformFeedbackFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceTransformFeedbackFeaturesEXT*
@@ -25318,6 +28812,7 @@ physicaldevicetransformfeedbackfeaturesext->geometryStreams=___arg4;
 ___return (physicaldevicetransformfeedbackfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceTransformFeedbackPropertiesEXT
+      make-VkPhysicalDeviceTransformFeedbackPropertiesEXT*
       VkPhysicalDeviceTransformFeedbackPropertiesEXTtransformFeedbackDraw
       VkPhysicalDeviceTransformFeedbackPropertiesEXTtransformFeedbackRasterizationStreamSelect
       VkPhysicalDeviceTransformFeedbackPropertiesEXTtransformFeedbackStreamsLinesTriangles
@@ -25336,6 +28831,7 @@ ___return (physicaldevicetransformfeedbackfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25407,6 +28903,12 @@ ___return (physicaldevicetransformfeedbackfeaturesext);"))
       VkBool32
       "___return (___arg1->transformFeedbackDraw);")
    (define-c-lambda
+      make-VkPhysicalDeviceTransformFeedbackPropertiesEXT*
+      (int)
+      VkPhysicalDeviceTransformFeedbackPropertiesEXT*
+      "VkPhysicalDeviceTransformFeedbackPropertiesEXT* vkphysicaldevicetransformfeedbackpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceTransformFeedbackPropertiesEXT));
+      ___return (vkphysicaldevicetransformfeedbackpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceTransformFeedbackPropertiesEXT
       (VkStructureType
          void*
@@ -25437,6 +28939,7 @@ physicaldevicetransformfeedbackpropertiesext->transformFeedbackDraw=___arg12;
 ___return (physicaldevicetransformfeedbackpropertiesext);"))
 (begin-ffi
    (make-VkPipelineRasterizationStateStreamCreateInfoEXT
+      make-VkPipelineRasterizationStateStreamCreateInfoEXT*
       VkPipelineRasterizationStateStreamCreateInfoEXTrasterizationStream
       VkPipelineRasterizationStateStreamCreateInfoEXTflags
       VkPipelineRasterizationStateStreamCreateInfoEXTpNext
@@ -25447,6 +28950,7 @@ ___return (physicaldevicetransformfeedbackpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25478,6 +28982,12 @@ ___return (physicaldevicetransformfeedbackpropertiesext);"))
       uint32_t
       "___return (___arg1->rasterizationStream);")
    (define-c-lambda
+      make-VkPipelineRasterizationStateStreamCreateInfoEXT*
+      (int)
+      VkPipelineRasterizationStateStreamCreateInfoEXT*
+      "VkPipelineRasterizationStateStreamCreateInfoEXT* vkpipelinerasterizationstatestreamcreateinfoext = malloc(___arg1 * sizeof(VkPipelineRasterizationStateStreamCreateInfoEXT));
+      ___return (vkpipelinerasterizationstatestreamcreateinfoext);")
+   (define-c-lambda
       make-VkPipelineRasterizationStateStreamCreateInfoEXT
       (VkStructureType void* VkPipelineRasterizationStateStreamCreateFlagsEXT uint32_t)
       VkPipelineRasterizationStateStreamCreateInfoEXT*
@@ -25489,6 +28999,7 @@ pipelinerasterizationstatestreamcreateinfoext->rasterizationStream=___arg4;
 ___return (pipelinerasterizationstatestreamcreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
+      make-VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV*
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNVrepresentativeFragmentTest
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNVpNext
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNVsType
@@ -25498,6 +29009,7 @@ ___return (pipelinerasterizationstatestreamcreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25524,6 +29036,12 @@ ___return (pipelinerasterizationstatestreamcreateinfoext);"))
       VkBool32
       "___return (___arg1->representativeFragmentTest);")
    (define-c-lambda
+      make-VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV*
+      (int)
+      VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV*
+      "VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV* vkphysicaldevicerepresentativefragmenttestfeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV));
+      ___return (vkphysicaldevicerepresentativefragmenttestfeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV*
@@ -25534,6 +29052,7 @@ physicaldevicerepresentativefragmenttestfeaturesnv->representativeFragmentTest=_
 ___return (physicaldevicerepresentativefragmenttestfeaturesnv);"))
 (begin-ffi
    (make-VkPipelineRepresentativeFragmentTestStateCreateInfoNV
+      make-VkPipelineRepresentativeFragmentTestStateCreateInfoNV*
       VkPipelineRepresentativeFragmentTestStateCreateInfoNVrepresentativeFragmentTestEnable
       VkPipelineRepresentativeFragmentTestStateCreateInfoNVpNext
       VkPipelineRepresentativeFragmentTestStateCreateInfoNVsType
@@ -25543,6 +29062,7 @@ ___return (physicaldevicerepresentativefragmenttestfeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25569,6 +29089,12 @@ ___return (physicaldevicerepresentativefragmenttestfeaturesnv);"))
       VkBool32
       "___return (___arg1->representativeFragmentTestEnable);")
    (define-c-lambda
+      make-VkPipelineRepresentativeFragmentTestStateCreateInfoNV*
+      (int)
+      VkPipelineRepresentativeFragmentTestStateCreateInfoNV*
+      "VkPipelineRepresentativeFragmentTestStateCreateInfoNV* vkpipelinerepresentativefragmentteststatecreateinfonv = malloc(___arg1 * sizeof(VkPipelineRepresentativeFragmentTestStateCreateInfoNV));
+      ___return (vkpipelinerepresentativefragmentteststatecreateinfonv);")
+   (define-c-lambda
       make-VkPipelineRepresentativeFragmentTestStateCreateInfoNV
       (VkStructureType void* VkBool32)
       VkPipelineRepresentativeFragmentTestStateCreateInfoNV*
@@ -25579,6 +29105,7 @@ pipelinerepresentativefragmentteststatecreateinfonv->representativeFragmentTestE
 ___return (pipelinerepresentativefragmentteststatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceExclusiveScissorFeaturesNV
+      make-VkPhysicalDeviceExclusiveScissorFeaturesNV*
       VkPhysicalDeviceExclusiveScissorFeaturesNVexclusiveScissor
       VkPhysicalDeviceExclusiveScissorFeaturesNVpNext
       VkPhysicalDeviceExclusiveScissorFeaturesNVsType
@@ -25588,6 +29115,7 @@ ___return (pipelinerepresentativefragmentteststatecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25614,6 +29142,12 @@ ___return (pipelinerepresentativefragmentteststatecreateinfonv);"))
       VkBool32
       "___return (___arg1->exclusiveScissor);")
    (define-c-lambda
+      make-VkPhysicalDeviceExclusiveScissorFeaturesNV*
+      (int)
+      VkPhysicalDeviceExclusiveScissorFeaturesNV*
+      "VkPhysicalDeviceExclusiveScissorFeaturesNV* vkphysicaldeviceexclusivescissorfeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceExclusiveScissorFeaturesNV));
+      ___return (vkphysicaldeviceexclusivescissorfeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceExclusiveScissorFeaturesNV
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceExclusiveScissorFeaturesNV*
@@ -25624,6 +29158,7 @@ physicaldeviceexclusivescissorfeaturesnv->exclusiveScissor=___arg3;
 ___return (physicaldeviceexclusivescissorfeaturesnv);"))
 (begin-ffi
    (make-VkPipelineViewportExclusiveScissorStateCreateInfoNV
+      make-VkPipelineViewportExclusiveScissorStateCreateInfoNV*
       VkPipelineViewportExclusiveScissorStateCreateInfoNVpExclusiveScissors
       VkPipelineViewportExclusiveScissorStateCreateInfoNVexclusiveScissorCount
       VkPipelineViewportExclusiveScissorStateCreateInfoNVpNext
@@ -25634,6 +29169,7 @@ ___return (physicaldeviceexclusivescissorfeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25665,6 +29201,12 @@ ___return (physicaldeviceexclusivescissorfeaturesnv);"))
       VkRect2D*
       "___return (___arg1->pExclusiveScissors);")
    (define-c-lambda
+      make-VkPipelineViewportExclusiveScissorStateCreateInfoNV*
+      (int)
+      VkPipelineViewportExclusiveScissorStateCreateInfoNV*
+      "VkPipelineViewportExclusiveScissorStateCreateInfoNV* vkpipelineviewportexclusivescissorstatecreateinfonv = malloc(___arg1 * sizeof(VkPipelineViewportExclusiveScissorStateCreateInfoNV));
+      ___return (vkpipelineviewportexclusivescissorstatecreateinfonv);")
+   (define-c-lambda
       make-VkPipelineViewportExclusiveScissorStateCreateInfoNV
       (VkStructureType void* uint32_t VkRect2D*)
       VkPipelineViewportExclusiveScissorStateCreateInfoNV*
@@ -25676,6 +29218,7 @@ pipelineviewportexclusivescissorstatecreateinfonv->pExclusiveScissors=___arg4;
 ___return (pipelineviewportexclusivescissorstatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceCornerSampledImageFeaturesNV
+      make-VkPhysicalDeviceCornerSampledImageFeaturesNV*
       VkPhysicalDeviceCornerSampledImageFeaturesNVcornerSampledImage
       VkPhysicalDeviceCornerSampledImageFeaturesNVpNext
       VkPhysicalDeviceCornerSampledImageFeaturesNVsType
@@ -25685,6 +29228,7 @@ ___return (pipelineviewportexclusivescissorstatecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25711,6 +29255,12 @@ ___return (pipelineviewportexclusivescissorstatecreateinfonv);"))
       VkBool32
       "___return (___arg1->cornerSampledImage);")
    (define-c-lambda
+      make-VkPhysicalDeviceCornerSampledImageFeaturesNV*
+      (int)
+      VkPhysicalDeviceCornerSampledImageFeaturesNV*
+      "VkPhysicalDeviceCornerSampledImageFeaturesNV* vkphysicaldevicecornersampledimagefeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceCornerSampledImageFeaturesNV));
+      ___return (vkphysicaldevicecornersampledimagefeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceCornerSampledImageFeaturesNV
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceCornerSampledImageFeaturesNV*
@@ -25721,6 +29271,7 @@ physicaldevicecornersampledimagefeaturesnv->cornerSampledImage=___arg3;
 ___return (physicaldevicecornersampledimagefeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
+      make-VkPhysicalDeviceComputeShaderDerivativesFeaturesNV*
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNVcomputeDerivativeGroupLinear
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNVcomputeDerivativeGroupQuads
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNVpNext
@@ -25731,6 +29282,7 @@ ___return (physicaldevicecornersampledimagefeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25762,6 +29314,12 @@ ___return (physicaldevicecornersampledimagefeaturesnv);"))
       VkBool32
       "___return (___arg1->computeDerivativeGroupLinear);")
    (define-c-lambda
+      make-VkPhysicalDeviceComputeShaderDerivativesFeaturesNV*
+      (int)
+      VkPhysicalDeviceComputeShaderDerivativesFeaturesNV*
+      "VkPhysicalDeviceComputeShaderDerivativesFeaturesNV* vkphysicaldevicecomputeshaderderivativesfeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceComputeShaderDerivativesFeaturesNV));
+      ___return (vkphysicaldevicecomputeshaderderivativesfeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNV*
@@ -25773,6 +29331,7 @@ physicaldevicecomputeshaderderivativesfeaturesnv->computeDerivativeGroupLinear=_
 ___return (physicaldevicecomputeshaderderivativesfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
+      make-VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV*
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNVfragmentShaderBarycentric
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNVpNext
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNVsType
@@ -25782,6 +29341,7 @@ ___return (physicaldevicecomputeshaderderivativesfeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25808,6 +29368,12 @@ ___return (physicaldevicecomputeshaderderivativesfeaturesnv);"))
       VkBool32
       "___return (___arg1->fragmentShaderBarycentric);")
    (define-c-lambda
+      make-VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV*
+      (int)
+      VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV*
+      "VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV* vkphysicaldevicefragmentshaderbarycentricfeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV));
+      ___return (vkphysicaldevicefragmentshaderbarycentricfeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV*
@@ -25818,6 +29384,7 @@ physicaldevicefragmentshaderbarycentricfeaturesnv->fragmentShaderBarycentric=___
 ___return (physicaldevicefragmentshaderbarycentricfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderImageFootprintFeaturesNV
+      make-VkPhysicalDeviceShaderImageFootprintFeaturesNV*
       VkPhysicalDeviceShaderImageFootprintFeaturesNVimageFootprint
       VkPhysicalDeviceShaderImageFootprintFeaturesNVpNext
       VkPhysicalDeviceShaderImageFootprintFeaturesNVsType
@@ -25827,6 +29394,7 @@ ___return (physicaldevicefragmentshaderbarycentricfeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25853,6 +29421,12 @@ ___return (physicaldevicefragmentshaderbarycentricfeaturesnv);"))
       VkBool32
       "___return (___arg1->imageFootprint);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderImageFootprintFeaturesNV*
+      (int)
+      VkPhysicalDeviceShaderImageFootprintFeaturesNV*
+      "VkPhysicalDeviceShaderImageFootprintFeaturesNV* vkphysicaldeviceshaderimagefootprintfeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderImageFootprintFeaturesNV));
+      ___return (vkphysicaldeviceshaderimagefootprintfeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderImageFootprintFeaturesNV
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceShaderImageFootprintFeaturesNV*
@@ -25863,6 +29437,7 @@ physicaldeviceshaderimagefootprintfeaturesnv->imageFootprint=___arg3;
 ___return (physicaldeviceshaderimagefootprintfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
+      make-VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV*
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNVdedicatedAllocationImageAliasing
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNVpNext
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNVsType
@@ -25872,6 +29447,7 @@ ___return (physicaldeviceshaderimagefootprintfeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25898,6 +29474,12 @@ ___return (physicaldeviceshaderimagefootprintfeaturesnv);"))
       VkBool32
       "___return (___arg1->dedicatedAllocationImageAliasing);")
    (define-c-lambda
+      make-VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV*
+      (int)
+      VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV*
+      "VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV* vkphysicaldevicededicatedallocationimagealiasingfeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV));
+      ___return (vkphysicaldevicededicatedallocationimagealiasingfeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV*
@@ -25908,6 +29490,7 @@ physicaldevicededicatedallocationimagealiasingfeaturesnv->dedicatedAllocationIma
 ___return (physicaldevicededicatedallocationimagealiasingfeaturesnv);"))
 (begin-ffi
    (make-VkShadingRatePaletteNV
+      make-VkShadingRatePaletteNV*
       VkShadingRatePaletteNVpShadingRatePaletteEntries
       VkShadingRatePaletteNVshadingRatePaletteEntryCount
       VkShadingRatePaletteNV
@@ -25916,6 +29499,7 @@ ___return (physicaldevicededicatedallocationimagealiasingfeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25933,6 +29517,12 @@ ___return (physicaldevicededicatedallocationimagealiasingfeaturesnv);"))
       VkShadingRatePaletteEntryNV*
       "___return (___arg1->pShadingRatePaletteEntries);")
    (define-c-lambda
+      make-VkShadingRatePaletteNV*
+      (int)
+      VkShadingRatePaletteNV*
+      "VkShadingRatePaletteNV* vkshadingratepalettenv = malloc(___arg1 * sizeof(VkShadingRatePaletteNV));
+      ___return (vkshadingratepalettenv);")
+   (define-c-lambda
       make-VkShadingRatePaletteNV
       (uint32_t VkShadingRatePaletteEntryNV*)
       VkShadingRatePaletteNV*
@@ -25942,6 +29532,7 @@ shadingratepalettenv->pShadingRatePaletteEntries=___arg2;
 ___return (shadingratepalettenv);"))
 (begin-ffi
    (make-VkPipelineViewportShadingRateImageStateCreateInfoNV
+      make-VkPipelineViewportShadingRateImageStateCreateInfoNV*
       VkPipelineViewportShadingRateImageStateCreateInfoNVpShadingRatePalettes
       VkPipelineViewportShadingRateImageStateCreateInfoNVviewportCount
       VkPipelineViewportShadingRateImageStateCreateInfoNVshadingRateImageEnable
@@ -25953,6 +29544,7 @@ ___return (shadingratepalettenv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -25989,6 +29581,12 @@ ___return (shadingratepalettenv);"))
       VkShadingRatePaletteNV*
       "___return (___arg1->pShadingRatePalettes);")
    (define-c-lambda
+      make-VkPipelineViewportShadingRateImageStateCreateInfoNV*
+      (int)
+      VkPipelineViewportShadingRateImageStateCreateInfoNV*
+      "VkPipelineViewportShadingRateImageStateCreateInfoNV* vkpipelineviewportshadingrateimagestatecreateinfonv = malloc(___arg1 * sizeof(VkPipelineViewportShadingRateImageStateCreateInfoNV));
+      ___return (vkpipelineviewportshadingrateimagestatecreateinfonv);")
+   (define-c-lambda
       make-VkPipelineViewportShadingRateImageStateCreateInfoNV
       (VkStructureType void* VkBool32 uint32_t VkShadingRatePaletteNV*)
       VkPipelineViewportShadingRateImageStateCreateInfoNV*
@@ -26001,6 +29599,7 @@ pipelineviewportshadingrateimagestatecreateinfonv->pShadingRatePalettes=___arg5;
 ___return (pipelineviewportshadingrateimagestatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShadingRateImageFeaturesNV
+      make-VkPhysicalDeviceShadingRateImageFeaturesNV*
       VkPhysicalDeviceShadingRateImageFeaturesNVshadingRateCoarseSampleOrder
       VkPhysicalDeviceShadingRateImageFeaturesNVshadingRateImage
       VkPhysicalDeviceShadingRateImageFeaturesNVpNext
@@ -26011,6 +29610,7 @@ ___return (pipelineviewportshadingrateimagestatecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26042,6 +29642,12 @@ ___return (pipelineviewportshadingrateimagestatecreateinfonv);"))
       VkBool32
       "___return (___arg1->shadingRateCoarseSampleOrder);")
    (define-c-lambda
+      make-VkPhysicalDeviceShadingRateImageFeaturesNV*
+      (int)
+      VkPhysicalDeviceShadingRateImageFeaturesNV*
+      "VkPhysicalDeviceShadingRateImageFeaturesNV* vkphysicaldeviceshadingrateimagefeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceShadingRateImageFeaturesNV));
+      ___return (vkphysicaldeviceshadingrateimagefeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceShadingRateImageFeaturesNV
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceShadingRateImageFeaturesNV*
@@ -26053,6 +29659,7 @@ physicaldeviceshadingrateimagefeaturesnv->shadingRateCoarseSampleOrder=___arg4;
 ___return (physicaldeviceshadingrateimagefeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShadingRateImagePropertiesNV
+      make-VkPhysicalDeviceShadingRateImagePropertiesNV*
       VkPhysicalDeviceShadingRateImagePropertiesNVshadingRateMaxCoarseSamples
       VkPhysicalDeviceShadingRateImagePropertiesNVshadingRatePaletteSize
       VkPhysicalDeviceShadingRateImagePropertiesNVshadingRateTexelSize
@@ -26064,6 +29671,7 @@ ___return (physicaldeviceshadingrateimagefeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26100,6 +29708,12 @@ ___return (physicaldeviceshadingrateimagefeaturesnv);"))
       uint32_t
       "___return (___arg1->shadingRateMaxCoarseSamples);")
    (define-c-lambda
+      make-VkPhysicalDeviceShadingRateImagePropertiesNV*
+      (int)
+      VkPhysicalDeviceShadingRateImagePropertiesNV*
+      "VkPhysicalDeviceShadingRateImagePropertiesNV* vkphysicaldeviceshadingrateimagepropertiesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceShadingRateImagePropertiesNV));
+      ___return (vkphysicaldeviceshadingrateimagepropertiesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceShadingRateImagePropertiesNV
       (VkStructureType void* VkExtent2D uint32_t uint32_t)
       VkPhysicalDeviceShadingRateImagePropertiesNV*
@@ -26112,6 +29726,7 @@ physicaldeviceshadingrateimagepropertiesnv->shadingRateMaxCoarseSamples=___arg5;
 ___return (physicaldeviceshadingrateimagepropertiesnv);"))
 (begin-ffi
    (make-VkCoarseSampleLocationNV
+      make-VkCoarseSampleLocationNV*
       VkCoarseSampleLocationNVsample
       VkCoarseSampleLocationNVpixelY
       VkCoarseSampleLocationNVpixelX
@@ -26121,6 +29736,7 @@ ___return (physicaldeviceshadingrateimagepropertiesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26143,6 +29759,12 @@ ___return (physicaldeviceshadingrateimagepropertiesnv);"))
       uint32_t
       "___return (___arg1->sample);")
    (define-c-lambda
+      make-VkCoarseSampleLocationNV*
+      (int)
+      VkCoarseSampleLocationNV*
+      "VkCoarseSampleLocationNV* vkcoarsesamplelocationnv = malloc(___arg1 * sizeof(VkCoarseSampleLocationNV));
+      ___return (vkcoarsesamplelocationnv);")
+   (define-c-lambda
       make-VkCoarseSampleLocationNV
       (uint32_t uint32_t uint32_t)
       VkCoarseSampleLocationNV*
@@ -26153,6 +29775,7 @@ coarsesamplelocationnv->sample=___arg3;
 ___return (coarsesamplelocationnv);"))
 (begin-ffi
    (make-VkCoarseSampleOrderCustomNV
+      make-VkCoarseSampleOrderCustomNV*
       VkCoarseSampleOrderCustomNVpSampleLocations
       VkCoarseSampleOrderCustomNVsampleLocationCount
       VkCoarseSampleOrderCustomNVsampleCount
@@ -26163,6 +29786,7 @@ ___return (coarsesamplelocationnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26190,6 +29814,12 @@ ___return (coarsesamplelocationnv);"))
       VkCoarseSampleLocationNV*
       "___return (___arg1->pSampleLocations);")
    (define-c-lambda
+      make-VkCoarseSampleOrderCustomNV*
+      (int)
+      VkCoarseSampleOrderCustomNV*
+      "VkCoarseSampleOrderCustomNV* vkcoarsesampleordercustomnv = malloc(___arg1 * sizeof(VkCoarseSampleOrderCustomNV));
+      ___return (vkcoarsesampleordercustomnv);")
+   (define-c-lambda
       make-VkCoarseSampleOrderCustomNV
       (VkShadingRatePaletteEntryNV uint32_t uint32_t VkCoarseSampleLocationNV*)
       VkCoarseSampleOrderCustomNV*
@@ -26201,6 +29831,7 @@ coarsesampleordercustomnv->pSampleLocations=___arg4;
 ___return (coarsesampleordercustomnv);"))
 (begin-ffi
    (make-VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
+      make-VkPipelineViewportCoarseSampleOrderStateCreateInfoNV*
       VkPipelineViewportCoarseSampleOrderStateCreateInfoNVpCustomSampleOrders
       VkPipelineViewportCoarseSampleOrderStateCreateInfoNVcustomSampleOrderCount
       VkPipelineViewportCoarseSampleOrderStateCreateInfoNVsampleOrderType
@@ -26212,6 +29843,7 @@ ___return (coarsesampleordercustomnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26248,6 +29880,12 @@ ___return (coarsesampleordercustomnv);"))
       VkCoarseSampleOrderCustomNV*
       "___return (___arg1->pCustomSampleOrders);")
    (define-c-lambda
+      make-VkPipelineViewportCoarseSampleOrderStateCreateInfoNV*
+      (int)
+      VkPipelineViewportCoarseSampleOrderStateCreateInfoNV*
+      "VkPipelineViewportCoarseSampleOrderStateCreateInfoNV* vkpipelineviewportcoarsesampleorderstatecreateinfonv = malloc(___arg1 * sizeof(VkPipelineViewportCoarseSampleOrderStateCreateInfoNV));
+      ___return (vkpipelineviewportcoarsesampleorderstatecreateinfonv);")
+   (define-c-lambda
       make-VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
       (VkStructureType
          void*
@@ -26264,6 +29902,7 @@ pipelineviewportcoarsesampleorderstatecreateinfonv->pCustomSampleOrders=___arg5;
 ___return (pipelineviewportcoarsesampleorderstatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceMeshShaderFeaturesNV
+      make-VkPhysicalDeviceMeshShaderFeaturesNV*
       VkPhysicalDeviceMeshShaderFeaturesNVmeshShader
       VkPhysicalDeviceMeshShaderFeaturesNVtaskShader
       VkPhysicalDeviceMeshShaderFeaturesNVpNext
@@ -26274,6 +29913,7 @@ ___return (pipelineviewportcoarsesampleorderstatecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26305,6 +29945,12 @@ ___return (pipelineviewportcoarsesampleorderstatecreateinfonv);"))
       VkBool32
       "___return (___arg1->meshShader);")
    (define-c-lambda
+      make-VkPhysicalDeviceMeshShaderFeaturesNV*
+      (int)
+      VkPhysicalDeviceMeshShaderFeaturesNV*
+      "VkPhysicalDeviceMeshShaderFeaturesNV* vkphysicaldevicemeshshaderfeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceMeshShaderFeaturesNV));
+      ___return (vkphysicaldevicemeshshaderfeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceMeshShaderFeaturesNV
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceMeshShaderFeaturesNV*
@@ -26316,6 +29962,7 @@ physicaldevicemeshshaderfeaturesnv->meshShader=___arg4;
 ___return (physicaldevicemeshshaderfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceMeshShaderPropertiesNV
+      make-VkPhysicalDeviceMeshShaderPropertiesNV*
       VkPhysicalDeviceMeshShaderPropertiesNVmeshOutputPerPrimitiveGranularity
       VkPhysicalDeviceMeshShaderPropertiesNVmeshOutputPerVertexGranularity
       VkPhysicalDeviceMeshShaderPropertiesNVmaxMeshMultiviewViewCount
@@ -26337,6 +29984,7 @@ ___return (physicaldevicemeshshaderfeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26423,6 +30071,12 @@ ___return (physicaldevicemeshshaderfeaturesnv);"))
       uint32_t
       "___return (___arg1->meshOutputPerPrimitiveGranularity);")
    (define-c-lambda
+      make-VkPhysicalDeviceMeshShaderPropertiesNV*
+      (int)
+      VkPhysicalDeviceMeshShaderPropertiesNV*
+      "VkPhysicalDeviceMeshShaderPropertiesNV* vkphysicaldevicemeshshaderpropertiesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceMeshShaderPropertiesNV));
+      ___return (vkphysicaldevicemeshshaderpropertiesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceMeshShaderPropertiesNV
       (VkStructureType
          void*
@@ -26459,6 +30113,7 @@ physicaldevicemeshshaderpropertiesnv->meshOutputPerPrimitiveGranularity=___arg15
 ___return (physicaldevicemeshshaderpropertiesnv);"))
 (begin-ffi
    (make-VkDrawMeshTasksIndirectCommandNV
+      make-VkDrawMeshTasksIndirectCommandNV*
       VkDrawMeshTasksIndirectCommandNVfirstTask
       VkDrawMeshTasksIndirectCommandNVtaskCount
       VkDrawMeshTasksIndirectCommandNV
@@ -26467,6 +30122,7 @@ ___return (physicaldevicemeshshaderpropertiesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26488,6 +30144,12 @@ ___return (physicaldevicemeshshaderpropertiesnv);"))
       uint32_t
       "___return (___arg1->firstTask);")
    (define-c-lambda
+      make-VkDrawMeshTasksIndirectCommandNV*
+      (int)
+      VkDrawMeshTasksIndirectCommandNV*
+      "VkDrawMeshTasksIndirectCommandNV* vkdrawmeshtasksindirectcommandnv = malloc(___arg1 * sizeof(VkDrawMeshTasksIndirectCommandNV));
+      ___return (vkdrawmeshtasksindirectcommandnv);")
+   (define-c-lambda
       make-VkDrawMeshTasksIndirectCommandNV
       (uint32_t uint32_t)
       VkDrawMeshTasksIndirectCommandNV*
@@ -26497,6 +30159,7 @@ drawmeshtasksindirectcommandnv->firstTask=___arg2;
 ___return (drawmeshtasksindirectcommandnv);"))
 (begin-ffi
    (make-VkRayTracingShaderGroupCreateInfoNV
+      make-VkRayTracingShaderGroupCreateInfoNV*
       VkRayTracingShaderGroupCreateInfoNVintersectionShader
       VkRayTracingShaderGroupCreateInfoNVanyHitShader
       VkRayTracingShaderGroupCreateInfoNVclosestHitShader
@@ -26510,6 +30173,7 @@ ___return (drawmeshtasksindirectcommandnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26556,6 +30220,12 @@ ___return (drawmeshtasksindirectcommandnv);"))
       uint32_t
       "___return (___arg1->intersectionShader);")
    (define-c-lambda
+      make-VkRayTracingShaderGroupCreateInfoNV*
+      (int)
+      VkRayTracingShaderGroupCreateInfoNV*
+      "VkRayTracingShaderGroupCreateInfoNV* vkraytracingshadergroupcreateinfonv = malloc(___arg1 * sizeof(VkRayTracingShaderGroupCreateInfoNV));
+      ___return (vkraytracingshadergroupcreateinfonv);")
+   (define-c-lambda
       make-VkRayTracingShaderGroupCreateInfoNV
       (VkStructureType
          void*
@@ -26576,6 +30246,7 @@ raytracingshadergroupcreateinfonv->intersectionShader=___arg7;
 ___return (raytracingshadergroupcreateinfonv);"))
 (begin-ffi
    (make-VkRayTracingPipelineCreateInfoNV
+      make-VkRayTracingPipelineCreateInfoNV*
       VkRayTracingPipelineCreateInfoNVbasePipelineIndex
       VkRayTracingPipelineCreateInfoNVbasePipelineHandle
       VkRayTracingPipelineCreateInfoNVlayout
@@ -26593,6 +30264,7 @@ ___return (raytracingshadergroupcreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26659,6 +30331,12 @@ ___return (raytracingshadergroupcreateinfonv);"))
       int32_t
       "___return (___arg1->basePipelineIndex);")
    (define-c-lambda
+      make-VkRayTracingPipelineCreateInfoNV*
+      (int)
+      VkRayTracingPipelineCreateInfoNV*
+      "VkRayTracingPipelineCreateInfoNV* vkraytracingpipelinecreateinfonv = malloc(___arg1 * sizeof(VkRayTracingPipelineCreateInfoNV));
+      ___return (vkraytracingpipelinecreateinfonv);")
+   (define-c-lambda
       make-VkRayTracingPipelineCreateInfoNV
       (VkStructureType
          void*
@@ -26687,6 +30365,7 @@ raytracingpipelinecreateinfonv->basePipelineIndex=___arg11;
 ___return (raytracingpipelinecreateinfonv);"))
 (begin-ffi
    (make-VkGeometryTrianglesNV
+      make-VkGeometryTrianglesNV*
       VkGeometryTrianglesNVtransformOffset
       VkGeometryTrianglesNVtransformData
       VkGeometryTrianglesNVindexType
@@ -26706,6 +30385,7 @@ ___return (raytracingpipelinecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26778,6 +30458,12 @@ ___return (raytracingpipelinecreateinfonv);"))
       VkDeviceSize
       "___return (___arg1->transformOffset);")
    (define-c-lambda
+      make-VkGeometryTrianglesNV*
+      (int)
+      VkGeometryTrianglesNV*
+      "VkGeometryTrianglesNV* vkgeometrytrianglesnv = malloc(___arg1 * sizeof(VkGeometryTrianglesNV));
+      ___return (vkgeometrytrianglesnv);")
+   (define-c-lambda
       make-VkGeometryTrianglesNV
       (VkStructureType
          void*
@@ -26810,6 +30496,7 @@ geometrytrianglesnv->transformOffset=___arg13;
 ___return (geometrytrianglesnv);"))
 (begin-ffi
    (make-VkGeometryAABBNV
+      make-VkGeometryAABBNV*
       VkGeometryAABBNVoffset
       VkGeometryAABBNVstride
       VkGeometryAABBNVnumAABBs
@@ -26822,6 +30509,7 @@ ___return (geometrytrianglesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26859,6 +30547,12 @@ ___return (geometrytrianglesnv);"))
       VkDeviceSize
       "___return (___arg1->offset);")
    (define-c-lambda
+      make-VkGeometryAABBNV*
+      (int)
+      VkGeometryAABBNV*
+      "VkGeometryAABBNV* vkgeometryaabbnv = malloc(___arg1 * sizeof(VkGeometryAABBNV));
+      ___return (vkgeometryaabbnv);")
+   (define-c-lambda
       make-VkGeometryAABBNV
       (VkStructureType void* VkBuffer uint32_t uint32_t VkDeviceSize)
       VkGeometryAABBNV*
@@ -26872,6 +30566,7 @@ geometryaabbnv->offset=___arg6;
 ___return (geometryaabbnv);"))
 (begin-ffi
    (make-VkGeometryDataNV
+      make-VkGeometryDataNV*
       VkGeometryDataNVaabbs
       VkGeometryDataNVtriangles
       VkGeometryDataNV
@@ -26880,6 +30575,7 @@ ___return (geometryaabbnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26897,6 +30593,12 @@ ___return (geometryaabbnv);"))
       VkGeometryAABBNV
       "___return (___arg1->aabbs);")
    (define-c-lambda
+      make-VkGeometryDataNV*
+      (int)
+      VkGeometryDataNV*
+      "VkGeometryDataNV* vkgeometrydatanv = malloc(___arg1 * sizeof(VkGeometryDataNV));
+      ___return (vkgeometrydatanv);")
+   (define-c-lambda
       make-VkGeometryDataNV
       (VkGeometryTrianglesNV VkGeometryAABBNV)
       VkGeometryDataNV*
@@ -26906,6 +30608,7 @@ geometrydatanv->aabbs=___arg2;
 ___return (geometrydatanv);"))
 (begin-ffi
    (make-VkGeometryNV
+      make-VkGeometryNV*
       VkGeometryNVflags
       VkGeometryNVgeometry
       VkGeometryNVgeometryType
@@ -26917,6 +30620,7 @@ ___return (geometrydatanv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -26945,6 +30649,12 @@ ___return (geometrydatanv);"))
       VkGeometryFlagsNV
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkGeometryNV*
+      (int)
+      VkGeometryNV*
+      "VkGeometryNV* vkgeometrynv = malloc(___arg1 * sizeof(VkGeometryNV));
+      ___return (vkgeometrynv);")
+   (define-c-lambda
       make-VkGeometryNV
       (VkStructureType void* VkGeometryTypeNV VkGeometryDataNV VkGeometryFlagsNV)
       VkGeometryNV*
@@ -26957,6 +30667,7 @@ geometrynv->flags=___arg5;
 ___return (geometrynv);"))
 (begin-ffi
    (make-VkAccelerationStructureInfoNV
+      make-VkAccelerationStructureInfoNV*
       VkAccelerationStructureInfoNVpGeometries
       VkAccelerationStructureInfoNVgeometryCount
       VkAccelerationStructureInfoNVinstanceCount
@@ -26970,6 +30681,7 @@ ___return (geometrynv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27012,6 +30724,12 @@ ___return (geometrynv);"))
       VkGeometryNV*
       "___return (___arg1->pGeometries);")
    (define-c-lambda
+      make-VkAccelerationStructureInfoNV*
+      (int)
+      VkAccelerationStructureInfoNV*
+      "VkAccelerationStructureInfoNV* vkaccelerationstructureinfonv = malloc(___arg1 * sizeof(VkAccelerationStructureInfoNV));
+      ___return (vkaccelerationstructureinfonv);")
+   (define-c-lambda
       make-VkAccelerationStructureInfoNV
       (VkStructureType
          void*
@@ -27032,6 +30750,7 @@ accelerationstructureinfonv->pGeometries=___arg7;
 ___return (accelerationstructureinfonv);"))
 (begin-ffi
    (make-VkAccelerationStructureCreateInfoNV
+      make-VkAccelerationStructureCreateInfoNV*
       VkAccelerationStructureCreateInfoNVinfo
       VkAccelerationStructureCreateInfoNVcompactedSize
       VkAccelerationStructureCreateInfoNVpNext
@@ -27042,6 +30761,7 @@ ___return (accelerationstructureinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27073,6 +30793,12 @@ ___return (accelerationstructureinfonv);"))
       VkAccelerationStructureInfoNV
       "___return (___arg1->info);")
    (define-c-lambda
+      make-VkAccelerationStructureCreateInfoNV*
+      (int)
+      VkAccelerationStructureCreateInfoNV*
+      "VkAccelerationStructureCreateInfoNV* vkaccelerationstructurecreateinfonv = malloc(___arg1 * sizeof(VkAccelerationStructureCreateInfoNV));
+      ___return (vkaccelerationstructurecreateinfonv);")
+   (define-c-lambda
       make-VkAccelerationStructureCreateInfoNV
       (VkStructureType void* VkDeviceSize VkAccelerationStructureInfoNV)
       VkAccelerationStructureCreateInfoNV*
@@ -27084,6 +30810,7 @@ accelerationstructurecreateinfonv->info=___arg4;
 ___return (accelerationstructurecreateinfonv);"))
 (begin-ffi
    (make-VkBindAccelerationStructureMemoryInfoNV
+      make-VkBindAccelerationStructureMemoryInfoNV*
       VkBindAccelerationStructureMemoryInfoNVpDeviceIndices
       VkBindAccelerationStructureMemoryInfoNVdeviceIndexCount
       VkBindAccelerationStructureMemoryInfoNVmemoryOffset
@@ -27097,6 +30824,7 @@ ___return (accelerationstructurecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27143,6 +30871,12 @@ ___return (accelerationstructurecreateinfonv);"))
       uint32_t*
       "___return (___arg1->pDeviceIndices);")
    (define-c-lambda
+      make-VkBindAccelerationStructureMemoryInfoNV*
+      (int)
+      VkBindAccelerationStructureMemoryInfoNV*
+      "VkBindAccelerationStructureMemoryInfoNV* vkbindaccelerationstructurememoryinfonv = malloc(___arg1 * sizeof(VkBindAccelerationStructureMemoryInfoNV));
+      ___return (vkbindaccelerationstructurememoryinfonv);")
+   (define-c-lambda
       make-VkBindAccelerationStructureMemoryInfoNV
       (VkStructureType
          void*
@@ -27163,6 +30897,7 @@ bindaccelerationstructurememoryinfonv->pDeviceIndices=___arg7;
 ___return (bindaccelerationstructurememoryinfonv);"))
 (begin-ffi
    (make-VkWriteDescriptorSetAccelerationStructureNV
+      make-VkWriteDescriptorSetAccelerationStructureNV*
       VkWriteDescriptorSetAccelerationStructureNVpAccelerationStructures
       VkWriteDescriptorSetAccelerationStructureNVaccelerationStructureCount
       VkWriteDescriptorSetAccelerationStructureNVpNext
@@ -27173,6 +30908,7 @@ ___return (bindaccelerationstructurememoryinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27204,6 +30940,12 @@ ___return (bindaccelerationstructurememoryinfonv);"))
       VkAccelerationStructureNV*
       "___return (___arg1->pAccelerationStructures);")
    (define-c-lambda
+      make-VkWriteDescriptorSetAccelerationStructureNV*
+      (int)
+      VkWriteDescriptorSetAccelerationStructureNV*
+      "VkWriteDescriptorSetAccelerationStructureNV* vkwritedescriptorsetaccelerationstructurenv = malloc(___arg1 * sizeof(VkWriteDescriptorSetAccelerationStructureNV));
+      ___return (vkwritedescriptorsetaccelerationstructurenv);")
+   (define-c-lambda
       make-VkWriteDescriptorSetAccelerationStructureNV
       (VkStructureType void* uint32_t VkAccelerationStructureNV*)
       VkWriteDescriptorSetAccelerationStructureNV*
@@ -27215,6 +30957,7 @@ writedescriptorsetaccelerationstructurenv->pAccelerationStructures=___arg4;
 ___return (writedescriptorsetaccelerationstructurenv);"))
 (begin-ffi
    (make-VkAccelerationStructureMemoryRequirementsInfoNV
+      make-VkAccelerationStructureMemoryRequirementsInfoNV*
       VkAccelerationStructureMemoryRequirementsInfoNVaccelerationStructure
       VkAccelerationStructureMemoryRequirementsInfoNVtype
       VkAccelerationStructureMemoryRequirementsInfoNVpNext
@@ -27225,6 +30968,7 @@ ___return (writedescriptorsetaccelerationstructurenv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27256,6 +31000,12 @@ ___return (writedescriptorsetaccelerationstructurenv);"))
       VkAccelerationStructureNV
       "___return (___arg1->accelerationStructure);")
    (define-c-lambda
+      make-VkAccelerationStructureMemoryRequirementsInfoNV*
+      (int)
+      VkAccelerationStructureMemoryRequirementsInfoNV*
+      "VkAccelerationStructureMemoryRequirementsInfoNV* vkaccelerationstructurememoryrequirementsinfonv = malloc(___arg1 * sizeof(VkAccelerationStructureMemoryRequirementsInfoNV));
+      ___return (vkaccelerationstructurememoryrequirementsinfonv);")
+   (define-c-lambda
       make-VkAccelerationStructureMemoryRequirementsInfoNV
       (VkStructureType
          void*
@@ -27270,6 +31020,7 @@ accelerationstructurememoryrequirementsinfonv->accelerationStructure=___arg4;
 ___return (accelerationstructurememoryrequirementsinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceRayTracingPropertiesNV
+      make-VkPhysicalDeviceRayTracingPropertiesNV*
       VkPhysicalDeviceRayTracingPropertiesNVmaxDescriptorSetAccelerationStructures
       VkPhysicalDeviceRayTracingPropertiesNVmaxTriangleCount
       VkPhysicalDeviceRayTracingPropertiesNVmaxInstanceCount
@@ -27286,6 +31037,7 @@ ___return (accelerationstructurememoryrequirementsinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27347,6 +31099,12 @@ ___return (accelerationstructurememoryrequirementsinfonv);"))
       uint32_t
       "___return (___arg1->maxDescriptorSetAccelerationStructures);")
    (define-c-lambda
+      make-VkPhysicalDeviceRayTracingPropertiesNV*
+      (int)
+      VkPhysicalDeviceRayTracingPropertiesNV*
+      "VkPhysicalDeviceRayTracingPropertiesNV* vkphysicaldeviceraytracingpropertiesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceRayTracingPropertiesNV));
+      ___return (vkphysicaldeviceraytracingpropertiesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceRayTracingPropertiesNV
       (VkStructureType
          void*
@@ -27373,6 +31131,7 @@ physicaldeviceraytracingpropertiesnv->maxDescriptorSetAccelerationStructures=___
 ___return (physicaldeviceraytracingpropertiesnv);"))
 (begin-ffi
    (make-VkDrmFormatModifierPropertiesEXT
+      make-VkDrmFormatModifierPropertiesEXT*
       VkDrmFormatModifierPropertiesEXTdrmFormatModifierTilingFeatures
       VkDrmFormatModifierPropertiesEXTdrmFormatModifierPlaneCount
       VkDrmFormatModifierPropertiesEXTdrmFormatModifier
@@ -27382,6 +31141,7 @@ ___return (physicaldeviceraytracingpropertiesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27408,6 +31168,12 @@ ___return (physicaldeviceraytracingpropertiesnv);"))
       VkFormatFeatureFlags
       "___return (___arg1->drmFormatModifierTilingFeatures);")
    (define-c-lambda
+      make-VkDrmFormatModifierPropertiesEXT*
+      (int)
+      VkDrmFormatModifierPropertiesEXT*
+      "VkDrmFormatModifierPropertiesEXT* vkdrmformatmodifierpropertiesext = malloc(___arg1 * sizeof(VkDrmFormatModifierPropertiesEXT));
+      ___return (vkdrmformatmodifierpropertiesext);")
+   (define-c-lambda
       make-VkDrmFormatModifierPropertiesEXT
       (uint64_t uint32_t VkFormatFeatureFlags)
       VkDrmFormatModifierPropertiesEXT*
@@ -27418,6 +31184,7 @@ drmformatmodifierpropertiesext->drmFormatModifierTilingFeatures=___arg3;
 ___return (drmformatmodifierpropertiesext);"))
 (begin-ffi
    (make-VkDrmFormatModifierPropertiesListEXT
+      make-VkDrmFormatModifierPropertiesListEXT*
       VkDrmFormatModifierPropertiesListEXTpDrmFormatModifierProperties
       VkDrmFormatModifierPropertiesListEXTdrmFormatModifierCount
       VkDrmFormatModifierPropertiesListEXTpNext
@@ -27428,6 +31195,7 @@ ___return (drmformatmodifierpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27459,6 +31227,12 @@ ___return (drmformatmodifierpropertiesext);"))
       VkDrmFormatModifierPropertiesEXT*
       "___return (___arg1->pDrmFormatModifierProperties);")
    (define-c-lambda
+      make-VkDrmFormatModifierPropertiesListEXT*
+      (int)
+      VkDrmFormatModifierPropertiesListEXT*
+      "VkDrmFormatModifierPropertiesListEXT* vkdrmformatmodifierpropertieslistext = malloc(___arg1 * sizeof(VkDrmFormatModifierPropertiesListEXT));
+      ___return (vkdrmformatmodifierpropertieslistext);")
+   (define-c-lambda
       make-VkDrmFormatModifierPropertiesListEXT
       (VkStructureType void* uint32_t VkDrmFormatModifierPropertiesEXT*)
       VkDrmFormatModifierPropertiesListEXT*
@@ -27470,6 +31244,7 @@ drmformatmodifierpropertieslistext->pDrmFormatModifierProperties=___arg4;
 ___return (drmformatmodifierpropertieslistext);"))
 (begin-ffi
    (make-VkPhysicalDeviceImageDrmFormatModifierInfoEXT
+      make-VkPhysicalDeviceImageDrmFormatModifierInfoEXT*
       VkPhysicalDeviceImageDrmFormatModifierInfoEXTpQueueFamilyIndices
       VkPhysicalDeviceImageDrmFormatModifierInfoEXTqueueFamilyIndexCount
       VkPhysicalDeviceImageDrmFormatModifierInfoEXTsharingMode
@@ -27482,6 +31257,7 @@ ___return (drmformatmodifierpropertieslistext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27523,6 +31299,12 @@ ___return (drmformatmodifierpropertieslistext);"))
       uint32_t*
       "___return (___arg1->pQueueFamilyIndices);")
    (define-c-lambda
+      make-VkPhysicalDeviceImageDrmFormatModifierInfoEXT*
+      (int)
+      VkPhysicalDeviceImageDrmFormatModifierInfoEXT*
+      "VkPhysicalDeviceImageDrmFormatModifierInfoEXT* vkphysicaldeviceimagedrmformatmodifierinfoext = malloc(___arg1 * sizeof(VkPhysicalDeviceImageDrmFormatModifierInfoEXT));
+      ___return (vkphysicaldeviceimagedrmformatmodifierinfoext);")
+   (define-c-lambda
       make-VkPhysicalDeviceImageDrmFormatModifierInfoEXT
       (VkStructureType void* uint64_t VkSharingMode uint32_t uint32_t*)
       VkPhysicalDeviceImageDrmFormatModifierInfoEXT*
@@ -27536,6 +31318,7 @@ physicaldeviceimagedrmformatmodifierinfoext->pQueueFamilyIndices=___arg6;
 ___return (physicaldeviceimagedrmformatmodifierinfoext);"))
 (begin-ffi
    (make-VkImageDrmFormatModifierListCreateInfoEXT
+      make-VkImageDrmFormatModifierListCreateInfoEXT*
       VkImageDrmFormatModifierListCreateInfoEXTpDrmFormatModifiers
       VkImageDrmFormatModifierListCreateInfoEXTdrmFormatModifierCount
       VkImageDrmFormatModifierListCreateInfoEXTpNext
@@ -27546,6 +31329,7 @@ ___return (physicaldeviceimagedrmformatmodifierinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27577,6 +31361,12 @@ ___return (physicaldeviceimagedrmformatmodifierinfoext);"))
       uint64_t*
       "___return (___arg1->pDrmFormatModifiers);")
    (define-c-lambda
+      make-VkImageDrmFormatModifierListCreateInfoEXT*
+      (int)
+      VkImageDrmFormatModifierListCreateInfoEXT*
+      "VkImageDrmFormatModifierListCreateInfoEXT* vkimagedrmformatmodifierlistcreateinfoext = malloc(___arg1 * sizeof(VkImageDrmFormatModifierListCreateInfoEXT));
+      ___return (vkimagedrmformatmodifierlistcreateinfoext);")
+   (define-c-lambda
       make-VkImageDrmFormatModifierListCreateInfoEXT
       (VkStructureType void* uint32_t uint64_t*)
       VkImageDrmFormatModifierListCreateInfoEXT*
@@ -27588,6 +31378,7 @@ imagedrmformatmodifierlistcreateinfoext->pDrmFormatModifiers=___arg4;
 ___return (imagedrmformatmodifierlistcreateinfoext);"))
 (begin-ffi
    (make-VkImageDrmFormatModifierExplicitCreateInfoEXT
+      make-VkImageDrmFormatModifierExplicitCreateInfoEXT*
       VkImageDrmFormatModifierExplicitCreateInfoEXTpPlaneLayouts
       VkImageDrmFormatModifierExplicitCreateInfoEXTdrmFormatModifierPlaneCount
       VkImageDrmFormatModifierExplicitCreateInfoEXTdrmFormatModifier
@@ -27599,6 +31390,7 @@ ___return (imagedrmformatmodifierlistcreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27635,6 +31427,12 @@ ___return (imagedrmformatmodifierlistcreateinfoext);"))
       VkSubresourceLayout*
       "___return (___arg1->pPlaneLayouts);")
    (define-c-lambda
+      make-VkImageDrmFormatModifierExplicitCreateInfoEXT*
+      (int)
+      VkImageDrmFormatModifierExplicitCreateInfoEXT*
+      "VkImageDrmFormatModifierExplicitCreateInfoEXT* vkimagedrmformatmodifierexplicitcreateinfoext = malloc(___arg1 * sizeof(VkImageDrmFormatModifierExplicitCreateInfoEXT));
+      ___return (vkimagedrmformatmodifierexplicitcreateinfoext);")
+   (define-c-lambda
       make-VkImageDrmFormatModifierExplicitCreateInfoEXT
       (VkStructureType void* uint64_t uint32_t VkSubresourceLayout*)
       VkImageDrmFormatModifierExplicitCreateInfoEXT*
@@ -27647,6 +31445,7 @@ imagedrmformatmodifierexplicitcreateinfoext->pPlaneLayouts=___arg5;
 ___return (imagedrmformatmodifierexplicitcreateinfoext);"))
 (begin-ffi
    (make-VkImageDrmFormatModifierPropertiesEXT
+      make-VkImageDrmFormatModifierPropertiesEXT*
       VkImageDrmFormatModifierPropertiesEXTdrmFormatModifier
       VkImageDrmFormatModifierPropertiesEXTpNext
       VkImageDrmFormatModifierPropertiesEXTsType
@@ -27656,6 +31455,7 @@ ___return (imagedrmformatmodifierexplicitcreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27682,6 +31482,12 @@ ___return (imagedrmformatmodifierexplicitcreateinfoext);"))
       uint64_t
       "___return (___arg1->drmFormatModifier);")
    (define-c-lambda
+      make-VkImageDrmFormatModifierPropertiesEXT*
+      (int)
+      VkImageDrmFormatModifierPropertiesEXT*
+      "VkImageDrmFormatModifierPropertiesEXT* vkimagedrmformatmodifierpropertiesext = malloc(___arg1 * sizeof(VkImageDrmFormatModifierPropertiesEXT));
+      ___return (vkimagedrmformatmodifierpropertiesext);")
+   (define-c-lambda
       make-VkImageDrmFormatModifierPropertiesEXT
       (VkStructureType void* uint64_t)
       VkImageDrmFormatModifierPropertiesEXT*
@@ -27692,6 +31498,7 @@ imagedrmformatmodifierpropertiesext->drmFormatModifier=___arg3;
 ___return (imagedrmformatmodifierpropertiesext);"))
 (begin-ffi
    (make-VkImageStencilUsageCreateInfoEXT
+      make-VkImageStencilUsageCreateInfoEXT*
       VkImageStencilUsageCreateInfoEXTstencilUsage
       VkImageStencilUsageCreateInfoEXTpNext
       VkImageStencilUsageCreateInfoEXTsType
@@ -27701,6 +31508,7 @@ ___return (imagedrmformatmodifierpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27727,6 +31535,12 @@ ___return (imagedrmformatmodifierpropertiesext);"))
       VkImageUsageFlags
       "___return (___arg1->stencilUsage);")
    (define-c-lambda
+      make-VkImageStencilUsageCreateInfoEXT*
+      (int)
+      VkImageStencilUsageCreateInfoEXT*
+      "VkImageStencilUsageCreateInfoEXT* vkimagestencilusagecreateinfoext = malloc(___arg1 * sizeof(VkImageStencilUsageCreateInfoEXT));
+      ___return (vkimagestencilusagecreateinfoext);")
+   (define-c-lambda
       make-VkImageStencilUsageCreateInfoEXT
       (VkStructureType void* VkImageUsageFlags)
       VkImageStencilUsageCreateInfoEXT*
@@ -27737,6 +31551,7 @@ imagestencilusagecreateinfoext->stencilUsage=___arg3;
 ___return (imagestencilusagecreateinfoext);"))
 (begin-ffi
    (make-VkDeviceMemoryOverallocationCreateInfoAMD
+      make-VkDeviceMemoryOverallocationCreateInfoAMD*
       VkDeviceMemoryOverallocationCreateInfoAMDoverallocationBehavior
       VkDeviceMemoryOverallocationCreateInfoAMDpNext
       VkDeviceMemoryOverallocationCreateInfoAMDsType
@@ -27746,6 +31561,7 @@ ___return (imagestencilusagecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27772,6 +31588,12 @@ ___return (imagestencilusagecreateinfoext);"))
       VkMemoryOverallocationBehaviorAMD
       "___return (___arg1->overallocationBehavior);")
    (define-c-lambda
+      make-VkDeviceMemoryOverallocationCreateInfoAMD*
+      (int)
+      VkDeviceMemoryOverallocationCreateInfoAMD*
+      "VkDeviceMemoryOverallocationCreateInfoAMD* vkdevicememoryoverallocationcreateinfoamd = malloc(___arg1 * sizeof(VkDeviceMemoryOverallocationCreateInfoAMD));
+      ___return (vkdevicememoryoverallocationcreateinfoamd);")
+   (define-c-lambda
       make-VkDeviceMemoryOverallocationCreateInfoAMD
       (VkStructureType void* VkMemoryOverallocationBehaviorAMD)
       VkDeviceMemoryOverallocationCreateInfoAMD*
@@ -27782,6 +31604,7 @@ devicememoryoverallocationcreateinfoamd->overallocationBehavior=___arg3;
 ___return (devicememoryoverallocationcreateinfoamd);"))
 (begin-ffi
    (make-VkPhysicalDeviceFragmentDensityMapFeaturesEXT
+      make-VkPhysicalDeviceFragmentDensityMapFeaturesEXT*
       VkPhysicalDeviceFragmentDensityMapFeaturesEXTfragmentDensityMapNonSubsampledImages
       VkPhysicalDeviceFragmentDensityMapFeaturesEXTfragmentDensityMapDynamic
       VkPhysicalDeviceFragmentDensityMapFeaturesEXTfragmentDensityMap
@@ -27793,6 +31616,7 @@ ___return (devicememoryoverallocationcreateinfoamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27829,6 +31653,12 @@ ___return (devicememoryoverallocationcreateinfoamd);"))
       VkBool32
       "___return (___arg1->fragmentDensityMapNonSubsampledImages);")
    (define-c-lambda
+      make-VkPhysicalDeviceFragmentDensityMapFeaturesEXT*
+      (int)
+      VkPhysicalDeviceFragmentDensityMapFeaturesEXT*
+      "VkPhysicalDeviceFragmentDensityMapFeaturesEXT* vkphysicaldevicefragmentdensitymapfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceFragmentDensityMapFeaturesEXT));
+      ___return (vkphysicaldevicefragmentdensitymapfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceFragmentDensityMapFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
       VkPhysicalDeviceFragmentDensityMapFeaturesEXT*
@@ -27841,6 +31671,7 @@ physicaldevicefragmentdensitymapfeaturesext->fragmentDensityMapNonSubsampledImag
 ___return (physicaldevicefragmentdensitymapfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceFragmentDensityMapPropertiesEXT
+      make-VkPhysicalDeviceFragmentDensityMapPropertiesEXT*
       VkPhysicalDeviceFragmentDensityMapPropertiesEXTfragmentDensityInvocations
       VkPhysicalDeviceFragmentDensityMapPropertiesEXTmaxFragmentDensityTexelSize
       VkPhysicalDeviceFragmentDensityMapPropertiesEXTminFragmentDensityTexelSize
@@ -27852,6 +31683,7 @@ ___return (physicaldevicefragmentdensitymapfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27888,6 +31720,12 @@ ___return (physicaldevicefragmentdensitymapfeaturesext);"))
       VkBool32
       "___return (___arg1->fragmentDensityInvocations);")
    (define-c-lambda
+      make-VkPhysicalDeviceFragmentDensityMapPropertiesEXT*
+      (int)
+      VkPhysicalDeviceFragmentDensityMapPropertiesEXT*
+      "VkPhysicalDeviceFragmentDensityMapPropertiesEXT* vkphysicaldevicefragmentdensitymappropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceFragmentDensityMapPropertiesEXT));
+      ___return (vkphysicaldevicefragmentdensitymappropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceFragmentDensityMapPropertiesEXT
       (VkStructureType void* VkExtent2D VkExtent2D VkBool32)
       VkPhysicalDeviceFragmentDensityMapPropertiesEXT*
@@ -27900,6 +31738,7 @@ physicaldevicefragmentdensitymappropertiesext->fragmentDensityInvocations=___arg
 ___return (physicaldevicefragmentdensitymappropertiesext);"))
 (begin-ffi
    (make-VkRenderPassFragmentDensityMapCreateInfoEXT
+      make-VkRenderPassFragmentDensityMapCreateInfoEXT*
       VkRenderPassFragmentDensityMapCreateInfoEXTfragmentDensityMapAttachment
       VkRenderPassFragmentDensityMapCreateInfoEXTpNext
       VkRenderPassFragmentDensityMapCreateInfoEXTsType
@@ -27909,6 +31748,7 @@ ___return (physicaldevicefragmentdensitymappropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27935,6 +31775,12 @@ ___return (physicaldevicefragmentdensitymappropertiesext);"))
       VkAttachmentReference
       "___return (___arg1->fragmentDensityMapAttachment);")
    (define-c-lambda
+      make-VkRenderPassFragmentDensityMapCreateInfoEXT*
+      (int)
+      VkRenderPassFragmentDensityMapCreateInfoEXT*
+      "VkRenderPassFragmentDensityMapCreateInfoEXT* vkrenderpassfragmentdensitymapcreateinfoext = malloc(___arg1 * sizeof(VkRenderPassFragmentDensityMapCreateInfoEXT));
+      ___return (vkrenderpassfragmentdensitymapcreateinfoext);")
+   (define-c-lambda
       make-VkRenderPassFragmentDensityMapCreateInfoEXT
       (VkStructureType void* VkAttachmentReference)
       VkRenderPassFragmentDensityMapCreateInfoEXT*
@@ -27945,6 +31791,7 @@ renderpassfragmentdensitymapcreateinfoext->fragmentDensityMapAttachment=___arg3;
 ___return (renderpassfragmentdensitymapcreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
+      make-VkPhysicalDeviceScalarBlockLayoutFeaturesEXT*
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXTscalarBlockLayout
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXTpNext
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXTsType
@@ -27954,6 +31801,7 @@ ___return (renderpassfragmentdensitymapcreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -27980,6 +31828,12 @@ ___return (renderpassfragmentdensitymapcreateinfoext);"))
       VkBool32
       "___return (___arg1->scalarBlockLayout);")
    (define-c-lambda
+      make-VkPhysicalDeviceScalarBlockLayoutFeaturesEXT*
+      (int)
+      VkPhysicalDeviceScalarBlockLayoutFeaturesEXT*
+      "VkPhysicalDeviceScalarBlockLayoutFeaturesEXT* vkphysicaldevicescalarblocklayoutfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceScalarBlockLayoutFeaturesEXT));
+      ___return (vkphysicaldevicescalarblocklayoutfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXT*
@@ -27990,6 +31844,7 @@ physicaldevicescalarblocklayoutfeaturesext->scalarBlockLayout=___arg3;
 ___return (physicaldevicescalarblocklayoutfeaturesext);"))
 (begin-ffi
    (make-VkSurfaceProtectedCapabilitiesKHR
+      make-VkSurfaceProtectedCapabilitiesKHR*
       VkSurfaceProtectedCapabilitiesKHRsupportsProtected
       VkSurfaceProtectedCapabilitiesKHRpNext
       VkSurfaceProtectedCapabilitiesKHRsType
@@ -27999,6 +31854,7 @@ ___return (physicaldevicescalarblocklayoutfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28025,6 +31881,12 @@ ___return (physicaldevicescalarblocklayoutfeaturesext);"))
       VkBool32
       "___return (___arg1->supportsProtected);")
    (define-c-lambda
+      make-VkSurfaceProtectedCapabilitiesKHR*
+      (int)
+      VkSurfaceProtectedCapabilitiesKHR*
+      "VkSurfaceProtectedCapabilitiesKHR* vksurfaceprotectedcapabilitieskhr = malloc(___arg1 * sizeof(VkSurfaceProtectedCapabilitiesKHR));
+      ___return (vksurfaceprotectedcapabilitieskhr);")
+   (define-c-lambda
       make-VkSurfaceProtectedCapabilitiesKHR
       (VkStructureType void* VkBool32)
       VkSurfaceProtectedCapabilitiesKHR*
@@ -28035,6 +31897,7 @@ surfaceprotectedcapabilitieskhr->supportsProtected=___arg3;
 ___return (surfaceprotectedcapabilitieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
+      make-VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR*
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHRuniformBufferStandardLayout
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHRpNext
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHRsType
@@ -28044,6 +31907,7 @@ ___return (surfaceprotectedcapabilitieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28070,6 +31934,12 @@ ___return (surfaceprotectedcapabilitieskhr);"))
       VkBool32
       "___return (___arg1->uniformBufferStandardLayout);")
    (define-c-lambda
+      make-VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR*
+      (int)
+      VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR*
+      "VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR* vkphysicaldeviceuniformbufferstandardlayoutfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR));
+      ___return (vkphysicaldeviceuniformbufferstandardlayoutfeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR*
@@ -28080,6 +31950,7 @@ physicaldeviceuniformbufferstandardlayoutfeatureskhr->uniformBufferStandardLayou
 ___return (physicaldeviceuniformbufferstandardlayoutfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceDepthClipEnableFeaturesEXT
+      make-VkPhysicalDeviceDepthClipEnableFeaturesEXT*
       VkPhysicalDeviceDepthClipEnableFeaturesEXTdepthClipEnable
       VkPhysicalDeviceDepthClipEnableFeaturesEXTpNext
       VkPhysicalDeviceDepthClipEnableFeaturesEXTsType
@@ -28089,6 +31960,7 @@ ___return (physicaldeviceuniformbufferstandardlayoutfeatureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28115,6 +31987,12 @@ ___return (physicaldeviceuniformbufferstandardlayoutfeatureskhr);"))
       VkBool32
       "___return (___arg1->depthClipEnable);")
    (define-c-lambda
+      make-VkPhysicalDeviceDepthClipEnableFeaturesEXT*
+      (int)
+      VkPhysicalDeviceDepthClipEnableFeaturesEXT*
+      "VkPhysicalDeviceDepthClipEnableFeaturesEXT* vkphysicaldevicedepthclipenablefeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceDepthClipEnableFeaturesEXT));
+      ___return (vkphysicaldevicedepthclipenablefeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceDepthClipEnableFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceDepthClipEnableFeaturesEXT*
@@ -28125,6 +32003,7 @@ physicaldevicedepthclipenablefeaturesext->depthClipEnable=___arg3;
 ___return (physicaldevicedepthclipenablefeaturesext);"))
 (begin-ffi
    (make-VkPipelineRasterizationDepthClipStateCreateInfoEXT
+      make-VkPipelineRasterizationDepthClipStateCreateInfoEXT*
       VkPipelineRasterizationDepthClipStateCreateInfoEXTdepthClipEnable
       VkPipelineRasterizationDepthClipStateCreateInfoEXTflags
       VkPipelineRasterizationDepthClipStateCreateInfoEXTpNext
@@ -28135,6 +32014,7 @@ ___return (physicaldevicedepthclipenablefeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28166,6 +32046,12 @@ ___return (physicaldevicedepthclipenablefeaturesext);"))
       VkBool32
       "___return (___arg1->depthClipEnable);")
    (define-c-lambda
+      make-VkPipelineRasterizationDepthClipStateCreateInfoEXT*
+      (int)
+      VkPipelineRasterizationDepthClipStateCreateInfoEXT*
+      "VkPipelineRasterizationDepthClipStateCreateInfoEXT* vkpipelinerasterizationdepthclipstatecreateinfoext = malloc(___arg1 * sizeof(VkPipelineRasterizationDepthClipStateCreateInfoEXT));
+      ___return (vkpipelinerasterizationdepthclipstatecreateinfoext);")
+   (define-c-lambda
       make-VkPipelineRasterizationDepthClipStateCreateInfoEXT
       (VkStructureType void* VkPipelineRasterizationDepthClipStateCreateFlagsEXT VkBool32)
       VkPipelineRasterizationDepthClipStateCreateInfoEXT*
@@ -28177,6 +32063,7 @@ pipelinerasterizationdepthclipstatecreateinfoext->depthClipEnable=___arg4;
 ___return (pipelinerasterizationdepthclipstatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryBudgetPropertiesEXT
+      make-VkPhysicalDeviceMemoryBudgetPropertiesEXT*
       VkPhysicalDeviceMemoryBudgetPropertiesEXTheapUsage
       VkPhysicalDeviceMemoryBudgetPropertiesEXTheapBudget
       VkPhysicalDeviceMemoryBudgetPropertiesEXTpNext
@@ -28187,6 +32074,7 @@ ___return (pipelinerasterizationdepthclipstatecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28218,6 +32106,12 @@ ___return (pipelinerasterizationdepthclipstatecreateinfoext);"))
       VkDeviceSize*
       "___return (___arg1->heapUsage);")
    (define-c-lambda
+      make-VkPhysicalDeviceMemoryBudgetPropertiesEXT*
+      (int)
+      VkPhysicalDeviceMemoryBudgetPropertiesEXT*
+      "VkPhysicalDeviceMemoryBudgetPropertiesEXT* vkphysicaldevicememorybudgetpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceMemoryBudgetPropertiesEXT));
+      ___return (vkphysicaldevicememorybudgetpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceMemoryBudgetPropertiesEXT
       (VkStructureType void* VkDeviceSize* VkDeviceSize*)
       VkPhysicalDeviceMemoryBudgetPropertiesEXT*
@@ -28229,6 +32123,7 @@ memcpy(physicaldevicememorybudgetpropertiesext->heapUsage,___arg4,sizeof(___arg4
 ___return (physicaldevicememorybudgetpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryPriorityFeaturesEXT
+      make-VkPhysicalDeviceMemoryPriorityFeaturesEXT*
       VkPhysicalDeviceMemoryPriorityFeaturesEXTmemoryPriority
       VkPhysicalDeviceMemoryPriorityFeaturesEXTpNext
       VkPhysicalDeviceMemoryPriorityFeaturesEXTsType
@@ -28238,6 +32133,7 @@ ___return (physicaldevicememorybudgetpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28264,6 +32160,12 @@ ___return (physicaldevicememorybudgetpropertiesext);"))
       VkBool32
       "___return (___arg1->memoryPriority);")
    (define-c-lambda
+      make-VkPhysicalDeviceMemoryPriorityFeaturesEXT*
+      (int)
+      VkPhysicalDeviceMemoryPriorityFeaturesEXT*
+      "VkPhysicalDeviceMemoryPriorityFeaturesEXT* vkphysicaldevicememorypriorityfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceMemoryPriorityFeaturesEXT));
+      ___return (vkphysicaldevicememorypriorityfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceMemoryPriorityFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceMemoryPriorityFeaturesEXT*
@@ -28274,6 +32176,7 @@ physicaldevicememorypriorityfeaturesext->memoryPriority=___arg3;
 ___return (physicaldevicememorypriorityfeaturesext);"))
 (begin-ffi
    (make-VkMemoryPriorityAllocateInfoEXT
+      make-VkMemoryPriorityAllocateInfoEXT*
       VkMemoryPriorityAllocateInfoEXTpriority
       VkMemoryPriorityAllocateInfoEXTpNext
       VkMemoryPriorityAllocateInfoEXTsType
@@ -28283,6 +32186,7 @@ ___return (physicaldevicememorypriorityfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28309,6 +32213,12 @@ ___return (physicaldevicememorypriorityfeaturesext);"))
       float
       "___return (___arg1->priority);")
    (define-c-lambda
+      make-VkMemoryPriorityAllocateInfoEXT*
+      (int)
+      VkMemoryPriorityAllocateInfoEXT*
+      "VkMemoryPriorityAllocateInfoEXT* vkmemorypriorityallocateinfoext = malloc(___arg1 * sizeof(VkMemoryPriorityAllocateInfoEXT));
+      ___return (vkmemorypriorityallocateinfoext);")
+   (define-c-lambda
       make-VkMemoryPriorityAllocateInfoEXT
       (VkStructureType void* float)
       VkMemoryPriorityAllocateInfoEXT*
@@ -28319,6 +32229,7 @@ memorypriorityallocateinfoext->priority=___arg3;
 ___return (memorypriorityallocateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
+      make-VkPhysicalDeviceBufferDeviceAddressFeaturesEXT*
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXTbufferDeviceAddressMultiDevice
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXTbufferDeviceAddressCaptureReplay
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXTbufferDeviceAddress
@@ -28330,6 +32241,7 @@ ___return (memorypriorityallocateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28366,6 +32278,12 @@ ___return (memorypriorityallocateinfoext);"))
       VkBool32
       "___return (___arg1->bufferDeviceAddressMultiDevice);")
    (define-c-lambda
+      make-VkPhysicalDeviceBufferDeviceAddressFeaturesEXT*
+      (int)
+      VkPhysicalDeviceBufferDeviceAddressFeaturesEXT*
+      "VkPhysicalDeviceBufferDeviceAddressFeaturesEXT* vkphysicaldevicebufferdeviceaddressfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceBufferDeviceAddressFeaturesEXT));
+      ___return (vkphysicaldevicebufferdeviceaddressfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXT*
@@ -28378,12 +32296,14 @@ physicaldevicebufferdeviceaddressfeaturesext->bufferDeviceAddressMultiDevice=___
 ___return (physicaldevicebufferdeviceaddressfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceBufferAddressFeaturesEXT
+      make-VkPhysicalDeviceBufferAddressFeaturesEXT*
       VkPhysicalDeviceBufferAddressFeaturesEXT
       VkPhysicalDeviceBufferAddressFeaturesEXT*)
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28395,6 +32315,12 @@ ___return (physicaldevicebufferdeviceaddressfeaturesext);"))
       VkPhysicalDeviceBufferAddressFeaturesEXT*
       (pointer VkPhysicalDeviceBufferAddressFeaturesEXT))
    (define-c-lambda
+      make-VkPhysicalDeviceBufferAddressFeaturesEXT*
+      (int)
+      VkPhysicalDeviceBufferAddressFeaturesEXT*
+      "VkPhysicalDeviceBufferAddressFeaturesEXT* vkphysicaldevicebufferaddressfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceBufferAddressFeaturesEXT));
+      ___return (vkphysicaldevicebufferaddressfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceBufferAddressFeaturesEXT
       ()
       VkPhysicalDeviceBufferAddressFeaturesEXT*
@@ -28402,6 +32328,7 @@ ___return (physicaldevicebufferdeviceaddressfeaturesext);"))
 ___return (physicaldevicebufferaddressfeaturesext);"))
 (begin-ffi
    (make-VkBufferDeviceAddressInfoEXT
+      make-VkBufferDeviceAddressInfoEXT*
       VkBufferDeviceAddressInfoEXTbuffer
       VkBufferDeviceAddressInfoEXTpNext
       VkBufferDeviceAddressInfoEXTsType
@@ -28411,6 +32338,7 @@ ___return (physicaldevicebufferaddressfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28433,6 +32361,12 @@ ___return (physicaldevicebufferaddressfeaturesext);"))
       VkBuffer
       "___return (___arg1->buffer);")
    (define-c-lambda
+      make-VkBufferDeviceAddressInfoEXT*
+      (int)
+      VkBufferDeviceAddressInfoEXT*
+      "VkBufferDeviceAddressInfoEXT* vkbufferdeviceaddressinfoext = malloc(___arg1 * sizeof(VkBufferDeviceAddressInfoEXT));
+      ___return (vkbufferdeviceaddressinfoext);")
+   (define-c-lambda
       make-VkBufferDeviceAddressInfoEXT
       (VkStructureType void* VkBuffer)
       VkBufferDeviceAddressInfoEXT*
@@ -28443,6 +32377,7 @@ bufferdeviceaddressinfoext->buffer=___arg3;
 ___return (bufferdeviceaddressinfoext);"))
 (begin-ffi
    (make-VkBufferDeviceAddressCreateInfoEXT
+      make-VkBufferDeviceAddressCreateInfoEXT*
       VkBufferDeviceAddressCreateInfoEXTdeviceAddress
       VkBufferDeviceAddressCreateInfoEXTpNext
       VkBufferDeviceAddressCreateInfoEXTsType
@@ -28452,6 +32387,7 @@ ___return (bufferdeviceaddressinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28478,6 +32414,12 @@ ___return (bufferdeviceaddressinfoext);"))
       VkDeviceAddress
       "___return (___arg1->deviceAddress);")
    (define-c-lambda
+      make-VkBufferDeviceAddressCreateInfoEXT*
+      (int)
+      VkBufferDeviceAddressCreateInfoEXT*
+      "VkBufferDeviceAddressCreateInfoEXT* vkbufferdeviceaddresscreateinfoext = malloc(___arg1 * sizeof(VkBufferDeviceAddressCreateInfoEXT));
+      ___return (vkbufferdeviceaddresscreateinfoext);")
+   (define-c-lambda
       make-VkBufferDeviceAddressCreateInfoEXT
       (VkStructureType void* VkDeviceAddress)
       VkBufferDeviceAddressCreateInfoEXT*
@@ -28488,6 +32430,7 @@ bufferdeviceaddresscreateinfoext->deviceAddress=___arg3;
 ___return (bufferdeviceaddresscreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceImageViewImageFormatInfoEXT
+      make-VkPhysicalDeviceImageViewImageFormatInfoEXT*
       VkPhysicalDeviceImageViewImageFormatInfoEXTimageViewType
       VkPhysicalDeviceImageViewImageFormatInfoEXTpNext
       VkPhysicalDeviceImageViewImageFormatInfoEXTsType
@@ -28497,6 +32440,7 @@ ___return (bufferdeviceaddresscreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28523,6 +32467,12 @@ ___return (bufferdeviceaddresscreateinfoext);"))
       VkImageViewType
       "___return (___arg1->imageViewType);")
    (define-c-lambda
+      make-VkPhysicalDeviceImageViewImageFormatInfoEXT*
+      (int)
+      VkPhysicalDeviceImageViewImageFormatInfoEXT*
+      "VkPhysicalDeviceImageViewImageFormatInfoEXT* vkphysicaldeviceimageviewimageformatinfoext = malloc(___arg1 * sizeof(VkPhysicalDeviceImageViewImageFormatInfoEXT));
+      ___return (vkphysicaldeviceimageviewimageformatinfoext);")
+   (define-c-lambda
       make-VkPhysicalDeviceImageViewImageFormatInfoEXT
       (VkStructureType void* VkImageViewType)
       VkPhysicalDeviceImageViewImageFormatInfoEXT*
@@ -28533,6 +32483,7 @@ physicaldeviceimageviewimageformatinfoext->imageViewType=___arg3;
 ___return (physicaldeviceimageviewimageformatinfoext);"))
 (begin-ffi
    (make-VkFilterCubicImageViewImageFormatPropertiesEXT
+      make-VkFilterCubicImageViewImageFormatPropertiesEXT*
       VkFilterCubicImageViewImageFormatPropertiesEXTfilterCubicMinmax
       VkFilterCubicImageViewImageFormatPropertiesEXTfilterCubic
       VkFilterCubicImageViewImageFormatPropertiesEXTpNext
@@ -28543,6 +32494,7 @@ ___return (physicaldeviceimageviewimageformatinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28574,6 +32526,12 @@ ___return (physicaldeviceimageviewimageformatinfoext);"))
       VkBool32
       "___return (___arg1->filterCubicMinmax);")
    (define-c-lambda
+      make-VkFilterCubicImageViewImageFormatPropertiesEXT*
+      (int)
+      VkFilterCubicImageViewImageFormatPropertiesEXT*
+      "VkFilterCubicImageViewImageFormatPropertiesEXT* vkfiltercubicimageviewimageformatpropertiesext = malloc(___arg1 * sizeof(VkFilterCubicImageViewImageFormatPropertiesEXT));
+      ___return (vkfiltercubicimageviewimageformatpropertiesext);")
+   (define-c-lambda
       make-VkFilterCubicImageViewImageFormatPropertiesEXT
       (VkStructureType void* VkBool32 VkBool32)
       VkFilterCubicImageViewImageFormatPropertiesEXT*
@@ -28585,6 +32543,7 @@ filtercubicimageviewimageformatpropertiesext->filterCubicMinmax=___arg4;
 ___return (filtercubicimageviewimageformatpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceImagelessFramebufferFeaturesKHR
+      make-VkPhysicalDeviceImagelessFramebufferFeaturesKHR*
       VkPhysicalDeviceImagelessFramebufferFeaturesKHRimagelessFramebuffer
       VkPhysicalDeviceImagelessFramebufferFeaturesKHRpNext
       VkPhysicalDeviceImagelessFramebufferFeaturesKHRsType
@@ -28594,6 +32553,7 @@ ___return (filtercubicimageviewimageformatpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28620,6 +32580,12 @@ ___return (filtercubicimageviewimageformatpropertiesext);"))
       VkBool32
       "___return (___arg1->imagelessFramebuffer);")
    (define-c-lambda
+      make-VkPhysicalDeviceImagelessFramebufferFeaturesKHR*
+      (int)
+      VkPhysicalDeviceImagelessFramebufferFeaturesKHR*
+      "VkPhysicalDeviceImagelessFramebufferFeaturesKHR* vkphysicaldeviceimagelessframebufferfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceImagelessFramebufferFeaturesKHR));
+      ___return (vkphysicaldeviceimagelessframebufferfeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDeviceImagelessFramebufferFeaturesKHR
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceImagelessFramebufferFeaturesKHR*
@@ -28630,6 +32596,7 @@ physicaldeviceimagelessframebufferfeatureskhr->imagelessFramebuffer=___arg3;
 ___return (physicaldeviceimagelessframebufferfeatureskhr);"))
 (begin-ffi
    (make-VkFramebufferAttachmentImageInfoKHR
+      make-VkFramebufferAttachmentImageInfoKHR*
       VkFramebufferAttachmentImageInfoKHRpViewFormats
       VkFramebufferAttachmentImageInfoKHRviewFormatCount
       VkFramebufferAttachmentImageInfoKHRlayerCount
@@ -28645,6 +32612,7 @@ ___return (physicaldeviceimagelessframebufferfeatureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28701,6 +32669,12 @@ ___return (physicaldeviceimagelessframebufferfeatureskhr);"))
       VkFormat*
       "___return (___arg1->pViewFormats);")
    (define-c-lambda
+      make-VkFramebufferAttachmentImageInfoKHR*
+      (int)
+      VkFramebufferAttachmentImageInfoKHR*
+      "VkFramebufferAttachmentImageInfoKHR* vkframebufferattachmentimageinfokhr = malloc(___arg1 * sizeof(VkFramebufferAttachmentImageInfoKHR));
+      ___return (vkframebufferattachmentimageinfokhr);")
+   (define-c-lambda
       make-VkFramebufferAttachmentImageInfoKHR
       (VkStructureType
          void*
@@ -28725,6 +32699,7 @@ framebufferattachmentimageinfokhr->pViewFormats=___arg9;
 ___return (framebufferattachmentimageinfokhr);"))
 (begin-ffi
    (make-VkFramebufferAttachmentsCreateInfoKHR
+      make-VkFramebufferAttachmentsCreateInfoKHR*
       VkFramebufferAttachmentsCreateInfoKHRpAttachmentImageInfos
       VkFramebufferAttachmentsCreateInfoKHRattachmentImageInfoCount
       VkFramebufferAttachmentsCreateInfoKHRpNext
@@ -28735,6 +32710,7 @@ ___return (framebufferattachmentimageinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28766,6 +32742,12 @@ ___return (framebufferattachmentimageinfokhr);"))
       VkFramebufferAttachmentImageInfoKHR*
       "___return (___arg1->pAttachmentImageInfos);")
    (define-c-lambda
+      make-VkFramebufferAttachmentsCreateInfoKHR*
+      (int)
+      VkFramebufferAttachmentsCreateInfoKHR*
+      "VkFramebufferAttachmentsCreateInfoKHR* vkframebufferattachmentscreateinfokhr = malloc(___arg1 * sizeof(VkFramebufferAttachmentsCreateInfoKHR));
+      ___return (vkframebufferattachmentscreateinfokhr);")
+   (define-c-lambda
       make-VkFramebufferAttachmentsCreateInfoKHR
       (VkStructureType void* uint32_t VkFramebufferAttachmentImageInfoKHR*)
       VkFramebufferAttachmentsCreateInfoKHR*
@@ -28777,6 +32759,7 @@ framebufferattachmentscreateinfokhr->pAttachmentImageInfos=___arg4;
 ___return (framebufferattachmentscreateinfokhr);"))
 (begin-ffi
    (make-VkRenderPassAttachmentBeginInfoKHR
+      make-VkRenderPassAttachmentBeginInfoKHR*
       VkRenderPassAttachmentBeginInfoKHRpAttachments
       VkRenderPassAttachmentBeginInfoKHRattachmentCount
       VkRenderPassAttachmentBeginInfoKHRpNext
@@ -28787,6 +32770,7 @@ ___return (framebufferattachmentscreateinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28818,6 +32802,12 @@ ___return (framebufferattachmentscreateinfokhr);"))
       VkImageView*
       "___return (___arg1->pAttachments);")
    (define-c-lambda
+      make-VkRenderPassAttachmentBeginInfoKHR*
+      (int)
+      VkRenderPassAttachmentBeginInfoKHR*
+      "VkRenderPassAttachmentBeginInfoKHR* vkrenderpassattachmentbegininfokhr = malloc(___arg1 * sizeof(VkRenderPassAttachmentBeginInfoKHR));
+      ___return (vkrenderpassattachmentbegininfokhr);")
+   (define-c-lambda
       make-VkRenderPassAttachmentBeginInfoKHR
       (VkStructureType void* uint32_t VkImageView*)
       VkRenderPassAttachmentBeginInfoKHR*
@@ -28829,6 +32819,7 @@ renderpassattachmentbegininfokhr->pAttachments=___arg4;
 ___return (renderpassattachmentbegininfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
+      make-VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT*
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXTtextureCompressionASTC_HDR
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXTpNext
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXTsType
@@ -28838,6 +32829,7 @@ ___return (renderpassattachmentbegininfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28864,6 +32856,12 @@ ___return (renderpassattachmentbegininfokhr);"))
       VkBool32
       "___return (___arg1->textureCompressionASTC_HDR);")
    (define-c-lambda
+      make-VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT*
+      (int)
+      VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT*
+      "VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT* vkphysicaldevicetexturecompressionastchdrfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT));
+      ___return (vkphysicaldevicetexturecompressionastchdrfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT*
@@ -28874,6 +32872,7 @@ physicaldevicetexturecompressionastchdrfeaturesext->textureCompressionASTC_HDR=_
 ___return (physicaldevicetexturecompressionastchdrfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceCooperativeMatrixFeaturesNV
+      make-VkPhysicalDeviceCooperativeMatrixFeaturesNV*
       VkPhysicalDeviceCooperativeMatrixFeaturesNVcooperativeMatrixRobustBufferAccess
       VkPhysicalDeviceCooperativeMatrixFeaturesNVcooperativeMatrix
       VkPhysicalDeviceCooperativeMatrixFeaturesNVpNext
@@ -28884,6 +32883,7 @@ ___return (physicaldevicetexturecompressionastchdrfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28915,6 +32915,12 @@ ___return (physicaldevicetexturecompressionastchdrfeaturesext);"))
       VkBool32
       "___return (___arg1->cooperativeMatrixRobustBufferAccess);")
    (define-c-lambda
+      make-VkPhysicalDeviceCooperativeMatrixFeaturesNV*
+      (int)
+      VkPhysicalDeviceCooperativeMatrixFeaturesNV*
+      "VkPhysicalDeviceCooperativeMatrixFeaturesNV* vkphysicaldevicecooperativematrixfeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceCooperativeMatrixFeaturesNV));
+      ___return (vkphysicaldevicecooperativematrixfeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceCooperativeMatrixFeaturesNV
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceCooperativeMatrixFeaturesNV*
@@ -28926,6 +32932,7 @@ physicaldevicecooperativematrixfeaturesnv->cooperativeMatrixRobustBufferAccess=_
 ___return (physicaldevicecooperativematrixfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceCooperativeMatrixPropertiesNV
+      make-VkPhysicalDeviceCooperativeMatrixPropertiesNV*
       VkPhysicalDeviceCooperativeMatrixPropertiesNVcooperativeMatrixSupportedStages
       VkPhysicalDeviceCooperativeMatrixPropertiesNVpNext
       VkPhysicalDeviceCooperativeMatrixPropertiesNVsType
@@ -28935,6 +32942,7 @@ ___return (physicaldevicecooperativematrixfeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -28961,6 +32969,12 @@ ___return (physicaldevicecooperativematrixfeaturesnv);"))
       VkShaderStageFlags
       "___return (___arg1->cooperativeMatrixSupportedStages);")
    (define-c-lambda
+      make-VkPhysicalDeviceCooperativeMatrixPropertiesNV*
+      (int)
+      VkPhysicalDeviceCooperativeMatrixPropertiesNV*
+      "VkPhysicalDeviceCooperativeMatrixPropertiesNV* vkphysicaldevicecooperativematrixpropertiesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceCooperativeMatrixPropertiesNV));
+      ___return (vkphysicaldevicecooperativematrixpropertiesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceCooperativeMatrixPropertiesNV
       (VkStructureType void* VkShaderStageFlags)
       VkPhysicalDeviceCooperativeMatrixPropertiesNV*
@@ -28971,6 +32985,7 @@ physicaldevicecooperativematrixpropertiesnv->cooperativeMatrixSupportedStages=__
 ___return (physicaldevicecooperativematrixpropertiesnv);"))
 (begin-ffi
    (make-VkCooperativeMatrixPropertiesNV
+      make-VkCooperativeMatrixPropertiesNV*
       VkCooperativeMatrixPropertiesNVscope
       VkCooperativeMatrixPropertiesNVDType
       VkCooperativeMatrixPropertiesNVCType
@@ -28987,6 +33002,7 @@ ___return (physicaldevicecooperativematrixpropertiesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29048,6 +33064,12 @@ ___return (physicaldevicecooperativematrixpropertiesnv);"))
       VkScopeNV
       "___return (___arg1->scope);")
    (define-c-lambda
+      make-VkCooperativeMatrixPropertiesNV*
+      (int)
+      VkCooperativeMatrixPropertiesNV*
+      "VkCooperativeMatrixPropertiesNV* vkcooperativematrixpropertiesnv = malloc(___arg1 * sizeof(VkCooperativeMatrixPropertiesNV));
+      ___return (vkcooperativematrixpropertiesnv);")
+   (define-c-lambda
       make-VkCooperativeMatrixPropertiesNV
       (VkStructureType
          void*
@@ -29074,6 +33096,7 @@ cooperativematrixpropertiesnv->scope=___arg10;
 ___return (cooperativematrixpropertiesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
+      make-VkPhysicalDeviceYcbcrImageArraysFeaturesEXT*
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXTycbcrImageArrays
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXTpNext
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXTsType
@@ -29083,6 +33106,7 @@ ___return (cooperativematrixpropertiesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29109,6 +33133,12 @@ ___return (cooperativematrixpropertiesnv);"))
       VkBool32
       "___return (___arg1->ycbcrImageArrays);")
    (define-c-lambda
+      make-VkPhysicalDeviceYcbcrImageArraysFeaturesEXT*
+      (int)
+      VkPhysicalDeviceYcbcrImageArraysFeaturesEXT*
+      "VkPhysicalDeviceYcbcrImageArraysFeaturesEXT* vkphysicaldeviceycbcrimagearraysfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceYcbcrImageArraysFeaturesEXT));
+      ___return (vkphysicaldeviceycbcrimagearraysfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXT*
@@ -29119,6 +33149,7 @@ physicaldeviceycbcrimagearraysfeaturesext->ycbcrImageArrays=___arg3;
 ___return (physicaldeviceycbcrimagearraysfeaturesext);"))
 (begin-ffi
    (make-VkImageViewHandleInfoNVX
+      make-VkImageViewHandleInfoNVX*
       VkImageViewHandleInfoNVXsampler
       VkImageViewHandleInfoNVXdescriptorType
       VkImageViewHandleInfoNVXimageView
@@ -29130,6 +33161,7 @@ ___return (physicaldeviceycbcrimagearraysfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29162,6 +33194,12 @@ ___return (physicaldeviceycbcrimagearraysfeaturesext);"))
       VkSampler
       "___return (___arg1->sampler);")
    (define-c-lambda
+      make-VkImageViewHandleInfoNVX*
+      (int)
+      VkImageViewHandleInfoNVX*
+      "VkImageViewHandleInfoNVX* vkimageviewhandleinfonvx = malloc(___arg1 * sizeof(VkImageViewHandleInfoNVX));
+      ___return (vkimageviewhandleinfonvx);")
+   (define-c-lambda
       make-VkImageViewHandleInfoNVX
       (VkStructureType void* VkImageView VkDescriptorType VkSampler)
       VkImageViewHandleInfoNVX*
@@ -29174,6 +33212,7 @@ imageviewhandleinfonvx->sampler=___arg5;
 ___return (imageviewhandleinfonvx);"))
 (begin-ffi
    (make-VkPipelineCreationFeedbackEXT
+      make-VkPipelineCreationFeedbackEXT*
       VkPipelineCreationFeedbackEXTduration
       VkPipelineCreationFeedbackEXTflags
       VkPipelineCreationFeedbackEXT
@@ -29182,6 +33221,7 @@ ___return (imageviewhandleinfonvx);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29199,6 +33239,12 @@ ___return (imageviewhandleinfonvx);"))
       uint64_t
       "___return (___arg1->duration);")
    (define-c-lambda
+      make-VkPipelineCreationFeedbackEXT*
+      (int)
+      VkPipelineCreationFeedbackEXT*
+      "VkPipelineCreationFeedbackEXT* vkpipelinecreationfeedbackext = malloc(___arg1 * sizeof(VkPipelineCreationFeedbackEXT));
+      ___return (vkpipelinecreationfeedbackext);")
+   (define-c-lambda
       make-VkPipelineCreationFeedbackEXT
       (VkPipelineCreationFeedbackFlagsEXT uint64_t)
       VkPipelineCreationFeedbackEXT*
@@ -29208,6 +33254,7 @@ pipelinecreationfeedbackext->duration=___arg2;
 ___return (pipelinecreationfeedbackext);"))
 (begin-ffi
    (make-VkPipelineCreationFeedbackCreateInfoEXT
+      make-VkPipelineCreationFeedbackCreateInfoEXT*
       VkPipelineCreationFeedbackCreateInfoEXTpPipelineStageCreationFeedbacks
       VkPipelineCreationFeedbackCreateInfoEXTpipelineStageCreationFeedbackCount
       VkPipelineCreationFeedbackCreateInfoEXTpPipelineCreationFeedback
@@ -29219,6 +33266,7 @@ ___return (pipelinecreationfeedbackext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29255,6 +33303,12 @@ ___return (pipelinecreationfeedbackext);"))
       VkPipelineCreationFeedbackEXT*
       "___return (___arg1->pPipelineStageCreationFeedbacks);")
    (define-c-lambda
+      make-VkPipelineCreationFeedbackCreateInfoEXT*
+      (int)
+      VkPipelineCreationFeedbackCreateInfoEXT*
+      "VkPipelineCreationFeedbackCreateInfoEXT* vkpipelinecreationfeedbackcreateinfoext = malloc(___arg1 * sizeof(VkPipelineCreationFeedbackCreateInfoEXT));
+      ___return (vkpipelinecreationfeedbackcreateinfoext);")
+   (define-c-lambda
       make-VkPipelineCreationFeedbackCreateInfoEXT
       (VkStructureType
          void*
@@ -29271,6 +33325,7 @@ pipelinecreationfeedbackcreateinfoext->pPipelineStageCreationFeedbacks=___arg5;
 ___return (pipelinecreationfeedbackcreateinfoext);"))
 (begin-ffi
    (make-VkHeadlessSurfaceCreateInfoEXT
+      make-VkHeadlessSurfaceCreateInfoEXT*
       VkHeadlessSurfaceCreateInfoEXTflags
       VkHeadlessSurfaceCreateInfoEXTpNext
       VkHeadlessSurfaceCreateInfoEXTsType
@@ -29280,6 +33335,7 @@ ___return (pipelinecreationfeedbackcreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29306,6 +33362,12 @@ ___return (pipelinecreationfeedbackcreateinfoext);"))
       VkHeadlessSurfaceCreateFlagsEXT
       "___return (___arg1->flags);")
    (define-c-lambda
+      make-VkHeadlessSurfaceCreateInfoEXT*
+      (int)
+      VkHeadlessSurfaceCreateInfoEXT*
+      "VkHeadlessSurfaceCreateInfoEXT* vkheadlesssurfacecreateinfoext = malloc(___arg1 * sizeof(VkHeadlessSurfaceCreateInfoEXT));
+      ___return (vkheadlesssurfacecreateinfoext);")
+   (define-c-lambda
       make-VkHeadlessSurfaceCreateInfoEXT
       (VkStructureType void* VkHeadlessSurfaceCreateFlagsEXT)
       VkHeadlessSurfaceCreateInfoEXT*
@@ -29316,6 +33378,7 @@ headlesssurfacecreateinfoext->flags=___arg3;
 ___return (headlesssurfacecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceCoverageReductionModeFeaturesNV
+      make-VkPhysicalDeviceCoverageReductionModeFeaturesNV*
       VkPhysicalDeviceCoverageReductionModeFeaturesNVcoverageReductionMode
       VkPhysicalDeviceCoverageReductionModeFeaturesNVpNext
       VkPhysicalDeviceCoverageReductionModeFeaturesNVsType
@@ -29325,6 +33388,7 @@ ___return (headlesssurfacecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29351,6 +33415,12 @@ ___return (headlesssurfacecreateinfoext);"))
       VkBool32
       "___return (___arg1->coverageReductionMode);")
    (define-c-lambda
+      make-VkPhysicalDeviceCoverageReductionModeFeaturesNV*
+      (int)
+      VkPhysicalDeviceCoverageReductionModeFeaturesNV*
+      "VkPhysicalDeviceCoverageReductionModeFeaturesNV* vkphysicaldevicecoveragereductionmodefeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceCoverageReductionModeFeaturesNV));
+      ___return (vkphysicaldevicecoveragereductionmodefeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceCoverageReductionModeFeaturesNV
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceCoverageReductionModeFeaturesNV*
@@ -29361,6 +33431,7 @@ physicaldevicecoveragereductionmodefeaturesnv->coverageReductionMode=___arg3;
 ___return (physicaldevicecoveragereductionmodefeaturesnv);"))
 (begin-ffi
    (make-VkPipelineCoverageReductionStateCreateInfoNV
+      make-VkPipelineCoverageReductionStateCreateInfoNV*
       VkPipelineCoverageReductionStateCreateInfoNVcoverageReductionMode
       VkPipelineCoverageReductionStateCreateInfoNVflags
       VkPipelineCoverageReductionStateCreateInfoNVpNext
@@ -29371,6 +33442,7 @@ ___return (physicaldevicecoveragereductionmodefeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29402,6 +33474,12 @@ ___return (physicaldevicecoveragereductionmodefeaturesnv);"))
       VkCoverageReductionModeNV
       "___return (___arg1->coverageReductionMode);")
    (define-c-lambda
+      make-VkPipelineCoverageReductionStateCreateInfoNV*
+      (int)
+      VkPipelineCoverageReductionStateCreateInfoNV*
+      "VkPipelineCoverageReductionStateCreateInfoNV* vkpipelinecoveragereductionstatecreateinfonv = malloc(___arg1 * sizeof(VkPipelineCoverageReductionStateCreateInfoNV));
+      ___return (vkpipelinecoveragereductionstatecreateinfonv);")
+   (define-c-lambda
       make-VkPipelineCoverageReductionStateCreateInfoNV
       (VkStructureType
          void*
@@ -29416,6 +33494,7 @@ pipelinecoveragereductionstatecreateinfonv->coverageReductionMode=___arg4;
 ___return (pipelinecoveragereductionstatecreateinfonv);"))
 (begin-ffi
    (make-VkFramebufferMixedSamplesCombinationNV
+      make-VkFramebufferMixedSamplesCombinationNV*
       VkFramebufferMixedSamplesCombinationNVcolorSamples
       VkFramebufferMixedSamplesCombinationNVdepthStencilSamples
       VkFramebufferMixedSamplesCombinationNVrasterizationSamples
@@ -29428,6 +33507,7 @@ ___return (pipelinecoveragereductionstatecreateinfonv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29469,6 +33549,12 @@ ___return (pipelinecoveragereductionstatecreateinfonv);"))
       VkSampleCountFlags
       "___return (___arg1->colorSamples);")
    (define-c-lambda
+      make-VkFramebufferMixedSamplesCombinationNV*
+      (int)
+      VkFramebufferMixedSamplesCombinationNV*
+      "VkFramebufferMixedSamplesCombinationNV* vkframebuffermixedsamplescombinationnv = malloc(___arg1 * sizeof(VkFramebufferMixedSamplesCombinationNV));
+      ___return (vkframebuffermixedsamplescombinationnv);")
+   (define-c-lambda
       make-VkFramebufferMixedSamplesCombinationNV
       (VkStructureType
          void*
@@ -29487,6 +33573,7 @@ framebuffermixedsamplescombinationnv->colorSamples=___arg6;
 ___return (framebuffermixedsamplescombinationnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
+      make-VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL*
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTELshaderIntegerFunctions2
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTELpNext
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTELsType
@@ -29496,6 +33583,7 @@ ___return (framebuffermixedsamplescombinationnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29522,6 +33610,12 @@ ___return (framebuffermixedsamplescombinationnv);"))
       VkBool32
       "___return (___arg1->shaderIntegerFunctions2);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL*
+      (int)
+      VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL*
+      "VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL* vkphysicaldeviceshaderintegerfunctions2featuresintel = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL));
+      ___return (vkphysicaldeviceshaderintegerfunctions2featuresintel);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL*
@@ -29532,6 +33626,7 @@ physicaldeviceshaderintegerfunctions2featuresintel->shaderIntegerFunctions2=___a
 ___return (physicaldeviceshaderintegerfunctions2featuresintel);"))
 (begin-ffi
    (make-VkPerformanceValueINTEL
+      make-VkPerformanceValueINTEL*
       VkPerformanceValueINTELdata
       VkPerformanceValueINTELtype
       VkPerformanceValueINTEL
@@ -29540,6 +33635,7 @@ ___return (physicaldeviceshaderintegerfunctions2featuresintel);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29557,6 +33653,12 @@ ___return (physicaldeviceshaderintegerfunctions2featuresintel);"))
       VkPerformanceValueDataINTEL
       "___return (___arg1->data);")
    (define-c-lambda
+      make-VkPerformanceValueINTEL*
+      (int)
+      VkPerformanceValueINTEL*
+      "VkPerformanceValueINTEL* vkperformancevalueintel = malloc(___arg1 * sizeof(VkPerformanceValueINTEL));
+      ___return (vkperformancevalueintel);")
+   (define-c-lambda
       make-VkPerformanceValueINTEL
       (VkPerformanceValueTypeINTEL VkPerformanceValueDataINTEL)
       VkPerformanceValueINTEL*
@@ -29566,6 +33668,7 @@ performancevalueintel->data=___arg2;
 ___return (performancevalueintel);"))
 (begin-ffi
    (make-VkInitializePerformanceApiInfoINTEL
+      make-VkInitializePerformanceApiInfoINTEL*
       VkInitializePerformanceApiInfoINTELpUserData
       VkInitializePerformanceApiInfoINTELpNext
       VkInitializePerformanceApiInfoINTELsType
@@ -29575,6 +33678,7 @@ ___return (performancevalueintel);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29601,6 +33705,12 @@ ___return (performancevalueintel);"))
       void*
       "___return (___arg1->pUserData);")
    (define-c-lambda
+      make-VkInitializePerformanceApiInfoINTEL*
+      (int)
+      VkInitializePerformanceApiInfoINTEL*
+      "VkInitializePerformanceApiInfoINTEL* vkinitializeperformanceapiinfointel = malloc(___arg1 * sizeof(VkInitializePerformanceApiInfoINTEL));
+      ___return (vkinitializeperformanceapiinfointel);")
+   (define-c-lambda
       make-VkInitializePerformanceApiInfoINTEL
       (VkStructureType void* void*)
       VkInitializePerformanceApiInfoINTEL*
@@ -29611,6 +33721,7 @@ initializeperformanceapiinfointel->pUserData=___arg3;
 ___return (initializeperformanceapiinfointel);"))
 (begin-ffi
    (make-VkQueryPoolCreateInfoINTEL
+      make-VkQueryPoolCreateInfoINTEL*
       VkQueryPoolCreateInfoINTELperformanceCountersSampling
       VkQueryPoolCreateInfoINTELpNext
       VkQueryPoolCreateInfoINTELsType
@@ -29620,6 +33731,7 @@ ___return (initializeperformanceapiinfointel);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29642,6 +33754,12 @@ ___return (initializeperformanceapiinfointel);"))
       VkQueryPoolSamplingModeINTEL
       "___return (___arg1->performanceCountersSampling);")
    (define-c-lambda
+      make-VkQueryPoolCreateInfoINTEL*
+      (int)
+      VkQueryPoolCreateInfoINTEL*
+      "VkQueryPoolCreateInfoINTEL* vkquerypoolcreateinfointel = malloc(___arg1 * sizeof(VkQueryPoolCreateInfoINTEL));
+      ___return (vkquerypoolcreateinfointel);")
+   (define-c-lambda
       make-VkQueryPoolCreateInfoINTEL
       (VkStructureType void* VkQueryPoolSamplingModeINTEL)
       VkQueryPoolCreateInfoINTEL*
@@ -29652,6 +33770,7 @@ querypoolcreateinfointel->performanceCountersSampling=___arg3;
 ___return (querypoolcreateinfointel);"))
 (begin-ffi
    (make-VkPerformanceMarkerInfoINTEL
+      make-VkPerformanceMarkerInfoINTEL*
       VkPerformanceMarkerInfoINTELmarker
       VkPerformanceMarkerInfoINTELpNext
       VkPerformanceMarkerInfoINTELsType
@@ -29661,6 +33780,7 @@ ___return (querypoolcreateinfointel);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29683,6 +33803,12 @@ ___return (querypoolcreateinfointel);"))
       uint64_t
       "___return (___arg1->marker);")
    (define-c-lambda
+      make-VkPerformanceMarkerInfoINTEL*
+      (int)
+      VkPerformanceMarkerInfoINTEL*
+      "VkPerformanceMarkerInfoINTEL* vkperformancemarkerinfointel = malloc(___arg1 * sizeof(VkPerformanceMarkerInfoINTEL));
+      ___return (vkperformancemarkerinfointel);")
+   (define-c-lambda
       make-VkPerformanceMarkerInfoINTEL
       (VkStructureType void* uint64_t)
       VkPerformanceMarkerInfoINTEL*
@@ -29693,6 +33819,7 @@ performancemarkerinfointel->marker=___arg3;
 ___return (performancemarkerinfointel);"))
 (begin-ffi
    (make-VkPerformanceStreamMarkerInfoINTEL
+      make-VkPerformanceStreamMarkerInfoINTEL*
       VkPerformanceStreamMarkerInfoINTELmarker
       VkPerformanceStreamMarkerInfoINTELpNext
       VkPerformanceStreamMarkerInfoINTELsType
@@ -29702,6 +33829,7 @@ ___return (performancemarkerinfointel);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29728,6 +33856,12 @@ ___return (performancemarkerinfointel);"))
       uint32_t
       "___return (___arg1->marker);")
    (define-c-lambda
+      make-VkPerformanceStreamMarkerInfoINTEL*
+      (int)
+      VkPerformanceStreamMarkerInfoINTEL*
+      "VkPerformanceStreamMarkerInfoINTEL* vkperformancestreammarkerinfointel = malloc(___arg1 * sizeof(VkPerformanceStreamMarkerInfoINTEL));
+      ___return (vkperformancestreammarkerinfointel);")
+   (define-c-lambda
       make-VkPerformanceStreamMarkerInfoINTEL
       (VkStructureType void* uint32_t)
       VkPerformanceStreamMarkerInfoINTEL*
@@ -29738,6 +33872,7 @@ performancestreammarkerinfointel->marker=___arg3;
 ___return (performancestreammarkerinfointel);"))
 (begin-ffi
    (make-VkPerformanceOverrideInfoINTEL
+      make-VkPerformanceOverrideInfoINTEL*
       VkPerformanceOverrideInfoINTELparameter
       VkPerformanceOverrideInfoINTELenable
       VkPerformanceOverrideInfoINTELtype
@@ -29749,6 +33884,7 @@ ___return (performancestreammarkerinfointel);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29785,6 +33921,12 @@ ___return (performancestreammarkerinfointel);"))
       uint64_t
       "___return (___arg1->parameter);")
    (define-c-lambda
+      make-VkPerformanceOverrideInfoINTEL*
+      (int)
+      VkPerformanceOverrideInfoINTEL*
+      "VkPerformanceOverrideInfoINTEL* vkperformanceoverrideinfointel = malloc(___arg1 * sizeof(VkPerformanceOverrideInfoINTEL));
+      ___return (vkperformanceoverrideinfointel);")
+   (define-c-lambda
       make-VkPerformanceOverrideInfoINTEL
       (VkStructureType void* VkPerformanceOverrideTypeINTEL VkBool32 uint64_t)
       VkPerformanceOverrideInfoINTEL*
@@ -29797,6 +33939,7 @@ performanceoverrideinfointel->parameter=___arg5;
 ___return (performanceoverrideinfointel);"))
 (begin-ffi
    (make-VkPerformanceConfigurationAcquireInfoINTEL
+      make-VkPerformanceConfigurationAcquireInfoINTEL*
       VkPerformanceConfigurationAcquireInfoINTELtype
       VkPerformanceConfigurationAcquireInfoINTELpNext
       VkPerformanceConfigurationAcquireInfoINTELsType
@@ -29806,6 +33949,7 @@ ___return (performanceoverrideinfointel);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29832,6 +33976,12 @@ ___return (performanceoverrideinfointel);"))
       VkPerformanceConfigurationTypeINTEL
       "___return (___arg1->type);")
    (define-c-lambda
+      make-VkPerformanceConfigurationAcquireInfoINTEL*
+      (int)
+      VkPerformanceConfigurationAcquireInfoINTEL*
+      "VkPerformanceConfigurationAcquireInfoINTEL* vkperformanceconfigurationacquireinfointel = malloc(___arg1 * sizeof(VkPerformanceConfigurationAcquireInfoINTEL));
+      ___return (vkperformanceconfigurationacquireinfointel);")
+   (define-c-lambda
       make-VkPerformanceConfigurationAcquireInfoINTEL
       (VkStructureType void* VkPerformanceConfigurationTypeINTEL)
       VkPerformanceConfigurationAcquireInfoINTEL*
@@ -29842,6 +33992,7 @@ performanceconfigurationacquireinfointel->type=___arg3;
 ___return (performanceconfigurationacquireinfointel);"))
 (begin-ffi
    (make-VkPhysicalDeviceIndexTypeUint8FeaturesEXT
+      make-VkPhysicalDeviceIndexTypeUint8FeaturesEXT*
       VkPhysicalDeviceIndexTypeUint8FeaturesEXTindexTypeUint8
       VkPhysicalDeviceIndexTypeUint8FeaturesEXTpNext
       VkPhysicalDeviceIndexTypeUint8FeaturesEXTsType
@@ -29851,6 +34002,7 @@ ___return (performanceconfigurationacquireinfointel);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29877,6 +34029,12 @@ ___return (performanceconfigurationacquireinfointel);"))
       VkBool32
       "___return (___arg1->indexTypeUint8);")
    (define-c-lambda
+      make-VkPhysicalDeviceIndexTypeUint8FeaturesEXT*
+      (int)
+      VkPhysicalDeviceIndexTypeUint8FeaturesEXT*
+      "VkPhysicalDeviceIndexTypeUint8FeaturesEXT* vkphysicaldeviceindextypeuint8featuresext = malloc(___arg1 * sizeof(VkPhysicalDeviceIndexTypeUint8FeaturesEXT));
+      ___return (vkphysicaldeviceindextypeuint8featuresext);")
+   (define-c-lambda
       make-VkPhysicalDeviceIndexTypeUint8FeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceIndexTypeUint8FeaturesEXT*
@@ -29887,6 +34045,7 @@ physicaldeviceindextypeuint8featuresext->indexTypeUint8=___arg3;
 ___return (physicaldeviceindextypeuint8featuresext);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
+      make-VkPhysicalDeviceShaderSMBuiltinsPropertiesNV*
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNVshaderWarpsPerSM
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNVshaderSMCount
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNVpNext
@@ -29897,6 +34056,7 @@ ___return (physicaldeviceindextypeuint8featuresext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29928,6 +34088,12 @@ ___return (physicaldeviceindextypeuint8featuresext);"))
       uint32_t
       "___return (___arg1->shaderWarpsPerSM);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderSMBuiltinsPropertiesNV*
+      (int)
+      VkPhysicalDeviceShaderSMBuiltinsPropertiesNV*
+      "VkPhysicalDeviceShaderSMBuiltinsPropertiesNV* vkphysicaldeviceshadersmbuiltinspropertiesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderSMBuiltinsPropertiesNV));
+      ___return (vkphysicaldeviceshadersmbuiltinspropertiesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
       (VkStructureType void* uint32_t uint32_t)
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNV*
@@ -29939,6 +34105,7 @@ physicaldeviceshadersmbuiltinspropertiesnv->shaderWarpsPerSM=___arg4;
 ___return (physicaldeviceshadersmbuiltinspropertiesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
+      make-VkPhysicalDeviceShaderSMBuiltinsFeaturesNV*
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNVshaderSMBuiltins
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNVpNext
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNVsType
@@ -29948,6 +34115,7 @@ ___return (physicaldeviceshadersmbuiltinspropertiesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -29974,6 +34142,12 @@ ___return (physicaldeviceshadersmbuiltinspropertiesnv);"))
       VkBool32
       "___return (___arg1->shaderSMBuiltins);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderSMBuiltinsFeaturesNV*
+      (int)
+      VkPhysicalDeviceShaderSMBuiltinsFeaturesNV*
+      "VkPhysicalDeviceShaderSMBuiltinsFeaturesNV* vkphysicaldeviceshadersmbuiltinsfeaturesnv = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderSMBuiltinsFeaturesNV));
+      ___return (vkphysicaldeviceshadersmbuiltinsfeaturesnv);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNV*
@@ -29984,6 +34158,7 @@ physicaldeviceshadersmbuiltinsfeaturesnv->shaderSMBuiltins=___arg3;
 ___return (physicaldeviceshadersmbuiltinsfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
+      make-VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT*
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXTfragmentShaderShadingRateInterlock
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXTfragmentShaderPixelInterlock
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXTfragmentShaderSampleInterlock
@@ -29995,6 +34170,7 @@ ___return (physicaldeviceshadersmbuiltinsfeaturesnv);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30031,6 +34207,12 @@ ___return (physicaldeviceshadersmbuiltinsfeaturesnv);"))
       VkBool32
       "___return (___arg1->fragmentShaderShadingRateInterlock);")
    (define-c-lambda
+      make-VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT*
+      (int)
+      VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT*
+      "VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT* vkphysicaldevicefragmentshaderinterlockfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT));
+      ___return (vkphysicaldevicefragmentshaderinterlockfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT*
@@ -30043,6 +34225,7 @@ physicaldevicefragmentshaderinterlockfeaturesext->fragmentShaderShadingRateInter
 ___return (physicaldevicefragmentshaderinterlockfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR
+      make-VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR*
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHRpipelineExecutableInfo
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHRpNext
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHRsType
@@ -30052,6 +34235,7 @@ ___return (physicaldevicefragmentshaderinterlockfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30078,6 +34262,12 @@ ___return (physicaldevicefragmentshaderinterlockfeaturesext);"))
       VkBool32
       "___return (___arg1->pipelineExecutableInfo);")
    (define-c-lambda
+      make-VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR*
+      (int)
+      VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR*
+      "VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR* vkphysicaldevicepipelineexecutablepropertiesfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR));
+      ___return (vkphysicaldevicepipelineexecutablepropertiesfeatureskhr);")
+   (define-c-lambda
       make-VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR
       (VkStructureType void* VkBool32)
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR*
@@ -30088,6 +34278,7 @@ physicaldevicepipelineexecutablepropertiesfeatureskhr->pipelineExecutableInfo=__
 ___return (physicaldevicepipelineexecutablepropertiesfeatureskhr);"))
 (begin-ffi
    (make-VkPipelineInfoKHR
+      make-VkPipelineInfoKHR*
       VkPipelineInfoKHRpipeline
       VkPipelineInfoKHRpNext
       VkPipelineInfoKHRsType
@@ -30097,6 +34288,7 @@ ___return (physicaldevicepipelineexecutablepropertiesfeatureskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30119,6 +34311,12 @@ ___return (physicaldevicepipelineexecutablepropertiesfeatureskhr);"))
       VkPipeline
       "___return (___arg1->pipeline);")
    (define-c-lambda
+      make-VkPipelineInfoKHR*
+      (int)
+      VkPipelineInfoKHR*
+      "VkPipelineInfoKHR* vkpipelineinfokhr = malloc(___arg1 * sizeof(VkPipelineInfoKHR));
+      ___return (vkpipelineinfokhr);")
+   (define-c-lambda
       make-VkPipelineInfoKHR
       (VkStructureType void* VkPipeline)
       VkPipelineInfoKHR*
@@ -30129,6 +34327,7 @@ pipelineinfokhr->pipeline=___arg3;
 ___return (pipelineinfokhr);"))
 (begin-ffi
    (make-VkPipelineExecutablePropertiesKHR
+      make-VkPipelineExecutablePropertiesKHR*
       VkPipelineExecutablePropertiesKHRsubgroupSize
       VkPipelineExecutablePropertiesKHRdescription
       VkPipelineExecutablePropertiesKHRname
@@ -30141,6 +34340,7 @@ ___return (pipelineinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30182,6 +34382,12 @@ ___return (pipelineinfokhr);"))
       uint32_t
       "___return (___arg1->subgroupSize);")
    (define-c-lambda
+      make-VkPipelineExecutablePropertiesKHR*
+      (int)
+      VkPipelineExecutablePropertiesKHR*
+      "VkPipelineExecutablePropertiesKHR* vkpipelineexecutablepropertieskhr = malloc(___arg1 * sizeof(VkPipelineExecutablePropertiesKHR));
+      ___return (vkpipelineexecutablepropertieskhr);")
+   (define-c-lambda
       make-VkPipelineExecutablePropertiesKHR
       (VkStructureType void* VkShaderStageFlags char* char* uint32_t)
       VkPipelineExecutablePropertiesKHR*
@@ -30195,6 +34401,7 @@ pipelineexecutablepropertieskhr->subgroupSize=___arg6;
 ___return (pipelineexecutablepropertieskhr);"))
 (begin-ffi
    (make-VkPipelineExecutableInfoKHR
+      make-VkPipelineExecutableInfoKHR*
       VkPipelineExecutableInfoKHRexecutableIndex
       VkPipelineExecutableInfoKHRpipeline
       VkPipelineExecutableInfoKHRpNext
@@ -30205,6 +34412,7 @@ ___return (pipelineexecutablepropertieskhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30232,6 +34440,12 @@ ___return (pipelineexecutablepropertieskhr);"))
       uint32_t
       "___return (___arg1->executableIndex);")
    (define-c-lambda
+      make-VkPipelineExecutableInfoKHR*
+      (int)
+      VkPipelineExecutableInfoKHR*
+      "VkPipelineExecutableInfoKHR* vkpipelineexecutableinfokhr = malloc(___arg1 * sizeof(VkPipelineExecutableInfoKHR));
+      ___return (vkpipelineexecutableinfokhr);")
+   (define-c-lambda
       make-VkPipelineExecutableInfoKHR
       (VkStructureType void* VkPipeline uint32_t)
       VkPipelineExecutableInfoKHR*
@@ -30243,6 +34457,7 @@ pipelineexecutableinfokhr->executableIndex=___arg4;
 ___return (pipelineexecutableinfokhr);"))
 (begin-ffi
    (make-VkPipelineExecutableStatisticKHR
+      make-VkPipelineExecutableStatisticKHR*
       VkPipelineExecutableStatisticKHRvalue
       VkPipelineExecutableStatisticKHRformat
       VkPipelineExecutableStatisticKHRdescription
@@ -30255,6 +34470,7 @@ ___return (pipelineexecutableinfokhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30296,6 +34512,12 @@ ___return (pipelineexecutableinfokhr);"))
       VkPipelineExecutableStatisticValueKHR
       "___return (___arg1->value);")
    (define-c-lambda
+      make-VkPipelineExecutableStatisticKHR*
+      (int)
+      VkPipelineExecutableStatisticKHR*
+      "VkPipelineExecutableStatisticKHR* vkpipelineexecutablestatistickhr = malloc(___arg1 * sizeof(VkPipelineExecutableStatisticKHR));
+      ___return (vkpipelineexecutablestatistickhr);")
+   (define-c-lambda
       make-VkPipelineExecutableStatisticKHR
       (VkStructureType
          void*
@@ -30314,6 +34536,7 @@ pipelineexecutablestatistickhr->value=___arg6;
 ___return (pipelineexecutablestatistickhr);"))
 (begin-ffi
    (make-VkPipelineExecutableInternalRepresentationKHR
+      make-VkPipelineExecutableInternalRepresentationKHR*
       VkPipelineExecutableInternalRepresentationKHRpData
       VkPipelineExecutableInternalRepresentationKHRdataSize
       VkPipelineExecutableInternalRepresentationKHRisText
@@ -30327,6 +34550,7 @@ ___return (pipelineexecutablestatistickhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30373,6 +34597,12 @@ ___return (pipelineexecutablestatistickhr);"))
       void*
       "___return (___arg1->pData);")
    (define-c-lambda
+      make-VkPipelineExecutableInternalRepresentationKHR*
+      (int)
+      VkPipelineExecutableInternalRepresentationKHR*
+      "VkPipelineExecutableInternalRepresentationKHR* vkpipelineexecutableinternalrepresentationkhr = malloc(___arg1 * sizeof(VkPipelineExecutableInternalRepresentationKHR));
+      ___return (vkpipelineexecutableinternalrepresentationkhr);")
+   (define-c-lambda
       make-VkPipelineExecutableInternalRepresentationKHR
       (VkStructureType void* char* char* VkBool32 size_t void*)
       VkPipelineExecutableInternalRepresentationKHR*
@@ -30387,6 +34617,7 @@ pipelineexecutableinternalrepresentationkhr->pData=___arg7;
 ___return (pipelineexecutableinternalrepresentationkhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
+      make-VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT*
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXTshaderDemoteToHelperInvocation
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXTpNext
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXTsType
@@ -30396,6 +34627,7 @@ ___return (pipelineexecutableinternalrepresentationkhr);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30422,6 +34654,12 @@ ___return (pipelineexecutableinternalrepresentationkhr);"))
       VkBool32
       "___return (___arg1->shaderDemoteToHelperInvocation);")
    (define-c-lambda
+      make-VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT*
+      (int)
+      VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT*
+      "VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT* vkphysicaldeviceshaderdemotetohelperinvocationfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT));
+      ___return (vkphysicaldeviceshaderdemotetohelperinvocationfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT*
@@ -30432,6 +34670,7 @@ physicaldeviceshaderdemotetohelperinvocationfeaturesext->shaderDemoteToHelperInv
 ___return (physicaldeviceshaderdemotetohelperinvocationfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
+      make-VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT*
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXTtexelBufferAlignment
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXTpNext
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXTsType
@@ -30441,6 +34680,7 @@ ___return (physicaldeviceshaderdemotetohelperinvocationfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30467,6 +34707,12 @@ ___return (physicaldeviceshaderdemotetohelperinvocationfeaturesext);"))
       VkBool32
       "___return (___arg1->texelBufferAlignment);")
    (define-c-lambda
+      make-VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT*
+      (int)
+      VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT*
+      "VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT* vkphysicaldevicetexelbufferalignmentfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT));
+      ___return (vkphysicaldevicetexelbufferalignmentfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT*
@@ -30477,6 +34723,7 @@ physicaldevicetexelbufferalignmentfeaturesext->texelBufferAlignment=___arg3;
 ___return (physicaldevicetexelbufferalignmentfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
+      make-VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT*
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXTuniformTexelBufferOffsetSingleTexelAlignment
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXTuniformTexelBufferOffsetAlignmentBytes
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXTstorageTexelBufferOffsetSingleTexelAlignment
@@ -30489,6 +34736,7 @@ ___return (physicaldevicetexelbufferalignmentfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30530,6 +34778,12 @@ ___return (physicaldevicetexelbufferalignmentfeaturesext);"))
       VkBool32
       "___return (___arg1->uniformTexelBufferOffsetSingleTexelAlignment);")
    (define-c-lambda
+      make-VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT*
+      (int)
+      VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT*
+      "VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT* vkphysicaldevicetexelbufferalignmentpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT));
+      ___return (vkphysicaldevicetexelbufferalignmentpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
       (VkStructureType void* VkDeviceSize VkBool32 VkDeviceSize VkBool32)
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT*
@@ -30543,6 +34797,7 @@ physicaldevicetexelbufferalignmentpropertiesext->uniformTexelBufferOffsetSingleT
 ___return (physicaldevicetexelbufferalignmentpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
+      make-VkPhysicalDeviceSubgroupSizeControlFeaturesEXT*
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXTcomputeFullSubgroups
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXTsubgroupSizeControl
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXTpNext
@@ -30553,6 +34808,7 @@ ___return (physicaldevicetexelbufferalignmentpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30584,6 +34840,12 @@ ___return (physicaldevicetexelbufferalignmentpropertiesext);"))
       VkBool32
       "___return (___arg1->computeFullSubgroups);")
    (define-c-lambda
+      make-VkPhysicalDeviceSubgroupSizeControlFeaturesEXT*
+      (int)
+      VkPhysicalDeviceSubgroupSizeControlFeaturesEXT*
+      "VkPhysicalDeviceSubgroupSizeControlFeaturesEXT* vkphysicaldevicesubgroupsizecontrolfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceSubgroupSizeControlFeaturesEXT));
+      ___return (vkphysicaldevicesubgroupsizecontrolfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXT*
@@ -30595,6 +34857,7 @@ physicaldevicesubgroupsizecontrolfeaturesext->computeFullSubgroups=___arg4;
 ___return (physicaldevicesubgroupsizecontrolfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
+      make-VkPhysicalDeviceSubgroupSizeControlPropertiesEXT*
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXTrequiredSubgroupSizeStages
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXTmaxComputeWorkgroupSubgroups
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXTmaxSubgroupSize
@@ -30607,6 +34870,7 @@ ___return (physicaldevicesubgroupsizecontrolfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30648,6 +34912,12 @@ ___return (physicaldevicesubgroupsizecontrolfeaturesext);"))
       VkShaderStageFlags
       "___return (___arg1->requiredSubgroupSizeStages);")
    (define-c-lambda
+      make-VkPhysicalDeviceSubgroupSizeControlPropertiesEXT*
+      (int)
+      VkPhysicalDeviceSubgroupSizeControlPropertiesEXT*
+      "VkPhysicalDeviceSubgroupSizeControlPropertiesEXT* vkphysicaldevicesubgroupsizecontrolpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceSubgroupSizeControlPropertiesEXT));
+      ___return (vkphysicaldevicesubgroupsizecontrolpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
       (VkStructureType void* uint32_t uint32_t uint32_t VkShaderStageFlags)
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXT*
@@ -30661,6 +34931,7 @@ physicaldevicesubgroupsizecontrolpropertiesext->requiredSubgroupSizeStages=___ar
 ___return (physicaldevicesubgroupsizecontrolpropertiesext);"))
 (begin-ffi
    (make-VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
+      make-VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT*
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXTrequiredSubgroupSize
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXTpNext
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXTsType
@@ -30670,6 +34941,7 @@ ___return (physicaldevicesubgroupsizecontrolpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30696,6 +34968,12 @@ ___return (physicaldevicesubgroupsizecontrolpropertiesext);"))
       uint32_t
       "___return (___arg1->requiredSubgroupSize);")
    (define-c-lambda
+      make-VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT*
+      (int)
+      VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT*
+      "VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT* vkpipelineshaderstagerequiredsubgroupsizecreateinfoext = malloc(___arg1 * sizeof(VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT));
+      ___return (vkpipelineshaderstagerequiredsubgroupsizecreateinfoext);")
+   (define-c-lambda
       make-VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
       (VkStructureType void* uint32_t)
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT*
@@ -30706,6 +34984,7 @@ pipelineshaderstagerequiredsubgroupsizecreateinfoext->requiredSubgroupSize=___ar
 ___return (pipelineshaderstagerequiredsubgroupsizecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceLineRasterizationFeaturesEXT
+      make-VkPhysicalDeviceLineRasterizationFeaturesEXT*
       VkPhysicalDeviceLineRasterizationFeaturesEXTstippledSmoothLines
       VkPhysicalDeviceLineRasterizationFeaturesEXTstippledBresenhamLines
       VkPhysicalDeviceLineRasterizationFeaturesEXTstippledRectangularLines
@@ -30720,6 +34999,7 @@ ___return (pipelineshaderstagerequiredsubgroupsizecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30771,6 +35051,12 @@ ___return (pipelineshaderstagerequiredsubgroupsizecreateinfoext);"))
       VkBool32
       "___return (___arg1->stippledSmoothLines);")
    (define-c-lambda
+      make-VkPhysicalDeviceLineRasterizationFeaturesEXT*
+      (int)
+      VkPhysicalDeviceLineRasterizationFeaturesEXT*
+      "VkPhysicalDeviceLineRasterizationFeaturesEXT* vkphysicaldevicelinerasterizationfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceLineRasterizationFeaturesEXT));
+      ___return (vkphysicaldevicelinerasterizationfeaturesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceLineRasterizationFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32 VkBool32 VkBool32 VkBool32 VkBool32)
       VkPhysicalDeviceLineRasterizationFeaturesEXT*
@@ -30786,6 +35072,7 @@ physicaldevicelinerasterizationfeaturesext->stippledSmoothLines=___arg8;
 ___return (physicaldevicelinerasterizationfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceLineRasterizationPropertiesEXT
+      make-VkPhysicalDeviceLineRasterizationPropertiesEXT*
       VkPhysicalDeviceLineRasterizationPropertiesEXTlineSubPixelPrecisionBits
       VkPhysicalDeviceLineRasterizationPropertiesEXTpNext
       VkPhysicalDeviceLineRasterizationPropertiesEXTsType
@@ -30795,6 +35082,7 @@ ___return (physicaldevicelinerasterizationfeaturesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30821,6 +35109,12 @@ ___return (physicaldevicelinerasterizationfeaturesext);"))
       uint32_t
       "___return (___arg1->lineSubPixelPrecisionBits);")
    (define-c-lambda
+      make-VkPhysicalDeviceLineRasterizationPropertiesEXT*
+      (int)
+      VkPhysicalDeviceLineRasterizationPropertiesEXT*
+      "VkPhysicalDeviceLineRasterizationPropertiesEXT* vkphysicaldevicelinerasterizationpropertiesext = malloc(___arg1 * sizeof(VkPhysicalDeviceLineRasterizationPropertiesEXT));
+      ___return (vkphysicaldevicelinerasterizationpropertiesext);")
+   (define-c-lambda
       make-VkPhysicalDeviceLineRasterizationPropertiesEXT
       (VkStructureType void* uint32_t)
       VkPhysicalDeviceLineRasterizationPropertiesEXT*
@@ -30831,6 +35125,7 @@ physicaldevicelinerasterizationpropertiesext->lineSubPixelPrecisionBits=___arg3;
 ___return (physicaldevicelinerasterizationpropertiesext);"))
 (begin-ffi
    (make-VkPipelineRasterizationLineStateCreateInfoEXT
+      make-VkPipelineRasterizationLineStateCreateInfoEXT*
       VkPipelineRasterizationLineStateCreateInfoEXTlineStipplePattern
       VkPipelineRasterizationLineStateCreateInfoEXTlineStippleFactor
       VkPipelineRasterizationLineStateCreateInfoEXTstippledLineEnable
@@ -30843,6 +35138,7 @@ ___return (physicaldevicelinerasterizationpropertiesext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30884,6 +35180,12 @@ ___return (physicaldevicelinerasterizationpropertiesext);"))
       uint16_t
       "___return (___arg1->lineStipplePattern);")
    (define-c-lambda
+      make-VkPipelineRasterizationLineStateCreateInfoEXT*
+      (int)
+      VkPipelineRasterizationLineStateCreateInfoEXT*
+      "VkPipelineRasterizationLineStateCreateInfoEXT* vkpipelinerasterizationlinestatecreateinfoext = malloc(___arg1 * sizeof(VkPipelineRasterizationLineStateCreateInfoEXT));
+      ___return (vkpipelinerasterizationlinestatecreateinfoext);")
+   (define-c-lambda
       make-VkPipelineRasterizationLineStateCreateInfoEXT
       (VkStructureType void* VkLineRasterizationModeEXT VkBool32 uint32_t uint16_t)
       VkPipelineRasterizationLineStateCreateInfoEXT*
@@ -30897,6 +35199,7 @@ pipelinerasterizationlinestatecreateinfoext->lineStipplePattern=___arg6;
 ___return (pipelinerasterizationlinestatecreateinfoext);"))
 (begin-ffi
    (make-VkPipelineCompilerControlCreateInfoAMD
+      make-VkPipelineCompilerControlCreateInfoAMD*
       VkPipelineCompilerControlCreateInfoAMDcompilerControlFlags
       VkPipelineCompilerControlCreateInfoAMDpNext
       VkPipelineCompilerControlCreateInfoAMDsType
@@ -30906,6 +35209,7 @@ ___return (pipelinerasterizationlinestatecreateinfoext);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30932,6 +35236,12 @@ ___return (pipelinerasterizationlinestatecreateinfoext);"))
       VkPipelineCompilerControlFlagsAMD
       "___return (___arg1->compilerControlFlags);")
    (define-c-lambda
+      make-VkPipelineCompilerControlCreateInfoAMD*
+      (int)
+      VkPipelineCompilerControlCreateInfoAMD*
+      "VkPipelineCompilerControlCreateInfoAMD* vkpipelinecompilercontrolcreateinfoamd = malloc(___arg1 * sizeof(VkPipelineCompilerControlCreateInfoAMD));
+      ___return (vkpipelinecompilercontrolcreateinfoamd);")
+   (define-c-lambda
       make-VkPipelineCompilerControlCreateInfoAMD
       (VkStructureType void* VkPipelineCompilerControlFlagsAMD)
       VkPipelineCompilerControlCreateInfoAMD*
@@ -30942,6 +35252,7 @@ pipelinecompilercontrolcreateinfoamd->compilerControlFlags=___arg3;
 ___return (pipelinecompilercontrolcreateinfoamd);"))
 (begin-ffi
    (make-VkPhysicalDeviceCoherentMemoryFeaturesAMD
+      make-VkPhysicalDeviceCoherentMemoryFeaturesAMD*
       VkPhysicalDeviceCoherentMemoryFeaturesAMDdeviceCoherentMemory
       VkPhysicalDeviceCoherentMemoryFeaturesAMDpNext
       VkPhysicalDeviceCoherentMemoryFeaturesAMDsType
@@ -30951,6 +35262,7 @@ ___return (pipelinecompilercontrolcreateinfoamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -30977,6 +35289,12 @@ ___return (pipelinecompilercontrolcreateinfoamd);"))
       VkBool32
       "___return (___arg1->deviceCoherentMemory);")
    (define-c-lambda
+      make-VkPhysicalDeviceCoherentMemoryFeaturesAMD*
+      (int)
+      VkPhysicalDeviceCoherentMemoryFeaturesAMD*
+      "VkPhysicalDeviceCoherentMemoryFeaturesAMD* vkphysicaldevicecoherentmemoryfeaturesamd = malloc(___arg1 * sizeof(VkPhysicalDeviceCoherentMemoryFeaturesAMD));
+      ___return (vkphysicaldevicecoherentmemoryfeaturesamd);")
+   (define-c-lambda
       make-VkPhysicalDeviceCoherentMemoryFeaturesAMD
       (VkStructureType void* VkBool32)
       VkPhysicalDeviceCoherentMemoryFeaturesAMD*
@@ -30991,6 +35309,7 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -31167,6 +35486,7 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -31259,7 +35579,7 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       "vkEnumerateInstanceLayerProperties")
    (define-c-lambda
       vkEnumerateInstanceExtensionProperties
-      (char-string (pointer uint32_t) (pointer VkExtensionProperties))
+      ((pointer char) (pointer uint32_t) (pointer VkExtensionProperties))
       VkResult
       "vkEnumerateInstanceExtensionProperties")
    (define-c-lambda

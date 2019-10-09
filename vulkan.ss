@@ -33,8 +33,7 @@
 					  0
 					  #f
 					  extension-count
-					  (scheme->char**
-					   extension-names)))
+					  extension-names))
 	(cons (vkCreateInstance in
 				 #f
 				 vk-instance)

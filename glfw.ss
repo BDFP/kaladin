@@ -1,6 +1,6 @@
 (import :std/foreign
-	:kaladin/ctypes)
-(include "cstrings.ss")
+	:kaladin/ctypes
+	:kaladin/cstrings)
 
 (export #t)
 
@@ -20,6 +20,8 @@
   (c-define-type window* (pointer (struct "GLFWwindow")))
 
   (c-define-type monitor* (pointer (struct "GLFWmonitor")))
+
+  (c-define-type char** (pointer char-string))
   
   (define-c-lambda glfwInit () bool "glfwInit")
   
