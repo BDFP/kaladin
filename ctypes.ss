@@ -104,7 +104,7 @@
 	(let (acc (f acc (ref-lambda (cdr cvector) i)))
 	  (if (reduced? acc)
 	    (unreduce acc)
-	    (loop (1+ i) acc)))))))
+	    (loop (+ i 1) acc)))))))
 
 (define cvector-transduce
   (case-lambda
@@ -119,7 +119,11 @@
 
 (define cvector (cons (length arr) (scheme->char** arr)))
 
-;; (cvector-transduce (tfilter (lambda (s) (equal? s "hello"))) rcons cvector ref-char-string)
+(cvector-transduce (tmap (lambda (x) (string-append x "as")))
+		   (rany (lambda (x) (equal? x "helloas")))
+		   #t
+		   cvector
+		   ref-char-string)
 
 ;; (def (map-cvector f cvector ref-lambda:)
 ;;   (with ([length . vector] cvector)

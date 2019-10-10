@@ -28,7 +28,11 @@
   (make-cvector vkEnumerateInstanceLayerProperties make-VkLayerProperties*))
 
 (define (validation-layer-supported?)
-  #f)
+  (cvector-transduce (tmap VkLayerPropertieslayerName)
+		     (rany (lambda (ext)
+			     (equal? +validation-layer+ ext)))
+		     (get-available-layers)
+		     ref-VkLayerProperties))
 
 (define (create-vulkan-instance)
   (with ((app-info (make-VkApplicationInfo VK_STRUCTURE_TYPE_APPLICATION_INFO
