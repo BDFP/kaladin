@@ -163,12 +163,15 @@
 
 (define (get-name+type type)
   (let* ((return-type (cadar ((sxpath '(type)) type)))
-	 (type-info (map string-trim-both ((sxpath '(*text*)) type)))
+	 (type-info (string-concatenate (map string-trim-both ((sxpath '(*text*)) type))))
 	 (ptr-type (cond
-		    ((member "*" type-info)
-		     (string-append return-type "*"))
+		    ((string-contains type-info  "*")
+		     (let (ptr-level (string-count type-info  #\*))
+		       (string-append return-type
+				      (string-concatenate (map (lambda (i) "*")
+								(iota ptr-level 1))))))
 
-		    ((string-contains (string-concatenate type-info) "[")
+		    ((string-contains type-info "[")
 		     (string-append return-type "[]"))
 		     
 		    (else return-type))))
@@ -210,8 +213,9 @@
 ;; 		   `((c-define-type ,sym char-string)))))
 
 (define (gen-base-pointer-types)
-  '(begin-ffi (char*)
-     (c-define-type char* char-string)))
+  '(begin-ffi (char* char**)
+     (c-define-type char* char-string)
+     (c-define-type char** (pointer char-string))))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ffi for bitmask ;;

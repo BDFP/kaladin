@@ -1162,223 +1162,223 @@ ___return(instance);")
    (define-c-lambda
       make-VkPhysicalDevice
       ()
-      (pointer "VkPhysicalDevice")
+      (pointer VkPhysicalDevice)
       "VkPhysicalDevice* physicaldevice = malloc(sizeof(VkPhysicalDevice));
 ___return(physicaldevice);")
    (define-c-lambda
       make-VkDevice
       ()
-      (pointer "VkDevice")
+      (pointer VkDevice)
       "VkDevice* device = malloc(sizeof(VkDevice));
 ___return(device);")
    (define-c-lambda
       make-VkQueue
       ()
-      (pointer "VkQueue")
+      (pointer VkQueue)
       "VkQueue* queue = malloc(sizeof(VkQueue));
 ___return(queue);")
    (define-c-lambda
       make-VkCommandBuffer
       ()
-      (pointer "VkCommandBuffer")
+      (pointer VkCommandBuffer)
       "VkCommandBuffer* commandbuffer = malloc(sizeof(VkCommandBuffer));
 ___return(commandbuffer);")
    (define-c-lambda
       make-VkDeviceMemory
       ()
-      (pointer "VkDeviceMemory")
+      (pointer VkDeviceMemory)
       "VkDeviceMemory* devicememory = malloc(sizeof(VkDeviceMemory));
 ___return(devicememory);")
    (define-c-lambda
       make-VkCommandPool
       ()
-      (pointer "VkCommandPool")
+      (pointer VkCommandPool)
       "VkCommandPool* commandpool = malloc(sizeof(VkCommandPool));
 ___return(commandpool);")
    (define-c-lambda
       make-VkBuffer
       ()
-      (pointer "VkBuffer")
+      (pointer VkBuffer)
       "VkBuffer* buffer = malloc(sizeof(VkBuffer));
 ___return(buffer);")
    (define-c-lambda
       make-VkBufferView
       ()
-      (pointer "VkBufferView")
+      (pointer VkBufferView)
       "VkBufferView* bufferview = malloc(sizeof(VkBufferView));
 ___return(bufferview);")
    (define-c-lambda
       make-VkImage
       ()
-      (pointer "VkImage")
+      (pointer VkImage)
       "VkImage* image = malloc(sizeof(VkImage));
 ___return(image);")
    (define-c-lambda
       make-VkImageView
       ()
-      (pointer "VkImageView")
+      (pointer VkImageView)
       "VkImageView* imageview = malloc(sizeof(VkImageView));
 ___return(imageview);")
    (define-c-lambda
       make-VkShaderModule
       ()
-      (pointer "VkShaderModule")
+      (pointer VkShaderModule)
       "VkShaderModule* shadermodule = malloc(sizeof(VkShaderModule));
 ___return(shadermodule);")
    (define-c-lambda
       make-VkPipeline
       ()
-      (pointer "VkPipeline")
+      (pointer VkPipeline)
       "VkPipeline* pipeline = malloc(sizeof(VkPipeline));
 ___return(pipeline);")
    (define-c-lambda
       make-VkPipelineLayout
       ()
-      (pointer "VkPipelineLayout")
+      (pointer VkPipelineLayout)
       "VkPipelineLayout* pipelinelayout = malloc(sizeof(VkPipelineLayout));
 ___return(pipelinelayout);")
    (define-c-lambda
       make-VkSampler
       ()
-      (pointer "VkSampler")
+      (pointer VkSampler)
       "VkSampler* sampler = malloc(sizeof(VkSampler));
 ___return(sampler);")
    (define-c-lambda
       make-VkDescriptorSet
       ()
-      (pointer "VkDescriptorSet")
+      (pointer VkDescriptorSet)
       "VkDescriptorSet* descriptorset = malloc(sizeof(VkDescriptorSet));
 ___return(descriptorset);")
    (define-c-lambda
       make-VkDescriptorSetLayout
       ()
-      (pointer "VkDescriptorSetLayout")
+      (pointer VkDescriptorSetLayout)
       "VkDescriptorSetLayout* descriptorsetlayout = malloc(sizeof(VkDescriptorSetLayout));
 ___return(descriptorsetlayout);")
    (define-c-lambda
       make-VkDescriptorPool
       ()
-      (pointer "VkDescriptorPool")
+      (pointer VkDescriptorPool)
       "VkDescriptorPool* descriptorpool = malloc(sizeof(VkDescriptorPool));
 ___return(descriptorpool);")
    (define-c-lambda
       make-VkFence
       ()
-      (pointer "VkFence")
+      (pointer VkFence)
       "VkFence* fence = malloc(sizeof(VkFence));
 ___return(fence);")
    (define-c-lambda
       make-VkSemaphore
       ()
-      (pointer "VkSemaphore")
+      (pointer VkSemaphore)
       "VkSemaphore* semaphore = malloc(sizeof(VkSemaphore));
 ___return(semaphore);")
    (define-c-lambda
       make-VkEvent
       ()
-      (pointer "VkEvent")
+      (pointer VkEvent)
       "VkEvent* event = malloc(sizeof(VkEvent));
 ___return(event);")
    (define-c-lambda
       make-VkQueryPool
       ()
-      (pointer "VkQueryPool")
+      (pointer VkQueryPool)
       "VkQueryPool* querypool = malloc(sizeof(VkQueryPool));
 ___return(querypool);")
    (define-c-lambda
       make-VkFramebuffer
       ()
-      (pointer "VkFramebuffer")
+      (pointer VkFramebuffer)
       "VkFramebuffer* framebuffer = malloc(sizeof(VkFramebuffer));
 ___return(framebuffer);")
    (define-c-lambda
       make-VkRenderPass
       ()
-      (pointer "VkRenderPass")
+      (pointer VkRenderPass)
       "VkRenderPass* renderpass = malloc(sizeof(VkRenderPass));
 ___return(renderpass);")
    (define-c-lambda
       make-VkPipelineCache
       ()
-      (pointer "VkPipelineCache")
+      (pointer VkPipelineCache)
       "VkPipelineCache* pipelinecache = malloc(sizeof(VkPipelineCache));
 ___return(pipelinecache);")
    (define-c-lambda
       make-VkObjectTableNVX
       ()
-      (pointer "VkObjectTableNVX")
+      (pointer VkObjectTableNVX)
       "VkObjectTableNVX* objecttablenvx = malloc(sizeof(VkObjectTableNVX));
 ___return(objecttablenvx);")
    (define-c-lambda
       make-VkIndirectCommandsLayoutNVX
       ()
-      (pointer "VkIndirectCommandsLayoutNVX")
+      (pointer VkIndirectCommandsLayoutNVX)
       "VkIndirectCommandsLayoutNVX* indirectcommandslayoutnvx = malloc(sizeof(VkIndirectCommandsLayoutNVX));
 ___return(indirectcommandslayoutnvx);")
    (define-c-lambda
       make-VkDescriptorUpdateTemplate
       ()
-      (pointer "VkDescriptorUpdateTemplate")
+      (pointer VkDescriptorUpdateTemplate)
       "VkDescriptorUpdateTemplate* descriptorupdatetemplate = malloc(sizeof(VkDescriptorUpdateTemplate));
 ___return(descriptorupdatetemplate);")
    (define-c-lambda
       make-VkSamplerYcbcrConversion
       ()
-      (pointer "VkSamplerYcbcrConversion")
+      (pointer VkSamplerYcbcrConversion)
       "VkSamplerYcbcrConversion* samplerycbcrconversion = malloc(sizeof(VkSamplerYcbcrConversion));
 ___return(samplerycbcrconversion);")
    (define-c-lambda
       make-VkValidationCacheEXT
       ()
-      (pointer "VkValidationCacheEXT")
+      (pointer VkValidationCacheEXT)
       "VkValidationCacheEXT* validationcacheext = malloc(sizeof(VkValidationCacheEXT));
 ___return(validationcacheext);")
    (define-c-lambda
       make-VkAccelerationStructureNV
       ()
-      (pointer "VkAccelerationStructureNV")
+      (pointer VkAccelerationStructureNV)
       "VkAccelerationStructureNV* accelerationstructurenv = malloc(sizeof(VkAccelerationStructureNV));
 ___return(accelerationstructurenv);")
    (define-c-lambda
       make-VkPerformanceConfigurationINTEL
       ()
-      (pointer "VkPerformanceConfigurationINTEL")
+      (pointer VkPerformanceConfigurationINTEL)
       "VkPerformanceConfigurationINTEL* performanceconfigurationintel = malloc(sizeof(VkPerformanceConfigurationINTEL));
 ___return(performanceconfigurationintel);")
    (define-c-lambda
       make-VkDisplayKHR
       ()
-      (pointer "VkDisplayKHR")
+      (pointer VkDisplayKHR)
       "VkDisplayKHR* displaykhr = malloc(sizeof(VkDisplayKHR));
 ___return(displaykhr);")
    (define-c-lambda
       make-VkDisplayModeKHR
       ()
-      (pointer "VkDisplayModeKHR")
+      (pointer VkDisplayModeKHR)
       "VkDisplayModeKHR* displaymodekhr = malloc(sizeof(VkDisplayModeKHR));
 ___return(displaymodekhr);")
    (define-c-lambda
       make-VkSurfaceKHR
       ()
-      (pointer "VkSurfaceKHR")
+      (pointer VkSurfaceKHR)
       "VkSurfaceKHR* surfacekhr = malloc(sizeof(VkSurfaceKHR));
 ___return(surfacekhr);")
    (define-c-lambda
       make-VkSwapchainKHR
       ()
-      (pointer "VkSwapchainKHR")
+      (pointer VkSwapchainKHR)
       "VkSwapchainKHR* swapchainkhr = malloc(sizeof(VkSwapchainKHR));
 ___return(swapchainkhr);")
    (define-c-lambda
       make-VkDebugReportCallbackEXT
       ()
-      (pointer "VkDebugReportCallbackEXT")
+      (pointer VkDebugReportCallbackEXT)
       "VkDebugReportCallbackEXT* debugreportcallbackext = malloc(sizeof(VkDebugReportCallbackEXT));
 ___return(debugreportcallbackext);")
    (define-c-lambda
       make-VkDebugUtilsMessengerEXT
       ()
-      (pointer "VkDebugUtilsMessengerEXT")
+      (pointer VkDebugUtilsMessengerEXT)
       "VkDebugUtilsMessengerEXT* debugutilsmessengerext = malloc(sizeof(VkDebugUtilsMessengerEXT));
 ___return(debugutilsmessengerext);"))
 (begin-ffi
@@ -2083,7 +2083,10 @@ ___return(debugutilsmessengerext);"))
    (c-define-type uint8_t* (pointer uint8_t))
    (c-define-type uint16_t int)
    (c-define-type uint16_t* (pointer uint16_t)))
-(begin-ffi (char*) (c-define-type char* char-string))
+(begin-ffi
+   (char* char**)
+   (c-define-type char* char-string)
+   (c-define-type char** (pointer char-string)))
 (begin-ffi
    (VkPipelineExecutableStatisticFormatKHR
       VkPipelineExecutableStatisticFormatKHR*
@@ -5477,7 +5480,7 @@ ___return (physicaldevicefeatures);"))
    (define-c-lambda
       VkDeviceCreateInfoppEnabledLayerNames
       (VkDeviceCreateInfo*)
-      char
+      char**
       "___return (___arg1->ppEnabledLayerNames);")
    (define-c-lambda
       VkDeviceCreateInfoenabledExtensionCount
@@ -5487,7 +5490,7 @@ ___return (physicaldevicefeatures);"))
    (define-c-lambda
       VkDeviceCreateInfoppEnabledExtensionNames
       (VkDeviceCreateInfo*)
-      char
+      char**
       "___return (___arg1->ppEnabledExtensionNames);")
    (define-c-lambda
       VkDeviceCreateInfopEnabledFeatures
@@ -5508,9 +5511,9 @@ ___return (physicaldevicefeatures);"))
          uint32_t
          VkDeviceQueueCreateInfo*
          uint32_t
-         char
+         char**
          uint32_t
-         char
+         char**
          VkPhysicalDeviceFeatures*)
       VkDeviceCreateInfo*
       "VkDeviceCreateInfo *devicecreateinfo = malloc(sizeof(VkDeviceCreateInfo));
@@ -5577,7 +5580,7 @@ ___return (devicecreateinfo);"))
    (define-c-lambda
       VkInstanceCreateInfoppEnabledLayerNames
       (VkInstanceCreateInfo*)
-      char
+      char**
       "___return (___arg1->ppEnabledLayerNames);")
    (define-c-lambda
       VkInstanceCreateInfoenabledExtensionCount
@@ -5587,7 +5590,7 @@ ___return (devicecreateinfo);"))
    (define-c-lambda
       VkInstanceCreateInfoppEnabledExtensionNames
       (VkInstanceCreateInfo*)
-      char
+      char**
       "___return (___arg1->ppEnabledExtensionNames);")
    (define-c-lambda
       make-VkInstanceCreateInfo*
@@ -5602,9 +5605,9 @@ ___return (devicecreateinfo);"))
          VkInstanceCreateFlags
          VkApplicationInfo*
          uint32_t
-         (pointer char-string)
+         char**
          uint32_t
-         (pointer char-string))
+         char**)
       VkInstanceCreateInfo*
       "VkInstanceCreateInfo *instancecreateinfo = malloc(sizeof(VkInstanceCreateInfo));
 instancecreateinfo->sType=___arg1;
