@@ -4,6 +4,7 @@
 	:std/srfi/1
 	:std/srfi/13
 	:gerbil/gambit/ports
+	:gerbil/gambit/bits
 	:kaladin/pprint)
 
 (export #t)
@@ -50,7 +51,8 @@
 		      (let (exports (cadr ffi-code))
 			(append (list (car ffi-code)
 				      (append sym exports))
-				(append (cddr ffi-code) code-for-sym)))))
+				(filter (lambda (x) (not (null? x)))
+					(append (cddr ffi-code) code-for-sym))))))
        (foldl (lambda (sym-info+type ffi-code)
 		(with ([sym-info . type] sym-info+type)
 		  (case type
@@ -68,6 +70,7 @@
 		 (c-declare "   
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -85,7 +88,7 @@
 
 (define vulkan-xml (read-xml (file->string "vk.xml")))
 (define types ((sxpath '(registry types type)) vulkan-xml))
-(define enums ((sxpath '(registry enums)) vulkan-xml))
+(define enums ((sxpath '(registry enums enum)) vulkan-xml))
 (define extensions ((sxpath '(registry extensions extension)) vulkan-xml))
 (define commands ((sxpath '(registry commands command)) vulkan-xml))
 
@@ -97,6 +100,14 @@
 			       (not (null? ((sxpath '(@ platform)) ext))))
 			     extensions)))
    (list "RROutput" "VisualID" "xcb_visualid_t")))
+
+(define extension-commands
+  (map cadr
+       (concatenate  (map (lambda (e)
+			    (concatenate (map (lambda (cmd)
+						((sxpath '(@ name)) cmd))
+					      ((sxpath '(require command)) e))))
+			  extensions))))
 
 (define (get-category-from-type type)
   (let (cat ((sxpath '(@ category)) type))
@@ -128,25 +139,40 @@
 (define (gen-handle-types type-name)
   `((c-define-type ,(string->symbol type-name)
 		     (pointer
-		      (struct ,(string-append type-name "_T"))))))
+		      (struct ,(string-append type-name "_T"))))
+    ))
 
 (define (gen-ffi-for-handle types)
   (let (handle-types (get-type-names-of-category "handle" types))
-    (make-ffi-code handle-types
+    (make-ffi-code (append (map (lambda (t) (cons t 'type)) handle-types)
+			   (map (lambda (t)
+				  (cons (list (cons 'symbol (string->symbol (string-append "make-" t)))
+					      (cons 'type t))
+					'lambda)) handle-types))
 		   (lambda (sym)
 		     ;; making no difference b/w
 		     ;; non-dispatchable-handle and dispatchable
-		     (gen-handle-types (symbol->string sym))))))
+		     (gen-handle-types (symbol->string sym)))
+		   (lambda (sym-info)
+		     (let* ((type (assget 'type sym-info))
+			    (var (string-downcase (string-drop type 2))))
+		       `((define-c-lambda ,(assget 'symbol  sym-info)
+			   () (pointer ,(string->symbol  type))
+			 ,(string-append type "* "  var " = " "malloc(sizeof(" type "));"
+					 "\n" "___return(" var ");"))))))))
 
 
 (define (get-name+type type)
   (let* ((return-type (cadar ((sxpath '(type)) type)))
-	 (type-info (map string-trim-both ((sxpath '(*text*)) type)))
+	 (type-info (string-concatenate (map string-trim-both ((sxpath '(*text*)) type))))
 	 (ptr-type (cond
-		    ((member "*" type-info)
-		     (string-append return-type "*"))
+		    ((string-contains type-info  "*")
+		     (let (ptr-level (string-count type-info  #\*))
+		       (string-append return-type
+				      (string-concatenate (map (lambda (i) "*")
+								(iota ptr-level 1))))))
 
-		    ((string-contains (string-concatenate type-info) "[")
+		    ((string-contains type-info "[")
 		     (string-append return-type "[]"))
 		     
 		    (else return-type))))
@@ -175,14 +201,22 @@
 		   `((c-define-type ,sym int)))))
 
 
+(define (gen-ffi-for-native-types)
+  (let (ffi '(("void*" .  (c-define-type void* (pointer void)))
+	      ("float*" . (c-define-type float* (pointer float)))
+	      ))
+    (make-ffi-code (map car ffi)
+		   (lambda (sym) (list (assget (symbol->string sym) ffi))))))
+
 ;; (define (gen-char-type)
 ;;   (make-ffi-code (list "char")
 ;; 		 (lambda (sym)
 ;; 		   `((c-define-type ,sym char-string)))))
 
 (define (gen-base-pointer-types)
-  '(begin-ffi (char*)
-     (c-define-type char* (pointer char))))
+  '(begin-ffi (char* char**)
+     (c-define-type char* char-string)
+     (c-define-type char** (pointer char-string))))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ffi for bitmask ;;
@@ -210,6 +244,45 @@
 		      (get-types-of-category "enum" types))
 		 (lambda (sym)
 		   `((c-define-type ,sym int)))))
+
+
+(define (c-hex->scheme-hex hex-val)
+  (string->number (cond
+		   ((string-contains hex-val "0x")
+		    (string-append "#x" (string-drop hex-val 2)))
+
+		   (else hex-val))))
+
+(define (number-potential? s)
+  (or (string-contains s "0x")
+      (string->number s)))
+
+(define (gen-enum-consts enums)
+  (filter (lambda (d) (not (null? d)))
+	  (map (lambda (e)
+		 (let ((name   (cadar ((sxpath '(@ name)) e)))
+		       (value  ((sxpath '(@ value)) e))
+		       (bitpos ((sxpath '(@ bitpos)) e))
+		       (alias  ((sxpath '(@ alias)) e)))
+		   (cond
+		    ((and (not (null? value))
+			  (number-potential? (cadar value)))
+		     (list 'define
+			   (string->symbol name)
+			   (c-hex->scheme-hex (cadar value))))
+
+		    ;; todo check for bitpos > 32
+		    ((not (null? bitpos))
+		     (list 'define (string->symbol name)
+			   (arithmetic-shift 1 (string->number (cadar bitpos)))))
+
+		    ;; todo this may refer to float or long types which have not been
+		    ;; converted yet
+		    ;; ((not (null? alias))
+		    ;;  (list 'define (string->symbol name) (string->symbol (cadar alias))))
+
+		    (else (list)))))
+	       enums)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -264,6 +337,7 @@
 
 (define (gen-malloc-info struct-name)
   (list (cons 'symbol (string->symbol (string-append "make-" struct-name)))
+	(cons 'type 'malloc)
 	(cons 'struct-name struct-name)))
 
 (define (setter-definition malloc-var-name member arg-index)
@@ -299,6 +373,31 @@
 
 ;; (displayln (malloc-function-definition struct-name members))
 
+(define (malloc-array-definition info)
+  (let* ((struct-name (assget 'struct-name info))
+	 (ptr (string-append struct-name "*")))
+    `((define-c-lambda ,(string->symbol (string-append "make-" ptr))
+	(int) ,(string->symbol ptr)
+      ,(string-append ptr " " (string-downcase struct-name)
+		      " = malloc(___arg1 * sizeof(" struct-name "));
+      ___return (" (string-downcase struct-name) ");")))))
+
+(define (ref-array-definition info)
+  (let* ((struct-name (assget 'struct-name info))
+	(ptr (string-append struct-name "*")))
+    `((define-c-lambda ,(string->symbol (string-append "ref-" struct-name))
+	(,(string->symbol ptr) int)  ,(string->symbol ptr) 
+	,(string-append "___return (___arg1 + ___arg2);")))))
+
+(define (gen-syms struct-name)
+  (list (list (cons 'symbol (string->symbol (string-append "make-" struct-name "*")))
+	      (cons 'type 'malloc-array)
+	      (cons 'struct-name struct-name))
+	(list (cons 'symbol (string->symbol (string-append "ref-" struct-name)))
+	      (cons 'type 'ref-array)
+	      (cons 'struct-name struct-name))	))
+
+
 (define (gen-malloc-lambda malloc-lambda-info members)
   (let* ((struct-name (assget 'struct-name malloc-lambda-info))
 	 (return-type (string->symbol (string-append struct-name "*"))))
@@ -318,6 +417,7 @@
 	   (list (cons 'symbol (string->symbol (string-append struct-name
 							      member-name)))
 		 (cons 'member-name member-name)
+		 (cons 'type 'getter)
 		 (cons 'struct-name struct-name))))
        (or members '())))
 
@@ -348,9 +448,13 @@
 			       )
 
 			 (map (lambda (n) (cons n 'lambda))
-			      (gen-getter-names struct-name members))
+			      (append (gen-getter-names struct-name members)
+				      (gen-syms struct-name)))
 			 
-			 (list (cons (gen-malloc-info struct-name) 'lambda)))
+			 (list (cons (gen-malloc-info struct-name) 'lambda)
+			       )
+
+			 )
 		 ;; types ffi lambda
 		 (lambda (sym)
 		   (let (type-name (symbol->string sym))
@@ -358,9 +462,13 @@
 		 ;; lambda ffi lambda
 		 (lambda (sym-info-alist)
 		   ;; member is only present for getters
-		   (if (assget 'member-name sym-info-alist)
-		     (gen-getter-lambda sym-info-alist members)
-		     (gen-malloc-lambda sym-info-alist members)))))
+		   (case (assget 'type sym-info-alist)
+		     ((malloc) (gen-malloc-lambda sym-info-alist members))
+		     ((getter) (gen-getter-lambda sym-info-alist members))
+		     ((malloc-array) (malloc-array-definition sym-info-alist))
+		     ((ref-array) (if (null? members)
+				    ''()
+				    (ref-array-definition sym-info-alist )))))))
 
 
 ;; usually defined in platform specific header files
@@ -530,10 +638,11 @@
 	(params ((sxpath '(param)) cmd))
 	(ret-type ((sxpath '(proto type)) cmd)))
     (if (or (null? name-res)
-	    (any (lambda (p)
-		   (member (cadar ((sxpath '(type)) p))
-			   platform-specific-type-names))
-		 params))
+	   (any (lambda (p)
+		  (member (cadar ((sxpath '(type)) p))
+			  platform-specific-type-names))
+		params)
+	   (member (cadar name-res) extension-commands))
       #f
       (let (name (cadar name-res))
 	(cons name
@@ -558,13 +667,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define make-ffi-module (lambda ()
-			  `((import :std/foreign)
-			    (include "glfw.scm")
-			    (include "ctypes.scm")
-			    
+			  `((import :std/foreign
+				    :kaladin/ctypes)
 			    (export #t)
 			    
 			    ,@(append
+			       (gen-enum-consts enums)
+			       (list (gen-ffi-for-native-types))
 			       (list (gen-ffi-for-handle types))
 			       (list (gen-ffi-for-basetype types))
 			       (list (gen-ffi-for-bitmask types))
@@ -579,6 +688,13 @@
 ;;;;;;;;;;
 ;; main ;;
 ;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; todo				 ;;
+;; 				 ;;
+;; * char* => char-string	 ;;
+;; * remove (include "glfw.scm") ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (main . args)
   (call-with-output-file "vulkan-auto.ss"
