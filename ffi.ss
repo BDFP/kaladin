@@ -51,7 +51,8 @@
 		      (let (exports (cadr ffi-code))
 			(append (list (car ffi-code)
 				      (append sym exports))
-				(append (cddr ffi-code) code-for-sym)))))
+				(filter (lambda (x) (not (null? x)))
+					(append (cddr ffi-code) code-for-sym))))))
        (foldl (lambda (sym-info+type ffi-code)
 		(with ([sym-info . type] sym-info+type)
 		  (case type
@@ -384,7 +385,7 @@
 (define (ref-array-definition info)
   (let* ((struct-name (assget 'struct-name info))
 	(ptr (string-append struct-name "*")))
-    `((define-c-lambda ,(string->symbol (string-append "ref-" ptr))
+    `((define-c-lambda ,(string->symbol (string-append "ref-" struct-name))
 	(,(string->symbol ptr) int)  ,(string->symbol ptr) 
 	,(string-append "___return (___arg1 + ___arg2);")))))
 
@@ -392,10 +393,9 @@
   (list (list (cons 'symbol (string->symbol (string-append "make-" struct-name "*")))
 	      (cons 'type 'malloc-array)
 	      (cons 'struct-name struct-name))
-	;; (list (cons 'symbol (string->symbol (string-append "ref-" struct-name)))
-	;;       (cons 'type 'ref-array)
-	;;       (cons 'struct-name struct-name))
-	))
+	(list (cons 'symbol (string->symbol (string-append "ref-" struct-name)))
+	      (cons 'type 'ref-array)
+	      (cons 'struct-name struct-name))	))
 
 
 (define (gen-malloc-lambda malloc-lambda-info members)
@@ -466,7 +466,9 @@
 		     ((malloc) (gen-malloc-lambda sym-info-alist members))
 		     ((getter) (gen-getter-lambda sym-info-alist members))
 		     ((malloc-array) (malloc-array-definition sym-info-alist))
-		     ((ref-array) (ref-array-definition sym-info-alist))))))
+		     ((ref-array) (if (null? members)
+				    ''()
+				    (ref-array-definition sym-info-alist )))))))
 
 
 ;; usually defined in platform specific header files

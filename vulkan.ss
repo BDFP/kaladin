@@ -21,10 +21,10 @@
     (displayln "instance " (read-int-ptr ec))
     (let (c (make-VkExtensionProperties* (read-int-ptr ec)))
       (vkEnumerateInstanceExtensionProperties #f ec c)
-      ;; (displayln "extensions " (map (lambda (i)
-      ;; 				      (VkExtensionPropertiesextensionName
-      ;; 				       (ref-VkExtensionProperties c i)))
-      ;; 				    (iota (read-int-ptr ec) 0)))
+      (displayln "extensions " (map (lambda (i)
+      				      (VkExtensionPropertiesextensionName
+      				       (ref-VkExtensionProperties c i)))
+      				    (iota (read-int-ptr ec) 0)))
       (displayln "Hola hoop")
       (let (in (make-VkInstanceCreateInfo VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO
 					  #f
