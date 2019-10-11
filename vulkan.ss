@@ -2,6 +2,7 @@
 	:kaladin/glfw
 	:kaladin/ctypes
 	:kaladin/cstrings
+	:std/srfi/1
 	:srfi/171)
 
 (export #t)
@@ -26,31 +27,37 @@
 		       ref-VkExtensionProperties)))
 
 (define (get-available-layers)
-  (make-cvector vkEnumerateInstanceLayerProperties make-VkLayerProperties*))
+  (cvector-transduce (tmap VkLayerPropertieslayerName)
+		     rcons
+		     (make-cvector vkEnumerateInstanceLayerProperties
+				   make-VkLayerProperties*)
+		     ref-VkLayerProperties))
+
+
 
 (define (validation-layer-supported?)
   (and *enable-validation-layer* 
-       (cvector-transduce (tmap VkLayerPropertieslayerName)
-			  (rany (lambda (ext)
-				  (equal? +validation-layer+ ext)))
-			  (get-available-layers)
-			  ref-VkLayerProperties)))
+     (any (lambda (e) (equal? +validation-layer+ e)) (get-available-layers))))
 
-;; (define (get-required-extensions validation?)
-;;   (let (glfw-extensions-cvector (get-required-instance-extensions)))
-;;   )
+;; returns cvector containing required extensions
+(define (get-required-extensions validation?)
+  (let (glfw-extensions-cvector (get-required-instance-extensions))
+    (if validation?
+      (append-cstring-vectors glfw-extensions-cvector
+			      (char**->cvector (list +validation-extension+)))
+      glfw-extensions-cvector)))
 
 (define (create-vulkan-instance)
-  (with ((app-info (make-VkApplicationInfo VK_STRUCTURE_TYPE_APPLICATION_INFO
+  (with* ((app-info (make-VkApplicationInfo VK_STRUCTURE_TYPE_APPLICATION_INFO
 					   #f
 					   "Hello triangle"
 					   #x010000
 					   "Kaladin"
 					   #x010000
 					   #x010000))
-	 ([extension-count . extension-names] (get-required-instance-extensions))
 	 (vk-instance (make-VkInstance))
-	 (validation? (validation-layer-supported?)))
+	 (validation? (validation-layer-supported?))
+	 ([extension-count . extension-names] (get-required-extensions validation?)))
     (let (in (make-VkInstanceCreateInfo VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO
 					#f
 					0

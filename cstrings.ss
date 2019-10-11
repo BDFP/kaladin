@@ -51,45 +51,59 @@
 	   arr)
     ch))
 
+(define (char**->cvector chars)
+  (cons (length chars) (scheme->char** chars)))
+
 (define (char**->scheme chs)
-  (cvector-transduce (tmap (lambda (c)
-			     (displayln c)
-			      c))
+  (cvector-transduce (tmap identity)
 		     rcons
-		     a
+		     chs
 		     ref-char-string))
+
+(define (comp-func . procs)
+  (define (comp-rec arg)
+    (if (null? procs)
+        arg
+        (let ((proc (car procs))
+              (rest (cdr procs)))
+          (set! procs rest)
+          (proc (comp-rec arg)))))
+
+  comp-rec)
 
 ;; appends vectors of strings
 (define (append-cstring-vectors . cvectors)
   (let* ((len (apply + (map car cvectors)))
 	 (dest (make-char** len)))
     (foldl (lambda (cvector vc)
-	     (car (cvector-transduce (compose (tenumerate)
-					       (tmap (lambda (ch)
-						       (let (i (+ vc (car ch)))
-							 (displayln i)
-							 (set-char-string-at-index! dest
-										    i
-										    (cdr ch))
-							 (1+ i)))))
-				      reverse-rcons
-				      cvector
-				      ref-char-string)))
+	     (car
+	      (reverse
+	       (cvector-transduce (comp-func (tenumerate)
+					     (tmap (lambda (ch)
+						     (let (i (+ vc (car ch)))
+						       (set-char-string-at-index! dest
+										  i
+										  (cdr ch))
+						       (1+ i)))))
+				  rcons
+				  cvector
+				  ref-char-string))))
 	   0
 	   cvectors)
     (cons len dest)))
-
+#|
 
 (define arr '("hello" "world"))
 
 (define arr2 '("nice" "day"))
 
-(define cvector (cons (length arr) (scheme->char** arr)))
+(define cvector (char**->cvector arr))
 
-(define cvector2 (cons (length arr2) (scheme->char** arr2)))
+(define cvector2 (char**->cvector  arr2))
 
 
 (define cvectors (list cvector cvector2))
 
 
 (define a (append-cstring-vectors cvector cvector2))
+|#
