@@ -30,8 +30,8 @@
 ;; // todo						  ;;
 ;; // 1. enum constants for extensions			  ;;
 ;; // 2. generation of ffi according to extension present ;;
-;; // 3. pass foreign pointer somehow			  ;;
-;; // 4. call the fns					  ;;
+;; // *. pass foreign pointer somehow			  ;;
+;; // *. call the fns					  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (create-debug-utils-messenger vk-instance)
   (createDebugUtils vk-instance
@@ -119,4 +119,6 @@
 
 (define (setup-validation-utils)
   (with ([res . vk-instance*] (create-vulkan-instance))
-    (create-debug-utils-messenger (ptr->VkInstance vk-instance*))))
+    (create-debug-utils-messenger (ptr->VkInstance vk-instance*))
+    (vkDestroyInstance (ptr->VkInstance vk-instance*) #f)
+    #f))

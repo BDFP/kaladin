@@ -1,4 +1,5 @@
-(import :std/foreign :kaladin/ctypes)
+(import :std/foreign
+	:kaladin/ctypes)
 (export #t)
 (define VK_MAX_PHYSICAL_DEVICE_NAME_SIZE 256)
 (define VK_UUID_SIZE 16)
@@ -39251,11 +39252,27 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    ;;    ""
    ;;    (displayln "debug callback: str"))
 
-   (c-define (debug-callback) (VkDebugUtilsMessageSeverityFlagBitsEXT
-			       VkDebugUtilsMessageTypeFlagsEXT
-			       VkDebugUtilsMessengerCallbackDataEXT*
-			       void*) VkBool32 "debugCallback" "static"
-	     (displayln "hello"))
+  	   (define-c-lambda make-int-ptr
+	     () (pointer int)
+	     "
+ uint32_t* res = malloc (sizeof (uint32_t));
+ if (res)
+ {
+  *res = 0;
+ }
+ ___return (res);")
+
+	   (define-c-lambda read-int-ptr ((pointer int)) int
+	     "___return (*___arg1);")
+
+  
+  (c-define (debug-callback message-severity message-type callback-data user-data)
+	    (VkDebugUtilsMessageSeverityFlagBitsEXT
+	     VkDebugUtilsMessageTypeFlagsEXT
+	     VkDebugUtilsMessengerCallbackDataEXT*
+	     void*) VkBool32 "debugCallback" "static"
+	     ;; (displayln "hello")
+	     (make-int-ptr))
    
    ;; (c-declare
    ;;    "

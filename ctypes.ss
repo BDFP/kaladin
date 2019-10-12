@@ -1,9 +1,7 @@
 (import :std/foreign
 	:srfi/171-meta
 	:srfi/171)
-
 (export #t)
-
 
 (begin-ffi (make-int32
 	    void*
