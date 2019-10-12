@@ -1051,7 +1051,9 @@
       VkPhysicalDevice
       VkPhysicalDevice*
       VkInstance
-      VkInstance*)
+      VkInstance*
+      ptr->VkInstance)
+  
    (c-declare
       "   
 #include <stdio.h>
@@ -1159,6 +1161,11 @@
       (pointer VkInstance)
       "VkInstance* instance = malloc(sizeof(VkInstance));
 ___return(instance);")
+   (define-c-lambda
+      ptr->VkInstance
+      (VkInstance*)
+      VkInstance
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDevice
       ()
@@ -27842,8 +27849,7 @@ ___return (debugutilsmessengercallbackdataext);"))
       "___return (___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDebugUtilsMessengerCreateInfoEXT
-      (VkStructureType
-         void*
+      (void*
          VkDebugUtilsMessengerCreateFlagsEXT
          VkDebugUtilsMessageSeverityFlagsEXT
          VkDebugUtilsMessageTypeFlagsEXT
@@ -27851,13 +27857,13 @@ ___return (debugutilsmessengercallbackdataext);"))
          void*)
       VkDebugUtilsMessengerCreateInfoEXT*
       "VkDebugUtilsMessengerCreateInfoEXT *debugutilsmessengercreateinfoext = malloc(sizeof(VkDebugUtilsMessengerCreateInfoEXT));
-debugutilsmessengercreateinfoext->sType=___arg1;
-debugutilsmessengercreateinfoext->pNext=___arg2;
-debugutilsmessengercreateinfoext->flags=___arg3;
-debugutilsmessengercreateinfoext->messageSeverity=___arg4;
-debugutilsmessengercreateinfoext->messageType=___arg5;
-debugutilsmessengercreateinfoext->pfnUserCallback=___arg6;
-debugutilsmessengercreateinfoext->pUserData=___arg7;
+debugutilsmessengercreateinfoext->sType=VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
+debugutilsmessengercreateinfoext->pNext=___arg1;
+debugutilsmessengercreateinfoext->flags=___arg2;
+debugutilsmessengercreateinfoext->messageSeverity=___arg3;
+debugutilsmessengercreateinfoext->messageType=___arg4;
+debugutilsmessengercreateinfoext->pfnUserCallback=___arg5;
+debugutilsmessengercreateinfoext->pUserData=___arg6;
 ___return (debugutilsmessengercreateinfoext);"))
 (begin-ffi
    (make-VkImportMemoryHostPointerInfoEXT
@@ -38278,7 +38284,7 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       "vkGetDeviceProcAddr")
    (define-c-lambda
       vkGetInstanceProcAddr
-      (VkInstance (pointer char))
+      (VkInstance char-string)
       PFN_vkVoidFunction
       "vkGetInstanceProcAddr")
    (define-c-lambda
@@ -39236,21 +39242,43 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       void
       "vkGetDescriptorSetLayoutSupport"))
 (begin-ffi
-   ()
-   (c-define
-      (vulkan-debug-callback str)
-      (char-string)
-      void
-      "vulkan_callback"
-      ""
-      (displayln "debug callback: str"))
-   (c-declare
-      "
-   static VKAPI_ATTR VkBool32 VKAPI_CALL
-   debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
-                 VkDebugUtilsMessageTypeFlagsEXT messageType,
-                 const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
-                 void* pUserData) {
-       vulkan_callback(pCallbackData->pMessage);
-       return VK_FALSE;
-   }"))
+   (debug-callback)
+   ;; (c-define
+   ;;    (vulkan-debug-callback str)
+   ;;    (char-string)
+   ;;    void
+   ;;    "vulkan_callback"
+   ;;    ""
+   ;;    (displayln "debug callback: str"))
+
+   (c-define (debug-callback) (VkDebugUtilsMessageSeverityFlagBitsEXT
+			       VkDebugUtilsMessageTypeFlagsEXT
+			       VkDebugUtilsMessengerCallbackDataEXT*
+			       void*) VkBool32 "debugCallback" "static"
+	     (displayln "hello"))
+   
+   ;; (c-declare
+   ;;    "
+   ;; static VKAPI_ATTR VkBool32 VKAPI_CALL
+   ;; debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+   ;;               VkDebugUtilsMessageTypeFlagsEXT messageType,
+   ;;               const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+   ;;               void* pUserData) {
+   ;;     vulkan_callback(pCallbackData->pMessage);
+   ;;     return VK_FALSE;
+   ;; }")
+
+   ;; (define-c-lambda debugCallback () PFN_vkDebugUtilsMessengerCallbackEXT
+   ;;   "___return (debugCallback);")
+   )
+
+(begin-ffi (createDebugUtils)
+
+  (define-c-lambda createDebugUtils
+    (VkInstance VkDebugUtilsMessengerCreateInfoEXT*
+		VkAllocationCallbacks*
+		VkDebugUtilsMessengerEXT*) VkResult
+    "PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT) 
+vkGetInstanceProcAddr(___arg1, \"vkCreateDebugUtilsMessengerEXT\");
+___return (func(___arg1, ___arg2, ___arg3, ___arg4));
+"))
