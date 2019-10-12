@@ -39235,3 +39235,22 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
          (pointer VkDescriptorSetLayoutSupport))
       void
       "vkGetDescriptorSetLayoutSupport"))
+(begin-ffi
+   ()
+   (c-define
+      (vulkan-debug-callback str)
+      (char-string)
+      void
+      "vulkan_callback"
+      ""
+      (displayln "debug callback: str"))
+   (c-declare
+      "
+   static VKAPI_ATTR VkBool32 VKAPI_CALL
+   debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+                 VkDebugUtilsMessageTypeFlagsEXT messageType,
+                 const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+                 void* pUserData) {
+       vulkan_callback(pCallbackData->pMessage);
+       return VK_FALSE;
+   }"))

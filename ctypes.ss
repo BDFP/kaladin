@@ -86,14 +86,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; transducers for cvectors ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compose . procs)
+  (define (comp-rec arg)
+    (if (null? procs)
+        arg
+        (let ((proc (car procs))
+              (rest (cdr procs)))
+          (set! procs rest)
+          (proc (comp-rec arg)))))
+  comp-rec)
 
-(def (compose . functions)
-  (define (make-chain thunk chain)
-    (lambda (args)
-      (call-with-values (lambda () (apply thunk args)) chain)))
-  (if (null? functions)
-      values
-      (foldl make-chain (car functions) (cdr functions))))
+
+(define log-transducer (tlog (lambda (res input)
+			       (displayln input))))
 
 (define (cvector-reduce f identity cvector ref-lambda)
   (let ((len (car cvector)))

@@ -7,12 +7,23 @@
 
 (export #t)
 
+;;;;;;;;;;;;;;;;;;;;;;
+;; validation layer ;;
+;;;;;;;;;;;;;;;;;;;;;;
+
 (define *enable-validation-layer* #t)
 (define +validation-layer+ "VK_LAYER_KHRONOS_validation")
 (define +validation-extension+ "VK_EXT_debug_utils")
 
-(define log-transducer (tlog (lambda (res input)
-			       (displayln input))))
+(define (validation-layer-supported?)
+  (and *enable-validation-layer* 
+     (any (lambda (e) (equal? +validation-layer+ e)) (get-available-layers))))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; vulkan extensions ;;
+;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (print-avilable-extensions)
   (let (extensions-cvector (make-cvector (lambda (count props)
@@ -26,18 +37,6 @@
 		       extensions-cvector
 		       ref-VkExtensionProperties)))
 
-(define (get-available-layers)
-  (cvector-transduce (tmap VkLayerPropertieslayerName)
-		     rcons
-		     (make-cvector vkEnumerateInstanceLayerProperties
-				   make-VkLayerProperties*)
-		     ref-VkLayerProperties))
-
-
-
-(define (validation-layer-supported?)
-  (and *enable-validation-layer* 
-     (any (lambda (e) (equal? +validation-layer+ e)) (get-available-layers))))
 
 ;; returns cvector containing required extensions
 (define (get-required-extensions validation?)
@@ -46,6 +45,22 @@
       (append-cstring-vectors glfw-extensions-cvector
 			      (char**->cvector (list +validation-extension+)))
       glfw-extensions-cvector)))
+
+
+;;;;;;;;;;;;;;;;;;;
+;; vulkan layers ;;
+;;;;;;;;;;;;;;;;;;;
+
+(define (get-available-layers)
+  (cvector-transduce (tmap VkLayerPropertieslayerName)
+		     rcons
+		     (make-cvector vkEnumerateInstanceLayerProperties
+				   make-VkLayerProperties*)
+		     ref-VkLayerProperties))
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; instance creation ;;
+;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (create-vulkan-instance)
   (with* ((app-info (make-VkApplicationInfo VK_STRUCTURE_TYPE_APPLICATION_INFO

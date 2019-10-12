@@ -661,6 +661,29 @@
 		     (assget (symbol->string (assget 'symbol sym)) name+ffi)))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; validation callbacks ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (gen-ffi-for-vulkan-callback)
+  '((begin-ffi ()
+    (c-define (vulkan-debug-callback str) (char-string) void
+	      "vulkan_callback" ""
+	      (displayln "debug callback:" str))
+
+    (c-declare 
+     "
+   static VKAPI_ATTR VkBool32 VKAPI_CALL
+   debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+                 VkDebugUtilsMessageTypeFlagsEXT messageType,
+                 const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+                 void* pUserData) {
+       vulkan_callback(pCallbackData->pMessage);
+       return VK_FALSE;
+   }"))))
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make gerbil module ;;
@@ -683,7 +706,8 @@
 			       (list (gen-ffi-for-unions types))
 			       (list (gen-ffi-for-opaque-structs types))
 			       (combine-structs-with-func-ptrs types)
-			       (list (gen-ffi-for-commands))))))
+			       (list (gen-ffi-for-commands))
+			       (gen-ffi-for-vulkan-callback)))))
 
 ;;;;;;;;;;
 ;; main ;;

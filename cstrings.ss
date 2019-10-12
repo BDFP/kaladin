@@ -60,17 +60,6 @@
 		     chs
 		     ref-char-string))
 
-(define (comp-func . procs)
-  (define (comp-rec arg)
-    (if (null? procs)
-        arg
-        (let ((proc (car procs))
-              (rest (cdr procs)))
-          (set! procs rest)
-          (proc (comp-rec arg)))))
-
-  comp-rec)
-
 ;; appends vectors of strings
 (define (append-cstring-vectors . cvectors)
   (let* ((len (apply + (map car cvectors)))
@@ -78,7 +67,7 @@
     (foldl (lambda (cvector vc)
 	     (car
 	      (reverse
-	       (cvector-transduce (comp-func (tenumerate)
+	       (cvector-transduce (compose (tenumerate)
 					     (tmap (lambda (ch)
 						     (let (i (+ vc (car ch)))
 						       (set-char-string-at-index! dest
