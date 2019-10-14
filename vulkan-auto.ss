@@ -1053,7 +1053,8 @@
       VkPhysicalDevice*
       VkInstance
       VkInstance*
-      ptr->VkInstance)
+      ptr->VkInstance
+      ptr->VkDebugUtilsMessengerEXT)
   
    (c-declare
       "   
@@ -1156,6 +1157,9 @@
       VkDebugUtilsMessengerEXT
       (pointer (struct "VkDebugUtilsMessengerEXT_T")))
    (c-define-type VkDebugUtilsMessengerEXT* (pointer VkDebugUtilsMessengerEXT))
+   (define-c-lambda ptr->VkDebugUtilsMessengerEXT
+     (VkDebugUtilsMessengerEXT*) VkDebugUtilsMessengerEXT
+     "___return (*___arg1);")
    (define-c-lambda
       make-VkInstance
       ()
@@ -39289,7 +39293,8 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    ;;   "___return (debugCallback);")
    )
 
-(begin-ffi (createDebugUtils)
+(begin-ffi (createDebugUtils
+	    destroyDebugUtils)
 
   (define-c-lambda createDebugUtils
     (VkInstance VkDebugUtilsMessengerCreateInfoEXT*
@@ -39298,4 +39303,12 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
     "PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT) 
 vkGetInstanceProcAddr(___arg1, \"vkCreateDebugUtilsMessengerEXT\");
 ___return (func(___arg1, ___arg2, ___arg3, ___arg4));
+")
+
+  (define-c-lambda destroyDebugUtils
+    (VkInstance VkDebugUtilsMessengerEXT VkAllocationCallbacks*) void
+    "PFN_vkDestroyDebugUtilsMessengerEXT func = (PFN_vkDestroyDebugUtilsMessengerEXT) 
+vkGetInstanceProcAddr(___arg1, \"vkDestroyDebugUtilsMessengerEXT\");
+     func(___arg1, ___arg2, ___arg3);
+     ___return;
 "))

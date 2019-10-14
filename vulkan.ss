@@ -34,20 +34,22 @@
 ;; // *. call the fns					  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (create-debug-utils-messenger vk-instance)
-  (createDebugUtils vk-instance
-		    (make-VkDebugUtilsMessengerCreateInfoEXT
-		     #f
-		     0
-		     (bitwise-ior VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT
-				  VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT
-				  VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT)
-		     (bitwise-ior VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT
-				  VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT
-				  VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT)
-		     debug-callback
-		     #f)
-		    #f
-		    (make-VkDebugUtilsMessengerEXT)))
+  (let (messenger (make-VkDebugUtilsMessengerEXT))
+    (createDebugUtils vk-instance
+		      (make-VkDebugUtilsMessengerCreateInfoEXT
+		       #f
+		       0
+		       (bitwise-ior VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT
+				    VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT
+				    VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT)
+		       (bitwise-ior VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT
+				    VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT
+				    VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT)
+		       debug-callback
+		       #f)
+		      #f
+		      messenger)
+    messenger))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; vulkan extensions ;;
@@ -118,7 +120,8 @@
 
 
 (define (setup-validation-utils)
-  (with ([res . vk-instance*] (create-vulkan-instance))
-    (create-debug-utils-messenger (ptr->VkInstance vk-instance*))
-    (vkDestroyInstance (ptr->VkInstance vk-instance*) #f)
-    #f))
+  (with* (([res . vk-instance*] (create-vulkan-instance))
+	  (vk-instance (ptr->VkInstance vk-instance*))
+	  (messenger* (create-debug-utils-messenger vk-instance)))
+	 (destroyDebugUtils vk-instance (ptr->VkDebugUtilsMessengerEXT messenger*) #f)
+	 (vkDestroyInstance vk-instance #f)))
