@@ -1,5 +1,17 @@
 * Kaladin 
 
+** Requirements
+
++ srfi 171 https://github.com/shakdwipeea/gerbil-srfi-171
++ srfi 64 https://github.com/shakdwipeea/gerbil-srfi-64
++ srfi 35 https://github.com/shakdwipeea/gerbil-srfi-171
+
+These can be installed with 
+
+#+BEGIN_SRC
+gxpkg install <repo-url>
+#+END_SRC
+
 ** Build
 
 + Run ./build.ss
