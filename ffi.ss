@@ -125,6 +125,12 @@
 (define (get-type-names types)
   (map cadr ((sxpath '(name)) types)))
 
+(define (gen-ptr-ref-definition sym-info)
+  (let (type (string->symbol (assget 'var-type sym-info)))
+    `((define-c-lambda ,(assget 'symbol  sym-info)
+	((pointer ,type))  ,type
+	"___return(*___arg1);"))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ffi for handle types ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -136,30 +142,47 @@
 ;; `((c-define-type ,(string->symbol type-name)
 ;; 		     (pointer ,(string->symbol (string-drop-right type-name 1)))))
 
+(define (make-lambda-info symbol type var-type)
+  (cons (list (cons 'symbol symbol)
+	      (cons 'type type)
+	      (cons 'var-type var-type)) 'lambda))
+
 (define (gen-handle-types type-name)
   `((c-define-type ,(string->symbol type-name)
 		     (pointer
-		      (struct ,(string-append type-name "_T"))))
-    ))
+		      (struct ,(string-append type-name "_T"))))))
+
+
+(define (gen-handle-lambda-definition sym-info)
+  (let* ((type (assget 'var-type sym-info))
+	 (var (string-downcase (string-drop type 2))))
+    (case (assget 'type sym-info)
+      ((malloc) `((define-c-lambda ,(assget 'symbol  sym-info)
+		    () (pointer ,(string->symbol  type))
+		    ,(string-append type "* "  var " = " "malloc(sizeof(" type "));"
+				    "\n" "___return(" var ");"))))
+      ((ptr-ref) (gen-ptr-ref-definition sym-info)))))
+
 
 (define (gen-ffi-for-handle types)
   (let (handle-types (get-type-names-of-category "handle" types))
     (make-ffi-code (append (map (lambda (t) (cons t 'type)) handle-types)
-			   (map (lambda (t)
-				  (cons (list (cons 'symbol (string->symbol (string-append "make-" t)))
-					      (cons 'type t))
-					'lambda)) handle-types))
+			   (concatenate
+			    (map (lambda (t)
+				   (list
+				    (make-lambda-info (string->symbol (string-append "make-" t))
+						 'malloc
+						 t)
+				    (make-lambda-info (string->symbol (string-append "ptr->" t))
+						 'ptr-ref
+						 t)))
+				 handle-types)))
 		   (lambda (sym)
 		     ;; making no difference b/w
 		     ;; non-dispatchable-handle and dispatchable
 		     (gen-handle-types (symbol->string sym)))
 		   (lambda (sym-info)
-		     (let* ((type (assget 'type sym-info))
-			    (var (string-downcase (string-drop type 2))))
-		       `((define-c-lambda ,(assget 'symbol  sym-info)
-			   () (pointer ,(string->symbol  type))
-			 ,(string-append type "* "  var " = " "malloc(sizeof(" type "));"
-					 "\n" "___return(" var ");"))))))))
+		     (gen-handle-lambda-definition sym-info)))))
 
 
 (define (get-name+type type)
@@ -395,7 +418,10 @@
 	      (cons 'struct-name struct-name))
 	(list (cons 'symbol (string->symbol (string-append "ref-" struct-name)))
 	      (cons 'type 'ref-array)
-	      (cons 'struct-name struct-name))	))
+	      (cons 'struct-name struct-name))
+	(list (cons 'symbol (string->symbol (string-append "ptr->" struct-name)))
+	      (cons 'type 'ptr-ref)
+	      (cons 'var-type struct-name))))
 
 
 (define (gen-malloc-lambda malloc-lambda-info members)
@@ -468,7 +494,8 @@
 		     ((malloc-array) (malloc-array-definition sym-info-alist))
 		     ((ref-array) (if (null? members)
 				    ''()
-				    (ref-array-definition sym-info-alist )))))))
+				    (ref-array-definition sym-info-alist )))
+		     ((ptr-ref) (gen-ptr-ref-definition sym-info-alist))))))
 
 
 ;; usually defined in platform specific header files
