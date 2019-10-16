@@ -1,5 +1,4 @@
-(import :std/foreign
-	:kaladin/ctypes)
+(import :std/foreign :kaladin/ctypes)
 (export #t)
 (define VK_MAX_PHYSICAL_DEVICE_NAME_SIZE 256)
 (define VK_UUID_SIZE 16)
@@ -1052,10 +1051,7 @@
       VkPhysicalDevice
       VkPhysicalDevice*
       VkInstance
-      VkInstance*
-      ptr->VkInstance
-      ptr->VkDebugUtilsMessengerEXT)
-  
+      VkInstance*)
    (c-declare
       "   
 #include <stdio.h>
@@ -1157,20 +1153,12 @@
       VkDebugUtilsMessengerEXT
       (pointer (struct "VkDebugUtilsMessengerEXT_T")))
    (c-define-type VkDebugUtilsMessengerEXT* (pointer VkDebugUtilsMessengerEXT))
-   (define-c-lambda ptr->VkDebugUtilsMessengerEXT
-     (VkDebugUtilsMessengerEXT*) VkDebugUtilsMessengerEXT
-     "___return (*___arg1);")
    (define-c-lambda
       make-VkInstance
       ()
       (pointer VkInstance)
       "VkInstance* instance = malloc(sizeof(VkInstance));
 ___return(instance);")
-   (define-c-lambda
-      ptr->VkInstance
-      (VkInstance*)
-      VkInstance
-      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDevice
       ()
@@ -3111,6 +3099,7 @@ ___return(debugutilsmessengerext);"))
    (c-define-type GgpFrameToken* (pointer GgpFrameToken)))
 (begin-ffi
    (make-VkBaseOutStructure
+      ptr->VkBaseOutStructure
       ref-VkBaseOutStructure
       make-VkBaseOutStructure*
       VkBaseOutStructurepNext
@@ -3148,7 +3137,12 @@ ___return(debugutilsmessengerext);"))
       ref-VkBaseOutStructure
       (VkBaseOutStructure* int)
       VkBaseOutStructure*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBaseOutStructure
+      ((pointer VkBaseOutStructure))
+      VkBaseOutStructure
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBaseOutStructure
       (VkStructureType VkBaseOutStructure*)
@@ -3159,6 +3153,7 @@ baseoutstructure->pNext=___arg2;
 ___return (baseoutstructure);"))
 (begin-ffi
    (make-VkBaseInStructure
+      ptr->VkBaseInStructure
       ref-VkBaseInStructure
       make-VkBaseInStructure*
       VkBaseInStructurepNext
@@ -3196,7 +3191,12 @@ ___return (baseoutstructure);"))
       ref-VkBaseInStructure
       (VkBaseInStructure* int)
       VkBaseInStructure*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBaseInStructure
+      ((pointer VkBaseInStructure))
+      VkBaseInStructure
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBaseInStructure
       (VkStructureType VkBaseInStructure*)
@@ -3207,6 +3207,7 @@ baseinstructure->pNext=___arg2;
 ___return (baseinstructure);"))
 (begin-ffi
    (make-VkOffset2D
+      ptr->VkOffset2D
       ref-VkOffset2D
       make-VkOffset2D*
       VkOffset2Dy
@@ -3236,7 +3237,12 @@ ___return (baseinstructure);"))
       ref-VkOffset2D
       (VkOffset2D* int)
       VkOffset2D*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkOffset2D
+      ((pointer VkOffset2D))
+      VkOffset2D
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkOffset2D
       (int32_t int32_t)
@@ -3247,6 +3253,7 @@ offset2d->y=___arg2;
 ___return (offset2d);"))
 (begin-ffi
    (make-VkOffset3D
+      ptr->VkOffset3D
       ref-VkOffset3D
       make-VkOffset3D*
       VkOffset3Dz
@@ -3278,7 +3285,12 @@ ___return (offset2d);"))
       ref-VkOffset3D
       (VkOffset3D* int)
       VkOffset3D*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkOffset3D
+      ((pointer VkOffset3D))
+      VkOffset3D
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkOffset3D
       (int32_t int32_t int32_t)
@@ -3290,6 +3302,7 @@ offset3d->z=___arg3;
 ___return (offset3d);"))
 (begin-ffi
    (make-VkExtent2D
+      ptr->VkExtent2D
       ref-VkExtent2D
       make-VkExtent2D*
       VkExtent2Dheight
@@ -3323,7 +3336,12 @@ ___return (offset3d);"))
       ref-VkExtent2D
       (VkExtent2D* int)
       VkExtent2D*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExtent2D
+      ((pointer VkExtent2D))
+      VkExtent2D
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExtent2D
       (uint32_t uint32_t)
@@ -3334,6 +3352,7 @@ extent2d->height=___arg2;
 ___return (extent2d);"))
 (begin-ffi
    (make-VkExtent3D
+      ptr->VkExtent3D
       ref-VkExtent3D
       make-VkExtent3D*
       VkExtent3Ddepth
@@ -3369,7 +3388,12 @@ ___return (extent2d);"))
       ref-VkExtent3D
       (VkExtent3D* int)
       VkExtent3D*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExtent3D
+      ((pointer VkExtent3D))
+      VkExtent3D
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExtent3D
       (uint32_t uint32_t uint32_t)
@@ -3381,6 +3405,7 @@ extent3d->depth=___arg3;
 ___return (extent3d);"))
 (begin-ffi
    (make-VkViewport
+      ptr->VkViewport
       ref-VkViewport
       make-VkViewport*
       VkViewportmaxDepth
@@ -3426,7 +3451,12 @@ ___return (extent3d);"))
       ref-VkViewport
       (VkViewport* int)
       VkViewport*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkViewport
+      ((pointer VkViewport))
+      VkViewport
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkViewport
       (float float float float float float)
@@ -3441,6 +3471,7 @@ viewport->maxDepth=___arg6;
 ___return (viewport);"))
 (begin-ffi
    (make-VkRect2D
+      ptr->VkRect2D
       ref-VkRect2D
       make-VkRect2D*
       VkRect2Dextent
@@ -3470,7 +3501,8 @@ ___return (viewport);"))
       ref-VkRect2D
       (VkRect2D* int)
       VkRect2D*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda ptr->VkRect2D ((pointer VkRect2D)) VkRect2D "___return(*___arg1);")
    (define-c-lambda
       make-VkRect2D
       (VkOffset2D VkExtent2D)
@@ -3481,6 +3513,7 @@ rect2d->extent=___arg2;
 ___return (rect2d);"))
 (begin-ffi
    (make-VkClearRect
+      ptr->VkClearRect
       ref-VkClearRect
       make-VkClearRect*
       VkClearRectlayerCount
@@ -3520,7 +3553,12 @@ ___return (rect2d);"))
       ref-VkClearRect
       (VkClearRect* int)
       VkClearRect*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkClearRect
+      ((pointer VkClearRect))
+      VkClearRect
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkClearRect
       (VkRect2D uint32_t uint32_t)
@@ -3532,6 +3570,7 @@ clearrect->layerCount=___arg3;
 ___return (clearrect);"))
 (begin-ffi
    (make-VkComponentMapping
+      ptr->VkComponentMapping
       ref-VkComponentMapping
       make-VkComponentMapping*
       VkComponentMappinga
@@ -3581,7 +3620,12 @@ ___return (clearrect);"))
       ref-VkComponentMapping
       (VkComponentMapping* int)
       VkComponentMapping*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkComponentMapping
+      ((pointer VkComponentMapping))
+      VkComponentMapping
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkComponentMapping
       (VkComponentSwizzle VkComponentSwizzle VkComponentSwizzle VkComponentSwizzle)
@@ -3594,6 +3638,7 @@ componentmapping->a=___arg4;
 ___return (componentmapping);"))
 (begin-ffi
    (make-VkPhysicalDeviceSparseProperties
+      ptr->VkPhysicalDeviceSparseProperties
       ref-VkPhysicalDeviceSparseProperties
       make-VkPhysicalDeviceSparseProperties*
       VkPhysicalDeviceSparsePropertiesresidencyNonResidentStrict
@@ -3653,7 +3698,12 @@ ___return (componentmapping);"))
       ref-VkPhysicalDeviceSparseProperties
       (VkPhysicalDeviceSparseProperties* int)
       VkPhysicalDeviceSparseProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceSparseProperties
+      ((pointer VkPhysicalDeviceSparseProperties))
+      VkPhysicalDeviceSparseProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceSparseProperties
       (VkBool32 VkBool32 VkBool32 VkBool32 VkBool32)
@@ -3667,6 +3717,7 @@ physicaldevicesparseproperties->residencyNonResidentStrict=___arg5;
 ___return (physicaldevicesparseproperties);"))
 (begin-ffi
    (make-VkPhysicalDeviceLimits
+      ptr->VkPhysicalDeviceLimits
       ref-VkPhysicalDeviceLimits
       make-VkPhysicalDeviceLimits*
       VkPhysicalDeviceLimitsnonCoherentAtomSize
@@ -4328,7 +4379,12 @@ ___return (physicaldevicesparseproperties);"))
       ref-VkPhysicalDeviceLimits
       (VkPhysicalDeviceLimits* int)
       VkPhysicalDeviceLimits*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceLimits
+      ((pointer VkPhysicalDeviceLimits))
+      VkPhysicalDeviceLimits
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceLimits
       (uint32_t
@@ -4548,6 +4604,7 @@ physicaldevicelimits->nonCoherentAtomSize=___arg106;
 ___return (physicaldevicelimits);"))
 (begin-ffi
    (make-VkPhysicalDeviceProperties
+      ptr->VkPhysicalDeviceProperties
       ref-VkPhysicalDeviceProperties
       make-VkPhysicalDeviceProperties*
       VkPhysicalDevicePropertiessparseProperties
@@ -4627,7 +4684,12 @@ ___return (physicaldevicelimits);"))
       ref-VkPhysicalDeviceProperties
       (VkPhysicalDeviceProperties* int)
       VkPhysicalDeviceProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceProperties
+      ((pointer VkPhysicalDeviceProperties))
+      VkPhysicalDeviceProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceProperties
       (uint32_t
@@ -4653,6 +4715,7 @@ physicaldeviceproperties->sparseProperties=___arg9;
 ___return (physicaldeviceproperties);"))
 (begin-ffi
    (make-VkExtensionProperties
+      ptr->VkExtensionProperties
       ref-VkExtensionProperties
       make-VkExtensionProperties*
       VkExtensionPropertiesspecVersion
@@ -4690,7 +4753,12 @@ ___return (physicaldeviceproperties);"))
       ref-VkExtensionProperties
       (VkExtensionProperties* int)
       VkExtensionProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExtensionProperties
+      ((pointer VkExtensionProperties))
+      VkExtensionProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExtensionProperties
       (char* uint32_t)
@@ -4701,6 +4769,7 @@ extensionproperties->specVersion=___arg2;
 ___return (extensionproperties);"))
 (begin-ffi
    (make-VkLayerProperties
+      ptr->VkLayerProperties
       ref-VkLayerProperties
       make-VkLayerProperties*
       VkLayerPropertiesdescription
@@ -4750,7 +4819,12 @@ ___return (extensionproperties);"))
       ref-VkLayerProperties
       (VkLayerProperties* int)
       VkLayerProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkLayerProperties
+      ((pointer VkLayerProperties))
+      VkLayerProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkLayerProperties
       (char* uint32_t uint32_t char*)
@@ -4763,6 +4837,7 @@ memcpy(layerproperties->description,___arg4,sizeof(___arg4));
 ___return (layerproperties);"))
 (begin-ffi
    (make-VkApplicationInfo
+      ptr->VkApplicationInfo
       ref-VkApplicationInfo
       make-VkApplicationInfo*
       VkApplicationInfoapiVersion
@@ -4830,7 +4905,12 @@ ___return (layerproperties);"))
       ref-VkApplicationInfo
       (VkApplicationInfo* int)
       VkApplicationInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkApplicationInfo
+      ((pointer VkApplicationInfo))
+      VkApplicationInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkApplicationInfo
       (VkStructureType void* char* uint32_t char* uint32_t uint32_t)
@@ -4929,6 +5009,7 @@ ___return (applicationinfo);"))
    (c-define-type PFN_vkAllocationFunction* (pointer PFN_vkAllocationFunction)))
 (begin-ffi
    (make-VkAllocationCallbacks
+      ptr->VkAllocationCallbacks
       ref-VkAllocationCallbacks
       make-VkAllocationCallbacks*
       VkAllocationCallbackspfnInternalFree
@@ -4990,7 +5071,12 @@ ___return (applicationinfo);"))
       ref-VkAllocationCallbacks
       (VkAllocationCallbacks* int)
       VkAllocationCallbacks*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkAllocationCallbacks
+      ((pointer VkAllocationCallbacks))
+      VkAllocationCallbacks
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkAllocationCallbacks
       (void*
@@ -5010,6 +5096,7 @@ allocationcallbacks->pfnInternalFree=___arg6;
 ___return (allocationcallbacks);"))
 (begin-ffi
    (make-VkDeviceQueueCreateInfo
+      ptr->VkDeviceQueueCreateInfo
       ref-VkDeviceQueueCreateInfo
       make-VkDeviceQueueCreateInfo*
       VkDeviceQueueCreateInfopQueuePriorities
@@ -5071,7 +5158,12 @@ ___return (allocationcallbacks);"))
       ref-VkDeviceQueueCreateInfo
       (VkDeviceQueueCreateInfo* int)
       VkDeviceQueueCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceQueueCreateInfo
+      ((pointer VkDeviceQueueCreateInfo))
+      VkDeviceQueueCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceQueueCreateInfo
       (VkStructureType void* VkDeviceQueueCreateFlags uint32_t uint32_t float*)
@@ -5086,6 +5178,7 @@ devicequeuecreateinfo->pQueuePriorities=___arg6;
 ___return (devicequeuecreateinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceFeatures
+      ptr->VkPhysicalDeviceFeatures
       ref-VkPhysicalDeviceFeatures
       make-VkPhysicalDeviceFeatures*
       VkPhysicalDeviceFeaturesinheritedQueries
@@ -5441,7 +5534,12 @@ ___return (devicequeuecreateinfo);"))
       ref-VkPhysicalDeviceFeatures
       (VkPhysicalDeviceFeatures* int)
       VkPhysicalDeviceFeatures*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceFeatures
+      ((pointer VkPhysicalDeviceFeatures))
+      VkPhysicalDeviceFeatures
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceFeatures
       (VkBool32
@@ -5559,6 +5657,7 @@ physicaldevicefeatures->inheritedQueries=___arg55;
 ___return (physicaldevicefeatures);"))
 (begin-ffi
    (make-VkDeviceCreateInfo
+      ptr->VkDeviceCreateInfo
       ref-VkDeviceCreateInfo
       make-VkDeviceCreateInfo*
       VkDeviceCreateInfopEnabledFeatures
@@ -5644,7 +5743,12 @@ ___return (physicaldevicefeatures);"))
       ref-VkDeviceCreateInfo
       (VkDeviceCreateInfo* int)
       VkDeviceCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceCreateInfo
+      ((pointer VkDeviceCreateInfo))
+      VkDeviceCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceCreateInfo
       (VkStructureType
@@ -5672,6 +5776,7 @@ devicecreateinfo->pEnabledFeatures=___arg10;
 ___return (devicecreateinfo);"))
 (begin-ffi
    (make-VkInstanceCreateInfo
+      ptr->VkInstanceCreateInfo
       ref-VkInstanceCreateInfo
       make-VkInstanceCreateInfo*
       VkInstanceCreateInfoppEnabledExtensionNames
@@ -5745,7 +5850,12 @@ ___return (devicecreateinfo);"))
       ref-VkInstanceCreateInfo
       (VkInstanceCreateInfo* int)
       VkInstanceCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkInstanceCreateInfo
+      ((pointer VkInstanceCreateInfo))
+      VkInstanceCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkInstanceCreateInfo
       (VkStructureType
@@ -5769,6 +5879,7 @@ instancecreateinfo->ppEnabledExtensionNames=___arg8;
 ___return (instancecreateinfo);"))
 (begin-ffi
    (make-VkQueueFamilyProperties
+      ptr->VkQueueFamilyProperties
       ref-VkQueueFamilyProperties
       make-VkQueueFamilyProperties*
       VkQueueFamilyPropertiesminImageTransferGranularity
@@ -5818,7 +5929,12 @@ ___return (instancecreateinfo);"))
       ref-VkQueueFamilyProperties
       (VkQueueFamilyProperties* int)
       VkQueueFamilyProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkQueueFamilyProperties
+      ((pointer VkQueueFamilyProperties))
+      VkQueueFamilyProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkQueueFamilyProperties
       (VkQueueFlags uint32_t uint32_t VkExtent3D)
@@ -5831,6 +5947,7 @@ queuefamilyproperties->minImageTransferGranularity=___arg4;
 ___return (queuefamilyproperties);"))
 (begin-ffi
    (make-VkMemoryHeap
+      ptr->VkMemoryHeap
       ref-VkMemoryHeap
       make-VkMemoryHeap*
       VkMemoryHeapflags
@@ -5868,7 +5985,12 @@ ___return (queuefamilyproperties);"))
       ref-VkMemoryHeap
       (VkMemoryHeap* int)
       VkMemoryHeap*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryHeap
+      ((pointer VkMemoryHeap))
+      VkMemoryHeap
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryHeap
       (VkDeviceSize VkMemoryHeapFlags)
@@ -5879,6 +6001,7 @@ memoryheap->flags=___arg2;
 ___return (memoryheap);"))
 (begin-ffi
    (make-VkMemoryType
+      ptr->VkMemoryType
       ref-VkMemoryType
       make-VkMemoryType*
       VkMemoryTypeheapIndex
@@ -5916,7 +6039,12 @@ ___return (memoryheap);"))
       ref-VkMemoryType
       (VkMemoryType* int)
       VkMemoryType*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryType
+      ((pointer VkMemoryType))
+      VkMemoryType
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryType
       (VkMemoryPropertyFlags uint32_t)
@@ -5927,6 +6055,7 @@ memorytype->heapIndex=___arg2;
 ___return (memorytype);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryProperties
+      ptr->VkPhysicalDeviceMemoryProperties
       ref-VkPhysicalDeviceMemoryProperties
       make-VkPhysicalDeviceMemoryProperties*
       VkPhysicalDeviceMemoryPropertiesmemoryHeaps
@@ -5980,7 +6109,12 @@ ___return (memorytype);"))
       ref-VkPhysicalDeviceMemoryProperties
       (VkPhysicalDeviceMemoryProperties* int)
       VkPhysicalDeviceMemoryProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMemoryProperties
+      ((pointer VkPhysicalDeviceMemoryProperties))
+      VkPhysicalDeviceMemoryProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMemoryProperties
       (uint32_t VkMemoryType* uint32_t VkMemoryHeap*)
@@ -5993,6 +6127,7 @@ memcpy(physicaldevicememoryproperties->memoryHeaps,___arg4,sizeof(___arg4));
 ___return (physicaldevicememoryproperties);"))
 (begin-ffi
    (make-VkMemoryAllocateInfo
+      ptr->VkMemoryAllocateInfo
       ref-VkMemoryAllocateInfo
       make-VkMemoryAllocateInfo*
       VkMemoryAllocateInfomemoryTypeIndex
@@ -6042,7 +6177,12 @@ ___return (physicaldevicememoryproperties);"))
       ref-VkMemoryAllocateInfo
       (VkMemoryAllocateInfo* int)
       VkMemoryAllocateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryAllocateInfo
+      ((pointer VkMemoryAllocateInfo))
+      VkMemoryAllocateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryAllocateInfo
       (VkStructureType void* VkDeviceSize uint32_t)
@@ -6055,6 +6195,7 @@ memoryallocateinfo->memoryTypeIndex=___arg4;
 ___return (memoryallocateinfo);"))
 (begin-ffi
    (make-VkMemoryRequirements
+      ptr->VkMemoryRequirements
       ref-VkMemoryRequirements
       make-VkMemoryRequirements*
       VkMemoryRequirementsmemoryTypeBits
@@ -6098,7 +6239,12 @@ ___return (memoryallocateinfo);"))
       ref-VkMemoryRequirements
       (VkMemoryRequirements* int)
       VkMemoryRequirements*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryRequirements
+      ((pointer VkMemoryRequirements))
+      VkMemoryRequirements
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryRequirements
       (VkDeviceSize VkDeviceSize uint32_t)
@@ -6110,6 +6256,7 @@ memoryrequirements->memoryTypeBits=___arg3;
 ___return (memoryrequirements);"))
 (begin-ffi
    (make-VkSparseImageFormatProperties
+      ptr->VkSparseImageFormatProperties
       ref-VkSparseImageFormatProperties
       make-VkSparseImageFormatProperties*
       VkSparseImageFormatPropertiesflags
@@ -6153,7 +6300,12 @@ ___return (memoryrequirements);"))
       ref-VkSparseImageFormatProperties
       (VkSparseImageFormatProperties* int)
       VkSparseImageFormatProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSparseImageFormatProperties
+      ((pointer VkSparseImageFormatProperties))
+      VkSparseImageFormatProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSparseImageFormatProperties
       (VkImageAspectFlags VkExtent3D VkSparseImageFormatFlags)
@@ -6165,6 +6317,7 @@ sparseimageformatproperties->flags=___arg3;
 ___return (sparseimageformatproperties);"))
 (begin-ffi
    (make-VkSparseImageMemoryRequirements
+      ptr->VkSparseImageMemoryRequirements
       ref-VkSparseImageMemoryRequirements
       make-VkSparseImageMemoryRequirements*
       VkSparseImageMemoryRequirementsimageMipTailStride
@@ -6224,7 +6377,12 @@ ___return (sparseimageformatproperties);"))
       ref-VkSparseImageMemoryRequirements
       (VkSparseImageMemoryRequirements* int)
       VkSparseImageMemoryRequirements*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSparseImageMemoryRequirements
+      ((pointer VkSparseImageMemoryRequirements))
+      VkSparseImageMemoryRequirements
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSparseImageMemoryRequirements
       (VkSparseImageFormatProperties uint32_t VkDeviceSize VkDeviceSize VkDeviceSize)
@@ -6238,6 +6396,7 @@ sparseimagememoryrequirements->imageMipTailStride=___arg5;
 ___return (sparseimagememoryrequirements);"))
 (begin-ffi
    (make-VkMappedMemoryRange
+      ptr->VkMappedMemoryRange
       ref-VkMappedMemoryRange
       make-VkMappedMemoryRange*
       VkMappedMemoryRangesize
@@ -6293,7 +6452,12 @@ ___return (sparseimagememoryrequirements);"))
       ref-VkMappedMemoryRange
       (VkMappedMemoryRange* int)
       VkMappedMemoryRange*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMappedMemoryRange
+      ((pointer VkMappedMemoryRange))
+      VkMappedMemoryRange
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMappedMemoryRange
       (VkStructureType void* VkDeviceMemory VkDeviceSize VkDeviceSize)
@@ -6307,6 +6471,7 @@ mappedmemoryrange->size=___arg5;
 ___return (mappedmemoryrange);"))
 (begin-ffi
    (make-VkFormatProperties
+      ptr->VkFormatProperties
       ref-VkFormatProperties
       make-VkFormatProperties*
       VkFormatPropertiesbufferFeatures
@@ -6350,7 +6515,12 @@ ___return (mappedmemoryrange);"))
       ref-VkFormatProperties
       (VkFormatProperties* int)
       VkFormatProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkFormatProperties
+      ((pointer VkFormatProperties))
+      VkFormatProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkFormatProperties
       (VkFormatFeatureFlags VkFormatFeatureFlags VkFormatFeatureFlags)
@@ -6362,6 +6532,7 @@ formatproperties->bufferFeatures=___arg3;
 ___return (formatproperties);"))
 (begin-ffi
    (make-VkImageFormatProperties
+      ptr->VkImageFormatProperties
       ref-VkImageFormatProperties
       make-VkImageFormatProperties*
       VkImageFormatPropertiesmaxResourceSize
@@ -6417,7 +6588,12 @@ ___return (formatproperties);"))
       ref-VkImageFormatProperties
       (VkImageFormatProperties* int)
       VkImageFormatProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageFormatProperties
+      ((pointer VkImageFormatProperties))
+      VkImageFormatProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageFormatProperties
       (VkExtent3D uint32_t uint32_t VkSampleCountFlags VkDeviceSize)
@@ -6431,6 +6607,7 @@ imageformatproperties->maxResourceSize=___arg5;
 ___return (imageformatproperties);"))
 (begin-ffi
    (make-VkDescriptorBufferInfo
+      ptr->VkDescriptorBufferInfo
       ref-VkDescriptorBufferInfo
       make-VkDescriptorBufferInfo*
       VkDescriptorBufferInforange
@@ -6474,7 +6651,12 @@ ___return (imageformatproperties);"))
       ref-VkDescriptorBufferInfo
       (VkDescriptorBufferInfo* int)
       VkDescriptorBufferInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorBufferInfo
+      ((pointer VkDescriptorBufferInfo))
+      VkDescriptorBufferInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorBufferInfo
       (VkBuffer VkDeviceSize VkDeviceSize)
@@ -6486,6 +6668,7 @@ descriptorbufferinfo->range=___arg3;
 ___return (descriptorbufferinfo);"))
 (begin-ffi
    (make-VkDescriptorImageInfo
+      ptr->VkDescriptorImageInfo
       ref-VkDescriptorImageInfo
       make-VkDescriptorImageInfo*
       VkDescriptorImageInfoimageLayout
@@ -6529,7 +6712,12 @@ ___return (descriptorbufferinfo);"))
       ref-VkDescriptorImageInfo
       (VkDescriptorImageInfo* int)
       VkDescriptorImageInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorImageInfo
+      ((pointer VkDescriptorImageInfo))
+      VkDescriptorImageInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorImageInfo
       (VkSampler VkImageView VkImageLayout)
@@ -6541,6 +6729,7 @@ descriptorimageinfo->imageLayout=___arg3;
 ___return (descriptorimageinfo);"))
 (begin-ffi
    (make-VkWriteDescriptorSet
+      ptr->VkWriteDescriptorSet
       ref-VkWriteDescriptorSet
       make-VkWriteDescriptorSet*
       VkWriteDescriptorSetpTexelBufferView
@@ -6626,7 +6815,12 @@ ___return (descriptorimageinfo);"))
       ref-VkWriteDescriptorSet
       (VkWriteDescriptorSet* int)
       VkWriteDescriptorSet*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkWriteDescriptorSet
+      ((pointer VkWriteDescriptorSet))
+      VkWriteDescriptorSet
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkWriteDescriptorSet
       (VkStructureType
@@ -6654,6 +6848,7 @@ writedescriptorset->pTexelBufferView=___arg10;
 ___return (writedescriptorset);"))
 (begin-ffi
    (make-VkCopyDescriptorSet
+      ptr->VkCopyDescriptorSet
       ref-VkCopyDescriptorSet
       make-VkCopyDescriptorSet*
       VkCopyDescriptorSetdescriptorCount
@@ -6733,7 +6928,12 @@ ___return (writedescriptorset);"))
       ref-VkCopyDescriptorSet
       (VkCopyDescriptorSet* int)
       VkCopyDescriptorSet*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCopyDescriptorSet
+      ((pointer VkCopyDescriptorSet))
+      VkCopyDescriptorSet
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCopyDescriptorSet
       (VkStructureType
@@ -6759,6 +6959,7 @@ copydescriptorset->descriptorCount=___arg9;
 ___return (copydescriptorset);"))
 (begin-ffi
    (make-VkBufferCreateInfo
+      ptr->VkBufferCreateInfo
       ref-VkBufferCreateInfo
       make-VkBufferCreateInfo*
       VkBufferCreateInfopQueueFamilyIndices
@@ -6832,7 +7033,12 @@ ___return (copydescriptorset);"))
       ref-VkBufferCreateInfo
       (VkBufferCreateInfo* int)
       VkBufferCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBufferCreateInfo
+      ((pointer VkBufferCreateInfo))
+      VkBufferCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBufferCreateInfo
       (VkStructureType
@@ -6856,6 +7062,7 @@ buffercreateinfo->pQueueFamilyIndices=___arg8;
 ___return (buffercreateinfo);"))
 (begin-ffi
    (make-VkBufferViewCreateInfo
+      ptr->VkBufferViewCreateInfo
       ref-VkBufferViewCreateInfo
       make-VkBufferViewCreateInfo*
       VkBufferViewCreateInforange
@@ -6923,7 +7130,12 @@ ___return (buffercreateinfo);"))
       ref-VkBufferViewCreateInfo
       (VkBufferViewCreateInfo* int)
       VkBufferViewCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBufferViewCreateInfo
+      ((pointer VkBufferViewCreateInfo))
+      VkBufferViewCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBufferViewCreateInfo
       (VkStructureType
@@ -6945,6 +7157,7 @@ bufferviewcreateinfo->range=___arg7;
 ___return (bufferviewcreateinfo);"))
 (begin-ffi
    (make-VkImageSubresource
+      ptr->VkImageSubresource
       ref-VkImageSubresource
       make-VkImageSubresource*
       VkImageSubresourcearrayLayer
@@ -6988,7 +7201,12 @@ ___return (bufferviewcreateinfo);"))
       ref-VkImageSubresource
       (VkImageSubresource* int)
       VkImageSubresource*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageSubresource
+      ((pointer VkImageSubresource))
+      VkImageSubresource
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageSubresource
       (VkImageAspectFlags uint32_t uint32_t)
@@ -7000,6 +7218,7 @@ imagesubresource->arrayLayer=___arg3;
 ___return (imagesubresource);"))
 (begin-ffi
    (make-VkImageSubresourceLayers
+      ptr->VkImageSubresourceLayers
       ref-VkImageSubresourceLayers
       make-VkImageSubresourceLayers*
       VkImageSubresourceLayerslayerCount
@@ -7049,7 +7268,12 @@ ___return (imagesubresource);"))
       ref-VkImageSubresourceLayers
       (VkImageSubresourceLayers* int)
       VkImageSubresourceLayers*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageSubresourceLayers
+      ((pointer VkImageSubresourceLayers))
+      VkImageSubresourceLayers
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageSubresourceLayers
       (VkImageAspectFlags uint32_t uint32_t uint32_t)
@@ -7062,6 +7286,7 @@ imagesubresourcelayers->layerCount=___arg4;
 ___return (imagesubresourcelayers);"))
 (begin-ffi
    (make-VkImageSubresourceRange
+      ptr->VkImageSubresourceRange
       ref-VkImageSubresourceRange
       make-VkImageSubresourceRange*
       VkImageSubresourceRangelayerCount
@@ -7117,7 +7342,12 @@ ___return (imagesubresourcelayers);"))
       ref-VkImageSubresourceRange
       (VkImageSubresourceRange* int)
       VkImageSubresourceRange*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageSubresourceRange
+      ((pointer VkImageSubresourceRange))
+      VkImageSubresourceRange
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageSubresourceRange
       (VkImageAspectFlags uint32_t uint32_t uint32_t uint32_t)
@@ -7131,6 +7361,7 @@ imagesubresourcerange->layerCount=___arg5;
 ___return (imagesubresourcerange);"))
 (begin-ffi
    (make-VkMemoryBarrier
+      ptr->VkMemoryBarrier
       ref-VkMemoryBarrier
       make-VkMemoryBarrier*
       VkMemoryBarrierdstAccessMask
@@ -7180,7 +7411,12 @@ ___return (imagesubresourcerange);"))
       ref-VkMemoryBarrier
       (VkMemoryBarrier* int)
       VkMemoryBarrier*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryBarrier
+      ((pointer VkMemoryBarrier))
+      VkMemoryBarrier
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryBarrier
       (VkStructureType void* VkAccessFlags VkAccessFlags)
@@ -7193,6 +7429,7 @@ memorybarrier->dstAccessMask=___arg4;
 ___return (memorybarrier);"))
 (begin-ffi
    (make-VkBufferMemoryBarrier
+      ptr->VkBufferMemoryBarrier
       ref-VkBufferMemoryBarrier
       make-VkBufferMemoryBarrier*
       VkBufferMemoryBarriersize
@@ -7272,7 +7509,12 @@ ___return (memorybarrier);"))
       ref-VkBufferMemoryBarrier
       (VkBufferMemoryBarrier* int)
       VkBufferMemoryBarrier*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBufferMemoryBarrier
+      ((pointer VkBufferMemoryBarrier))
+      VkBufferMemoryBarrier
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBufferMemoryBarrier
       (VkStructureType
@@ -7298,6 +7540,7 @@ buffermemorybarrier->size=___arg9;
 ___return (buffermemorybarrier);"))
 (begin-ffi
    (make-VkImageMemoryBarrier
+      ptr->VkImageMemoryBarrier
       ref-VkImageMemoryBarrier
       make-VkImageMemoryBarrier*
       VkImageMemoryBarriersubresourceRange
@@ -7383,7 +7626,12 @@ ___return (buffermemorybarrier);"))
       ref-VkImageMemoryBarrier
       (VkImageMemoryBarrier* int)
       VkImageMemoryBarrier*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageMemoryBarrier
+      ((pointer VkImageMemoryBarrier))
+      VkImageMemoryBarrier
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageMemoryBarrier
       (VkStructureType
@@ -7411,6 +7659,7 @@ imagememorybarrier->subresourceRange=___arg10;
 ___return (imagememorybarrier);"))
 (begin-ffi
    (make-VkImageCreateInfo
+      ptr->VkImageCreateInfo
       ref-VkImageCreateInfo
       make-VkImageCreateInfo*
       VkImageCreateInfoinitialLayout
@@ -7526,7 +7775,12 @@ ___return (imagememorybarrier);"))
       ref-VkImageCreateInfo
       (VkImageCreateInfo* int)
       VkImageCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageCreateInfo
+      ((pointer VkImageCreateInfo))
+      VkImageCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageCreateInfo
       (VkStructureType
@@ -7564,6 +7818,7 @@ imagecreateinfo->initialLayout=___arg15;
 ___return (imagecreateinfo);"))
 (begin-ffi
    (make-VkSubresourceLayout
+      ptr->VkSubresourceLayout
       ref-VkSubresourceLayout
       make-VkSubresourceLayout*
       VkSubresourceLayoutdepthPitch
@@ -7619,7 +7874,12 @@ ___return (imagecreateinfo);"))
       ref-VkSubresourceLayout
       (VkSubresourceLayout* int)
       VkSubresourceLayout*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSubresourceLayout
+      ((pointer VkSubresourceLayout))
+      VkSubresourceLayout
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSubresourceLayout
       (VkDeviceSize VkDeviceSize VkDeviceSize VkDeviceSize VkDeviceSize)
@@ -7633,6 +7893,7 @@ subresourcelayout->depthPitch=___arg5;
 ___return (subresourcelayout);"))
 (begin-ffi
    (make-VkImageViewCreateInfo
+      ptr->VkImageViewCreateInfo
       ref-VkImageViewCreateInfo
       make-VkImageViewCreateInfo*
       VkImageViewCreateInfosubresourceRange
@@ -7706,7 +7967,12 @@ ___return (subresourcelayout);"))
       ref-VkImageViewCreateInfo
       (VkImageViewCreateInfo* int)
       VkImageViewCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageViewCreateInfo
+      ((pointer VkImageViewCreateInfo))
+      VkImageViewCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageViewCreateInfo
       (VkStructureType
@@ -7730,6 +7996,7 @@ imageviewcreateinfo->subresourceRange=___arg8;
 ___return (imageviewcreateinfo);"))
 (begin-ffi
    (make-VkBufferCopy
+      ptr->VkBufferCopy
       ref-VkBufferCopy
       make-VkBufferCopy*
       VkBufferCopysize
@@ -7773,7 +8040,12 @@ ___return (imageviewcreateinfo);"))
       ref-VkBufferCopy
       (VkBufferCopy* int)
       VkBufferCopy*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBufferCopy
+      ((pointer VkBufferCopy))
+      VkBufferCopy
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBufferCopy
       (VkDeviceSize VkDeviceSize VkDeviceSize)
@@ -7785,6 +8057,7 @@ buffercopy->size=___arg3;
 ___return (buffercopy);"))
 (begin-ffi
    (make-VkSparseMemoryBind
+      ptr->VkSparseMemoryBind
       ref-VkSparseMemoryBind
       make-VkSparseMemoryBind*
       VkSparseMemoryBindflags
@@ -7840,7 +8113,12 @@ ___return (buffercopy);"))
       ref-VkSparseMemoryBind
       (VkSparseMemoryBind* int)
       VkSparseMemoryBind*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSparseMemoryBind
+      ((pointer VkSparseMemoryBind))
+      VkSparseMemoryBind
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSparseMemoryBind
       (VkDeviceSize VkDeviceSize VkDeviceMemory VkDeviceSize VkSparseMemoryBindFlags)
@@ -7854,6 +8132,7 @@ sparsememorybind->flags=___arg5;
 ___return (sparsememorybind);"))
 (begin-ffi
    (make-VkSparseImageMemoryBind
+      ptr->VkSparseImageMemoryBind
       ref-VkSparseImageMemoryBind
       make-VkSparseImageMemoryBind*
       VkSparseImageMemoryBindflags
@@ -7915,7 +8194,12 @@ ___return (sparsememorybind);"))
       ref-VkSparseImageMemoryBind
       (VkSparseImageMemoryBind* int)
       VkSparseImageMemoryBind*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSparseImageMemoryBind
+      ((pointer VkSparseImageMemoryBind))
+      VkSparseImageMemoryBind
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSparseImageMemoryBind
       (VkImageSubresource
@@ -7935,6 +8219,7 @@ sparseimagememorybind->flags=___arg6;
 ___return (sparseimagememorybind);"))
 (begin-ffi
    (make-VkSparseBufferMemoryBindInfo
+      ptr->VkSparseBufferMemoryBindInfo
       ref-VkSparseBufferMemoryBindInfo
       make-VkSparseBufferMemoryBindInfo*
       VkSparseBufferMemoryBindInfopBinds
@@ -7978,7 +8263,12 @@ ___return (sparseimagememorybind);"))
       ref-VkSparseBufferMemoryBindInfo
       (VkSparseBufferMemoryBindInfo* int)
       VkSparseBufferMemoryBindInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSparseBufferMemoryBindInfo
+      ((pointer VkSparseBufferMemoryBindInfo))
+      VkSparseBufferMemoryBindInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSparseBufferMemoryBindInfo
       (VkBuffer uint32_t VkSparseMemoryBind*)
@@ -7990,6 +8280,7 @@ sparsebuffermemorybindinfo->pBinds=___arg3;
 ___return (sparsebuffermemorybindinfo);"))
 (begin-ffi
    (make-VkSparseImageOpaqueMemoryBindInfo
+      ptr->VkSparseImageOpaqueMemoryBindInfo
       ref-VkSparseImageOpaqueMemoryBindInfo
       make-VkSparseImageOpaqueMemoryBindInfo*
       VkSparseImageOpaqueMemoryBindInfopBinds
@@ -8037,7 +8328,12 @@ ___return (sparsebuffermemorybindinfo);"))
       ref-VkSparseImageOpaqueMemoryBindInfo
       (VkSparseImageOpaqueMemoryBindInfo* int)
       VkSparseImageOpaqueMemoryBindInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSparseImageOpaqueMemoryBindInfo
+      ((pointer VkSparseImageOpaqueMemoryBindInfo))
+      VkSparseImageOpaqueMemoryBindInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSparseImageOpaqueMemoryBindInfo
       (VkImage uint32_t VkSparseMemoryBind*)
@@ -8049,6 +8345,7 @@ sparseimageopaquememorybindinfo->pBinds=___arg3;
 ___return (sparseimageopaquememorybindinfo);"))
 (begin-ffi
    (make-VkSparseImageMemoryBindInfo
+      ptr->VkSparseImageMemoryBindInfo
       ref-VkSparseImageMemoryBindInfo
       make-VkSparseImageMemoryBindInfo*
       VkSparseImageMemoryBindInfopBinds
@@ -8092,7 +8389,12 @@ ___return (sparseimageopaquememorybindinfo);"))
       ref-VkSparseImageMemoryBindInfo
       (VkSparseImageMemoryBindInfo* int)
       VkSparseImageMemoryBindInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSparseImageMemoryBindInfo
+      ((pointer VkSparseImageMemoryBindInfo))
+      VkSparseImageMemoryBindInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSparseImageMemoryBindInfo
       (VkImage uint32_t VkSparseImageMemoryBind*)
@@ -8104,6 +8406,7 @@ sparseimagememorybindinfo->pBinds=___arg3;
 ___return (sparseimagememorybindinfo);"))
 (begin-ffi
    (make-VkBindSparseInfo
+      ptr->VkBindSparseInfo
       ref-VkBindSparseInfo
       make-VkBindSparseInfo*
       VkBindSparseInfopSignalSemaphores
@@ -8201,7 +8504,12 @@ ___return (sparseimagememorybindinfo);"))
       ref-VkBindSparseInfo
       (VkBindSparseInfo* int)
       VkBindSparseInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBindSparseInfo
+      ((pointer VkBindSparseInfo))
+      VkBindSparseInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBindSparseInfo
       (VkStructureType
@@ -8233,6 +8541,7 @@ bindsparseinfo->pSignalSemaphores=___arg12;
 ___return (bindsparseinfo);"))
 (begin-ffi
    (make-VkImageCopy
+      ptr->VkImageCopy
       ref-VkImageCopy
       make-VkImageCopy*
       VkImageCopyextent
@@ -8288,7 +8597,12 @@ ___return (bindsparseinfo);"))
       ref-VkImageCopy
       (VkImageCopy* int)
       VkImageCopy*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageCopy
+      ((pointer VkImageCopy))
+      VkImageCopy
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageCopy
       (VkImageSubresourceLayers VkOffset3D VkImageSubresourceLayers VkOffset3D VkExtent3D)
@@ -8302,6 +8616,7 @@ imagecopy->extent=___arg5;
 ___return (imagecopy);"))
 (begin-ffi
    (make-VkImageBlit
+      ptr->VkImageBlit
       ref-VkImageBlit
       make-VkImageBlit*
       VkImageBlitdstOffsets
@@ -8351,7 +8666,12 @@ ___return (imagecopy);"))
       ref-VkImageBlit
       (VkImageBlit* int)
       VkImageBlit*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageBlit
+      ((pointer VkImageBlit))
+      VkImageBlit
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageBlit
       (VkImageSubresourceLayers VkOffset3D* VkImageSubresourceLayers VkOffset3D*)
@@ -8364,6 +8684,7 @@ memcpy(imageblit->dstOffsets,___arg4,sizeof(___arg4));
 ___return (imageblit);"))
 (begin-ffi
    (make-VkBufferImageCopy
+      ptr->VkBufferImageCopy
       ref-VkBufferImageCopy
       make-VkBufferImageCopy*
       VkBufferImageCopyimageExtent
@@ -8425,7 +8746,12 @@ ___return (imageblit);"))
       ref-VkBufferImageCopy
       (VkBufferImageCopy* int)
       VkBufferImageCopy*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBufferImageCopy
+      ((pointer VkBufferImageCopy))
+      VkBufferImageCopy
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBufferImageCopy
       (VkDeviceSize uint32_t uint32_t VkImageSubresourceLayers VkOffset3D VkExtent3D)
@@ -8440,6 +8766,7 @@ bufferimagecopy->imageExtent=___arg6;
 ___return (bufferimagecopy);"))
 (begin-ffi
    (make-VkImageResolve
+      ptr->VkImageResolve
       ref-VkImageResolve
       make-VkImageResolve*
       VkImageResolveextent
@@ -8495,7 +8822,12 @@ ___return (bufferimagecopy);"))
       ref-VkImageResolve
       (VkImageResolve* int)
       VkImageResolve*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageResolve
+      ((pointer VkImageResolve))
+      VkImageResolve
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageResolve
       (VkImageSubresourceLayers VkOffset3D VkImageSubresourceLayers VkOffset3D VkExtent3D)
@@ -8509,6 +8841,7 @@ imageresolve->extent=___arg5;
 ___return (imageresolve);"))
 (begin-ffi
    (make-VkShaderModuleCreateInfo
+      ptr->VkShaderModuleCreateInfo
       ref-VkShaderModuleCreateInfo
       make-VkShaderModuleCreateInfo*
       VkShaderModuleCreateInfopCode
@@ -8564,7 +8897,12 @@ ___return (imageresolve);"))
       ref-VkShaderModuleCreateInfo
       (VkShaderModuleCreateInfo* int)
       VkShaderModuleCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkShaderModuleCreateInfo
+      ((pointer VkShaderModuleCreateInfo))
+      VkShaderModuleCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkShaderModuleCreateInfo
       (VkStructureType void* VkShaderModuleCreateFlags size_t uint32_t*)
@@ -8578,6 +8916,7 @@ shadermodulecreateinfo->pCode=___arg5;
 ___return (shadermodulecreateinfo);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutBinding
+      ptr->VkDescriptorSetLayoutBinding
       ref-VkDescriptorSetLayoutBinding
       make-VkDescriptorSetLayoutBinding*
       VkDescriptorSetLayoutBindingpImmutableSamplers
@@ -8633,7 +8972,12 @@ ___return (shadermodulecreateinfo);"))
       ref-VkDescriptorSetLayoutBinding
       (VkDescriptorSetLayoutBinding* int)
       VkDescriptorSetLayoutBinding*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorSetLayoutBinding
+      ((pointer VkDescriptorSetLayoutBinding))
+      VkDescriptorSetLayoutBinding
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorSetLayoutBinding
       (uint32_t VkDescriptorType uint32_t VkShaderStageFlags VkSampler*)
@@ -8647,6 +8991,7 @@ descriptorsetlayoutbinding->pImmutableSamplers=___arg5;
 ___return (descriptorsetlayoutbinding);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutCreateInfo
+      ptr->VkDescriptorSetLayoutCreateInfo
       ref-VkDescriptorSetLayoutCreateInfo
       make-VkDescriptorSetLayoutCreateInfo*
       VkDescriptorSetLayoutCreateInfopBindings
@@ -8706,7 +9051,12 @@ ___return (descriptorsetlayoutbinding);"))
       ref-VkDescriptorSetLayoutCreateInfo
       (VkDescriptorSetLayoutCreateInfo* int)
       VkDescriptorSetLayoutCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorSetLayoutCreateInfo
+      ((pointer VkDescriptorSetLayoutCreateInfo))
+      VkDescriptorSetLayoutCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorSetLayoutCreateInfo
       (VkStructureType
@@ -8724,6 +9074,7 @@ descriptorsetlayoutcreateinfo->pBindings=___arg5;
 ___return (descriptorsetlayoutcreateinfo);"))
 (begin-ffi
    (make-VkDescriptorPoolSize
+      ptr->VkDescriptorPoolSize
       ref-VkDescriptorPoolSize
       make-VkDescriptorPoolSize*
       VkDescriptorPoolSizedescriptorCount
@@ -8761,7 +9112,12 @@ ___return (descriptorsetlayoutcreateinfo);"))
       ref-VkDescriptorPoolSize
       (VkDescriptorPoolSize* int)
       VkDescriptorPoolSize*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorPoolSize
+      ((pointer VkDescriptorPoolSize))
+      VkDescriptorPoolSize
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorPoolSize
       (VkDescriptorType uint32_t)
@@ -8772,6 +9128,7 @@ descriptorpoolsize->descriptorCount=___arg2;
 ___return (descriptorpoolsize);"))
 (begin-ffi
    (make-VkDescriptorPoolCreateInfo
+      ptr->VkDescriptorPoolCreateInfo
       ref-VkDescriptorPoolCreateInfo
       make-VkDescriptorPoolCreateInfo*
       VkDescriptorPoolCreateInfopPoolSizes
@@ -8833,7 +9190,12 @@ ___return (descriptorpoolsize);"))
       ref-VkDescriptorPoolCreateInfo
       (VkDescriptorPoolCreateInfo* int)
       VkDescriptorPoolCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorPoolCreateInfo
+      ((pointer VkDescriptorPoolCreateInfo))
+      VkDescriptorPoolCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorPoolCreateInfo
       (VkStructureType
@@ -8853,6 +9215,7 @@ descriptorpoolcreateinfo->pPoolSizes=___arg6;
 ___return (descriptorpoolcreateinfo);"))
 (begin-ffi
    (make-VkDescriptorSetAllocateInfo
+      ptr->VkDescriptorSetAllocateInfo
       ref-VkDescriptorSetAllocateInfo
       make-VkDescriptorSetAllocateInfo*
       VkDescriptorSetAllocateInfopSetLayouts
@@ -8908,7 +9271,12 @@ ___return (descriptorpoolcreateinfo);"))
       ref-VkDescriptorSetAllocateInfo
       (VkDescriptorSetAllocateInfo* int)
       VkDescriptorSetAllocateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorSetAllocateInfo
+      ((pointer VkDescriptorSetAllocateInfo))
+      VkDescriptorSetAllocateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorSetAllocateInfo
       (VkStructureType void* VkDescriptorPool uint32_t VkDescriptorSetLayout*)
@@ -8922,6 +9290,7 @@ descriptorsetallocateinfo->pSetLayouts=___arg5;
 ___return (descriptorsetallocateinfo);"))
 (begin-ffi
    (make-VkSpecializationMapEntry
+      ptr->VkSpecializationMapEntry
       ref-VkSpecializationMapEntry
       make-VkSpecializationMapEntry*
       VkSpecializationMapEntrysize
@@ -8965,7 +9334,12 @@ ___return (descriptorsetallocateinfo);"))
       ref-VkSpecializationMapEntry
       (VkSpecializationMapEntry* int)
       VkSpecializationMapEntry*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSpecializationMapEntry
+      ((pointer VkSpecializationMapEntry))
+      VkSpecializationMapEntry
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSpecializationMapEntry
       (uint32_t uint32_t size_t)
@@ -8977,6 +9351,7 @@ specializationmapentry->size=___arg3;
 ___return (specializationmapentry);"))
 (begin-ffi
    (make-VkSpecializationInfo
+      ptr->VkSpecializationInfo
       ref-VkSpecializationInfo
       make-VkSpecializationInfo*
       VkSpecializationInfopData
@@ -9026,7 +9401,12 @@ ___return (specializationmapentry);"))
       ref-VkSpecializationInfo
       (VkSpecializationInfo* int)
       VkSpecializationInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSpecializationInfo
+      ((pointer VkSpecializationInfo))
+      VkSpecializationInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSpecializationInfo
       (uint32_t VkSpecializationMapEntry* size_t void*)
@@ -9039,6 +9419,7 @@ specializationinfo->pData=___arg4;
 ___return (specializationinfo);"))
 (begin-ffi
    (make-VkPipelineShaderStageCreateInfo
+      ptr->VkPipelineShaderStageCreateInfo
       ref-VkPipelineShaderStageCreateInfo
       make-VkPipelineShaderStageCreateInfo*
       VkPipelineShaderStageCreateInfopSpecializationInfo
@@ -9110,7 +9491,12 @@ ___return (specializationinfo);"))
       ref-VkPipelineShaderStageCreateInfo
       (VkPipelineShaderStageCreateInfo* int)
       VkPipelineShaderStageCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineShaderStageCreateInfo
+      ((pointer VkPipelineShaderStageCreateInfo))
+      VkPipelineShaderStageCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineShaderStageCreateInfo
       (VkStructureType
@@ -9132,6 +9518,7 @@ pipelineshaderstagecreateinfo->pSpecializationInfo=___arg7;
 ___return (pipelineshaderstagecreateinfo);"))
 (begin-ffi
    (make-VkComputePipelineCreateInfo
+      ptr->VkComputePipelineCreateInfo
       ref-VkComputePipelineCreateInfo
       make-VkComputePipelineCreateInfo*
       VkComputePipelineCreateInfobasePipelineIndex
@@ -9199,7 +9586,12 @@ ___return (pipelineshaderstagecreateinfo);"))
       ref-VkComputePipelineCreateInfo
       (VkComputePipelineCreateInfo* int)
       VkComputePipelineCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkComputePipelineCreateInfo
+      ((pointer VkComputePipelineCreateInfo))
+      VkComputePipelineCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkComputePipelineCreateInfo
       (VkStructureType
@@ -9221,6 +9613,7 @@ computepipelinecreateinfo->basePipelineIndex=___arg7;
 ___return (computepipelinecreateinfo);"))
 (begin-ffi
    (make-VkVertexInputBindingDescription
+      ptr->VkVertexInputBindingDescription
       ref-VkVertexInputBindingDescription
       make-VkVertexInputBindingDescription*
       VkVertexInputBindingDescriptioninputRate
@@ -9268,7 +9661,12 @@ ___return (computepipelinecreateinfo);"))
       ref-VkVertexInputBindingDescription
       (VkVertexInputBindingDescription* int)
       VkVertexInputBindingDescription*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkVertexInputBindingDescription
+      ((pointer VkVertexInputBindingDescription))
+      VkVertexInputBindingDescription
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkVertexInputBindingDescription
       (uint32_t uint32_t VkVertexInputRate)
@@ -9280,6 +9678,7 @@ vertexinputbindingdescription->inputRate=___arg3;
 ___return (vertexinputbindingdescription);"))
 (begin-ffi
    (make-VkVertexInputAttributeDescription
+      ptr->VkVertexInputAttributeDescription
       ref-VkVertexInputAttributeDescription
       make-VkVertexInputAttributeDescription*
       VkVertexInputAttributeDescriptionoffset
@@ -9333,7 +9732,12 @@ ___return (vertexinputbindingdescription);"))
       ref-VkVertexInputAttributeDescription
       (VkVertexInputAttributeDescription* int)
       VkVertexInputAttributeDescription*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkVertexInputAttributeDescription
+      ((pointer VkVertexInputAttributeDescription))
+      VkVertexInputAttributeDescription
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkVertexInputAttributeDescription
       (uint32_t uint32_t VkFormat uint32_t)
@@ -9346,6 +9750,7 @@ vertexinputattributedescription->offset=___arg4;
 ___return (vertexinputattributedescription);"))
 (begin-ffi
    (make-VkPipelineVertexInputStateCreateInfo
+      ptr->VkPipelineVertexInputStateCreateInfo
       ref-VkPipelineVertexInputStateCreateInfo
       make-VkPipelineVertexInputStateCreateInfo*
       VkPipelineVertexInputStateCreateInfopVertexAttributeDescriptions
@@ -9417,7 +9822,12 @@ ___return (vertexinputattributedescription);"))
       ref-VkPipelineVertexInputStateCreateInfo
       (VkPipelineVertexInputStateCreateInfo* int)
       VkPipelineVertexInputStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineVertexInputStateCreateInfo
+      ((pointer VkPipelineVertexInputStateCreateInfo))
+      VkPipelineVertexInputStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineVertexInputStateCreateInfo
       (VkStructureType
@@ -9439,6 +9849,7 @@ pipelinevertexinputstatecreateinfo->pVertexAttributeDescriptions=___arg7;
 ___return (pipelinevertexinputstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineInputAssemblyStateCreateInfo
+      ptr->VkPipelineInputAssemblyStateCreateInfo
       ref-VkPipelineInputAssemblyStateCreateInfo
       make-VkPipelineInputAssemblyStateCreateInfo*
       VkPipelineInputAssemblyStateCreateInfoprimitiveRestartEnable
@@ -9498,7 +9909,12 @@ ___return (pipelinevertexinputstatecreateinfo);"))
       ref-VkPipelineInputAssemblyStateCreateInfo
       (VkPipelineInputAssemblyStateCreateInfo* int)
       VkPipelineInputAssemblyStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineInputAssemblyStateCreateInfo
+      ((pointer VkPipelineInputAssemblyStateCreateInfo))
+      VkPipelineInputAssemblyStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineInputAssemblyStateCreateInfo
       (VkStructureType
@@ -9516,6 +9932,7 @@ pipelineinputassemblystatecreateinfo->primitiveRestartEnable=___arg5;
 ___return (pipelineinputassemblystatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineTessellationStateCreateInfo
+      ptr->VkPipelineTessellationStateCreateInfo
       ref-VkPipelineTessellationStateCreateInfo
       make-VkPipelineTessellationStateCreateInfo*
       VkPipelineTessellationStateCreateInfopatchControlPoints
@@ -9569,7 +9986,12 @@ ___return (pipelineinputassemblystatecreateinfo);"))
       ref-VkPipelineTessellationStateCreateInfo
       (VkPipelineTessellationStateCreateInfo* int)
       VkPipelineTessellationStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineTessellationStateCreateInfo
+      ((pointer VkPipelineTessellationStateCreateInfo))
+      VkPipelineTessellationStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineTessellationStateCreateInfo
       (VkStructureType void* VkPipelineTessellationStateCreateFlags uint32_t)
@@ -9582,6 +10004,7 @@ pipelinetessellationstatecreateinfo->patchControlPoints=___arg4;
 ___return (pipelinetessellationstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineViewportStateCreateInfo
+      ptr->VkPipelineViewportStateCreateInfo
       ref-VkPipelineViewportStateCreateInfo
       make-VkPipelineViewportStateCreateInfo*
       VkPipelineViewportStateCreateInfopScissors
@@ -9653,7 +10076,12 @@ ___return (pipelinetessellationstatecreateinfo);"))
       ref-VkPipelineViewportStateCreateInfo
       (VkPipelineViewportStateCreateInfo* int)
       VkPipelineViewportStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineViewportStateCreateInfo
+      ((pointer VkPipelineViewportStateCreateInfo))
+      VkPipelineViewportStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineViewportStateCreateInfo
       (VkStructureType
@@ -9675,6 +10103,7 @@ pipelineviewportstatecreateinfo->pScissors=___arg7;
 ___return (pipelineviewportstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineRasterizationStateCreateInfo
+      ptr->VkPipelineRasterizationStateCreateInfo
       ref-VkPipelineRasterizationStateCreateInfo
       make-VkPipelineRasterizationStateCreateInfo*
       VkPipelineRasterizationStateCreateInfolineWidth
@@ -9782,7 +10211,12 @@ ___return (pipelineviewportstatecreateinfo);"))
       ref-VkPipelineRasterizationStateCreateInfo
       (VkPipelineRasterizationStateCreateInfo* int)
       VkPipelineRasterizationStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineRasterizationStateCreateInfo
+      ((pointer VkPipelineRasterizationStateCreateInfo))
+      VkPipelineRasterizationStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineRasterizationStateCreateInfo
       (VkStructureType
@@ -9816,6 +10250,7 @@ pipelinerasterizationstatecreateinfo->lineWidth=___arg13;
 ___return (pipelinerasterizationstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineMultisampleStateCreateInfo
+      ptr->VkPipelineMultisampleStateCreateInfo
       ref-VkPipelineMultisampleStateCreateInfo
       make-VkPipelineMultisampleStateCreateInfo*
       VkPipelineMultisampleStateCreateInfoalphaToOneEnable
@@ -9899,7 +10334,12 @@ ___return (pipelinerasterizationstatecreateinfo);"))
       ref-VkPipelineMultisampleStateCreateInfo
       (VkPipelineMultisampleStateCreateInfo* int)
       VkPipelineMultisampleStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineMultisampleStateCreateInfo
+      ((pointer VkPipelineMultisampleStateCreateInfo))
+      VkPipelineMultisampleStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineMultisampleStateCreateInfo
       (VkStructureType
@@ -9925,6 +10365,7 @@ pipelinemultisamplestatecreateinfo->alphaToOneEnable=___arg9;
 ___return (pipelinemultisamplestatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineColorBlendAttachmentState
+      ptr->VkPipelineColorBlendAttachmentState
       ref-VkPipelineColorBlendAttachmentState
       make-VkPipelineColorBlendAttachmentState*
       VkPipelineColorBlendAttachmentStatecolorWriteMask
@@ -10002,7 +10443,12 @@ ___return (pipelinemultisamplestatecreateinfo);"))
       ref-VkPipelineColorBlendAttachmentState
       (VkPipelineColorBlendAttachmentState* int)
       VkPipelineColorBlendAttachmentState*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineColorBlendAttachmentState
+      ((pointer VkPipelineColorBlendAttachmentState))
+      VkPipelineColorBlendAttachmentState
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineColorBlendAttachmentState
       (VkBool32
@@ -10026,6 +10472,7 @@ pipelinecolorblendattachmentstate->colorWriteMask=___arg8;
 ___return (pipelinecolorblendattachmentstate);"))
 (begin-ffi
    (make-VkPipelineColorBlendStateCreateInfo
+      ptr->VkPipelineColorBlendStateCreateInfo
       ref-VkPipelineColorBlendStateCreateInfo
       make-VkPipelineColorBlendStateCreateInfo*
       VkPipelineColorBlendStateCreateInfoblendConstants
@@ -10103,7 +10550,12 @@ ___return (pipelinecolorblendattachmentstate);"))
       ref-VkPipelineColorBlendStateCreateInfo
       (VkPipelineColorBlendStateCreateInfo* int)
       VkPipelineColorBlendStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineColorBlendStateCreateInfo
+      ((pointer VkPipelineColorBlendStateCreateInfo))
+      VkPipelineColorBlendStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineColorBlendStateCreateInfo
       (VkStructureType
@@ -10127,6 +10579,7 @@ memcpy(pipelinecolorblendstatecreateinfo->blendConstants,___arg8,sizeof(___arg8)
 ___return (pipelinecolorblendstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineDynamicStateCreateInfo
+      ptr->VkPipelineDynamicStateCreateInfo
       ref-VkPipelineDynamicStateCreateInfo
       make-VkPipelineDynamicStateCreateInfo*
       VkPipelineDynamicStateCreateInfopDynamicStates
@@ -10186,7 +10639,12 @@ ___return (pipelinecolorblendstatecreateinfo);"))
       ref-VkPipelineDynamicStateCreateInfo
       (VkPipelineDynamicStateCreateInfo* int)
       VkPipelineDynamicStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineDynamicStateCreateInfo
+      ((pointer VkPipelineDynamicStateCreateInfo))
+      VkPipelineDynamicStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineDynamicStateCreateInfo
       (VkStructureType void* VkPipelineDynamicStateCreateFlags uint32_t VkDynamicState*)
@@ -10200,6 +10658,7 @@ pipelinedynamicstatecreateinfo->pDynamicStates=___arg5;
 ___return (pipelinedynamicstatecreateinfo);"))
 (begin-ffi
    (make-VkStencilOpState
+      ptr->VkStencilOpState
       ref-VkStencilOpState
       make-VkStencilOpState*
       VkStencilOpStatereference
@@ -10267,7 +10726,12 @@ ___return (pipelinedynamicstatecreateinfo);"))
       ref-VkStencilOpState
       (VkStencilOpState* int)
       VkStencilOpState*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkStencilOpState
+      ((pointer VkStencilOpState))
+      VkStencilOpState
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkStencilOpState
       (VkStencilOp VkStencilOp VkStencilOp VkCompareOp uint32_t uint32_t uint32_t)
@@ -10283,6 +10747,7 @@ stencilopstate->reference=___arg7;
 ___return (stencilopstate);"))
 (begin-ffi
    (make-VkPipelineDepthStencilStateCreateInfo
+      ptr->VkPipelineDepthStencilStateCreateInfo
       ref-VkPipelineDepthStencilStateCreateInfo
       make-VkPipelineDepthStencilStateCreateInfo*
       VkPipelineDepthStencilStateCreateInfomaxDepthBounds
@@ -10384,7 +10849,12 @@ ___return (stencilopstate);"))
       ref-VkPipelineDepthStencilStateCreateInfo
       (VkPipelineDepthStencilStateCreateInfo* int)
       VkPipelineDepthStencilStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineDepthStencilStateCreateInfo
+      ((pointer VkPipelineDepthStencilStateCreateInfo))
+      VkPipelineDepthStencilStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineDepthStencilStateCreateInfo
       (VkStructureType
@@ -10416,6 +10886,7 @@ pipelinedepthstencilstatecreateinfo->maxDepthBounds=___arg12;
 ___return (pipelinedepthstencilstatecreateinfo);"))
 (begin-ffi
    (make-VkGraphicsPipelineCreateInfo
+      ptr->VkGraphicsPipelineCreateInfo
       ref-VkGraphicsPipelineCreateInfo
       make-VkGraphicsPipelineCreateInfo*
       VkGraphicsPipelineCreateInfobasePipelineIndex
@@ -10555,7 +11026,12 @@ ___return (pipelinedepthstencilstatecreateinfo);"))
       ref-VkGraphicsPipelineCreateInfo
       (VkGraphicsPipelineCreateInfo* int)
       VkGraphicsPipelineCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkGraphicsPipelineCreateInfo
+      ((pointer VkGraphicsPipelineCreateInfo))
+      VkGraphicsPipelineCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkGraphicsPipelineCreateInfo
       (VkStructureType
@@ -10601,6 +11077,7 @@ graphicspipelinecreateinfo->basePipelineIndex=___arg19;
 ___return (graphicspipelinecreateinfo);"))
 (begin-ffi
    (make-VkPipelineCacheCreateInfo
+      ptr->VkPipelineCacheCreateInfo
       ref-VkPipelineCacheCreateInfo
       make-VkPipelineCacheCreateInfo*
       VkPipelineCacheCreateInfopInitialData
@@ -10656,7 +11133,12 @@ ___return (graphicspipelinecreateinfo);"))
       ref-VkPipelineCacheCreateInfo
       (VkPipelineCacheCreateInfo* int)
       VkPipelineCacheCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineCacheCreateInfo
+      ((pointer VkPipelineCacheCreateInfo))
+      VkPipelineCacheCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineCacheCreateInfo
       (VkStructureType void* VkPipelineCacheCreateFlags size_t void*)
@@ -10670,6 +11152,7 @@ pipelinecachecreateinfo->pInitialData=___arg5;
 ___return (pipelinecachecreateinfo);"))
 (begin-ffi
    (make-VkPushConstantRange
+      ptr->VkPushConstantRange
       ref-VkPushConstantRange
       make-VkPushConstantRange*
       VkPushConstantRangesize
@@ -10713,7 +11196,12 @@ ___return (pipelinecachecreateinfo);"))
       ref-VkPushConstantRange
       (VkPushConstantRange* int)
       VkPushConstantRange*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPushConstantRange
+      ((pointer VkPushConstantRange))
+      VkPushConstantRange
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPushConstantRange
       (VkShaderStageFlags uint32_t uint32_t)
@@ -10725,6 +11213,7 @@ pushconstantrange->size=___arg3;
 ___return (pushconstantrange);"))
 (begin-ffi
    (make-VkPipelineLayoutCreateInfo
+      ptr->VkPipelineLayoutCreateInfo
       ref-VkPipelineLayoutCreateInfo
       make-VkPipelineLayoutCreateInfo*
       VkPipelineLayoutCreateInfopPushConstantRanges
@@ -10792,7 +11281,12 @@ ___return (pushconstantrange);"))
       ref-VkPipelineLayoutCreateInfo
       (VkPipelineLayoutCreateInfo* int)
       VkPipelineLayoutCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineLayoutCreateInfo
+      ((pointer VkPipelineLayoutCreateInfo))
+      VkPipelineLayoutCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineLayoutCreateInfo
       (VkStructureType
@@ -10814,6 +11308,7 @@ pipelinelayoutcreateinfo->pPushConstantRanges=___arg7;
 ___return (pipelinelayoutcreateinfo);"))
 (begin-ffi
    (make-VkSamplerCreateInfo
+      ptr->VkSamplerCreateInfo
       ref-VkSamplerCreateInfo
       make-VkSamplerCreateInfo*
       VkSamplerCreateInfounnormalizedCoordinates
@@ -10947,7 +11442,12 @@ ___return (pipelinelayoutcreateinfo);"))
       ref-VkSamplerCreateInfo
       (VkSamplerCreateInfo* int)
       VkSamplerCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSamplerCreateInfo
+      ((pointer VkSamplerCreateInfo))
+      VkSamplerCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSamplerCreateInfo
       (VkStructureType
@@ -10991,6 +11491,7 @@ samplercreateinfo->unnormalizedCoordinates=___arg18;
 ___return (samplercreateinfo);"))
 (begin-ffi
    (make-VkCommandPoolCreateInfo
+      ptr->VkCommandPoolCreateInfo
       ref-VkCommandPoolCreateInfo
       make-VkCommandPoolCreateInfo*
       VkCommandPoolCreateInfoqueueFamilyIndex
@@ -11040,7 +11541,12 @@ ___return (samplercreateinfo);"))
       ref-VkCommandPoolCreateInfo
       (VkCommandPoolCreateInfo* int)
       VkCommandPoolCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCommandPoolCreateInfo
+      ((pointer VkCommandPoolCreateInfo))
+      VkCommandPoolCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCommandPoolCreateInfo
       (VkStructureType void* VkCommandPoolCreateFlags uint32_t)
@@ -11053,6 +11559,7 @@ commandpoolcreateinfo->queueFamilyIndex=___arg4;
 ___return (commandpoolcreateinfo);"))
 (begin-ffi
    (make-VkCommandBufferAllocateInfo
+      ptr->VkCommandBufferAllocateInfo
       ref-VkCommandBufferAllocateInfo
       make-VkCommandBufferAllocateInfo*
       VkCommandBufferAllocateInfocommandBufferCount
@@ -11108,7 +11615,12 @@ ___return (commandpoolcreateinfo);"))
       ref-VkCommandBufferAllocateInfo
       (VkCommandBufferAllocateInfo* int)
       VkCommandBufferAllocateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCommandBufferAllocateInfo
+      ((pointer VkCommandBufferAllocateInfo))
+      VkCommandBufferAllocateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCommandBufferAllocateInfo
       (VkStructureType void* VkCommandPool VkCommandBufferLevel uint32_t)
@@ -11122,6 +11634,7 @@ commandbufferallocateinfo->commandBufferCount=___arg5;
 ___return (commandbufferallocateinfo);"))
 (begin-ffi
    (make-VkCommandBufferInheritanceInfo
+      ptr->VkCommandBufferInheritanceInfo
       ref-VkCommandBufferInheritanceInfo
       make-VkCommandBufferInheritanceInfo*
       VkCommandBufferInheritanceInfopipelineStatistics
@@ -11199,7 +11712,12 @@ ___return (commandbufferallocateinfo);"))
       ref-VkCommandBufferInheritanceInfo
       (VkCommandBufferInheritanceInfo* int)
       VkCommandBufferInheritanceInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCommandBufferInheritanceInfo
+      ((pointer VkCommandBufferInheritanceInfo))
+      VkCommandBufferInheritanceInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCommandBufferInheritanceInfo
       (VkStructureType
@@ -11223,6 +11741,7 @@ commandbufferinheritanceinfo->pipelineStatistics=___arg8;
 ___return (commandbufferinheritanceinfo);"))
 (begin-ffi
    (make-VkCommandBufferBeginInfo
+      ptr->VkCommandBufferBeginInfo
       ref-VkCommandBufferBeginInfo
       make-VkCommandBufferBeginInfo*
       VkCommandBufferBeginInfopInheritanceInfo
@@ -11272,7 +11791,12 @@ ___return (commandbufferinheritanceinfo);"))
       ref-VkCommandBufferBeginInfo
       (VkCommandBufferBeginInfo* int)
       VkCommandBufferBeginInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCommandBufferBeginInfo
+      ((pointer VkCommandBufferBeginInfo))
+      VkCommandBufferBeginInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCommandBufferBeginInfo
       (VkStructureType void* VkCommandBufferUsageFlags VkCommandBufferInheritanceInfo*)
@@ -11285,6 +11809,7 @@ commandbufferbegininfo->pInheritanceInfo=___arg4;
 ___return (commandbufferbegininfo);"))
 (begin-ffi
    (make-VkRenderPassBeginInfo
+      ptr->VkRenderPassBeginInfo
       ref-VkRenderPassBeginInfo
       make-VkRenderPassBeginInfo*
       VkRenderPassBeginInfopClearValues
@@ -11352,7 +11877,12 @@ ___return (commandbufferbegininfo);"))
       ref-VkRenderPassBeginInfo
       (VkRenderPassBeginInfo* int)
       VkRenderPassBeginInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkRenderPassBeginInfo
+      ((pointer VkRenderPassBeginInfo))
+      VkRenderPassBeginInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkRenderPassBeginInfo
       (VkStructureType void* VkRenderPass VkFramebuffer VkRect2D uint32_t VkClearValue*)
@@ -11368,6 +11898,7 @@ renderpassbegininfo->pClearValues=___arg7;
 ___return (renderpassbegininfo);"))
 (begin-ffi
    (make-VkClearDepthStencilValue
+      ptr->VkClearDepthStencilValue
       ref-VkClearDepthStencilValue
       make-VkClearDepthStencilValue*
       VkClearDepthStencilValuestencil
@@ -11405,7 +11936,12 @@ ___return (renderpassbegininfo);"))
       ref-VkClearDepthStencilValue
       (VkClearDepthStencilValue* int)
       VkClearDepthStencilValue*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkClearDepthStencilValue
+      ((pointer VkClearDepthStencilValue))
+      VkClearDepthStencilValue
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkClearDepthStencilValue
       (float uint32_t)
@@ -11416,6 +11952,7 @@ cleardepthstencilvalue->stencil=___arg2;
 ___return (cleardepthstencilvalue);"))
 (begin-ffi
    (make-VkClearAttachment
+      ptr->VkClearAttachment
       ref-VkClearAttachment
       make-VkClearAttachment*
       VkClearAttachmentclearValue
@@ -11459,7 +11996,12 @@ ___return (cleardepthstencilvalue);"))
       ref-VkClearAttachment
       (VkClearAttachment* int)
       VkClearAttachment*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkClearAttachment
+      ((pointer VkClearAttachment))
+      VkClearAttachment
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkClearAttachment
       (VkImageAspectFlags uint32_t VkClearValue)
@@ -11471,6 +12013,7 @@ clearattachment->clearValue=___arg3;
 ___return (clearattachment);"))
 (begin-ffi
    (make-VkAttachmentDescription
+      ptr->VkAttachmentDescription
       ref-VkAttachmentDescription
       make-VkAttachmentDescription*
       VkAttachmentDescriptionfinalLayout
@@ -11550,7 +12093,12 @@ ___return (clearattachment);"))
       ref-VkAttachmentDescription
       (VkAttachmentDescription* int)
       VkAttachmentDescription*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkAttachmentDescription
+      ((pointer VkAttachmentDescription))
+      VkAttachmentDescription
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkAttachmentDescription
       (VkAttachmentDescriptionFlags
@@ -11576,6 +12124,7 @@ attachmentdescription->finalLayout=___arg9;
 ___return (attachmentdescription);"))
 (begin-ffi
    (make-VkAttachmentReference
+      ptr->VkAttachmentReference
       ref-VkAttachmentReference
       make-VkAttachmentReference*
       VkAttachmentReferencelayout
@@ -11613,7 +12162,12 @@ ___return (attachmentdescription);"))
       ref-VkAttachmentReference
       (VkAttachmentReference* int)
       VkAttachmentReference*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkAttachmentReference
+      ((pointer VkAttachmentReference))
+      VkAttachmentReference
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkAttachmentReference
       (uint32_t VkImageLayout)
@@ -11624,6 +12178,7 @@ attachmentreference->layout=___arg2;
 ___return (attachmentreference);"))
 (begin-ffi
    (make-VkSubpassDescription
+      ptr->VkSubpassDescription
       ref-VkSubpassDescription
       make-VkSubpassDescription*
       VkSubpassDescriptionpPreserveAttachments
@@ -11709,7 +12264,12 @@ ___return (attachmentreference);"))
       ref-VkSubpassDescription
       (VkSubpassDescription* int)
       VkSubpassDescription*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSubpassDescription
+      ((pointer VkSubpassDescription))
+      VkSubpassDescription
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSubpassDescription
       (VkSubpassDescriptionFlags
@@ -11737,6 +12297,7 @@ subpassdescription->pPreserveAttachments=___arg10;
 ___return (subpassdescription);"))
 (begin-ffi
    (make-VkSubpassDependency
+      ptr->VkSubpassDependency
       ref-VkSubpassDependency
       make-VkSubpassDependency*
       VkSubpassDependencydependencyFlags
@@ -11804,7 +12365,12 @@ ___return (subpassdescription);"))
       ref-VkSubpassDependency
       (VkSubpassDependency* int)
       VkSubpassDependency*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSubpassDependency
+      ((pointer VkSubpassDependency))
+      VkSubpassDependency
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSubpassDependency
       (uint32_t
@@ -11826,6 +12392,7 @@ subpassdependency->dependencyFlags=___arg7;
 ___return (subpassdependency);"))
 (begin-ffi
    (make-VkRenderPassCreateInfo
+      ptr->VkRenderPassCreateInfo
       ref-VkRenderPassCreateInfo
       make-VkRenderPassCreateInfo*
       VkRenderPassCreateInfopDependencies
@@ -11905,7 +12472,12 @@ ___return (subpassdependency);"))
       ref-VkRenderPassCreateInfo
       (VkRenderPassCreateInfo* int)
       VkRenderPassCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkRenderPassCreateInfo
+      ((pointer VkRenderPassCreateInfo))
+      VkRenderPassCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkRenderPassCreateInfo
       (VkStructureType
@@ -11931,6 +12503,7 @@ renderpasscreateinfo->pDependencies=___arg9;
 ___return (renderpasscreateinfo);"))
 (begin-ffi
    (make-VkEventCreateInfo
+      ptr->VkEventCreateInfo
       ref-VkEventCreateInfo
       make-VkEventCreateInfo*
       VkEventCreateInfoflags
@@ -11974,7 +12547,12 @@ ___return (renderpasscreateinfo);"))
       ref-VkEventCreateInfo
       (VkEventCreateInfo* int)
       VkEventCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkEventCreateInfo
+      ((pointer VkEventCreateInfo))
+      VkEventCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkEventCreateInfo
       (VkStructureType void* VkEventCreateFlags)
@@ -11986,6 +12564,7 @@ eventcreateinfo->flags=___arg3;
 ___return (eventcreateinfo);"))
 (begin-ffi
    (make-VkFenceCreateInfo
+      ptr->VkFenceCreateInfo
       ref-VkFenceCreateInfo
       make-VkFenceCreateInfo*
       VkFenceCreateInfoflags
@@ -12029,7 +12608,12 @@ ___return (eventcreateinfo);"))
       ref-VkFenceCreateInfo
       (VkFenceCreateInfo* int)
       VkFenceCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkFenceCreateInfo
+      ((pointer VkFenceCreateInfo))
+      VkFenceCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkFenceCreateInfo
       (VkStructureType void* VkFenceCreateFlags)
@@ -12041,6 +12625,7 @@ fencecreateinfo->flags=___arg3;
 ___return (fencecreateinfo);"))
 (begin-ffi
    (make-VkSemaphoreCreateInfo
+      ptr->VkSemaphoreCreateInfo
       ref-VkSemaphoreCreateInfo
       make-VkSemaphoreCreateInfo*
       VkSemaphoreCreateInfoflags
@@ -12084,7 +12669,12 @@ ___return (fencecreateinfo);"))
       ref-VkSemaphoreCreateInfo
       (VkSemaphoreCreateInfo* int)
       VkSemaphoreCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSemaphoreCreateInfo
+      ((pointer VkSemaphoreCreateInfo))
+      VkSemaphoreCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSemaphoreCreateInfo
       (VkStructureType void* VkSemaphoreCreateFlags)
@@ -12096,6 +12686,7 @@ semaphorecreateinfo->flags=___arg3;
 ___return (semaphorecreateinfo);"))
 (begin-ffi
    (make-VkQueryPoolCreateInfo
+      ptr->VkQueryPoolCreateInfo
       ref-VkQueryPoolCreateInfo
       make-VkQueryPoolCreateInfo*
       VkQueryPoolCreateInfopipelineStatistics
@@ -12157,7 +12748,12 @@ ___return (semaphorecreateinfo);"))
       ref-VkQueryPoolCreateInfo
       (VkQueryPoolCreateInfo* int)
       VkQueryPoolCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkQueryPoolCreateInfo
+      ((pointer VkQueryPoolCreateInfo))
+      VkQueryPoolCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkQueryPoolCreateInfo
       (VkStructureType
@@ -12177,6 +12773,7 @@ querypoolcreateinfo->pipelineStatistics=___arg6;
 ___return (querypoolcreateinfo);"))
 (begin-ffi
    (make-VkFramebufferCreateInfo
+      ptr->VkFramebufferCreateInfo
       ref-VkFramebufferCreateInfo
       make-VkFramebufferCreateInfo*
       VkFramebufferCreateInfolayers
@@ -12256,7 +12853,12 @@ ___return (querypoolcreateinfo);"))
       ref-VkFramebufferCreateInfo
       (VkFramebufferCreateInfo* int)
       VkFramebufferCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkFramebufferCreateInfo
+      ((pointer VkFramebufferCreateInfo))
+      VkFramebufferCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkFramebufferCreateInfo
       (VkStructureType
@@ -12282,6 +12884,7 @@ framebuffercreateinfo->layers=___arg9;
 ___return (framebuffercreateinfo);"))
 (begin-ffi
    (make-VkDrawIndirectCommand
+      ptr->VkDrawIndirectCommand
       ref-VkDrawIndirectCommand
       make-VkDrawIndirectCommand*
       VkDrawIndirectCommandfirstInstance
@@ -12331,7 +12934,12 @@ ___return (framebuffercreateinfo);"))
       ref-VkDrawIndirectCommand
       (VkDrawIndirectCommand* int)
       VkDrawIndirectCommand*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDrawIndirectCommand
+      ((pointer VkDrawIndirectCommand))
+      VkDrawIndirectCommand
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDrawIndirectCommand
       (uint32_t uint32_t uint32_t uint32_t)
@@ -12344,6 +12952,7 @@ drawindirectcommand->firstInstance=___arg4;
 ___return (drawindirectcommand);"))
 (begin-ffi
    (make-VkDrawIndexedIndirectCommand
+      ptr->VkDrawIndexedIndirectCommand
       ref-VkDrawIndexedIndirectCommand
       make-VkDrawIndexedIndirectCommand*
       VkDrawIndexedIndirectCommandfirstInstance
@@ -12399,7 +13008,12 @@ ___return (drawindirectcommand);"))
       ref-VkDrawIndexedIndirectCommand
       (VkDrawIndexedIndirectCommand* int)
       VkDrawIndexedIndirectCommand*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDrawIndexedIndirectCommand
+      ((pointer VkDrawIndexedIndirectCommand))
+      VkDrawIndexedIndirectCommand
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDrawIndexedIndirectCommand
       (uint32_t uint32_t uint32_t int32_t uint32_t)
@@ -12413,6 +13027,7 @@ drawindexedindirectcommand->firstInstance=___arg5;
 ___return (drawindexedindirectcommand);"))
 (begin-ffi
    (make-VkDispatchIndirectCommand
+      ptr->VkDispatchIndirectCommand
       ref-VkDispatchIndirectCommand
       make-VkDispatchIndirectCommand*
       VkDispatchIndirectCommandz
@@ -12456,7 +13071,12 @@ ___return (drawindexedindirectcommand);"))
       ref-VkDispatchIndirectCommand
       (VkDispatchIndirectCommand* int)
       VkDispatchIndirectCommand*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDispatchIndirectCommand
+      ((pointer VkDispatchIndirectCommand))
+      VkDispatchIndirectCommand
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDispatchIndirectCommand
       (uint32_t uint32_t uint32_t)
@@ -12468,6 +13088,7 @@ dispatchindirectcommand->z=___arg3;
 ___return (dispatchindirectcommand);"))
 (begin-ffi
    (make-VkSubmitInfo
+      ptr->VkSubmitInfo
       ref-VkSubmitInfo
       make-VkSubmitInfo*
       VkSubmitInfopSignalSemaphores
@@ -12543,7 +13164,12 @@ ___return (dispatchindirectcommand);"))
       ref-VkSubmitInfo
       (VkSubmitInfo* int)
       VkSubmitInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSubmitInfo
+      ((pointer VkSubmitInfo))
+      VkSubmitInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSubmitInfo
       (VkStructureType
@@ -12569,6 +13195,7 @@ submitinfo->pSignalSemaphores=___arg9;
 ___return (submitinfo);"))
 (begin-ffi
    (make-VkDisplayPropertiesKHR
+      ptr->VkDisplayPropertiesKHR
       ref-VkDisplayPropertiesKHR
       make-VkDisplayPropertiesKHR*
       VkDisplayPropertiesKHRpersistentContent
@@ -12636,7 +13263,7 @@ ___return (submitinfo);"))
       ref-VkDisplayPropertiesKHR
       (VkDisplayPropertiesKHR* int)
       VkDisplayPropertiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayPropertiesKHR
       (VkDisplayKHR
@@ -12658,6 +13285,7 @@ displaypropertieskhr->persistentContent=___arg7;
 ___return (displaypropertieskhr);"))
 (begin-ffi
    (make-VkDisplayPlanePropertiesKHR
+      ptr->VkDisplayPlanePropertiesKHR
       ref-VkDisplayPlanePropertiesKHR
       make-VkDisplayPlanePropertiesKHR*
       VkDisplayPlanePropertiesKHRcurrentStackIndex
@@ -12695,7 +13323,7 @@ ___return (displaypropertieskhr);"))
       ref-VkDisplayPlanePropertiesKHR
       (VkDisplayPlanePropertiesKHR* int)
       VkDisplayPlanePropertiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayPlanePropertiesKHR
       (VkDisplayKHR uint32_t)
@@ -12706,6 +13334,7 @@ displayplanepropertieskhr->currentStackIndex=___arg2;
 ___return (displayplanepropertieskhr);"))
 (begin-ffi
    (make-VkDisplayModeParametersKHR
+      ptr->VkDisplayModeParametersKHR
       ref-VkDisplayModeParametersKHR
       make-VkDisplayModeParametersKHR*
       VkDisplayModeParametersKHRrefreshRate
@@ -12743,7 +13372,7 @@ ___return (displayplanepropertieskhr);"))
       ref-VkDisplayModeParametersKHR
       (VkDisplayModeParametersKHR* int)
       VkDisplayModeParametersKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayModeParametersKHR
       (VkExtent2D uint32_t)
@@ -12754,6 +13383,7 @@ displaymodeparameterskhr->refreshRate=___arg2;
 ___return (displaymodeparameterskhr);"))
 (begin-ffi
    (make-VkDisplayModePropertiesKHR
+      ptr->VkDisplayModePropertiesKHR
       ref-VkDisplayModePropertiesKHR
       make-VkDisplayModePropertiesKHR*
       VkDisplayModePropertiesKHRparameters
@@ -12791,7 +13421,7 @@ ___return (displaymodeparameterskhr);"))
       ref-VkDisplayModePropertiesKHR
       (VkDisplayModePropertiesKHR* int)
       VkDisplayModePropertiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayModePropertiesKHR
       (VkDisplayModeKHR VkDisplayModeParametersKHR)
@@ -12802,6 +13432,7 @@ displaymodepropertieskhr->parameters=___arg2;
 ___return (displaymodepropertieskhr);"))
 (begin-ffi
    (make-VkDisplayModeCreateInfoKHR
+      ptr->VkDisplayModeCreateInfoKHR
       ref-VkDisplayModeCreateInfoKHR
       make-VkDisplayModeCreateInfoKHR*
       VkDisplayModeCreateInfoKHRparameters
@@ -12851,7 +13482,7 @@ ___return (displaymodepropertieskhr);"))
       ref-VkDisplayModeCreateInfoKHR
       (VkDisplayModeCreateInfoKHR* int)
       VkDisplayModeCreateInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayModeCreateInfoKHR
       (VkStructureType void* VkDisplayModeCreateFlagsKHR VkDisplayModeParametersKHR)
@@ -12864,6 +13495,7 @@ displaymodecreateinfokhr->parameters=___arg4;
 ___return (displaymodecreateinfokhr);"))
 (begin-ffi
    (make-VkDisplayPlaneCapabilitiesKHR
+      ptr->VkDisplayPlaneCapabilitiesKHR
       ref-VkDisplayPlaneCapabilitiesKHR
       make-VkDisplayPlaneCapabilitiesKHR*
       VkDisplayPlaneCapabilitiesKHRmaxDstExtent
@@ -12943,7 +13575,7 @@ ___return (displaymodecreateinfokhr);"))
       ref-VkDisplayPlaneCapabilitiesKHR
       (VkDisplayPlaneCapabilitiesKHR* int)
       VkDisplayPlaneCapabilitiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayPlaneCapabilitiesKHR
       (VkDisplayPlaneAlphaFlagsKHR
@@ -12969,6 +13601,7 @@ displayplanecapabilitieskhr->maxDstExtent=___arg9;
 ___return (displayplanecapabilitieskhr);"))
 (begin-ffi
    (make-VkDisplaySurfaceCreateInfoKHR
+      ptr->VkDisplaySurfaceCreateInfoKHR
       ref-VkDisplaySurfaceCreateInfoKHR
       make-VkDisplaySurfaceCreateInfoKHR*
       VkDisplaySurfaceCreateInfoKHRimageExtent
@@ -13054,7 +13687,7 @@ ___return (displayplanecapabilitieskhr);"))
       ref-VkDisplaySurfaceCreateInfoKHR
       (VkDisplaySurfaceCreateInfoKHR* int)
       VkDisplaySurfaceCreateInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplaySurfaceCreateInfoKHR
       (VkStructureType
@@ -13082,6 +13715,7 @@ displaysurfacecreateinfokhr->imageExtent=___arg10;
 ___return (displaysurfacecreateinfokhr);"))
 (begin-ffi
    (make-VkDisplayPresentInfoKHR
+      ptr->VkDisplayPresentInfoKHR
       ref-VkDisplayPresentInfoKHR
       make-VkDisplayPresentInfoKHR*
       VkDisplayPresentInfoKHRpersistent
@@ -13137,7 +13771,7 @@ ___return (displaysurfacecreateinfokhr);"))
       ref-VkDisplayPresentInfoKHR
       (VkDisplayPresentInfoKHR* int)
       VkDisplayPresentInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayPresentInfoKHR
       (VkStructureType void* VkRect2D VkRect2D VkBool32)
@@ -13151,6 +13785,7 @@ displaypresentinfokhr->persistent=___arg5;
 ___return (displaypresentinfokhr);"))
 (begin-ffi
    (make-VkSurfaceCapabilitiesKHR
+      ptr->VkSurfaceCapabilitiesKHR
       ref-VkSurfaceCapabilitiesKHR
       make-VkSurfaceCapabilitiesKHR*
       VkSurfaceCapabilitiesKHRsupportedUsageFlags
@@ -13236,7 +13871,7 @@ ___return (displaypresentinfokhr);"))
       ref-VkSurfaceCapabilitiesKHR
       (VkSurfaceCapabilitiesKHR* int)
       VkSurfaceCapabilitiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSurfaceCapabilitiesKHR
       (uint32_t
@@ -13264,6 +13899,7 @@ surfacecapabilitieskhr->supportedUsageFlags=___arg10;
 ___return (surfacecapabilitieskhr);"))
 (begin-ffi
    (make-VkSurfaceFormatKHR
+      ptr->VkSurfaceFormatKHR
       ref-VkSurfaceFormatKHR
       make-VkSurfaceFormatKHR*
       VkSurfaceFormatKHRcolorSpace
@@ -13301,7 +13937,7 @@ ___return (surfacecapabilitieskhr);"))
       ref-VkSurfaceFormatKHR
       (VkSurfaceFormatKHR* int)
       VkSurfaceFormatKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSurfaceFormatKHR
       (VkFormat VkColorSpaceKHR)
@@ -13312,6 +13948,7 @@ surfaceformatkhr->colorSpace=___arg2;
 ___return (surfaceformatkhr);"))
 (begin-ffi
    (make-VkSwapchainCreateInfoKHR
+      ptr->VkSwapchainCreateInfoKHR
       ref-VkSwapchainCreateInfoKHR
       make-VkSwapchainCreateInfoKHR*
       VkSwapchainCreateInfoKHRoldSwapchain
@@ -13445,7 +14082,7 @@ ___return (surfaceformatkhr);"))
       ref-VkSwapchainCreateInfoKHR
       (VkSwapchainCreateInfoKHR* int)
       VkSwapchainCreateInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSwapchainCreateInfoKHR
       (VkStructureType
@@ -13489,6 +14126,7 @@ swapchaincreateinfokhr->oldSwapchain=___arg18;
 ___return (swapchaincreateinfokhr);"))
 (begin-ffi
    (make-VkPresentInfoKHR
+      ptr->VkPresentInfoKHR
       ref-VkPresentInfoKHR
       make-VkPresentInfoKHR*
       VkPresentInfoKHRpResults
@@ -13562,7 +14200,7 @@ ___return (swapchaincreateinfokhr);"))
       ref-VkPresentInfoKHR
       (VkPresentInfoKHR* int)
       VkPresentInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPresentInfoKHR
       (VkStructureType
@@ -13610,6 +14248,7 @@ ___return (presentinfokhr);"))
    (c-define-type PFN_vkDebugReportCallbackEXT* (pointer PFN_vkDebugReportCallbackEXT)))
 (begin-ffi
    (make-VkDebugReportCallbackCreateInfoEXT
+      ptr->VkDebugReportCallbackCreateInfoEXT
       ref-VkDebugReportCallbackCreateInfoEXT
       make-VkDebugReportCallbackCreateInfoEXT*
       VkDebugReportCallbackCreateInfoEXTpUserData
@@ -13669,7 +14308,12 @@ ___return (presentinfokhr);"))
       ref-VkDebugReportCallbackCreateInfoEXT
       (VkDebugReportCallbackCreateInfoEXT* int)
       VkDebugReportCallbackCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDebugReportCallbackCreateInfoEXT
+      ((pointer VkDebugReportCallbackCreateInfoEXT))
+      VkDebugReportCallbackCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDebugReportCallbackCreateInfoEXT
       (VkStructureType void* VkDebugReportFlagsEXT PFN_vkDebugReportCallbackEXT void*)
@@ -13683,6 +14327,7 @@ debugreportcallbackcreateinfoext->pUserData=___arg5;
 ___return (debugreportcallbackcreateinfoext);"))
 (begin-ffi
    (make-VkValidationFlagsEXT
+      ptr->VkValidationFlagsEXT
       ref-VkValidationFlagsEXT
       make-VkValidationFlagsEXT*
       VkValidationFlagsEXTpDisabledValidationChecks
@@ -13732,7 +14377,12 @@ ___return (debugreportcallbackcreateinfoext);"))
       ref-VkValidationFlagsEXT
       (VkValidationFlagsEXT* int)
       VkValidationFlagsEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkValidationFlagsEXT
+      ((pointer VkValidationFlagsEXT))
+      VkValidationFlagsEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkValidationFlagsEXT
       (VkStructureType void* uint32_t VkValidationCheckEXT*)
@@ -13745,6 +14395,7 @@ validationflagsext->pDisabledValidationChecks=___arg4;
 ___return (validationflagsext);"))
 (begin-ffi
    (make-VkValidationFeaturesEXT
+      ptr->VkValidationFeaturesEXT
       ref-VkValidationFeaturesEXT
       make-VkValidationFeaturesEXT*
       VkValidationFeaturesEXTpDisabledValidationFeatures
@@ -13806,7 +14457,12 @@ ___return (validationflagsext);"))
       ref-VkValidationFeaturesEXT
       (VkValidationFeaturesEXT* int)
       VkValidationFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkValidationFeaturesEXT
+      ((pointer VkValidationFeaturesEXT))
+      VkValidationFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkValidationFeaturesEXT
       (VkStructureType
@@ -13826,6 +14482,7 @@ validationfeaturesext->pDisabledValidationFeatures=___arg6;
 ___return (validationfeaturesext);"))
 (begin-ffi
    (make-VkPipelineRasterizationStateRasterizationOrderAMD
+      ptr->VkPipelineRasterizationStateRasterizationOrderAMD
       ref-VkPipelineRasterizationStateRasterizationOrderAMD
       make-VkPipelineRasterizationStateRasterizationOrderAMD*
       VkPipelineRasterizationStateRasterizationOrderAMDrasterizationOrder
@@ -13873,7 +14530,12 @@ ___return (validationfeaturesext);"))
       ref-VkPipelineRasterizationStateRasterizationOrderAMD
       (VkPipelineRasterizationStateRasterizationOrderAMD* int)
       VkPipelineRasterizationStateRasterizationOrderAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineRasterizationStateRasterizationOrderAMD
+      ((pointer VkPipelineRasterizationStateRasterizationOrderAMD))
+      VkPipelineRasterizationStateRasterizationOrderAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineRasterizationStateRasterizationOrderAMD
       (VkStructureType void* VkRasterizationOrderAMD)
@@ -13885,6 +14547,7 @@ pipelinerasterizationstaterasterizationorderamd->rasterizationOrder=___arg3;
 ___return (pipelinerasterizationstaterasterizationorderamd);"))
 (begin-ffi
    (make-VkDebugMarkerObjectNameInfoEXT
+      ptr->VkDebugMarkerObjectNameInfoEXT
       ref-VkDebugMarkerObjectNameInfoEXT
       make-VkDebugMarkerObjectNameInfoEXT*
       VkDebugMarkerObjectNameInfoEXTpObjectName
@@ -13944,7 +14607,12 @@ ___return (pipelinerasterizationstaterasterizationorderamd);"))
       ref-VkDebugMarkerObjectNameInfoEXT
       (VkDebugMarkerObjectNameInfoEXT* int)
       VkDebugMarkerObjectNameInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDebugMarkerObjectNameInfoEXT
+      ((pointer VkDebugMarkerObjectNameInfoEXT))
+      VkDebugMarkerObjectNameInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDebugMarkerObjectNameInfoEXT
       (VkStructureType void* VkDebugReportObjectTypeEXT uint64_t char*)
@@ -13958,6 +14626,7 @@ debugmarkerobjectnameinfoext->pObjectName=___arg5;
 ___return (debugmarkerobjectnameinfoext);"))
 (begin-ffi
    (make-VkDebugMarkerObjectTagInfoEXT
+      ptr->VkDebugMarkerObjectTagInfoEXT
       ref-VkDebugMarkerObjectTagInfoEXT
       make-VkDebugMarkerObjectTagInfoEXT*
       VkDebugMarkerObjectTagInfoEXTpTag
@@ -14025,7 +14694,12 @@ ___return (debugmarkerobjectnameinfoext);"))
       ref-VkDebugMarkerObjectTagInfoEXT
       (VkDebugMarkerObjectTagInfoEXT* int)
       VkDebugMarkerObjectTagInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDebugMarkerObjectTagInfoEXT
+      ((pointer VkDebugMarkerObjectTagInfoEXT))
+      VkDebugMarkerObjectTagInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDebugMarkerObjectTagInfoEXT
       (VkStructureType void* VkDebugReportObjectTypeEXT uint64_t uint64_t size_t void*)
@@ -14041,6 +14715,7 @@ debugmarkerobjecttaginfoext->pTag=___arg7;
 ___return (debugmarkerobjecttaginfoext);"))
 (begin-ffi
    (make-VkDebugMarkerMarkerInfoEXT
+      ptr->VkDebugMarkerMarkerInfoEXT
       ref-VkDebugMarkerMarkerInfoEXT
       make-VkDebugMarkerMarkerInfoEXT*
       VkDebugMarkerMarkerInfoEXTcolor
@@ -14090,7 +14765,12 @@ ___return (debugmarkerobjecttaginfoext);"))
       ref-VkDebugMarkerMarkerInfoEXT
       (VkDebugMarkerMarkerInfoEXT* int)
       VkDebugMarkerMarkerInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDebugMarkerMarkerInfoEXT
+      ((pointer VkDebugMarkerMarkerInfoEXT))
+      VkDebugMarkerMarkerInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDebugMarkerMarkerInfoEXT
       (VkStructureType void* char* float*)
@@ -14103,6 +14783,7 @@ memcpy(debugmarkermarkerinfoext->color,___arg4,sizeof(___arg4));
 ___return (debugmarkermarkerinfoext);"))
 (begin-ffi
    (make-VkDedicatedAllocationImageCreateInfoNV
+      ptr->VkDedicatedAllocationImageCreateInfoNV
       ref-VkDedicatedAllocationImageCreateInfoNV
       make-VkDedicatedAllocationImageCreateInfoNV*
       VkDedicatedAllocationImageCreateInfoNVdedicatedAllocation
@@ -14150,7 +14831,12 @@ ___return (debugmarkermarkerinfoext);"))
       ref-VkDedicatedAllocationImageCreateInfoNV
       (VkDedicatedAllocationImageCreateInfoNV* int)
       VkDedicatedAllocationImageCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDedicatedAllocationImageCreateInfoNV
+      ((pointer VkDedicatedAllocationImageCreateInfoNV))
+      VkDedicatedAllocationImageCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDedicatedAllocationImageCreateInfoNV
       (VkStructureType void* VkBool32)
@@ -14162,6 +14848,7 @@ dedicatedallocationimagecreateinfonv->dedicatedAllocation=___arg3;
 ___return (dedicatedallocationimagecreateinfonv);"))
 (begin-ffi
    (make-VkDedicatedAllocationBufferCreateInfoNV
+      ptr->VkDedicatedAllocationBufferCreateInfoNV
       ref-VkDedicatedAllocationBufferCreateInfoNV
       make-VkDedicatedAllocationBufferCreateInfoNV*
       VkDedicatedAllocationBufferCreateInfoNVdedicatedAllocation
@@ -14209,7 +14896,12 @@ ___return (dedicatedallocationimagecreateinfonv);"))
       ref-VkDedicatedAllocationBufferCreateInfoNV
       (VkDedicatedAllocationBufferCreateInfoNV* int)
       VkDedicatedAllocationBufferCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDedicatedAllocationBufferCreateInfoNV
+      ((pointer VkDedicatedAllocationBufferCreateInfoNV))
+      VkDedicatedAllocationBufferCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDedicatedAllocationBufferCreateInfoNV
       (VkStructureType void* VkBool32)
@@ -14221,6 +14913,7 @@ dedicatedallocationbuffercreateinfonv->dedicatedAllocation=___arg3;
 ___return (dedicatedallocationbuffercreateinfonv);"))
 (begin-ffi
    (make-VkDedicatedAllocationMemoryAllocateInfoNV
+      ptr->VkDedicatedAllocationMemoryAllocateInfoNV
       ref-VkDedicatedAllocationMemoryAllocateInfoNV
       make-VkDedicatedAllocationMemoryAllocateInfoNV*
       VkDedicatedAllocationMemoryAllocateInfoNVbuffer
@@ -14274,7 +14967,12 @@ ___return (dedicatedallocationbuffercreateinfonv);"))
       ref-VkDedicatedAllocationMemoryAllocateInfoNV
       (VkDedicatedAllocationMemoryAllocateInfoNV* int)
       VkDedicatedAllocationMemoryAllocateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDedicatedAllocationMemoryAllocateInfoNV
+      ((pointer VkDedicatedAllocationMemoryAllocateInfoNV))
+      VkDedicatedAllocationMemoryAllocateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDedicatedAllocationMemoryAllocateInfoNV
       (VkStructureType void* VkImage VkBuffer)
@@ -14287,6 +14985,7 @@ dedicatedallocationmemoryallocateinfonv->buffer=___arg4;
 ___return (dedicatedallocationmemoryallocateinfonv);"))
 (begin-ffi
    (make-VkExternalImageFormatPropertiesNV
+      ptr->VkExternalImageFormatPropertiesNV
       ref-VkExternalImageFormatPropertiesNV
       make-VkExternalImageFormatPropertiesNV*
       VkExternalImageFormatPropertiesNVcompatibleHandleTypes
@@ -14340,7 +15039,12 @@ ___return (dedicatedallocationmemoryallocateinfonv);"))
       ref-VkExternalImageFormatPropertiesNV
       (VkExternalImageFormatPropertiesNV* int)
       VkExternalImageFormatPropertiesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExternalImageFormatPropertiesNV
+      ((pointer VkExternalImageFormatPropertiesNV))
+      VkExternalImageFormatPropertiesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExternalImageFormatPropertiesNV
       (VkImageFormatProperties
@@ -14356,6 +15060,7 @@ externalimageformatpropertiesnv->compatibleHandleTypes=___arg4;
 ___return (externalimageformatpropertiesnv);"))
 (begin-ffi
    (make-VkExternalMemoryImageCreateInfoNV
+      ptr->VkExternalMemoryImageCreateInfoNV
       ref-VkExternalMemoryImageCreateInfoNV
       make-VkExternalMemoryImageCreateInfoNV*
       VkExternalMemoryImageCreateInfoNVhandleTypes
@@ -14403,7 +15108,12 @@ ___return (externalimageformatpropertiesnv);"))
       ref-VkExternalMemoryImageCreateInfoNV
       (VkExternalMemoryImageCreateInfoNV* int)
       VkExternalMemoryImageCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExternalMemoryImageCreateInfoNV
+      ((pointer VkExternalMemoryImageCreateInfoNV))
+      VkExternalMemoryImageCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExternalMemoryImageCreateInfoNV
       (VkStructureType void* VkExternalMemoryHandleTypeFlagsNV)
@@ -14415,6 +15125,7 @@ externalmemoryimagecreateinfonv->handleTypes=___arg3;
 ___return (externalmemoryimagecreateinfonv);"))
 (begin-ffi
    (make-VkExportMemoryAllocateInfoNV
+      ptr->VkExportMemoryAllocateInfoNV
       ref-VkExportMemoryAllocateInfoNV
       make-VkExportMemoryAllocateInfoNV*
       VkExportMemoryAllocateInfoNVhandleTypes
@@ -14458,7 +15169,12 @@ ___return (externalmemoryimagecreateinfonv);"))
       ref-VkExportMemoryAllocateInfoNV
       (VkExportMemoryAllocateInfoNV* int)
       VkExportMemoryAllocateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExportMemoryAllocateInfoNV
+      ((pointer VkExportMemoryAllocateInfoNV))
+      VkExportMemoryAllocateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExportMemoryAllocateInfoNV
       (VkStructureType void* VkExternalMemoryHandleTypeFlagsNV)
@@ -14470,6 +15186,7 @@ exportmemoryallocateinfonv->handleTypes=___arg3;
 ___return (exportmemoryallocateinfonv);"))
 (begin-ffi
    (make-VkDeviceGeneratedCommandsFeaturesNVX
+      ptr->VkDeviceGeneratedCommandsFeaturesNVX
       ref-VkDeviceGeneratedCommandsFeaturesNVX
       make-VkDeviceGeneratedCommandsFeaturesNVX*
       VkDeviceGeneratedCommandsFeaturesNVXcomputeBindingPointSupport
@@ -14517,7 +15234,12 @@ ___return (exportmemoryallocateinfonv);"))
       ref-VkDeviceGeneratedCommandsFeaturesNVX
       (VkDeviceGeneratedCommandsFeaturesNVX* int)
       VkDeviceGeneratedCommandsFeaturesNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceGeneratedCommandsFeaturesNVX
+      ((pointer VkDeviceGeneratedCommandsFeaturesNVX))
+      VkDeviceGeneratedCommandsFeaturesNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceGeneratedCommandsFeaturesNVX
       (VkStructureType void* VkBool32)
@@ -14529,6 +15251,7 @@ devicegeneratedcommandsfeaturesnvx->computeBindingPointSupport=___arg3;
 ___return (devicegeneratedcommandsfeaturesnvx);"))
 (begin-ffi
    (make-VkDeviceGeneratedCommandsLimitsNVX
+      ptr->VkDeviceGeneratedCommandsLimitsNVX
       ref-VkDeviceGeneratedCommandsLimitsNVX
       make-VkDeviceGeneratedCommandsLimitsNVX*
       VkDeviceGeneratedCommandsLimitsNVXminCommandsTokenBufferOffsetAlignment
@@ -14600,7 +15323,12 @@ ___return (devicegeneratedcommandsfeaturesnvx);"))
       ref-VkDeviceGeneratedCommandsLimitsNVX
       (VkDeviceGeneratedCommandsLimitsNVX* int)
       VkDeviceGeneratedCommandsLimitsNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceGeneratedCommandsLimitsNVX
+      ((pointer VkDeviceGeneratedCommandsLimitsNVX))
+      VkDeviceGeneratedCommandsLimitsNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceGeneratedCommandsLimitsNVX
       (VkStructureType void* uint32_t uint32_t uint32_t uint32_t uint32_t)
@@ -14616,6 +15344,7 @@ devicegeneratedcommandslimitsnvx->minCommandsTokenBufferOffsetAlignment=___arg7;
 ___return (devicegeneratedcommandslimitsnvx);"))
 (begin-ffi
    (make-VkIndirectCommandsTokenNVX
+      ptr->VkIndirectCommandsTokenNVX
       ref-VkIndirectCommandsTokenNVX
       make-VkIndirectCommandsTokenNVX*
       VkIndirectCommandsTokenNVXoffset
@@ -14659,7 +15388,12 @@ ___return (devicegeneratedcommandslimitsnvx);"))
       ref-VkIndirectCommandsTokenNVX
       (VkIndirectCommandsTokenNVX* int)
       VkIndirectCommandsTokenNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkIndirectCommandsTokenNVX
+      ((pointer VkIndirectCommandsTokenNVX))
+      VkIndirectCommandsTokenNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkIndirectCommandsTokenNVX
       (VkIndirectCommandsTokenTypeNVX VkBuffer VkDeviceSize)
@@ -14671,6 +15405,7 @@ indirectcommandstokennvx->offset=___arg3;
 ___return (indirectcommandstokennvx);"))
 (begin-ffi
    (make-VkIndirectCommandsLayoutTokenNVX
+      ptr->VkIndirectCommandsLayoutTokenNVX
       ref-VkIndirectCommandsLayoutTokenNVX
       make-VkIndirectCommandsLayoutTokenNVX*
       VkIndirectCommandsLayoutTokenNVXdivisor
@@ -14724,7 +15459,12 @@ ___return (indirectcommandstokennvx);"))
       ref-VkIndirectCommandsLayoutTokenNVX
       (VkIndirectCommandsLayoutTokenNVX* int)
       VkIndirectCommandsLayoutTokenNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkIndirectCommandsLayoutTokenNVX
+      ((pointer VkIndirectCommandsLayoutTokenNVX))
+      VkIndirectCommandsLayoutTokenNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkIndirectCommandsLayoutTokenNVX
       (VkIndirectCommandsTokenTypeNVX uint32_t uint32_t uint32_t)
@@ -14737,6 +15477,7 @@ indirectcommandslayouttokennvx->divisor=___arg4;
 ___return (indirectcommandslayouttokennvx);"))
 (begin-ffi
    (make-VkIndirectCommandsLayoutCreateInfoNVX
+      ptr->VkIndirectCommandsLayoutCreateInfoNVX
       ref-VkIndirectCommandsLayoutCreateInfoNVX
       make-VkIndirectCommandsLayoutCreateInfoNVX*
       VkIndirectCommandsLayoutCreateInfoNVXpTokens
@@ -14802,7 +15543,12 @@ ___return (indirectcommandslayouttokennvx);"))
       ref-VkIndirectCommandsLayoutCreateInfoNVX
       (VkIndirectCommandsLayoutCreateInfoNVX* int)
       VkIndirectCommandsLayoutCreateInfoNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkIndirectCommandsLayoutCreateInfoNVX
+      ((pointer VkIndirectCommandsLayoutCreateInfoNVX))
+      VkIndirectCommandsLayoutCreateInfoNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkIndirectCommandsLayoutCreateInfoNVX
       (VkStructureType
@@ -14822,6 +15568,7 @@ indirectcommandslayoutcreateinfonvx->pTokens=___arg6;
 ___return (indirectcommandslayoutcreateinfonvx);"))
 (begin-ffi
    (make-VkCmdProcessCommandsInfoNVX
+      ptr->VkCmdProcessCommandsInfoNVX
       ref-VkCmdProcessCommandsInfoNVX
       make-VkCmdProcessCommandsInfoNVX*
       VkCmdProcessCommandsInfoNVXsequencesIndexOffset
@@ -14919,7 +15666,12 @@ ___return (indirectcommandslayoutcreateinfonvx);"))
       ref-VkCmdProcessCommandsInfoNVX
       (VkCmdProcessCommandsInfoNVX* int)
       VkCmdProcessCommandsInfoNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCmdProcessCommandsInfoNVX
+      ((pointer VkCmdProcessCommandsInfoNVX))
+      VkCmdProcessCommandsInfoNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCmdProcessCommandsInfoNVX
       (VkStructureType
@@ -14951,6 +15703,7 @@ cmdprocesscommandsinfonvx->sequencesIndexOffset=___arg12;
 ___return (cmdprocesscommandsinfonvx);"))
 (begin-ffi
    (make-VkCmdReserveSpaceForCommandsInfoNVX
+      ptr->VkCmdReserveSpaceForCommandsInfoNVX
       ref-VkCmdReserveSpaceForCommandsInfoNVX
       make-VkCmdReserveSpaceForCommandsInfoNVX*
       VkCmdReserveSpaceForCommandsInfoNVXmaxSequencesCount
@@ -15010,7 +15763,12 @@ ___return (cmdprocesscommandsinfonvx);"))
       ref-VkCmdReserveSpaceForCommandsInfoNVX
       (VkCmdReserveSpaceForCommandsInfoNVX* int)
       VkCmdReserveSpaceForCommandsInfoNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCmdReserveSpaceForCommandsInfoNVX
+      ((pointer VkCmdReserveSpaceForCommandsInfoNVX))
+      VkCmdReserveSpaceForCommandsInfoNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCmdReserveSpaceForCommandsInfoNVX
       (VkStructureType void* VkObjectTableNVX VkIndirectCommandsLayoutNVX uint32_t)
@@ -15024,6 +15782,7 @@ cmdreservespaceforcommandsinfonvx->maxSequencesCount=___arg5;
 ___return (cmdreservespaceforcommandsinfonvx);"))
 (begin-ffi
    (make-VkObjectTableCreateInfoNVX
+      ptr->VkObjectTableCreateInfoNVX
       ref-VkObjectTableCreateInfoNVX
       make-VkObjectTableCreateInfoNVX*
       VkObjectTableCreateInfoNVXmaxPipelineLayouts
@@ -15115,7 +15874,12 @@ ___return (cmdreservespaceforcommandsinfonvx);"))
       ref-VkObjectTableCreateInfoNVX
       (VkObjectTableCreateInfoNVX* int)
       VkObjectTableCreateInfoNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkObjectTableCreateInfoNVX
+      ((pointer VkObjectTableCreateInfoNVX))
+      VkObjectTableCreateInfoNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkObjectTableCreateInfoNVX
       (VkStructureType
@@ -15145,6 +15909,7 @@ objecttablecreateinfonvx->maxPipelineLayouts=___arg11;
 ___return (objecttablecreateinfonvx);"))
 (begin-ffi
    (make-VkObjectTableEntryNVX
+      ptr->VkObjectTableEntryNVX
       ref-VkObjectTableEntryNVX
       make-VkObjectTableEntryNVX*
       VkObjectTableEntryNVXflags
@@ -15182,7 +15947,12 @@ ___return (objecttablecreateinfonvx);"))
       ref-VkObjectTableEntryNVX
       (VkObjectTableEntryNVX* int)
       VkObjectTableEntryNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkObjectTableEntryNVX
+      ((pointer VkObjectTableEntryNVX))
+      VkObjectTableEntryNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkObjectTableEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX)
@@ -15193,6 +15963,7 @@ objecttableentrynvx->flags=___arg2;
 ___return (objecttableentrynvx);"))
 (begin-ffi
    (make-VkObjectTablePipelineEntryNVX
+      ptr->VkObjectTablePipelineEntryNVX
       ref-VkObjectTablePipelineEntryNVX
       make-VkObjectTablePipelineEntryNVX*
       VkObjectTablePipelineEntryNVXpipeline
@@ -15236,7 +16007,12 @@ ___return (objecttableentrynvx);"))
       ref-VkObjectTablePipelineEntryNVX
       (VkObjectTablePipelineEntryNVX* int)
       VkObjectTablePipelineEntryNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkObjectTablePipelineEntryNVX
+      ((pointer VkObjectTablePipelineEntryNVX))
+      VkObjectTablePipelineEntryNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkObjectTablePipelineEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX VkPipeline)
@@ -15248,6 +16024,7 @@ objecttablepipelineentrynvx->pipeline=___arg3;
 ___return (objecttablepipelineentrynvx);"))
 (begin-ffi
    (make-VkObjectTableDescriptorSetEntryNVX
+      ptr->VkObjectTableDescriptorSetEntryNVX
       ref-VkObjectTableDescriptorSetEntryNVX
       make-VkObjectTableDescriptorSetEntryNVX*
       VkObjectTableDescriptorSetEntryNVXdescriptorSet
@@ -15301,7 +16078,12 @@ ___return (objecttablepipelineentrynvx);"))
       ref-VkObjectTableDescriptorSetEntryNVX
       (VkObjectTableDescriptorSetEntryNVX* int)
       VkObjectTableDescriptorSetEntryNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkObjectTableDescriptorSetEntryNVX
+      ((pointer VkObjectTableDescriptorSetEntryNVX))
+      VkObjectTableDescriptorSetEntryNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkObjectTableDescriptorSetEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX VkPipelineLayout VkDescriptorSet)
@@ -15314,6 +16096,7 @@ objecttabledescriptorsetentrynvx->descriptorSet=___arg4;
 ___return (objecttabledescriptorsetentrynvx);"))
 (begin-ffi
    (make-VkObjectTableVertexBufferEntryNVX
+      ptr->VkObjectTableVertexBufferEntryNVX
       ref-VkObjectTableVertexBufferEntryNVX
       make-VkObjectTableVertexBufferEntryNVX*
       VkObjectTableVertexBufferEntryNVXbuffer
@@ -15361,7 +16144,12 @@ ___return (objecttabledescriptorsetentrynvx);"))
       ref-VkObjectTableVertexBufferEntryNVX
       (VkObjectTableVertexBufferEntryNVX* int)
       VkObjectTableVertexBufferEntryNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkObjectTableVertexBufferEntryNVX
+      ((pointer VkObjectTableVertexBufferEntryNVX))
+      VkObjectTableVertexBufferEntryNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkObjectTableVertexBufferEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX VkBuffer)
@@ -15373,6 +16161,7 @@ objecttablevertexbufferentrynvx->buffer=___arg3;
 ___return (objecttablevertexbufferentrynvx);"))
 (begin-ffi
    (make-VkObjectTableIndexBufferEntryNVX
+      ptr->VkObjectTableIndexBufferEntryNVX
       ref-VkObjectTableIndexBufferEntryNVX
       make-VkObjectTableIndexBufferEntryNVX*
       VkObjectTableIndexBufferEntryNVXindexType
@@ -15426,7 +16215,12 @@ ___return (objecttablevertexbufferentrynvx);"))
       ref-VkObjectTableIndexBufferEntryNVX
       (VkObjectTableIndexBufferEntryNVX* int)
       VkObjectTableIndexBufferEntryNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkObjectTableIndexBufferEntryNVX
+      ((pointer VkObjectTableIndexBufferEntryNVX))
+      VkObjectTableIndexBufferEntryNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkObjectTableIndexBufferEntryNVX
       (VkObjectEntryTypeNVX VkObjectEntryUsageFlagsNVX VkBuffer VkIndexType)
@@ -15439,6 +16233,7 @@ objecttableindexbufferentrynvx->indexType=___arg4;
 ___return (objecttableindexbufferentrynvx);"))
 (begin-ffi
    (make-VkObjectTablePushConstantEntryNVX
+      ptr->VkObjectTablePushConstantEntryNVX
       ref-VkObjectTablePushConstantEntryNVX
       make-VkObjectTablePushConstantEntryNVX*
       VkObjectTablePushConstantEntryNVXstageFlags
@@ -15492,7 +16287,12 @@ ___return (objecttableindexbufferentrynvx);"))
       ref-VkObjectTablePushConstantEntryNVX
       (VkObjectTablePushConstantEntryNVX* int)
       VkObjectTablePushConstantEntryNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkObjectTablePushConstantEntryNVX
+      ((pointer VkObjectTablePushConstantEntryNVX))
+      VkObjectTablePushConstantEntryNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkObjectTablePushConstantEntryNVX
       (VkObjectEntryTypeNVX
@@ -15508,6 +16308,7 @@ objecttablepushconstantentrynvx->stageFlags=___arg4;
 ___return (objecttablepushconstantentrynvx);"))
 (begin-ffi
    (make-VkPhysicalDeviceFeatures2
+      ptr->VkPhysicalDeviceFeatures2
       ref-VkPhysicalDeviceFeatures2
       make-VkPhysicalDeviceFeatures2*
       VkPhysicalDeviceFeatures2features
@@ -15551,7 +16352,12 @@ ___return (objecttablepushconstantentrynvx);"))
       ref-VkPhysicalDeviceFeatures2
       (VkPhysicalDeviceFeatures2* int)
       VkPhysicalDeviceFeatures2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceFeatures2
+      ((pointer VkPhysicalDeviceFeatures2))
+      VkPhysicalDeviceFeatures2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceFeatures2
       (VkStructureType void* VkPhysicalDeviceFeatures)
@@ -15563,6 +16369,7 @@ physicaldevicefeatures2->features=___arg3;
 ___return (physicaldevicefeatures2);"))
 (begin-ffi
    (make-VkPhysicalDeviceFeatures2KHR
+      ptr->VkPhysicalDeviceFeatures2KHR
       ref-VkPhysicalDeviceFeatures2KHR
       make-VkPhysicalDeviceFeatures2KHR*
       VkPhysicalDeviceFeatures2KHR
@@ -15584,7 +16391,6 @@ ___return (physicaldevicefeatures2);"))
       VkPhysicalDeviceFeatures2KHR*
       "VkPhysicalDeviceFeatures2KHR* vkphysicaldevicefeatures2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceFeatures2KHR));
       ___return (vkphysicaldevicefeatures2khr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceFeatures2KHR
       ()
@@ -15593,6 +16399,7 @@ ___return (physicaldevicefeatures2);"))
 ___return (physicaldevicefeatures2khr);"))
 (begin-ffi
    (make-VkPhysicalDeviceProperties2
+      ptr->VkPhysicalDeviceProperties2
       ref-VkPhysicalDeviceProperties2
       make-VkPhysicalDeviceProperties2*
       VkPhysicalDeviceProperties2properties
@@ -15636,7 +16443,12 @@ ___return (physicaldevicefeatures2khr);"))
       ref-VkPhysicalDeviceProperties2
       (VkPhysicalDeviceProperties2* int)
       VkPhysicalDeviceProperties2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceProperties2
+      ((pointer VkPhysicalDeviceProperties2))
+      VkPhysicalDeviceProperties2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceProperties2
       (VkStructureType void* VkPhysicalDeviceProperties)
@@ -15648,6 +16460,7 @@ physicaldeviceproperties2->properties=___arg3;
 ___return (physicaldeviceproperties2);"))
 (begin-ffi
    (make-VkPhysicalDeviceProperties2KHR
+      ptr->VkPhysicalDeviceProperties2KHR
       ref-VkPhysicalDeviceProperties2KHR
       make-VkPhysicalDeviceProperties2KHR*
       VkPhysicalDeviceProperties2KHR
@@ -15673,7 +16486,6 @@ ___return (physicaldeviceproperties2);"))
       VkPhysicalDeviceProperties2KHR*
       "VkPhysicalDeviceProperties2KHR* vkphysicaldeviceproperties2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceProperties2KHR));
       ___return (vkphysicaldeviceproperties2khr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceProperties2KHR
       ()
@@ -15682,6 +16494,7 @@ ___return (physicaldeviceproperties2);"))
 ___return (physicaldeviceproperties2khr);"))
 (begin-ffi
    (make-VkFormatProperties2
+      ptr->VkFormatProperties2
       ref-VkFormatProperties2
       make-VkFormatProperties2*
       VkFormatProperties2formatProperties
@@ -15725,7 +16538,12 @@ ___return (physicaldeviceproperties2khr);"))
       ref-VkFormatProperties2
       (VkFormatProperties2* int)
       VkFormatProperties2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkFormatProperties2
+      ((pointer VkFormatProperties2))
+      VkFormatProperties2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkFormatProperties2
       (VkStructureType void* VkFormatProperties)
@@ -15737,6 +16555,7 @@ formatproperties2->formatProperties=___arg3;
 ___return (formatproperties2);"))
 (begin-ffi
    (make-VkFormatProperties2KHR
+      ptr->VkFormatProperties2KHR
       ref-VkFormatProperties2KHR
       make-VkFormatProperties2KHR*
       VkFormatProperties2KHR
@@ -15758,7 +16577,6 @@ ___return (formatproperties2);"))
       VkFormatProperties2KHR*
       "VkFormatProperties2KHR* vkformatproperties2khr = malloc(___arg1 * sizeof(VkFormatProperties2KHR));
       ___return (vkformatproperties2khr);")
-   quote
    (define-c-lambda
       make-VkFormatProperties2KHR
       ()
@@ -15767,6 +16585,7 @@ ___return (formatproperties2);"))
 ___return (formatproperties2khr);"))
 (begin-ffi
    (make-VkImageFormatProperties2
+      ptr->VkImageFormatProperties2
       ref-VkImageFormatProperties2
       make-VkImageFormatProperties2*
       VkImageFormatProperties2imageFormatProperties
@@ -15810,7 +16629,12 @@ ___return (formatproperties2khr);"))
       ref-VkImageFormatProperties2
       (VkImageFormatProperties2* int)
       VkImageFormatProperties2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageFormatProperties2
+      ((pointer VkImageFormatProperties2))
+      VkImageFormatProperties2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageFormatProperties2
       (VkStructureType void* VkImageFormatProperties)
@@ -15822,6 +16646,7 @@ imageformatproperties2->imageFormatProperties=___arg3;
 ___return (imageformatproperties2);"))
 (begin-ffi
    (make-VkImageFormatProperties2KHR
+      ptr->VkImageFormatProperties2KHR
       ref-VkImageFormatProperties2KHR
       make-VkImageFormatProperties2KHR*
       VkImageFormatProperties2KHR
@@ -15843,7 +16668,6 @@ ___return (imageformatproperties2);"))
       VkImageFormatProperties2KHR*
       "VkImageFormatProperties2KHR* vkimageformatproperties2khr = malloc(___arg1 * sizeof(VkImageFormatProperties2KHR));
       ___return (vkimageformatproperties2khr);")
-   quote
    (define-c-lambda
       make-VkImageFormatProperties2KHR
       ()
@@ -15852,6 +16676,7 @@ ___return (imageformatproperties2);"))
 ___return (imageformatproperties2khr);"))
 (begin-ffi
    (make-VkPhysicalDeviceImageFormatInfo2
+      ptr->VkPhysicalDeviceImageFormatInfo2
       ref-VkPhysicalDeviceImageFormatInfo2
       make-VkPhysicalDeviceImageFormatInfo2*
       VkPhysicalDeviceImageFormatInfo2flags
@@ -15923,7 +16748,12 @@ ___return (imageformatproperties2khr);"))
       ref-VkPhysicalDeviceImageFormatInfo2
       (VkPhysicalDeviceImageFormatInfo2* int)
       VkPhysicalDeviceImageFormatInfo2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceImageFormatInfo2
+      ((pointer VkPhysicalDeviceImageFormatInfo2))
+      VkPhysicalDeviceImageFormatInfo2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceImageFormatInfo2
       (VkStructureType
@@ -15945,6 +16775,7 @@ physicaldeviceimageformatinfo2->flags=___arg7;
 ___return (physicaldeviceimageformatinfo2);"))
 (begin-ffi
    (make-VkPhysicalDeviceImageFormatInfo2KHR
+      ptr->VkPhysicalDeviceImageFormatInfo2KHR
       ref-VkPhysicalDeviceImageFormatInfo2KHR
       make-VkPhysicalDeviceImageFormatInfo2KHR*
       VkPhysicalDeviceImageFormatInfo2KHR
@@ -15970,7 +16801,6 @@ ___return (physicaldeviceimageformatinfo2);"))
       VkPhysicalDeviceImageFormatInfo2KHR*
       "VkPhysicalDeviceImageFormatInfo2KHR* vkphysicaldeviceimageformatinfo2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceImageFormatInfo2KHR));
       ___return (vkphysicaldeviceimageformatinfo2khr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceImageFormatInfo2KHR
       ()
@@ -15979,6 +16809,7 @@ ___return (physicaldeviceimageformatinfo2);"))
 ___return (physicaldeviceimageformatinfo2khr);"))
 (begin-ffi
    (make-VkQueueFamilyProperties2
+      ptr->VkQueueFamilyProperties2
       ref-VkQueueFamilyProperties2
       make-VkQueueFamilyProperties2*
       VkQueueFamilyProperties2queueFamilyProperties
@@ -16022,7 +16853,12 @@ ___return (physicaldeviceimageformatinfo2khr);"))
       ref-VkQueueFamilyProperties2
       (VkQueueFamilyProperties2* int)
       VkQueueFamilyProperties2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkQueueFamilyProperties2
+      ((pointer VkQueueFamilyProperties2))
+      VkQueueFamilyProperties2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkQueueFamilyProperties2
       (VkStructureType void* VkQueueFamilyProperties)
@@ -16034,6 +16870,7 @@ queuefamilyproperties2->queueFamilyProperties=___arg3;
 ___return (queuefamilyproperties2);"))
 (begin-ffi
    (make-VkQueueFamilyProperties2KHR
+      ptr->VkQueueFamilyProperties2KHR
       ref-VkQueueFamilyProperties2KHR
       make-VkQueueFamilyProperties2KHR*
       VkQueueFamilyProperties2KHR
@@ -16055,7 +16892,6 @@ ___return (queuefamilyproperties2);"))
       VkQueueFamilyProperties2KHR*
       "VkQueueFamilyProperties2KHR* vkqueuefamilyproperties2khr = malloc(___arg1 * sizeof(VkQueueFamilyProperties2KHR));
       ___return (vkqueuefamilyproperties2khr);")
-   quote
    (define-c-lambda
       make-VkQueueFamilyProperties2KHR
       ()
@@ -16064,6 +16900,7 @@ ___return (queuefamilyproperties2);"))
 ___return (queuefamilyproperties2khr);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryProperties2
+      ptr->VkPhysicalDeviceMemoryProperties2
       ref-VkPhysicalDeviceMemoryProperties2
       make-VkPhysicalDeviceMemoryProperties2*
       VkPhysicalDeviceMemoryProperties2memoryProperties
@@ -16111,7 +16948,12 @@ ___return (queuefamilyproperties2khr);"))
       ref-VkPhysicalDeviceMemoryProperties2
       (VkPhysicalDeviceMemoryProperties2* int)
       VkPhysicalDeviceMemoryProperties2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMemoryProperties2
+      ((pointer VkPhysicalDeviceMemoryProperties2))
+      VkPhysicalDeviceMemoryProperties2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMemoryProperties2
       (VkStructureType void* VkPhysicalDeviceMemoryProperties)
@@ -16123,6 +16965,7 @@ physicaldevicememoryproperties2->memoryProperties=___arg3;
 ___return (physicaldevicememoryproperties2);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryProperties2KHR
+      ptr->VkPhysicalDeviceMemoryProperties2KHR
       ref-VkPhysicalDeviceMemoryProperties2KHR
       make-VkPhysicalDeviceMemoryProperties2KHR*
       VkPhysicalDeviceMemoryProperties2KHR
@@ -16148,7 +16991,6 @@ ___return (physicaldevicememoryproperties2);"))
       VkPhysicalDeviceMemoryProperties2KHR*
       "VkPhysicalDeviceMemoryProperties2KHR* vkphysicaldevicememoryproperties2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceMemoryProperties2KHR));
       ___return (vkphysicaldevicememoryproperties2khr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceMemoryProperties2KHR
       ()
@@ -16157,6 +16999,7 @@ ___return (physicaldevicememoryproperties2);"))
 ___return (physicaldevicememoryproperties2khr);"))
 (begin-ffi
    (make-VkSparseImageFormatProperties2
+      ptr->VkSparseImageFormatProperties2
       ref-VkSparseImageFormatProperties2
       make-VkSparseImageFormatProperties2*
       VkSparseImageFormatProperties2properties
@@ -16204,7 +17047,12 @@ ___return (physicaldevicememoryproperties2khr);"))
       ref-VkSparseImageFormatProperties2
       (VkSparseImageFormatProperties2* int)
       VkSparseImageFormatProperties2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSparseImageFormatProperties2
+      ((pointer VkSparseImageFormatProperties2))
+      VkSparseImageFormatProperties2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSparseImageFormatProperties2
       (VkStructureType void* VkSparseImageFormatProperties)
@@ -16216,6 +17064,7 @@ sparseimageformatproperties2->properties=___arg3;
 ___return (sparseimageformatproperties2);"))
 (begin-ffi
    (make-VkSparseImageFormatProperties2KHR
+      ptr->VkSparseImageFormatProperties2KHR
       ref-VkSparseImageFormatProperties2KHR
       make-VkSparseImageFormatProperties2KHR*
       VkSparseImageFormatProperties2KHR
@@ -16241,7 +17090,6 @@ ___return (sparseimageformatproperties2);"))
       VkSparseImageFormatProperties2KHR*
       "VkSparseImageFormatProperties2KHR* vksparseimageformatproperties2khr = malloc(___arg1 * sizeof(VkSparseImageFormatProperties2KHR));
       ___return (vksparseimageformatproperties2khr);")
-   quote
    (define-c-lambda
       make-VkSparseImageFormatProperties2KHR
       ()
@@ -16250,6 +17098,7 @@ ___return (sparseimageformatproperties2);"))
 ___return (sparseimageformatproperties2khr);"))
 (begin-ffi
    (make-VkPhysicalDeviceSparseImageFormatInfo2
+      ptr->VkPhysicalDeviceSparseImageFormatInfo2
       ref-VkPhysicalDeviceSparseImageFormatInfo2
       make-VkPhysicalDeviceSparseImageFormatInfo2*
       VkPhysicalDeviceSparseImageFormatInfo2tiling
@@ -16321,7 +17170,12 @@ ___return (sparseimageformatproperties2khr);"))
       ref-VkPhysicalDeviceSparseImageFormatInfo2
       (VkPhysicalDeviceSparseImageFormatInfo2* int)
       VkPhysicalDeviceSparseImageFormatInfo2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceSparseImageFormatInfo2
+      ((pointer VkPhysicalDeviceSparseImageFormatInfo2))
+      VkPhysicalDeviceSparseImageFormatInfo2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceSparseImageFormatInfo2
       (VkStructureType
@@ -16343,6 +17197,7 @@ physicaldevicesparseimageformatinfo2->tiling=___arg7;
 ___return (physicaldevicesparseimageformatinfo2);"))
 (begin-ffi
    (make-VkPhysicalDeviceSparseImageFormatInfo2KHR
+      ptr->VkPhysicalDeviceSparseImageFormatInfo2KHR
       ref-VkPhysicalDeviceSparseImageFormatInfo2KHR
       make-VkPhysicalDeviceSparseImageFormatInfo2KHR*
       VkPhysicalDeviceSparseImageFormatInfo2KHR
@@ -16368,7 +17223,6 @@ ___return (physicaldevicesparseimageformatinfo2);"))
       VkPhysicalDeviceSparseImageFormatInfo2KHR*
       "VkPhysicalDeviceSparseImageFormatInfo2KHR* vkphysicaldevicesparseimageformatinfo2khr = malloc(___arg1 * sizeof(VkPhysicalDeviceSparseImageFormatInfo2KHR));
       ___return (vkphysicaldevicesparseimageformatinfo2khr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceSparseImageFormatInfo2KHR
       ()
@@ -16377,6 +17231,7 @@ ___return (physicaldevicesparseimageformatinfo2);"))
 ___return (physicaldevicesparseimageformatinfo2khr);"))
 (begin-ffi
    (make-VkPhysicalDevicePushDescriptorPropertiesKHR
+      ptr->VkPhysicalDevicePushDescriptorPropertiesKHR
       ref-VkPhysicalDevicePushDescriptorPropertiesKHR
       make-VkPhysicalDevicePushDescriptorPropertiesKHR*
       VkPhysicalDevicePushDescriptorPropertiesKHRmaxPushDescriptors
@@ -16424,7 +17279,7 @@ ___return (physicaldevicesparseimageformatinfo2khr);"))
       ref-VkPhysicalDevicePushDescriptorPropertiesKHR
       (VkPhysicalDevicePushDescriptorPropertiesKHR* int)
       VkPhysicalDevicePushDescriptorPropertiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDevicePushDescriptorPropertiesKHR
       (VkStructureType void* uint32_t)
@@ -16436,6 +17291,7 @@ physicaldevicepushdescriptorpropertieskhr->maxPushDescriptors=___arg3;
 ___return (physicaldevicepushdescriptorpropertieskhr);"))
 (begin-ffi
    (make-VkConformanceVersionKHR
+      ptr->VkConformanceVersionKHR
       ref-VkConformanceVersionKHR
       make-VkConformanceVersionKHR*
       VkConformanceVersionKHRpatch
@@ -16485,7 +17341,7 @@ ___return (physicaldevicepushdescriptorpropertieskhr);"))
       ref-VkConformanceVersionKHR
       (VkConformanceVersionKHR* int)
       VkConformanceVersionKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkConformanceVersionKHR
       (uint8_t uint8_t uint8_t uint8_t)
@@ -16498,6 +17354,7 @@ conformanceversionkhr->patch=___arg4;
 ___return (conformanceversionkhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceDriverPropertiesKHR
+      ptr->VkPhysicalDeviceDriverPropertiesKHR
       ref-VkPhysicalDeviceDriverPropertiesKHR
       make-VkPhysicalDeviceDriverPropertiesKHR*
       VkPhysicalDeviceDriverPropertiesKHRconformanceVersion
@@ -16563,7 +17420,7 @@ ___return (conformanceversionkhr);"))
       ref-VkPhysicalDeviceDriverPropertiesKHR
       (VkPhysicalDeviceDriverPropertiesKHR* int)
       VkPhysicalDeviceDriverPropertiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDeviceDriverPropertiesKHR
       (VkStructureType void* VkDriverIdKHR char* char* VkConformanceVersionKHR)
@@ -16578,6 +17435,7 @@ physicaldevicedriverpropertieskhr->conformanceVersion=___arg6;
 ___return (physicaldevicedriverpropertieskhr);"))
 (begin-ffi
    (make-VkRectLayerKHR
+      ptr->VkRectLayerKHR
       ref-VkRectLayerKHR
       make-VkRectLayerKHR*
       VkRectLayerKHRlayer
@@ -16621,7 +17479,7 @@ ___return (physicaldevicedriverpropertieskhr);"))
       ref-VkRectLayerKHR
       (VkRectLayerKHR* int)
       VkRectLayerKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkRectLayerKHR
       (VkOffset2D VkExtent2D uint32_t)
@@ -16633,6 +17491,7 @@ rectlayerkhr->layer=___arg3;
 ___return (rectlayerkhr);"))
 (begin-ffi
    (make-VkPresentRegionKHR
+      ptr->VkPresentRegionKHR
       ref-VkPresentRegionKHR
       make-VkPresentRegionKHR*
       VkPresentRegionKHRpRectangles
@@ -16670,7 +17529,7 @@ ___return (rectlayerkhr);"))
       ref-VkPresentRegionKHR
       (VkPresentRegionKHR* int)
       VkPresentRegionKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPresentRegionKHR
       (uint32_t VkRectLayerKHR*)
@@ -16681,6 +17540,7 @@ presentregionkhr->pRectangles=___arg2;
 ___return (presentregionkhr);"))
 (begin-ffi
    (make-VkPresentRegionsKHR
+      ptr->VkPresentRegionsKHR
       ref-VkPresentRegionsKHR
       make-VkPresentRegionsKHR*
       VkPresentRegionsKHRpRegions
@@ -16730,7 +17590,7 @@ ___return (presentregionkhr);"))
       ref-VkPresentRegionsKHR
       (VkPresentRegionsKHR* int)
       VkPresentRegionsKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPresentRegionsKHR
       (VkStructureType void* uint32_t VkPresentRegionKHR*)
@@ -16743,6 +17603,7 @@ presentregionskhr->pRegions=___arg4;
 ___return (presentregionskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceVariablePointersFeatures
+      ptr->VkPhysicalDeviceVariablePointersFeatures
       ref-VkPhysicalDeviceVariablePointersFeatures
       make-VkPhysicalDeviceVariablePointersFeatures*
       VkPhysicalDeviceVariablePointersFeaturesvariablePointers
@@ -16796,7 +17657,12 @@ ___return (presentregionskhr);"))
       ref-VkPhysicalDeviceVariablePointersFeatures
       (VkPhysicalDeviceVariablePointersFeatures* int)
       VkPhysicalDeviceVariablePointersFeatures*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceVariablePointersFeatures
+      ((pointer VkPhysicalDeviceVariablePointersFeatures))
+      VkPhysicalDeviceVariablePointersFeatures
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceVariablePointersFeatures
       (VkStructureType void* VkBool32 VkBool32)
@@ -16809,6 +17675,7 @@ physicaldevicevariablepointersfeatures->variablePointers=___arg4;
 ___return (physicaldevicevariablepointersfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceVariablePointersFeaturesKHR
+      ptr->VkPhysicalDeviceVariablePointersFeaturesKHR
       ref-VkPhysicalDeviceVariablePointersFeaturesKHR
       make-VkPhysicalDeviceVariablePointersFeaturesKHR*
       VkPhysicalDeviceVariablePointersFeaturesKHR
@@ -16834,7 +17701,6 @@ ___return (physicaldevicevariablepointersfeatures);"))
       VkPhysicalDeviceVariablePointersFeaturesKHR*
       "VkPhysicalDeviceVariablePointersFeaturesKHR* vkphysicaldevicevariablepointersfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceVariablePointersFeaturesKHR));
       ___return (vkphysicaldevicevariablepointersfeatureskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceVariablePointersFeaturesKHR
       ()
@@ -16843,6 +17709,7 @@ ___return (physicaldevicevariablepointersfeatures);"))
 ___return (physicaldevicevariablepointersfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceVariablePointerFeaturesKHR
+      ptr->VkPhysicalDeviceVariablePointerFeaturesKHR
       ref-VkPhysicalDeviceVariablePointerFeaturesKHR
       make-VkPhysicalDeviceVariablePointerFeaturesKHR*
       VkPhysicalDeviceVariablePointerFeaturesKHR
@@ -16868,7 +17735,6 @@ ___return (physicaldevicevariablepointersfeatureskhr);"))
       VkPhysicalDeviceVariablePointerFeaturesKHR*
       "VkPhysicalDeviceVariablePointerFeaturesKHR* vkphysicaldevicevariablepointerfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceVariablePointerFeaturesKHR));
       ___return (vkphysicaldevicevariablepointerfeatureskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceVariablePointerFeaturesKHR
       ()
@@ -16877,6 +17743,7 @@ ___return (physicaldevicevariablepointersfeatureskhr);"))
 ___return (physicaldevicevariablepointerfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceVariablePointerFeatures
+      ptr->VkPhysicalDeviceVariablePointerFeatures
       ref-VkPhysicalDeviceVariablePointerFeatures
       make-VkPhysicalDeviceVariablePointerFeatures*
       VkPhysicalDeviceVariablePointerFeatures
@@ -16902,7 +17769,6 @@ ___return (physicaldevicevariablepointerfeatureskhr);"))
       VkPhysicalDeviceVariablePointerFeatures*
       "VkPhysicalDeviceVariablePointerFeatures* vkphysicaldevicevariablepointerfeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceVariablePointerFeatures));
       ___return (vkphysicaldevicevariablepointerfeatures);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceVariablePointerFeatures
       ()
@@ -16911,6 +17777,7 @@ ___return (physicaldevicevariablepointerfeatureskhr);"))
 ___return (physicaldevicevariablepointerfeatures);"))
 (begin-ffi
    (make-VkExternalMemoryProperties
+      ptr->VkExternalMemoryProperties
       ref-VkExternalMemoryProperties
       make-VkExternalMemoryProperties*
       VkExternalMemoryPropertiescompatibleHandleTypes
@@ -16954,7 +17821,12 @@ ___return (physicaldevicevariablepointerfeatures);"))
       ref-VkExternalMemoryProperties
       (VkExternalMemoryProperties* int)
       VkExternalMemoryProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExternalMemoryProperties
+      ((pointer VkExternalMemoryProperties))
+      VkExternalMemoryProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExternalMemoryProperties
       (VkExternalMemoryFeatureFlags
@@ -16968,6 +17840,7 @@ externalmemoryproperties->compatibleHandleTypes=___arg3;
 ___return (externalmemoryproperties);"))
 (begin-ffi
    (make-VkExternalMemoryPropertiesKHR
+      ptr->VkExternalMemoryPropertiesKHR
       ref-VkExternalMemoryPropertiesKHR
       make-VkExternalMemoryPropertiesKHR*
       VkExternalMemoryPropertiesKHR
@@ -16989,7 +17862,6 @@ ___return (externalmemoryproperties);"))
       VkExternalMemoryPropertiesKHR*
       "VkExternalMemoryPropertiesKHR* vkexternalmemorypropertieskhr = malloc(___arg1 * sizeof(VkExternalMemoryPropertiesKHR));
       ___return (vkexternalmemorypropertieskhr);")
-   quote
    (define-c-lambda
       make-VkExternalMemoryPropertiesKHR
       ()
@@ -16998,6 +17870,7 @@ ___return (externalmemoryproperties);"))
 ___return (externalmemorypropertieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalImageFormatInfo
+      ptr->VkPhysicalDeviceExternalImageFormatInfo
       ref-VkPhysicalDeviceExternalImageFormatInfo
       make-VkPhysicalDeviceExternalImageFormatInfo*
       VkPhysicalDeviceExternalImageFormatInfohandleType
@@ -17045,7 +17918,12 @@ ___return (externalmemorypropertieskhr);"))
       ref-VkPhysicalDeviceExternalImageFormatInfo
       (VkPhysicalDeviceExternalImageFormatInfo* int)
       VkPhysicalDeviceExternalImageFormatInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceExternalImageFormatInfo
+      ((pointer VkPhysicalDeviceExternalImageFormatInfo))
+      VkPhysicalDeviceExternalImageFormatInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceExternalImageFormatInfo
       (VkStructureType void* VkExternalMemoryHandleTypeFlagBits)
@@ -17057,6 +17935,7 @@ physicaldeviceexternalimageformatinfo->handleType=___arg3;
 ___return (physicaldeviceexternalimageformatinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalImageFormatInfoKHR
+      ptr->VkPhysicalDeviceExternalImageFormatInfoKHR
       ref-VkPhysicalDeviceExternalImageFormatInfoKHR
       make-VkPhysicalDeviceExternalImageFormatInfoKHR*
       VkPhysicalDeviceExternalImageFormatInfoKHR
@@ -17082,7 +17961,6 @@ ___return (physicaldeviceexternalimageformatinfo);"))
       VkPhysicalDeviceExternalImageFormatInfoKHR*
       "VkPhysicalDeviceExternalImageFormatInfoKHR* vkphysicaldeviceexternalimageformatinfokhr = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalImageFormatInfoKHR));
       ___return (vkphysicaldeviceexternalimageformatinfokhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceExternalImageFormatInfoKHR
       ()
@@ -17091,6 +17969,7 @@ ___return (physicaldeviceexternalimageformatinfo);"))
 ___return (physicaldeviceexternalimageformatinfokhr);"))
 (begin-ffi
    (make-VkExternalImageFormatProperties
+      ptr->VkExternalImageFormatProperties
       ref-VkExternalImageFormatProperties
       make-VkExternalImageFormatProperties*
       VkExternalImageFormatPropertiesexternalMemoryProperties
@@ -17138,7 +18017,12 @@ ___return (physicaldeviceexternalimageformatinfokhr);"))
       ref-VkExternalImageFormatProperties
       (VkExternalImageFormatProperties* int)
       VkExternalImageFormatProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExternalImageFormatProperties
+      ((pointer VkExternalImageFormatProperties))
+      VkExternalImageFormatProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExternalImageFormatProperties
       (VkStructureType void* VkExternalMemoryProperties)
@@ -17150,6 +18034,7 @@ externalimageformatproperties->externalMemoryProperties=___arg3;
 ___return (externalimageformatproperties);"))
 (begin-ffi
    (make-VkExternalImageFormatPropertiesKHR
+      ptr->VkExternalImageFormatPropertiesKHR
       ref-VkExternalImageFormatPropertiesKHR
       make-VkExternalImageFormatPropertiesKHR*
       VkExternalImageFormatPropertiesKHR
@@ -17175,7 +18060,6 @@ ___return (externalimageformatproperties);"))
       VkExternalImageFormatPropertiesKHR*
       "VkExternalImageFormatPropertiesKHR* vkexternalimageformatpropertieskhr = malloc(___arg1 * sizeof(VkExternalImageFormatPropertiesKHR));
       ___return (vkexternalimageformatpropertieskhr);")
-   quote
    (define-c-lambda
       make-VkExternalImageFormatPropertiesKHR
       ()
@@ -17184,6 +18068,7 @@ ___return (externalimageformatproperties);"))
 ___return (externalimageformatpropertieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalBufferInfo
+      ptr->VkPhysicalDeviceExternalBufferInfo
       ref-VkPhysicalDeviceExternalBufferInfo
       make-VkPhysicalDeviceExternalBufferInfo*
       VkPhysicalDeviceExternalBufferInfohandleType
@@ -17243,7 +18128,12 @@ ___return (externalimageformatpropertieskhr);"))
       ref-VkPhysicalDeviceExternalBufferInfo
       (VkPhysicalDeviceExternalBufferInfo* int)
       VkPhysicalDeviceExternalBufferInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceExternalBufferInfo
+      ((pointer VkPhysicalDeviceExternalBufferInfo))
+      VkPhysicalDeviceExternalBufferInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceExternalBufferInfo
       (VkStructureType
@@ -17261,6 +18151,7 @@ physicaldeviceexternalbufferinfo->handleType=___arg5;
 ___return (physicaldeviceexternalbufferinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalBufferInfoKHR
+      ptr->VkPhysicalDeviceExternalBufferInfoKHR
       ref-VkPhysicalDeviceExternalBufferInfoKHR
       make-VkPhysicalDeviceExternalBufferInfoKHR*
       VkPhysicalDeviceExternalBufferInfoKHR
@@ -17286,7 +18177,6 @@ ___return (physicaldeviceexternalbufferinfo);"))
       VkPhysicalDeviceExternalBufferInfoKHR*
       "VkPhysicalDeviceExternalBufferInfoKHR* vkphysicaldeviceexternalbufferinfokhr = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalBufferInfoKHR));
       ___return (vkphysicaldeviceexternalbufferinfokhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceExternalBufferInfoKHR
       ()
@@ -17295,6 +18185,7 @@ ___return (physicaldeviceexternalbufferinfo);"))
 ___return (physicaldeviceexternalbufferinfokhr);"))
 (begin-ffi
    (make-VkExternalBufferProperties
+      ptr->VkExternalBufferProperties
       ref-VkExternalBufferProperties
       make-VkExternalBufferProperties*
       VkExternalBufferPropertiesexternalMemoryProperties
@@ -17338,7 +18229,12 @@ ___return (physicaldeviceexternalbufferinfokhr);"))
       ref-VkExternalBufferProperties
       (VkExternalBufferProperties* int)
       VkExternalBufferProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExternalBufferProperties
+      ((pointer VkExternalBufferProperties))
+      VkExternalBufferProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExternalBufferProperties
       (VkStructureType void* VkExternalMemoryProperties)
@@ -17350,6 +18246,7 @@ externalbufferproperties->externalMemoryProperties=___arg3;
 ___return (externalbufferproperties);"))
 (begin-ffi
    (make-VkExternalBufferPropertiesKHR
+      ptr->VkExternalBufferPropertiesKHR
       ref-VkExternalBufferPropertiesKHR
       make-VkExternalBufferPropertiesKHR*
       VkExternalBufferPropertiesKHR
@@ -17371,7 +18268,6 @@ ___return (externalbufferproperties);"))
       VkExternalBufferPropertiesKHR*
       "VkExternalBufferPropertiesKHR* vkexternalbufferpropertieskhr = malloc(___arg1 * sizeof(VkExternalBufferPropertiesKHR));
       ___return (vkexternalbufferpropertieskhr);")
-   quote
    (define-c-lambda
       make-VkExternalBufferPropertiesKHR
       ()
@@ -17380,6 +18276,7 @@ ___return (externalbufferproperties);"))
 ___return (externalbufferpropertieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceIDProperties
+      ptr->VkPhysicalDeviceIDProperties
       ref-VkPhysicalDeviceIDProperties
       make-VkPhysicalDeviceIDProperties*
       VkPhysicalDeviceIDPropertiesdeviceLUIDValid
@@ -17447,7 +18344,12 @@ ___return (externalbufferpropertieskhr);"))
       ref-VkPhysicalDeviceIDProperties
       (VkPhysicalDeviceIDProperties* int)
       VkPhysicalDeviceIDProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceIDProperties
+      ((pointer VkPhysicalDeviceIDProperties))
+      VkPhysicalDeviceIDProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceIDProperties
       (VkStructureType void* uint8_t* uint8_t* uint8_t* uint32_t VkBool32)
@@ -17463,6 +18365,7 @@ physicaldeviceidproperties->deviceLUIDValid=___arg7;
 ___return (physicaldeviceidproperties);"))
 (begin-ffi
    (make-VkPhysicalDeviceIDPropertiesKHR
+      ptr->VkPhysicalDeviceIDPropertiesKHR
       ref-VkPhysicalDeviceIDPropertiesKHR
       make-VkPhysicalDeviceIDPropertiesKHR*
       VkPhysicalDeviceIDPropertiesKHR
@@ -17488,7 +18391,6 @@ ___return (physicaldeviceidproperties);"))
       VkPhysicalDeviceIDPropertiesKHR*
       "VkPhysicalDeviceIDPropertiesKHR* vkphysicaldeviceidpropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceIDPropertiesKHR));
       ___return (vkphysicaldeviceidpropertieskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceIDPropertiesKHR
       ()
@@ -17497,6 +18399,7 @@ ___return (physicaldeviceidproperties);"))
 ___return (physicaldeviceidpropertieskhr);"))
 (begin-ffi
    (make-VkExternalMemoryImageCreateInfo
+      ptr->VkExternalMemoryImageCreateInfo
       ref-VkExternalMemoryImageCreateInfo
       make-VkExternalMemoryImageCreateInfo*
       VkExternalMemoryImageCreateInfohandleTypes
@@ -17544,7 +18447,12 @@ ___return (physicaldeviceidpropertieskhr);"))
       ref-VkExternalMemoryImageCreateInfo
       (VkExternalMemoryImageCreateInfo* int)
       VkExternalMemoryImageCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExternalMemoryImageCreateInfo
+      ((pointer VkExternalMemoryImageCreateInfo))
+      VkExternalMemoryImageCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExternalMemoryImageCreateInfo
       (VkStructureType void* VkExternalMemoryHandleTypeFlags)
@@ -17556,6 +18464,7 @@ externalmemoryimagecreateinfo->handleTypes=___arg3;
 ___return (externalmemoryimagecreateinfo);"))
 (begin-ffi
    (make-VkExternalMemoryImageCreateInfoKHR
+      ptr->VkExternalMemoryImageCreateInfoKHR
       ref-VkExternalMemoryImageCreateInfoKHR
       make-VkExternalMemoryImageCreateInfoKHR*
       VkExternalMemoryImageCreateInfoKHR
@@ -17581,7 +18490,6 @@ ___return (externalmemoryimagecreateinfo);"))
       VkExternalMemoryImageCreateInfoKHR*
       "VkExternalMemoryImageCreateInfoKHR* vkexternalmemoryimagecreateinfokhr = malloc(___arg1 * sizeof(VkExternalMemoryImageCreateInfoKHR));
       ___return (vkexternalmemoryimagecreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkExternalMemoryImageCreateInfoKHR
       ()
@@ -17590,6 +18498,7 @@ ___return (externalmemoryimagecreateinfo);"))
 ___return (externalmemoryimagecreateinfokhr);"))
 (begin-ffi
    (make-VkExternalMemoryBufferCreateInfo
+      ptr->VkExternalMemoryBufferCreateInfo
       ref-VkExternalMemoryBufferCreateInfo
       make-VkExternalMemoryBufferCreateInfo*
       VkExternalMemoryBufferCreateInfohandleTypes
@@ -17637,7 +18546,12 @@ ___return (externalmemoryimagecreateinfokhr);"))
       ref-VkExternalMemoryBufferCreateInfo
       (VkExternalMemoryBufferCreateInfo* int)
       VkExternalMemoryBufferCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExternalMemoryBufferCreateInfo
+      ((pointer VkExternalMemoryBufferCreateInfo))
+      VkExternalMemoryBufferCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExternalMemoryBufferCreateInfo
       (VkStructureType void* VkExternalMemoryHandleTypeFlags)
@@ -17649,6 +18563,7 @@ externalmemorybuffercreateinfo->handleTypes=___arg3;
 ___return (externalmemorybuffercreateinfo);"))
 (begin-ffi
    (make-VkExternalMemoryBufferCreateInfoKHR
+      ptr->VkExternalMemoryBufferCreateInfoKHR
       ref-VkExternalMemoryBufferCreateInfoKHR
       make-VkExternalMemoryBufferCreateInfoKHR*
       VkExternalMemoryBufferCreateInfoKHR
@@ -17674,7 +18589,6 @@ ___return (externalmemorybuffercreateinfo);"))
       VkExternalMemoryBufferCreateInfoKHR*
       "VkExternalMemoryBufferCreateInfoKHR* vkexternalmemorybuffercreateinfokhr = malloc(___arg1 * sizeof(VkExternalMemoryBufferCreateInfoKHR));
       ___return (vkexternalmemorybuffercreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkExternalMemoryBufferCreateInfoKHR
       ()
@@ -17683,6 +18597,7 @@ ___return (externalmemorybuffercreateinfo);"))
 ___return (externalmemorybuffercreateinfokhr);"))
 (begin-ffi
    (make-VkExportMemoryAllocateInfo
+      ptr->VkExportMemoryAllocateInfo
       ref-VkExportMemoryAllocateInfo
       make-VkExportMemoryAllocateInfo*
       VkExportMemoryAllocateInfohandleTypes
@@ -17726,7 +18641,12 @@ ___return (externalmemorybuffercreateinfokhr);"))
       ref-VkExportMemoryAllocateInfo
       (VkExportMemoryAllocateInfo* int)
       VkExportMemoryAllocateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExportMemoryAllocateInfo
+      ((pointer VkExportMemoryAllocateInfo))
+      VkExportMemoryAllocateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExportMemoryAllocateInfo
       (VkStructureType void* VkExternalMemoryHandleTypeFlags)
@@ -17738,6 +18658,7 @@ exportmemoryallocateinfo->handleTypes=___arg3;
 ___return (exportmemoryallocateinfo);"))
 (begin-ffi
    (make-VkExportMemoryAllocateInfoKHR
+      ptr->VkExportMemoryAllocateInfoKHR
       ref-VkExportMemoryAllocateInfoKHR
       make-VkExportMemoryAllocateInfoKHR*
       VkExportMemoryAllocateInfoKHR
@@ -17759,7 +18680,6 @@ ___return (exportmemoryallocateinfo);"))
       VkExportMemoryAllocateInfoKHR*
       "VkExportMemoryAllocateInfoKHR* vkexportmemoryallocateinfokhr = malloc(___arg1 * sizeof(VkExportMemoryAllocateInfoKHR));
       ___return (vkexportmemoryallocateinfokhr);")
-   quote
    (define-c-lambda
       make-VkExportMemoryAllocateInfoKHR
       ()
@@ -17768,6 +18688,7 @@ ___return (exportmemoryallocateinfo);"))
 ___return (exportmemoryallocateinfokhr);"))
 (begin-ffi
    (make-VkImportMemoryFdInfoKHR
+      ptr->VkImportMemoryFdInfoKHR
       ref-VkImportMemoryFdInfoKHR
       make-VkImportMemoryFdInfoKHR*
       VkImportMemoryFdInfoKHRfd
@@ -17817,7 +18738,7 @@ ___return (exportmemoryallocateinfokhr);"))
       ref-VkImportMemoryFdInfoKHR
       (VkImportMemoryFdInfoKHR* int)
       VkImportMemoryFdInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkImportMemoryFdInfoKHR
       (VkStructureType void* VkExternalMemoryHandleTypeFlagBits int)
@@ -17830,6 +18751,7 @@ importmemoryfdinfokhr->fd=___arg4;
 ___return (importmemoryfdinfokhr);"))
 (begin-ffi
    (make-VkMemoryFdPropertiesKHR
+      ptr->VkMemoryFdPropertiesKHR
       ref-VkMemoryFdPropertiesKHR
       make-VkMemoryFdPropertiesKHR*
       VkMemoryFdPropertiesKHRmemoryTypeBits
@@ -17873,7 +18795,7 @@ ___return (importmemoryfdinfokhr);"))
       ref-VkMemoryFdPropertiesKHR
       (VkMemoryFdPropertiesKHR* int)
       VkMemoryFdPropertiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkMemoryFdPropertiesKHR
       (VkStructureType void* uint32_t)
@@ -17885,6 +18807,7 @@ memoryfdpropertieskhr->memoryTypeBits=___arg3;
 ___return (memoryfdpropertieskhr);"))
 (begin-ffi
    (make-VkMemoryGetFdInfoKHR
+      ptr->VkMemoryGetFdInfoKHR
       ref-VkMemoryGetFdInfoKHR
       make-VkMemoryGetFdInfoKHR*
       VkMemoryGetFdInfoKHRhandleType
@@ -17934,7 +18857,7 @@ ___return (memoryfdpropertieskhr);"))
       ref-VkMemoryGetFdInfoKHR
       (VkMemoryGetFdInfoKHR* int)
       VkMemoryGetFdInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkMemoryGetFdInfoKHR
       (VkStructureType void* VkDeviceMemory VkExternalMemoryHandleTypeFlagBits)
@@ -17947,6 +18870,7 @@ memorygetfdinfokhr->handleType=___arg4;
 ___return (memorygetfdinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalSemaphoreInfo
+      ptr->VkPhysicalDeviceExternalSemaphoreInfo
       ref-VkPhysicalDeviceExternalSemaphoreInfo
       make-VkPhysicalDeviceExternalSemaphoreInfo*
       VkPhysicalDeviceExternalSemaphoreInfohandleType
@@ -17994,7 +18918,12 @@ ___return (memorygetfdinfokhr);"))
       ref-VkPhysicalDeviceExternalSemaphoreInfo
       (VkPhysicalDeviceExternalSemaphoreInfo* int)
       VkPhysicalDeviceExternalSemaphoreInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceExternalSemaphoreInfo
+      ((pointer VkPhysicalDeviceExternalSemaphoreInfo))
+      VkPhysicalDeviceExternalSemaphoreInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceExternalSemaphoreInfo
       (VkStructureType void* VkExternalSemaphoreHandleTypeFlagBits)
@@ -18006,6 +18935,7 @@ physicaldeviceexternalsemaphoreinfo->handleType=___arg3;
 ___return (physicaldeviceexternalsemaphoreinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalSemaphoreInfoKHR
+      ptr->VkPhysicalDeviceExternalSemaphoreInfoKHR
       ref-VkPhysicalDeviceExternalSemaphoreInfoKHR
       make-VkPhysicalDeviceExternalSemaphoreInfoKHR*
       VkPhysicalDeviceExternalSemaphoreInfoKHR
@@ -18031,7 +18961,6 @@ ___return (physicaldeviceexternalsemaphoreinfo);"))
       VkPhysicalDeviceExternalSemaphoreInfoKHR*
       "VkPhysicalDeviceExternalSemaphoreInfoKHR* vkphysicaldeviceexternalsemaphoreinfokhr = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalSemaphoreInfoKHR));
       ___return (vkphysicaldeviceexternalsemaphoreinfokhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceExternalSemaphoreInfoKHR
       ()
@@ -18040,6 +18969,7 @@ ___return (physicaldeviceexternalsemaphoreinfo);"))
 ___return (physicaldeviceexternalsemaphoreinfokhr);"))
 (begin-ffi
    (make-VkExternalSemaphoreProperties
+      ptr->VkExternalSemaphoreProperties
       ref-VkExternalSemaphoreProperties
       make-VkExternalSemaphoreProperties*
       VkExternalSemaphorePropertiesexternalSemaphoreFeatures
@@ -18095,7 +19025,12 @@ ___return (physicaldeviceexternalsemaphoreinfokhr);"))
       ref-VkExternalSemaphoreProperties
       (VkExternalSemaphoreProperties* int)
       VkExternalSemaphoreProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExternalSemaphoreProperties
+      ((pointer VkExternalSemaphoreProperties))
+      VkExternalSemaphoreProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExternalSemaphoreProperties
       (VkStructureType
@@ -18113,6 +19048,7 @@ externalsemaphoreproperties->externalSemaphoreFeatures=___arg5;
 ___return (externalsemaphoreproperties);"))
 (begin-ffi
    (make-VkExternalSemaphorePropertiesKHR
+      ptr->VkExternalSemaphorePropertiesKHR
       ref-VkExternalSemaphorePropertiesKHR
       make-VkExternalSemaphorePropertiesKHR*
       VkExternalSemaphorePropertiesKHR
@@ -18138,7 +19074,6 @@ ___return (externalsemaphoreproperties);"))
       VkExternalSemaphorePropertiesKHR*
       "VkExternalSemaphorePropertiesKHR* vkexternalsemaphorepropertieskhr = malloc(___arg1 * sizeof(VkExternalSemaphorePropertiesKHR));
       ___return (vkexternalsemaphorepropertieskhr);")
-   quote
    (define-c-lambda
       make-VkExternalSemaphorePropertiesKHR
       ()
@@ -18147,6 +19082,7 @@ ___return (externalsemaphoreproperties);"))
 ___return (externalsemaphorepropertieskhr);"))
 (begin-ffi
    (make-VkExportSemaphoreCreateInfo
+      ptr->VkExportSemaphoreCreateInfo
       ref-VkExportSemaphoreCreateInfo
       make-VkExportSemaphoreCreateInfo*
       VkExportSemaphoreCreateInfohandleTypes
@@ -18190,7 +19126,12 @@ ___return (externalsemaphorepropertieskhr);"))
       ref-VkExportSemaphoreCreateInfo
       (VkExportSemaphoreCreateInfo* int)
       VkExportSemaphoreCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExportSemaphoreCreateInfo
+      ((pointer VkExportSemaphoreCreateInfo))
+      VkExportSemaphoreCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExportSemaphoreCreateInfo
       (VkStructureType void* VkExternalSemaphoreHandleTypeFlags)
@@ -18202,6 +19143,7 @@ exportsemaphorecreateinfo->handleTypes=___arg3;
 ___return (exportsemaphorecreateinfo);"))
 (begin-ffi
    (make-VkExportSemaphoreCreateInfoKHR
+      ptr->VkExportSemaphoreCreateInfoKHR
       ref-VkExportSemaphoreCreateInfoKHR
       make-VkExportSemaphoreCreateInfoKHR*
       VkExportSemaphoreCreateInfoKHR
@@ -18227,7 +19169,6 @@ ___return (exportsemaphorecreateinfo);"))
       VkExportSemaphoreCreateInfoKHR*
       "VkExportSemaphoreCreateInfoKHR* vkexportsemaphorecreateinfokhr = malloc(___arg1 * sizeof(VkExportSemaphoreCreateInfoKHR));
       ___return (vkexportsemaphorecreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkExportSemaphoreCreateInfoKHR
       ()
@@ -18236,6 +19177,7 @@ ___return (exportsemaphorecreateinfo);"))
 ___return (exportsemaphorecreateinfokhr);"))
 (begin-ffi
    (make-VkImportSemaphoreFdInfoKHR
+      ptr->VkImportSemaphoreFdInfoKHR
       ref-VkImportSemaphoreFdInfoKHR
       make-VkImportSemaphoreFdInfoKHR*
       VkImportSemaphoreFdInfoKHRfd
@@ -18297,7 +19239,7 @@ ___return (exportsemaphorecreateinfokhr);"))
       ref-VkImportSemaphoreFdInfoKHR
       (VkImportSemaphoreFdInfoKHR* int)
       VkImportSemaphoreFdInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkImportSemaphoreFdInfoKHR
       (VkStructureType
@@ -18317,6 +19259,7 @@ importsemaphorefdinfokhr->fd=___arg6;
 ___return (importsemaphorefdinfokhr);"))
 (begin-ffi
    (make-VkSemaphoreGetFdInfoKHR
+      ptr->VkSemaphoreGetFdInfoKHR
       ref-VkSemaphoreGetFdInfoKHR
       make-VkSemaphoreGetFdInfoKHR*
       VkSemaphoreGetFdInfoKHRhandleType
@@ -18366,7 +19309,7 @@ ___return (importsemaphorefdinfokhr);"))
       ref-VkSemaphoreGetFdInfoKHR
       (VkSemaphoreGetFdInfoKHR* int)
       VkSemaphoreGetFdInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSemaphoreGetFdInfoKHR
       (VkStructureType void* VkSemaphore VkExternalSemaphoreHandleTypeFlagBits)
@@ -18379,6 +19322,7 @@ semaphoregetfdinfokhr->handleType=___arg4;
 ___return (semaphoregetfdinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalFenceInfo
+      ptr->VkPhysicalDeviceExternalFenceInfo
       ref-VkPhysicalDeviceExternalFenceInfo
       make-VkPhysicalDeviceExternalFenceInfo*
       VkPhysicalDeviceExternalFenceInfohandleType
@@ -18426,7 +19370,12 @@ ___return (semaphoregetfdinfokhr);"))
       ref-VkPhysicalDeviceExternalFenceInfo
       (VkPhysicalDeviceExternalFenceInfo* int)
       VkPhysicalDeviceExternalFenceInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceExternalFenceInfo
+      ((pointer VkPhysicalDeviceExternalFenceInfo))
+      VkPhysicalDeviceExternalFenceInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceExternalFenceInfo
       (VkStructureType void* VkExternalFenceHandleTypeFlagBits)
@@ -18438,6 +19387,7 @@ physicaldeviceexternalfenceinfo->handleType=___arg3;
 ___return (physicaldeviceexternalfenceinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalFenceInfoKHR
+      ptr->VkPhysicalDeviceExternalFenceInfoKHR
       ref-VkPhysicalDeviceExternalFenceInfoKHR
       make-VkPhysicalDeviceExternalFenceInfoKHR*
       VkPhysicalDeviceExternalFenceInfoKHR
@@ -18463,7 +19413,6 @@ ___return (physicaldeviceexternalfenceinfo);"))
       VkPhysicalDeviceExternalFenceInfoKHR*
       "VkPhysicalDeviceExternalFenceInfoKHR* vkphysicaldeviceexternalfenceinfokhr = malloc(___arg1 * sizeof(VkPhysicalDeviceExternalFenceInfoKHR));
       ___return (vkphysicaldeviceexternalfenceinfokhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceExternalFenceInfoKHR
       ()
@@ -18472,6 +19421,7 @@ ___return (physicaldeviceexternalfenceinfo);"))
 ___return (physicaldeviceexternalfenceinfokhr);"))
 (begin-ffi
    (make-VkExternalFenceProperties
+      ptr->VkExternalFenceProperties
       ref-VkExternalFenceProperties
       make-VkExternalFenceProperties*
       VkExternalFencePropertiesexternalFenceFeatures
@@ -18527,7 +19477,12 @@ ___return (physicaldeviceexternalfenceinfokhr);"))
       ref-VkExternalFenceProperties
       (VkExternalFenceProperties* int)
       VkExternalFenceProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExternalFenceProperties
+      ((pointer VkExternalFenceProperties))
+      VkExternalFenceProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExternalFenceProperties
       (VkStructureType
@@ -18545,6 +19500,7 @@ externalfenceproperties->externalFenceFeatures=___arg5;
 ___return (externalfenceproperties);"))
 (begin-ffi
    (make-VkExternalFencePropertiesKHR
+      ptr->VkExternalFencePropertiesKHR
       ref-VkExternalFencePropertiesKHR
       make-VkExternalFencePropertiesKHR*
       VkExternalFencePropertiesKHR
@@ -18566,7 +19522,6 @@ ___return (externalfenceproperties);"))
       VkExternalFencePropertiesKHR*
       "VkExternalFencePropertiesKHR* vkexternalfencepropertieskhr = malloc(___arg1 * sizeof(VkExternalFencePropertiesKHR));
       ___return (vkexternalfencepropertieskhr);")
-   quote
    (define-c-lambda
       make-VkExternalFencePropertiesKHR
       ()
@@ -18575,6 +19530,7 @@ ___return (externalfenceproperties);"))
 ___return (externalfencepropertieskhr);"))
 (begin-ffi
    (make-VkExportFenceCreateInfo
+      ptr->VkExportFenceCreateInfo
       ref-VkExportFenceCreateInfo
       make-VkExportFenceCreateInfo*
       VkExportFenceCreateInfohandleTypes
@@ -18618,7 +19574,12 @@ ___return (externalfencepropertieskhr);"))
       ref-VkExportFenceCreateInfo
       (VkExportFenceCreateInfo* int)
       VkExportFenceCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkExportFenceCreateInfo
+      ((pointer VkExportFenceCreateInfo))
+      VkExportFenceCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkExportFenceCreateInfo
       (VkStructureType void* VkExternalFenceHandleTypeFlags)
@@ -18630,6 +19591,7 @@ exportfencecreateinfo->handleTypes=___arg3;
 ___return (exportfencecreateinfo);"))
 (begin-ffi
    (make-VkExportFenceCreateInfoKHR
+      ptr->VkExportFenceCreateInfoKHR
       ref-VkExportFenceCreateInfoKHR
       make-VkExportFenceCreateInfoKHR*
       VkExportFenceCreateInfoKHR
@@ -18651,7 +19613,6 @@ ___return (exportfencecreateinfo);"))
       VkExportFenceCreateInfoKHR*
       "VkExportFenceCreateInfoKHR* vkexportfencecreateinfokhr = malloc(___arg1 * sizeof(VkExportFenceCreateInfoKHR));
       ___return (vkexportfencecreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkExportFenceCreateInfoKHR
       ()
@@ -18660,6 +19621,7 @@ ___return (exportfencecreateinfo);"))
 ___return (exportfencecreateinfokhr);"))
 (begin-ffi
    (make-VkImportFenceFdInfoKHR
+      ptr->VkImportFenceFdInfoKHR
       ref-VkImportFenceFdInfoKHR
       make-VkImportFenceFdInfoKHR*
       VkImportFenceFdInfoKHRfd
@@ -18721,7 +19683,7 @@ ___return (exportfencecreateinfokhr);"))
       ref-VkImportFenceFdInfoKHR
       (VkImportFenceFdInfoKHR* int)
       VkImportFenceFdInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkImportFenceFdInfoKHR
       (VkStructureType
@@ -18741,6 +19703,7 @@ importfencefdinfokhr->fd=___arg6;
 ___return (importfencefdinfokhr);"))
 (begin-ffi
    (make-VkFenceGetFdInfoKHR
+      ptr->VkFenceGetFdInfoKHR
       ref-VkFenceGetFdInfoKHR
       make-VkFenceGetFdInfoKHR*
       VkFenceGetFdInfoKHRhandleType
@@ -18790,7 +19753,7 @@ ___return (importfencefdinfokhr);"))
       ref-VkFenceGetFdInfoKHR
       (VkFenceGetFdInfoKHR* int)
       VkFenceGetFdInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkFenceGetFdInfoKHR
       (VkStructureType void* VkFence VkExternalFenceHandleTypeFlagBits)
@@ -18803,6 +19766,7 @@ fencegetfdinfokhr->handleType=___arg4;
 ___return (fencegetfdinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewFeatures
+      ptr->VkPhysicalDeviceMultiviewFeatures
       ref-VkPhysicalDeviceMultiviewFeatures
       make-VkPhysicalDeviceMultiviewFeatures*
       VkPhysicalDeviceMultiviewFeaturesmultiviewTessellationShader
@@ -18862,7 +19826,12 @@ ___return (fencegetfdinfokhr);"))
       ref-VkPhysicalDeviceMultiviewFeatures
       (VkPhysicalDeviceMultiviewFeatures* int)
       VkPhysicalDeviceMultiviewFeatures*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMultiviewFeatures
+      ((pointer VkPhysicalDeviceMultiviewFeatures))
+      VkPhysicalDeviceMultiviewFeatures
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMultiviewFeatures
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
@@ -18876,6 +19845,7 @@ physicaldevicemultiviewfeatures->multiviewTessellationShader=___arg5;
 ___return (physicaldevicemultiviewfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewFeaturesKHR
+      ptr->VkPhysicalDeviceMultiviewFeaturesKHR
       ref-VkPhysicalDeviceMultiviewFeaturesKHR
       make-VkPhysicalDeviceMultiviewFeaturesKHR*
       VkPhysicalDeviceMultiviewFeaturesKHR
@@ -18901,7 +19871,6 @@ ___return (physicaldevicemultiviewfeatures);"))
       VkPhysicalDeviceMultiviewFeaturesKHR*
       "VkPhysicalDeviceMultiviewFeaturesKHR* vkphysicaldevicemultiviewfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceMultiviewFeaturesKHR));
       ___return (vkphysicaldevicemultiviewfeatureskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceMultiviewFeaturesKHR
       ()
@@ -18910,6 +19879,7 @@ ___return (physicaldevicemultiviewfeatures);"))
 ___return (physicaldevicemultiviewfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewProperties
+      ptr->VkPhysicalDeviceMultiviewProperties
       ref-VkPhysicalDeviceMultiviewProperties
       make-VkPhysicalDeviceMultiviewProperties*
       VkPhysicalDeviceMultiviewPropertiesmaxMultiviewInstanceIndex
@@ -18963,7 +19933,12 @@ ___return (physicaldevicemultiviewfeatureskhr);"))
       ref-VkPhysicalDeviceMultiviewProperties
       (VkPhysicalDeviceMultiviewProperties* int)
       VkPhysicalDeviceMultiviewProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMultiviewProperties
+      ((pointer VkPhysicalDeviceMultiviewProperties))
+      VkPhysicalDeviceMultiviewProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMultiviewProperties
       (VkStructureType void* uint32_t uint32_t)
@@ -18976,6 +19951,7 @@ physicaldevicemultiviewproperties->maxMultiviewInstanceIndex=___arg4;
 ___return (physicaldevicemultiviewproperties);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewPropertiesKHR
+      ptr->VkPhysicalDeviceMultiviewPropertiesKHR
       ref-VkPhysicalDeviceMultiviewPropertiesKHR
       make-VkPhysicalDeviceMultiviewPropertiesKHR*
       VkPhysicalDeviceMultiviewPropertiesKHR
@@ -19001,7 +19977,6 @@ ___return (physicaldevicemultiviewproperties);"))
       VkPhysicalDeviceMultiviewPropertiesKHR*
       "VkPhysicalDeviceMultiviewPropertiesKHR* vkphysicaldevicemultiviewpropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceMultiviewPropertiesKHR));
       ___return (vkphysicaldevicemultiviewpropertieskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceMultiviewPropertiesKHR
       ()
@@ -19010,6 +19985,7 @@ ___return (physicaldevicemultiviewproperties);"))
 ___return (physicaldevicemultiviewpropertieskhr);"))
 (begin-ffi
    (make-VkRenderPassMultiviewCreateInfo
+      ptr->VkRenderPassMultiviewCreateInfo
       ref-VkRenderPassMultiviewCreateInfo
       make-VkRenderPassMultiviewCreateInfo*
       VkRenderPassMultiviewCreateInfopCorrelationMasks
@@ -19087,7 +20063,12 @@ ___return (physicaldevicemultiviewpropertieskhr);"))
       ref-VkRenderPassMultiviewCreateInfo
       (VkRenderPassMultiviewCreateInfo* int)
       VkRenderPassMultiviewCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkRenderPassMultiviewCreateInfo
+      ((pointer VkRenderPassMultiviewCreateInfo))
+      VkRenderPassMultiviewCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkRenderPassMultiviewCreateInfo
       (VkStructureType void* uint32_t uint32_t* uint32_t int32_t* uint32_t uint32_t*)
@@ -19104,6 +20085,7 @@ renderpassmultiviewcreateinfo->pCorrelationMasks=___arg8;
 ___return (renderpassmultiviewcreateinfo);"))
 (begin-ffi
    (make-VkRenderPassMultiviewCreateInfoKHR
+      ptr->VkRenderPassMultiviewCreateInfoKHR
       ref-VkRenderPassMultiviewCreateInfoKHR
       make-VkRenderPassMultiviewCreateInfoKHR*
       VkRenderPassMultiviewCreateInfoKHR
@@ -19129,7 +20111,6 @@ ___return (renderpassmultiviewcreateinfo);"))
       VkRenderPassMultiviewCreateInfoKHR*
       "VkRenderPassMultiviewCreateInfoKHR* vkrenderpassmultiviewcreateinfokhr = malloc(___arg1 * sizeof(VkRenderPassMultiviewCreateInfoKHR));
       ___return (vkrenderpassmultiviewcreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkRenderPassMultiviewCreateInfoKHR
       ()
@@ -19138,6 +20119,7 @@ ___return (renderpassmultiviewcreateinfo);"))
 ___return (renderpassmultiviewcreateinfokhr);"))
 (begin-ffi
    (make-VkSurfaceCapabilities2EXT
+      ptr->VkSurfaceCapabilities2EXT
       ref-VkSurfaceCapabilities2EXT
       make-VkSurfaceCapabilities2EXT*
       VkSurfaceCapabilities2EXTsupportedSurfaceCounters
@@ -19241,7 +20223,12 @@ ___return (renderpassmultiviewcreateinfokhr);"))
       ref-VkSurfaceCapabilities2EXT
       (VkSurfaceCapabilities2EXT* int)
       VkSurfaceCapabilities2EXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSurfaceCapabilities2EXT
+      ((pointer VkSurfaceCapabilities2EXT))
+      VkSurfaceCapabilities2EXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSurfaceCapabilities2EXT
       (VkStructureType
@@ -19275,6 +20262,7 @@ surfacecapabilities2ext->supportedSurfaceCounters=___arg13;
 ___return (surfacecapabilities2ext);"))
 (begin-ffi
    (make-VkDisplayPowerInfoEXT
+      ptr->VkDisplayPowerInfoEXT
       ref-VkDisplayPowerInfoEXT
       make-VkDisplayPowerInfoEXT*
       VkDisplayPowerInfoEXTpowerState
@@ -19318,7 +20306,12 @@ ___return (surfacecapabilities2ext);"))
       ref-VkDisplayPowerInfoEXT
       (VkDisplayPowerInfoEXT* int)
       VkDisplayPowerInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDisplayPowerInfoEXT
+      ((pointer VkDisplayPowerInfoEXT))
+      VkDisplayPowerInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDisplayPowerInfoEXT
       (VkStructureType void* VkDisplayPowerStateEXT)
@@ -19330,6 +20323,7 @@ displaypowerinfoext->powerState=___arg3;
 ___return (displaypowerinfoext);"))
 (begin-ffi
    (make-VkDeviceEventInfoEXT
+      ptr->VkDeviceEventInfoEXT
       ref-VkDeviceEventInfoEXT
       make-VkDeviceEventInfoEXT*
       VkDeviceEventInfoEXTdeviceEvent
@@ -19373,7 +20367,12 @@ ___return (displaypowerinfoext);"))
       ref-VkDeviceEventInfoEXT
       (VkDeviceEventInfoEXT* int)
       VkDeviceEventInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceEventInfoEXT
+      ((pointer VkDeviceEventInfoEXT))
+      VkDeviceEventInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceEventInfoEXT
       (VkStructureType void* VkDeviceEventTypeEXT)
@@ -19385,6 +20384,7 @@ deviceeventinfoext->deviceEvent=___arg3;
 ___return (deviceeventinfoext);"))
 (begin-ffi
    (make-VkDisplayEventInfoEXT
+      ptr->VkDisplayEventInfoEXT
       ref-VkDisplayEventInfoEXT
       make-VkDisplayEventInfoEXT*
       VkDisplayEventInfoEXTdisplayEvent
@@ -19428,7 +20428,12 @@ ___return (deviceeventinfoext);"))
       ref-VkDisplayEventInfoEXT
       (VkDisplayEventInfoEXT* int)
       VkDisplayEventInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDisplayEventInfoEXT
+      ((pointer VkDisplayEventInfoEXT))
+      VkDisplayEventInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDisplayEventInfoEXT
       (VkStructureType void* VkDisplayEventTypeEXT)
@@ -19440,6 +20445,7 @@ displayeventinfoext->displayEvent=___arg3;
 ___return (displayeventinfoext);"))
 (begin-ffi
    (make-VkSwapchainCounterCreateInfoEXT
+      ptr->VkSwapchainCounterCreateInfoEXT
       ref-VkSwapchainCounterCreateInfoEXT
       make-VkSwapchainCounterCreateInfoEXT*
       VkSwapchainCounterCreateInfoEXTsurfaceCounters
@@ -19487,7 +20493,12 @@ ___return (displayeventinfoext);"))
       ref-VkSwapchainCounterCreateInfoEXT
       (VkSwapchainCounterCreateInfoEXT* int)
       VkSwapchainCounterCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSwapchainCounterCreateInfoEXT
+      ((pointer VkSwapchainCounterCreateInfoEXT))
+      VkSwapchainCounterCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSwapchainCounterCreateInfoEXT
       (VkStructureType void* VkSurfaceCounterFlagsEXT)
@@ -19499,6 +20510,7 @@ swapchaincountercreateinfoext->surfaceCounters=___arg3;
 ___return (swapchaincountercreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceGroupProperties
+      ptr->VkPhysicalDeviceGroupProperties
       ref-VkPhysicalDeviceGroupProperties
       make-VkPhysicalDeviceGroupProperties*
       VkPhysicalDeviceGroupPropertiessubsetAllocation
@@ -19558,7 +20570,12 @@ ___return (swapchaincountercreateinfoext);"))
       ref-VkPhysicalDeviceGroupProperties
       (VkPhysicalDeviceGroupProperties* int)
       VkPhysicalDeviceGroupProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceGroupProperties
+      ((pointer VkPhysicalDeviceGroupProperties))
+      VkPhysicalDeviceGroupProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceGroupProperties
       (VkStructureType void* uint32_t VkPhysicalDevice* VkBool32)
@@ -19572,6 +20589,7 @@ physicaldevicegroupproperties->subsetAllocation=___arg5;
 ___return (physicaldevicegroupproperties);"))
 (begin-ffi
    (make-VkPhysicalDeviceGroupPropertiesKHR
+      ptr->VkPhysicalDeviceGroupPropertiesKHR
       ref-VkPhysicalDeviceGroupPropertiesKHR
       make-VkPhysicalDeviceGroupPropertiesKHR*
       VkPhysicalDeviceGroupPropertiesKHR
@@ -19597,7 +20615,6 @@ ___return (physicaldevicegroupproperties);"))
       VkPhysicalDeviceGroupPropertiesKHR*
       "VkPhysicalDeviceGroupPropertiesKHR* vkphysicaldevicegrouppropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceGroupPropertiesKHR));
       ___return (vkphysicaldevicegrouppropertieskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceGroupPropertiesKHR
       ()
@@ -19606,6 +20623,7 @@ ___return (physicaldevicegroupproperties);"))
 ___return (physicaldevicegrouppropertieskhr);"))
 (begin-ffi
    (make-VkMemoryAllocateFlagsInfo
+      ptr->VkMemoryAllocateFlagsInfo
       ref-VkMemoryAllocateFlagsInfo
       make-VkMemoryAllocateFlagsInfo*
       VkMemoryAllocateFlagsInfodeviceMask
@@ -19655,7 +20673,12 @@ ___return (physicaldevicegrouppropertieskhr);"))
       ref-VkMemoryAllocateFlagsInfo
       (VkMemoryAllocateFlagsInfo* int)
       VkMemoryAllocateFlagsInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryAllocateFlagsInfo
+      ((pointer VkMemoryAllocateFlagsInfo))
+      VkMemoryAllocateFlagsInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryAllocateFlagsInfo
       (VkStructureType void* VkMemoryAllocateFlags uint32_t)
@@ -19668,6 +20691,7 @@ memoryallocateflagsinfo->deviceMask=___arg4;
 ___return (memoryallocateflagsinfo);"))
 (begin-ffi
    (make-VkMemoryAllocateFlagsInfoKHR
+      ptr->VkMemoryAllocateFlagsInfoKHR
       ref-VkMemoryAllocateFlagsInfoKHR
       make-VkMemoryAllocateFlagsInfoKHR*
       VkMemoryAllocateFlagsInfoKHR
@@ -19689,7 +20713,6 @@ ___return (memoryallocateflagsinfo);"))
       VkMemoryAllocateFlagsInfoKHR*
       "VkMemoryAllocateFlagsInfoKHR* vkmemoryallocateflagsinfokhr = malloc(___arg1 * sizeof(VkMemoryAllocateFlagsInfoKHR));
       ___return (vkmemoryallocateflagsinfokhr);")
-   quote
    (define-c-lambda
       make-VkMemoryAllocateFlagsInfoKHR
       ()
@@ -19698,6 +20721,7 @@ ___return (memoryallocateflagsinfo);"))
 ___return (memoryallocateflagsinfokhr);"))
 (begin-ffi
    (make-VkBindBufferMemoryInfo
+      ptr->VkBindBufferMemoryInfo
       ref-VkBindBufferMemoryInfo
       make-VkBindBufferMemoryInfo*
       VkBindBufferMemoryInfomemoryOffset
@@ -19753,7 +20777,12 @@ ___return (memoryallocateflagsinfokhr);"))
       ref-VkBindBufferMemoryInfo
       (VkBindBufferMemoryInfo* int)
       VkBindBufferMemoryInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBindBufferMemoryInfo
+      ((pointer VkBindBufferMemoryInfo))
+      VkBindBufferMemoryInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBindBufferMemoryInfo
       (VkStructureType void* VkBuffer VkDeviceMemory VkDeviceSize)
@@ -19767,6 +20796,7 @@ bindbuffermemoryinfo->memoryOffset=___arg5;
 ___return (bindbuffermemoryinfo);"))
 (begin-ffi
    (make-VkBindBufferMemoryInfoKHR
+      ptr->VkBindBufferMemoryInfoKHR
       ref-VkBindBufferMemoryInfoKHR
       make-VkBindBufferMemoryInfoKHR*
       VkBindBufferMemoryInfoKHR
@@ -19788,7 +20818,6 @@ ___return (bindbuffermemoryinfo);"))
       VkBindBufferMemoryInfoKHR*
       "VkBindBufferMemoryInfoKHR* vkbindbuffermemoryinfokhr = malloc(___arg1 * sizeof(VkBindBufferMemoryInfoKHR));
       ___return (vkbindbuffermemoryinfokhr);")
-   quote
    (define-c-lambda
       make-VkBindBufferMemoryInfoKHR
       ()
@@ -19797,6 +20826,7 @@ ___return (bindbuffermemoryinfo);"))
 ___return (bindbuffermemoryinfokhr);"))
 (begin-ffi
    (make-VkBindBufferMemoryDeviceGroupInfo
+      ptr->VkBindBufferMemoryDeviceGroupInfo
       ref-VkBindBufferMemoryDeviceGroupInfo
       make-VkBindBufferMemoryDeviceGroupInfo*
       VkBindBufferMemoryDeviceGroupInfopDeviceIndices
@@ -19850,7 +20880,12 @@ ___return (bindbuffermemoryinfokhr);"))
       ref-VkBindBufferMemoryDeviceGroupInfo
       (VkBindBufferMemoryDeviceGroupInfo* int)
       VkBindBufferMemoryDeviceGroupInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBindBufferMemoryDeviceGroupInfo
+      ((pointer VkBindBufferMemoryDeviceGroupInfo))
+      VkBindBufferMemoryDeviceGroupInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBindBufferMemoryDeviceGroupInfo
       (VkStructureType void* uint32_t uint32_t*)
@@ -19863,6 +20898,7 @@ bindbuffermemorydevicegroupinfo->pDeviceIndices=___arg4;
 ___return (bindbuffermemorydevicegroupinfo);"))
 (begin-ffi
    (make-VkBindBufferMemoryDeviceGroupInfoKHR
+      ptr->VkBindBufferMemoryDeviceGroupInfoKHR
       ref-VkBindBufferMemoryDeviceGroupInfoKHR
       make-VkBindBufferMemoryDeviceGroupInfoKHR*
       VkBindBufferMemoryDeviceGroupInfoKHR
@@ -19888,7 +20924,6 @@ ___return (bindbuffermemorydevicegroupinfo);"))
       VkBindBufferMemoryDeviceGroupInfoKHR*
       "VkBindBufferMemoryDeviceGroupInfoKHR* vkbindbuffermemorydevicegroupinfokhr = malloc(___arg1 * sizeof(VkBindBufferMemoryDeviceGroupInfoKHR));
       ___return (vkbindbuffermemorydevicegroupinfokhr);")
-   quote
    (define-c-lambda
       make-VkBindBufferMemoryDeviceGroupInfoKHR
       ()
@@ -19897,6 +20932,7 @@ ___return (bindbuffermemorydevicegroupinfo);"))
 ___return (bindbuffermemorydevicegroupinfokhr);"))
 (begin-ffi
    (make-VkBindImageMemoryInfo
+      ptr->VkBindImageMemoryInfo
       ref-VkBindImageMemoryInfo
       make-VkBindImageMemoryInfo*
       VkBindImageMemoryInfomemoryOffset
@@ -19952,7 +20988,12 @@ ___return (bindbuffermemorydevicegroupinfokhr);"))
       ref-VkBindImageMemoryInfo
       (VkBindImageMemoryInfo* int)
       VkBindImageMemoryInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBindImageMemoryInfo
+      ((pointer VkBindImageMemoryInfo))
+      VkBindImageMemoryInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBindImageMemoryInfo
       (VkStructureType void* VkImage VkDeviceMemory VkDeviceSize)
@@ -19966,6 +21007,7 @@ bindimagememoryinfo->memoryOffset=___arg5;
 ___return (bindimagememoryinfo);"))
 (begin-ffi
    (make-VkBindImageMemoryInfoKHR
+      ptr->VkBindImageMemoryInfoKHR
       ref-VkBindImageMemoryInfoKHR
       make-VkBindImageMemoryInfoKHR*
       VkBindImageMemoryInfoKHR
@@ -19987,7 +21029,6 @@ ___return (bindimagememoryinfo);"))
       VkBindImageMemoryInfoKHR*
       "VkBindImageMemoryInfoKHR* vkbindimagememoryinfokhr = malloc(___arg1 * sizeof(VkBindImageMemoryInfoKHR));
       ___return (vkbindimagememoryinfokhr);")
-   quote
    (define-c-lambda
       make-VkBindImageMemoryInfoKHR
       ()
@@ -19996,6 +21037,7 @@ ___return (bindimagememoryinfo);"))
 ___return (bindimagememoryinfokhr);"))
 (begin-ffi
    (make-VkBindImageMemoryDeviceGroupInfo
+      ptr->VkBindImageMemoryDeviceGroupInfo
       ref-VkBindImageMemoryDeviceGroupInfo
       make-VkBindImageMemoryDeviceGroupInfo*
       VkBindImageMemoryDeviceGroupInfopSplitInstanceBindRegions
@@ -20061,7 +21103,12 @@ ___return (bindimagememoryinfokhr);"))
       ref-VkBindImageMemoryDeviceGroupInfo
       (VkBindImageMemoryDeviceGroupInfo* int)
       VkBindImageMemoryDeviceGroupInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBindImageMemoryDeviceGroupInfo
+      ((pointer VkBindImageMemoryDeviceGroupInfo))
+      VkBindImageMemoryDeviceGroupInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBindImageMemoryDeviceGroupInfo
       (VkStructureType void* uint32_t uint32_t* uint32_t VkRect2D*)
@@ -20076,6 +21123,7 @@ bindimagememorydevicegroupinfo->pSplitInstanceBindRegions=___arg6;
 ___return (bindimagememorydevicegroupinfo);"))
 (begin-ffi
    (make-VkBindImageMemoryDeviceGroupInfoKHR
+      ptr->VkBindImageMemoryDeviceGroupInfoKHR
       ref-VkBindImageMemoryDeviceGroupInfoKHR
       make-VkBindImageMemoryDeviceGroupInfoKHR*
       VkBindImageMemoryDeviceGroupInfoKHR
@@ -20101,7 +21149,6 @@ ___return (bindimagememorydevicegroupinfo);"))
       VkBindImageMemoryDeviceGroupInfoKHR*
       "VkBindImageMemoryDeviceGroupInfoKHR* vkbindimagememorydevicegroupinfokhr = malloc(___arg1 * sizeof(VkBindImageMemoryDeviceGroupInfoKHR));
       ___return (vkbindimagememorydevicegroupinfokhr);")
-   quote
    (define-c-lambda
       make-VkBindImageMemoryDeviceGroupInfoKHR
       ()
@@ -20110,6 +21157,7 @@ ___return (bindimagememorydevicegroupinfo);"))
 ___return (bindimagememorydevicegroupinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupRenderPassBeginInfo
+      ptr->VkDeviceGroupRenderPassBeginInfo
       ref-VkDeviceGroupRenderPassBeginInfo
       make-VkDeviceGroupRenderPassBeginInfo*
       VkDeviceGroupRenderPassBeginInfopDeviceRenderAreas
@@ -20169,7 +21217,12 @@ ___return (bindimagememorydevicegroupinfokhr);"))
       ref-VkDeviceGroupRenderPassBeginInfo
       (VkDeviceGroupRenderPassBeginInfo* int)
       VkDeviceGroupRenderPassBeginInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceGroupRenderPassBeginInfo
+      ((pointer VkDeviceGroupRenderPassBeginInfo))
+      VkDeviceGroupRenderPassBeginInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceGroupRenderPassBeginInfo
       (VkStructureType void* uint32_t uint32_t VkRect2D*)
@@ -20183,6 +21236,7 @@ devicegrouprenderpassbegininfo->pDeviceRenderAreas=___arg5;
 ___return (devicegrouprenderpassbegininfo);"))
 (begin-ffi
    (make-VkDeviceGroupRenderPassBeginInfoKHR
+      ptr->VkDeviceGroupRenderPassBeginInfoKHR
       ref-VkDeviceGroupRenderPassBeginInfoKHR
       make-VkDeviceGroupRenderPassBeginInfoKHR*
       VkDeviceGroupRenderPassBeginInfoKHR
@@ -20208,7 +21262,6 @@ ___return (devicegrouprenderpassbegininfo);"))
       VkDeviceGroupRenderPassBeginInfoKHR*
       "VkDeviceGroupRenderPassBeginInfoKHR* vkdevicegrouprenderpassbegininfokhr = malloc(___arg1 * sizeof(VkDeviceGroupRenderPassBeginInfoKHR));
       ___return (vkdevicegrouprenderpassbegininfokhr);")
-   quote
    (define-c-lambda
       make-VkDeviceGroupRenderPassBeginInfoKHR
       ()
@@ -20217,6 +21270,7 @@ ___return (devicegrouprenderpassbegininfo);"))
 ___return (devicegrouprenderpassbegininfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupCommandBufferBeginInfo
+      ptr->VkDeviceGroupCommandBufferBeginInfo
       ref-VkDeviceGroupCommandBufferBeginInfo
       make-VkDeviceGroupCommandBufferBeginInfo*
       VkDeviceGroupCommandBufferBeginInfodeviceMask
@@ -20264,7 +21318,12 @@ ___return (devicegrouprenderpassbegininfokhr);"))
       ref-VkDeviceGroupCommandBufferBeginInfo
       (VkDeviceGroupCommandBufferBeginInfo* int)
       VkDeviceGroupCommandBufferBeginInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceGroupCommandBufferBeginInfo
+      ((pointer VkDeviceGroupCommandBufferBeginInfo))
+      VkDeviceGroupCommandBufferBeginInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceGroupCommandBufferBeginInfo
       (VkStructureType void* uint32_t)
@@ -20276,6 +21335,7 @@ devicegroupcommandbufferbegininfo->deviceMask=___arg3;
 ___return (devicegroupcommandbufferbegininfo);"))
 (begin-ffi
    (make-VkDeviceGroupCommandBufferBeginInfoKHR
+      ptr->VkDeviceGroupCommandBufferBeginInfoKHR
       ref-VkDeviceGroupCommandBufferBeginInfoKHR
       make-VkDeviceGroupCommandBufferBeginInfoKHR*
       VkDeviceGroupCommandBufferBeginInfoKHR
@@ -20301,7 +21361,6 @@ ___return (devicegroupcommandbufferbegininfo);"))
       VkDeviceGroupCommandBufferBeginInfoKHR*
       "VkDeviceGroupCommandBufferBeginInfoKHR* vkdevicegroupcommandbufferbegininfokhr = malloc(___arg1 * sizeof(VkDeviceGroupCommandBufferBeginInfoKHR));
       ___return (vkdevicegroupcommandbufferbegininfokhr);")
-   quote
    (define-c-lambda
       make-VkDeviceGroupCommandBufferBeginInfoKHR
       ()
@@ -20310,6 +21369,7 @@ ___return (devicegroupcommandbufferbegininfo);"))
 ___return (devicegroupcommandbufferbegininfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupSubmitInfo
+      ptr->VkDeviceGroupSubmitInfo
       ref-VkDeviceGroupSubmitInfo
       make-VkDeviceGroupSubmitInfo*
       VkDeviceGroupSubmitInfopSignalSemaphoreDeviceIndices
@@ -20383,7 +21443,12 @@ ___return (devicegroupcommandbufferbegininfokhr);"))
       ref-VkDeviceGroupSubmitInfo
       (VkDeviceGroupSubmitInfo* int)
       VkDeviceGroupSubmitInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceGroupSubmitInfo
+      ((pointer VkDeviceGroupSubmitInfo))
+      VkDeviceGroupSubmitInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceGroupSubmitInfo
       (VkStructureType void* uint32_t uint32_t* uint32_t uint32_t* uint32_t uint32_t*)
@@ -20400,6 +21465,7 @@ devicegroupsubmitinfo->pSignalSemaphoreDeviceIndices=___arg8;
 ___return (devicegroupsubmitinfo);"))
 (begin-ffi
    (make-VkDeviceGroupSubmitInfoKHR
+      ptr->VkDeviceGroupSubmitInfoKHR
       ref-VkDeviceGroupSubmitInfoKHR
       make-VkDeviceGroupSubmitInfoKHR*
       VkDeviceGroupSubmitInfoKHR
@@ -20421,7 +21487,6 @@ ___return (devicegroupsubmitinfo);"))
       VkDeviceGroupSubmitInfoKHR*
       "VkDeviceGroupSubmitInfoKHR* vkdevicegroupsubmitinfokhr = malloc(___arg1 * sizeof(VkDeviceGroupSubmitInfoKHR));
       ___return (vkdevicegroupsubmitinfokhr);")
-   quote
    (define-c-lambda
       make-VkDeviceGroupSubmitInfoKHR
       ()
@@ -20430,6 +21495,7 @@ ___return (devicegroupsubmitinfo);"))
 ___return (devicegroupsubmitinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupBindSparseInfo
+      ptr->VkDeviceGroupBindSparseInfo
       ref-VkDeviceGroupBindSparseInfo
       make-VkDeviceGroupBindSparseInfo*
       VkDeviceGroupBindSparseInfomemoryDeviceIndex
@@ -20479,7 +21545,12 @@ ___return (devicegroupsubmitinfokhr);"))
       ref-VkDeviceGroupBindSparseInfo
       (VkDeviceGroupBindSparseInfo* int)
       VkDeviceGroupBindSparseInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceGroupBindSparseInfo
+      ((pointer VkDeviceGroupBindSparseInfo))
+      VkDeviceGroupBindSparseInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceGroupBindSparseInfo
       (VkStructureType void* uint32_t uint32_t)
@@ -20492,6 +21563,7 @@ devicegroupbindsparseinfo->memoryDeviceIndex=___arg4;
 ___return (devicegroupbindsparseinfo);"))
 (begin-ffi
    (make-VkDeviceGroupBindSparseInfoKHR
+      ptr->VkDeviceGroupBindSparseInfoKHR
       ref-VkDeviceGroupBindSparseInfoKHR
       make-VkDeviceGroupBindSparseInfoKHR*
       VkDeviceGroupBindSparseInfoKHR
@@ -20517,7 +21589,6 @@ ___return (devicegroupbindsparseinfo);"))
       VkDeviceGroupBindSparseInfoKHR*
       "VkDeviceGroupBindSparseInfoKHR* vkdevicegroupbindsparseinfokhr = malloc(___arg1 * sizeof(VkDeviceGroupBindSparseInfoKHR));
       ___return (vkdevicegroupbindsparseinfokhr);")
-   quote
    (define-c-lambda
       make-VkDeviceGroupBindSparseInfoKHR
       ()
@@ -20526,6 +21597,7 @@ ___return (devicegroupbindsparseinfo);"))
 ___return (devicegroupbindsparseinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupPresentCapabilitiesKHR
+      ptr->VkDeviceGroupPresentCapabilitiesKHR
       ref-VkDeviceGroupPresentCapabilitiesKHR
       make-VkDeviceGroupPresentCapabilitiesKHR*
       VkDeviceGroupPresentCapabilitiesKHRmodes
@@ -20579,7 +21651,7 @@ ___return (devicegroupbindsparseinfokhr);"))
       ref-VkDeviceGroupPresentCapabilitiesKHR
       (VkDeviceGroupPresentCapabilitiesKHR* int)
       VkDeviceGroupPresentCapabilitiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDeviceGroupPresentCapabilitiesKHR
       (VkStructureType void* uint32_t* VkDeviceGroupPresentModeFlagsKHR)
@@ -20592,6 +21664,7 @@ devicegrouppresentcapabilitieskhr->modes=___arg4;
 ___return (devicegrouppresentcapabilitieskhr);"))
 (begin-ffi
    (make-VkImageSwapchainCreateInfoKHR
+      ptr->VkImageSwapchainCreateInfoKHR
       ref-VkImageSwapchainCreateInfoKHR
       make-VkImageSwapchainCreateInfoKHR*
       VkImageSwapchainCreateInfoKHRswapchain
@@ -20635,7 +21708,7 @@ ___return (devicegrouppresentcapabilitieskhr);"))
       ref-VkImageSwapchainCreateInfoKHR
       (VkImageSwapchainCreateInfoKHR* int)
       VkImageSwapchainCreateInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkImageSwapchainCreateInfoKHR
       (VkStructureType void* VkSwapchainKHR)
@@ -20647,6 +21720,7 @@ imageswapchaincreateinfokhr->swapchain=___arg3;
 ___return (imageswapchaincreateinfokhr);"))
 (begin-ffi
    (make-VkBindImageMemorySwapchainInfoKHR
+      ptr->VkBindImageMemorySwapchainInfoKHR
       ref-VkBindImageMemorySwapchainInfoKHR
       make-VkBindImageMemorySwapchainInfoKHR*
       VkBindImageMemorySwapchainInfoKHRimageIndex
@@ -20700,7 +21774,7 @@ ___return (imageswapchaincreateinfokhr);"))
       ref-VkBindImageMemorySwapchainInfoKHR
       (VkBindImageMemorySwapchainInfoKHR* int)
       VkBindImageMemorySwapchainInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkBindImageMemorySwapchainInfoKHR
       (VkStructureType void* VkSwapchainKHR uint32_t)
@@ -20713,6 +21787,7 @@ bindimagememoryswapchaininfokhr->imageIndex=___arg4;
 ___return (bindimagememoryswapchaininfokhr);"))
 (begin-ffi
    (make-VkAcquireNextImageInfoKHR
+      ptr->VkAcquireNextImageInfoKHR
       ref-VkAcquireNextImageInfoKHR
       make-VkAcquireNextImageInfoKHR*
       VkAcquireNextImageInfoKHRdeviceMask
@@ -20780,7 +21855,7 @@ ___return (bindimagememoryswapchaininfokhr);"))
       ref-VkAcquireNextImageInfoKHR
       (VkAcquireNextImageInfoKHR* int)
       VkAcquireNextImageInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkAcquireNextImageInfoKHR
       (VkStructureType void* VkSwapchainKHR uint64_t VkSemaphore VkFence uint32_t)
@@ -20796,6 +21871,7 @@ acquirenextimageinfokhr->deviceMask=___arg7;
 ___return (acquirenextimageinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupPresentInfoKHR
+      ptr->VkDeviceGroupPresentInfoKHR
       ref-VkDeviceGroupPresentInfoKHR
       make-VkDeviceGroupPresentInfoKHR*
       VkDeviceGroupPresentInfoKHRmode
@@ -20851,7 +21927,7 @@ ___return (acquirenextimageinfokhr);"))
       ref-VkDeviceGroupPresentInfoKHR
       (VkDeviceGroupPresentInfoKHR* int)
       VkDeviceGroupPresentInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDeviceGroupPresentInfoKHR
       (VkStructureType void* uint32_t uint32_t* VkDeviceGroupPresentModeFlagBitsKHR)
@@ -20865,6 +21941,7 @@ devicegrouppresentinfokhr->mode=___arg5;
 ___return (devicegrouppresentinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupDeviceCreateInfo
+      ptr->VkDeviceGroupDeviceCreateInfo
       ref-VkDeviceGroupDeviceCreateInfo
       make-VkDeviceGroupDeviceCreateInfo*
       VkDeviceGroupDeviceCreateInfopPhysicalDevices
@@ -20914,7 +21991,12 @@ ___return (devicegrouppresentinfokhr);"))
       ref-VkDeviceGroupDeviceCreateInfo
       (VkDeviceGroupDeviceCreateInfo* int)
       VkDeviceGroupDeviceCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceGroupDeviceCreateInfo
+      ((pointer VkDeviceGroupDeviceCreateInfo))
+      VkDeviceGroupDeviceCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceGroupDeviceCreateInfo
       (VkStructureType void* uint32_t VkPhysicalDevice*)
@@ -20927,6 +22009,7 @@ devicegroupdevicecreateinfo->pPhysicalDevices=___arg4;
 ___return (devicegroupdevicecreateinfo);"))
 (begin-ffi
    (make-VkDeviceGroupDeviceCreateInfoKHR
+      ptr->VkDeviceGroupDeviceCreateInfoKHR
       ref-VkDeviceGroupDeviceCreateInfoKHR
       make-VkDeviceGroupDeviceCreateInfoKHR*
       VkDeviceGroupDeviceCreateInfoKHR
@@ -20952,7 +22035,6 @@ ___return (devicegroupdevicecreateinfo);"))
       VkDeviceGroupDeviceCreateInfoKHR*
       "VkDeviceGroupDeviceCreateInfoKHR* vkdevicegroupdevicecreateinfokhr = malloc(___arg1 * sizeof(VkDeviceGroupDeviceCreateInfoKHR));
       ___return (vkdevicegroupdevicecreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkDeviceGroupDeviceCreateInfoKHR
       ()
@@ -20961,6 +22043,7 @@ ___return (devicegroupdevicecreateinfo);"))
 ___return (devicegroupdevicecreateinfokhr);"))
 (begin-ffi
    (make-VkDeviceGroupSwapchainCreateInfoKHR
+      ptr->VkDeviceGroupSwapchainCreateInfoKHR
       ref-VkDeviceGroupSwapchainCreateInfoKHR
       make-VkDeviceGroupSwapchainCreateInfoKHR*
       VkDeviceGroupSwapchainCreateInfoKHRmodes
@@ -21008,7 +22091,7 @@ ___return (devicegroupdevicecreateinfokhr);"))
       ref-VkDeviceGroupSwapchainCreateInfoKHR
       (VkDeviceGroupSwapchainCreateInfoKHR* int)
       VkDeviceGroupSwapchainCreateInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDeviceGroupSwapchainCreateInfoKHR
       (VkStructureType void* VkDeviceGroupPresentModeFlagsKHR)
@@ -21020,6 +22103,7 @@ devicegroupswapchaincreateinfokhr->modes=___arg3;
 ___return (devicegroupswapchaincreateinfokhr);"))
 (begin-ffi
    (make-VkDescriptorUpdateTemplateEntry
+      ptr->VkDescriptorUpdateTemplateEntry
       ref-VkDescriptorUpdateTemplateEntry
       make-VkDescriptorUpdateTemplateEntry*
       VkDescriptorUpdateTemplateEntrystride
@@ -21085,7 +22169,12 @@ ___return (devicegroupswapchaincreateinfokhr);"))
       ref-VkDescriptorUpdateTemplateEntry
       (VkDescriptorUpdateTemplateEntry* int)
       VkDescriptorUpdateTemplateEntry*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorUpdateTemplateEntry
+      ((pointer VkDescriptorUpdateTemplateEntry))
+      VkDescriptorUpdateTemplateEntry
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorUpdateTemplateEntry
       (uint32_t uint32_t uint32_t VkDescriptorType size_t size_t)
@@ -21100,6 +22189,7 @@ descriptorupdatetemplateentry->stride=___arg6;
 ___return (descriptorupdatetemplateentry);"))
 (begin-ffi
    (make-VkDescriptorUpdateTemplateEntryKHR
+      ptr->VkDescriptorUpdateTemplateEntryKHR
       ref-VkDescriptorUpdateTemplateEntryKHR
       make-VkDescriptorUpdateTemplateEntryKHR*
       VkDescriptorUpdateTemplateEntryKHR
@@ -21125,7 +22215,6 @@ ___return (descriptorupdatetemplateentry);"))
       VkDescriptorUpdateTemplateEntryKHR*
       "VkDescriptorUpdateTemplateEntryKHR* vkdescriptorupdatetemplateentrykhr = malloc(___arg1 * sizeof(VkDescriptorUpdateTemplateEntryKHR));
       ___return (vkdescriptorupdatetemplateentrykhr);")
-   quote
    (define-c-lambda
       make-VkDescriptorUpdateTemplateEntryKHR
       ()
@@ -21134,6 +22223,7 @@ ___return (descriptorupdatetemplateentry);"))
 ___return (descriptorupdatetemplateentrykhr);"))
 (begin-ffi
    (make-VkDescriptorUpdateTemplateCreateInfo
+      ptr->VkDescriptorUpdateTemplateCreateInfo
       ref-VkDescriptorUpdateTemplateCreateInfo
       make-VkDescriptorUpdateTemplateCreateInfo*
       VkDescriptorUpdateTemplateCreateInfoset
@@ -21223,7 +22313,12 @@ ___return (descriptorupdatetemplateentrykhr);"))
       ref-VkDescriptorUpdateTemplateCreateInfo
       (VkDescriptorUpdateTemplateCreateInfo* int)
       VkDescriptorUpdateTemplateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorUpdateTemplateCreateInfo
+      ((pointer VkDescriptorUpdateTemplateCreateInfo))
+      VkDescriptorUpdateTemplateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorUpdateTemplateCreateInfo
       (VkStructureType
@@ -21251,6 +22346,7 @@ descriptorupdatetemplatecreateinfo->set=___arg10;
 ___return (descriptorupdatetemplatecreateinfo);"))
 (begin-ffi
    (make-VkDescriptorUpdateTemplateCreateInfoKHR
+      ptr->VkDescriptorUpdateTemplateCreateInfoKHR
       ref-VkDescriptorUpdateTemplateCreateInfoKHR
       make-VkDescriptorUpdateTemplateCreateInfoKHR*
       VkDescriptorUpdateTemplateCreateInfoKHR
@@ -21276,7 +22372,6 @@ ___return (descriptorupdatetemplatecreateinfo);"))
       VkDescriptorUpdateTemplateCreateInfoKHR*
       "VkDescriptorUpdateTemplateCreateInfoKHR* vkdescriptorupdatetemplatecreateinfokhr = malloc(___arg1 * sizeof(VkDescriptorUpdateTemplateCreateInfoKHR));
       ___return (vkdescriptorupdatetemplatecreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkDescriptorUpdateTemplateCreateInfoKHR
       ()
@@ -21285,6 +22380,7 @@ ___return (descriptorupdatetemplatecreateinfo);"))
 ___return (descriptorupdatetemplatecreateinfokhr);"))
 (begin-ffi
    (make-VkXYColorEXT
+      ptr->VkXYColorEXT
       ref-VkXYColorEXT
       make-VkXYColorEXT*
       VkXYColorEXTy
@@ -21314,7 +22410,12 @@ ___return (descriptorupdatetemplatecreateinfokhr);"))
       ref-VkXYColorEXT
       (VkXYColorEXT* int)
       VkXYColorEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkXYColorEXT
+      ((pointer VkXYColorEXT))
+      VkXYColorEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkXYColorEXT
       (float float)
@@ -21325,6 +22426,7 @@ xycolorext->y=___arg2;
 ___return (xycolorext);"))
 (begin-ffi
    (make-VkHdrMetadataEXT
+      ptr->VkHdrMetadataEXT
       ref-VkHdrMetadataEXT
       make-VkHdrMetadataEXT*
       VkHdrMetadataEXTmaxFrameAverageLightLevel
@@ -21410,7 +22512,12 @@ ___return (xycolorext);"))
       ref-VkHdrMetadataEXT
       (VkHdrMetadataEXT* int)
       VkHdrMetadataEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkHdrMetadataEXT
+      ((pointer VkHdrMetadataEXT))
+      VkHdrMetadataEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkHdrMetadataEXT
       (VkStructureType
@@ -21438,6 +22545,7 @@ hdrmetadataext->maxFrameAverageLightLevel=___arg10;
 ___return (hdrmetadataext);"))
 (begin-ffi
    (make-VkDisplayNativeHdrSurfaceCapabilitiesAMD
+      ptr->VkDisplayNativeHdrSurfaceCapabilitiesAMD
       ref-VkDisplayNativeHdrSurfaceCapabilitiesAMD
       make-VkDisplayNativeHdrSurfaceCapabilitiesAMD*
       VkDisplayNativeHdrSurfaceCapabilitiesAMDlocalDimmingSupport
@@ -21485,7 +22593,12 @@ ___return (hdrmetadataext);"))
       ref-VkDisplayNativeHdrSurfaceCapabilitiesAMD
       (VkDisplayNativeHdrSurfaceCapabilitiesAMD* int)
       VkDisplayNativeHdrSurfaceCapabilitiesAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDisplayNativeHdrSurfaceCapabilitiesAMD
+      ((pointer VkDisplayNativeHdrSurfaceCapabilitiesAMD))
+      VkDisplayNativeHdrSurfaceCapabilitiesAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDisplayNativeHdrSurfaceCapabilitiesAMD
       (VkStructureType void* VkBool32)
@@ -21497,6 +22610,7 @@ displaynativehdrsurfacecapabilitiesamd->localDimmingSupport=___arg3;
 ___return (displaynativehdrsurfacecapabilitiesamd);"))
 (begin-ffi
    (make-VkSwapchainDisplayNativeHdrCreateInfoAMD
+      ptr->VkSwapchainDisplayNativeHdrCreateInfoAMD
       ref-VkSwapchainDisplayNativeHdrCreateInfoAMD
       make-VkSwapchainDisplayNativeHdrCreateInfoAMD*
       VkSwapchainDisplayNativeHdrCreateInfoAMDlocalDimmingEnable
@@ -21544,7 +22658,12 @@ ___return (displaynativehdrsurfacecapabilitiesamd);"))
       ref-VkSwapchainDisplayNativeHdrCreateInfoAMD
       (VkSwapchainDisplayNativeHdrCreateInfoAMD* int)
       VkSwapchainDisplayNativeHdrCreateInfoAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSwapchainDisplayNativeHdrCreateInfoAMD
+      ((pointer VkSwapchainDisplayNativeHdrCreateInfoAMD))
+      VkSwapchainDisplayNativeHdrCreateInfoAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSwapchainDisplayNativeHdrCreateInfoAMD
       (VkStructureType void* VkBool32)
@@ -21556,6 +22675,7 @@ swapchaindisplaynativehdrcreateinfoamd->localDimmingEnable=___arg3;
 ___return (swapchaindisplaynativehdrcreateinfoamd);"))
 (begin-ffi
    (make-VkRefreshCycleDurationGOOGLE
+      ptr->VkRefreshCycleDurationGOOGLE
       ref-VkRefreshCycleDurationGOOGLE
       make-VkRefreshCycleDurationGOOGLE*
       VkRefreshCycleDurationGOOGLErefreshDuration
@@ -21587,7 +22707,12 @@ ___return (swapchaindisplaynativehdrcreateinfoamd);"))
       ref-VkRefreshCycleDurationGOOGLE
       (VkRefreshCycleDurationGOOGLE* int)
       VkRefreshCycleDurationGOOGLE*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkRefreshCycleDurationGOOGLE
+      ((pointer VkRefreshCycleDurationGOOGLE))
+      VkRefreshCycleDurationGOOGLE
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkRefreshCycleDurationGOOGLE
       (uint64_t)
@@ -21597,6 +22722,7 @@ refreshcycledurationgoogle->refreshDuration=___arg1;
 ___return (refreshcycledurationgoogle);"))
 (begin-ffi
    (make-VkPastPresentationTimingGOOGLE
+      ptr->VkPastPresentationTimingGOOGLE
       ref-VkPastPresentationTimingGOOGLE
       make-VkPastPresentationTimingGOOGLE*
       VkPastPresentationTimingGOOGLEpresentMargin
@@ -21656,7 +22782,12 @@ ___return (refreshcycledurationgoogle);"))
       ref-VkPastPresentationTimingGOOGLE
       (VkPastPresentationTimingGOOGLE* int)
       VkPastPresentationTimingGOOGLE*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPastPresentationTimingGOOGLE
+      ((pointer VkPastPresentationTimingGOOGLE))
+      VkPastPresentationTimingGOOGLE
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPastPresentationTimingGOOGLE
       (uint32_t uint64_t uint64_t uint64_t uint64_t)
@@ -21670,6 +22801,7 @@ pastpresentationtiminggoogle->presentMargin=___arg5;
 ___return (pastpresentationtiminggoogle);"))
 (begin-ffi
    (make-VkPresentTimeGOOGLE
+      ptr->VkPresentTimeGOOGLE
       ref-VkPresentTimeGOOGLE
       make-VkPresentTimeGOOGLE*
       VkPresentTimeGOOGLEdesiredPresentTime
@@ -21707,7 +22839,12 @@ ___return (pastpresentationtiminggoogle);"))
       ref-VkPresentTimeGOOGLE
       (VkPresentTimeGOOGLE* int)
       VkPresentTimeGOOGLE*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPresentTimeGOOGLE
+      ((pointer VkPresentTimeGOOGLE))
+      VkPresentTimeGOOGLE
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPresentTimeGOOGLE
       (uint32_t uint64_t)
@@ -21718,6 +22855,7 @@ presenttimegoogle->desiredPresentTime=___arg2;
 ___return (presenttimegoogle);"))
 (begin-ffi
    (make-VkPresentTimesInfoGOOGLE
+      ptr->VkPresentTimesInfoGOOGLE
       ref-VkPresentTimesInfoGOOGLE
       make-VkPresentTimesInfoGOOGLE*
       VkPresentTimesInfoGOOGLEpTimes
@@ -21767,7 +22905,12 @@ ___return (presenttimegoogle);"))
       ref-VkPresentTimesInfoGOOGLE
       (VkPresentTimesInfoGOOGLE* int)
       VkPresentTimesInfoGOOGLE*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPresentTimesInfoGOOGLE
+      ((pointer VkPresentTimesInfoGOOGLE))
+      VkPresentTimesInfoGOOGLE
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPresentTimesInfoGOOGLE
       (VkStructureType void* uint32_t VkPresentTimeGOOGLE*)
@@ -21780,6 +22923,7 @@ presenttimesinfogoogle->pTimes=___arg4;
 ___return (presenttimesinfogoogle);"))
 (begin-ffi
    (make-VkViewportWScalingNV
+      ptr->VkViewportWScalingNV
       ref-VkViewportWScalingNV
       make-VkViewportWScalingNV*
       VkViewportWScalingNVycoeff
@@ -21817,7 +22961,12 @@ ___return (presenttimesinfogoogle);"))
       ref-VkViewportWScalingNV
       (VkViewportWScalingNV* int)
       VkViewportWScalingNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkViewportWScalingNV
+      ((pointer VkViewportWScalingNV))
+      VkViewportWScalingNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkViewportWScalingNV
       (float float)
@@ -21828,6 +22977,7 @@ viewportwscalingnv->ycoeff=___arg2;
 ___return (viewportwscalingnv);"))
 (begin-ffi
    (make-VkPipelineViewportWScalingStateCreateInfoNV
+      ptr->VkPipelineViewportWScalingStateCreateInfoNV
       ref-VkPipelineViewportWScalingStateCreateInfoNV
       make-VkPipelineViewportWScalingStateCreateInfoNV*
       VkPipelineViewportWScalingStateCreateInfoNVpViewportWScalings
@@ -21887,7 +23037,12 @@ ___return (viewportwscalingnv);"))
       ref-VkPipelineViewportWScalingStateCreateInfoNV
       (VkPipelineViewportWScalingStateCreateInfoNV* int)
       VkPipelineViewportWScalingStateCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineViewportWScalingStateCreateInfoNV
+      ((pointer VkPipelineViewportWScalingStateCreateInfoNV))
+      VkPipelineViewportWScalingStateCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineViewportWScalingStateCreateInfoNV
       (VkStructureType void* VkBool32 uint32_t VkViewportWScalingNV*)
@@ -21901,6 +23056,7 @@ pipelineviewportwscalingstatecreateinfonv->pViewportWScalings=___arg5;
 ___return (pipelineviewportwscalingstatecreateinfonv);"))
 (begin-ffi
    (make-VkViewportSwizzleNV
+      ptr->VkViewportSwizzleNV
       ref-VkViewportSwizzleNV
       make-VkViewportSwizzleNV*
       VkViewportSwizzleNVw
@@ -21950,7 +23106,12 @@ ___return (pipelineviewportwscalingstatecreateinfonv);"))
       ref-VkViewportSwizzleNV
       (VkViewportSwizzleNV* int)
       VkViewportSwizzleNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkViewportSwizzleNV
+      ((pointer VkViewportSwizzleNV))
+      VkViewportSwizzleNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkViewportSwizzleNV
       (VkViewportCoordinateSwizzleNV
@@ -21966,6 +23127,7 @@ viewportswizzlenv->w=___arg4;
 ___return (viewportswizzlenv);"))
 (begin-ffi
    (make-VkPipelineViewportSwizzleStateCreateInfoNV
+      ptr->VkPipelineViewportSwizzleStateCreateInfoNV
       ref-VkPipelineViewportSwizzleStateCreateInfoNV
       make-VkPipelineViewportSwizzleStateCreateInfoNV*
       VkPipelineViewportSwizzleStateCreateInfoNVpViewportSwizzles
@@ -22025,7 +23187,12 @@ ___return (viewportswizzlenv);"))
       ref-VkPipelineViewportSwizzleStateCreateInfoNV
       (VkPipelineViewportSwizzleStateCreateInfoNV* int)
       VkPipelineViewportSwizzleStateCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineViewportSwizzleStateCreateInfoNV
+      ((pointer VkPipelineViewportSwizzleStateCreateInfoNV))
+      VkPipelineViewportSwizzleStateCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineViewportSwizzleStateCreateInfoNV
       (VkStructureType
@@ -22043,6 +23210,7 @@ pipelineviewportswizzlestatecreateinfonv->pViewportSwizzles=___arg5;
 ___return (pipelineviewportswizzlestatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceDiscardRectanglePropertiesEXT
+      ptr->VkPhysicalDeviceDiscardRectanglePropertiesEXT
       ref-VkPhysicalDeviceDiscardRectanglePropertiesEXT
       make-VkPhysicalDeviceDiscardRectanglePropertiesEXT*
       VkPhysicalDeviceDiscardRectanglePropertiesEXTmaxDiscardRectangles
@@ -22090,7 +23258,12 @@ ___return (pipelineviewportswizzlestatecreateinfonv);"))
       ref-VkPhysicalDeviceDiscardRectanglePropertiesEXT
       (VkPhysicalDeviceDiscardRectanglePropertiesEXT* int)
       VkPhysicalDeviceDiscardRectanglePropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceDiscardRectanglePropertiesEXT
+      ((pointer VkPhysicalDeviceDiscardRectanglePropertiesEXT))
+      VkPhysicalDeviceDiscardRectanglePropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceDiscardRectanglePropertiesEXT
       (VkStructureType void* uint32_t)
@@ -22102,6 +23275,7 @@ physicaldevicediscardrectanglepropertiesext->maxDiscardRectangles=___arg3;
 ___return (physicaldevicediscardrectanglepropertiesext);"))
 (begin-ffi
    (make-VkPipelineDiscardRectangleStateCreateInfoEXT
+      ptr->VkPipelineDiscardRectangleStateCreateInfoEXT
       ref-VkPipelineDiscardRectangleStateCreateInfoEXT
       make-VkPipelineDiscardRectangleStateCreateInfoEXT*
       VkPipelineDiscardRectangleStateCreateInfoEXTpDiscardRectangles
@@ -22167,7 +23341,12 @@ ___return (physicaldevicediscardrectanglepropertiesext);"))
       ref-VkPipelineDiscardRectangleStateCreateInfoEXT
       (VkPipelineDiscardRectangleStateCreateInfoEXT* int)
       VkPipelineDiscardRectangleStateCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineDiscardRectangleStateCreateInfoEXT
+      ((pointer VkPipelineDiscardRectangleStateCreateInfoEXT))
+      VkPipelineDiscardRectangleStateCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineDiscardRectangleStateCreateInfoEXT
       (VkStructureType
@@ -22187,6 +23366,7 @@ pipelinediscardrectanglestatecreateinfoext->pDiscardRectangles=___arg6;
 ___return (pipelinediscardrectanglestatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
+      ptr->VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
       ref-VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
       make-VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX*
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVXperViewPositionAllComponents
@@ -22234,7 +23414,12 @@ ___return (pipelinediscardrectanglestatecreateinfoext);"))
       ref-VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
       (VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX* int)
       VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
+      ((pointer VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX))
+      VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX
       (VkStructureType void* VkBool32)
@@ -22246,6 +23431,7 @@ physicaldevicemultiviewperviewattributespropertiesnvx->perViewPositionAllCompone
 ___return (physicaldevicemultiviewperviewattributespropertiesnvx);"))
 (begin-ffi
    (make-VkInputAttachmentAspectReference
+      ptr->VkInputAttachmentAspectReference
       ref-VkInputAttachmentAspectReference
       make-VkInputAttachmentAspectReference*
       VkInputAttachmentAspectReferenceaspectMask
@@ -22293,7 +23479,12 @@ ___return (physicaldevicemultiviewperviewattributespropertiesnvx);"))
       ref-VkInputAttachmentAspectReference
       (VkInputAttachmentAspectReference* int)
       VkInputAttachmentAspectReference*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkInputAttachmentAspectReference
+      ((pointer VkInputAttachmentAspectReference))
+      VkInputAttachmentAspectReference
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkInputAttachmentAspectReference
       (uint32_t uint32_t VkImageAspectFlags)
@@ -22305,6 +23496,7 @@ inputattachmentaspectreference->aspectMask=___arg3;
 ___return (inputattachmentaspectreference);"))
 (begin-ffi
    (make-VkInputAttachmentAspectReferenceKHR
+      ptr->VkInputAttachmentAspectReferenceKHR
       ref-VkInputAttachmentAspectReferenceKHR
       make-VkInputAttachmentAspectReferenceKHR*
       VkInputAttachmentAspectReferenceKHR
@@ -22330,7 +23522,6 @@ ___return (inputattachmentaspectreference);"))
       VkInputAttachmentAspectReferenceKHR*
       "VkInputAttachmentAspectReferenceKHR* vkinputattachmentaspectreferencekhr = malloc(___arg1 * sizeof(VkInputAttachmentAspectReferenceKHR));
       ___return (vkinputattachmentaspectreferencekhr);")
-   quote
    (define-c-lambda
       make-VkInputAttachmentAspectReferenceKHR
       ()
@@ -22339,6 +23530,7 @@ ___return (inputattachmentaspectreference);"))
 ___return (inputattachmentaspectreferencekhr);"))
 (begin-ffi
    (make-VkRenderPassInputAttachmentAspectCreateInfo
+      ptr->VkRenderPassInputAttachmentAspectCreateInfo
       ref-VkRenderPassInputAttachmentAspectCreateInfo
       make-VkRenderPassInputAttachmentAspectCreateInfo*
       VkRenderPassInputAttachmentAspectCreateInfopAspectReferences
@@ -22392,7 +23584,12 @@ ___return (inputattachmentaspectreferencekhr);"))
       ref-VkRenderPassInputAttachmentAspectCreateInfo
       (VkRenderPassInputAttachmentAspectCreateInfo* int)
       VkRenderPassInputAttachmentAspectCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkRenderPassInputAttachmentAspectCreateInfo
+      ((pointer VkRenderPassInputAttachmentAspectCreateInfo))
+      VkRenderPassInputAttachmentAspectCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkRenderPassInputAttachmentAspectCreateInfo
       (VkStructureType void* uint32_t VkInputAttachmentAspectReference*)
@@ -22405,6 +23602,7 @@ renderpassinputattachmentaspectcreateinfo->pAspectReferences=___arg4;
 ___return (renderpassinputattachmentaspectcreateinfo);"))
 (begin-ffi
    (make-VkRenderPassInputAttachmentAspectCreateInfoKHR
+      ptr->VkRenderPassInputAttachmentAspectCreateInfoKHR
       ref-VkRenderPassInputAttachmentAspectCreateInfoKHR
       make-VkRenderPassInputAttachmentAspectCreateInfoKHR*
       VkRenderPassInputAttachmentAspectCreateInfoKHR
@@ -22430,7 +23628,6 @@ ___return (renderpassinputattachmentaspectcreateinfo);"))
       VkRenderPassInputAttachmentAspectCreateInfoKHR*
       "VkRenderPassInputAttachmentAspectCreateInfoKHR* vkrenderpassinputattachmentaspectcreateinfokhr = malloc(___arg1 * sizeof(VkRenderPassInputAttachmentAspectCreateInfoKHR));
       ___return (vkrenderpassinputattachmentaspectcreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkRenderPassInputAttachmentAspectCreateInfoKHR
       ()
@@ -22439,6 +23636,7 @@ ___return (renderpassinputattachmentaspectcreateinfo);"))
 ___return (renderpassinputattachmentaspectcreateinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceSurfaceInfo2KHR
+      ptr->VkPhysicalDeviceSurfaceInfo2KHR
       ref-VkPhysicalDeviceSurfaceInfo2KHR
       make-VkPhysicalDeviceSurfaceInfo2KHR*
       VkPhysicalDeviceSurfaceInfo2KHRsurface
@@ -22486,7 +23684,7 @@ ___return (renderpassinputattachmentaspectcreateinfokhr);"))
       ref-VkPhysicalDeviceSurfaceInfo2KHR
       (VkPhysicalDeviceSurfaceInfo2KHR* int)
       VkPhysicalDeviceSurfaceInfo2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDeviceSurfaceInfo2KHR
       (VkStructureType void* VkSurfaceKHR)
@@ -22498,6 +23696,7 @@ physicaldevicesurfaceinfo2khr->surface=___arg3;
 ___return (physicaldevicesurfaceinfo2khr);"))
 (begin-ffi
    (make-VkSurfaceCapabilities2KHR
+      ptr->VkSurfaceCapabilities2KHR
       ref-VkSurfaceCapabilities2KHR
       make-VkSurfaceCapabilities2KHR*
       VkSurfaceCapabilities2KHRsurfaceCapabilities
@@ -22541,7 +23740,7 @@ ___return (physicaldevicesurfaceinfo2khr);"))
       ref-VkSurfaceCapabilities2KHR
       (VkSurfaceCapabilities2KHR* int)
       VkSurfaceCapabilities2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSurfaceCapabilities2KHR
       (VkStructureType void* VkSurfaceCapabilitiesKHR)
@@ -22553,6 +23752,7 @@ surfacecapabilities2khr->surfaceCapabilities=___arg3;
 ___return (surfacecapabilities2khr);"))
 (begin-ffi
    (make-VkSurfaceFormat2KHR
+      ptr->VkSurfaceFormat2KHR
       ref-VkSurfaceFormat2KHR
       make-VkSurfaceFormat2KHR*
       VkSurfaceFormat2KHRsurfaceFormat
@@ -22596,7 +23796,7 @@ ___return (surfacecapabilities2khr);"))
       ref-VkSurfaceFormat2KHR
       (VkSurfaceFormat2KHR* int)
       VkSurfaceFormat2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSurfaceFormat2KHR
       (VkStructureType void* VkSurfaceFormatKHR)
@@ -22608,6 +23808,7 @@ surfaceformat2khr->surfaceFormat=___arg3;
 ___return (surfaceformat2khr);"))
 (begin-ffi
    (make-VkDisplayProperties2KHR
+      ptr->VkDisplayProperties2KHR
       ref-VkDisplayProperties2KHR
       make-VkDisplayProperties2KHR*
       VkDisplayProperties2KHRdisplayProperties
@@ -22651,7 +23852,7 @@ ___return (surfaceformat2khr);"))
       ref-VkDisplayProperties2KHR
       (VkDisplayProperties2KHR* int)
       VkDisplayProperties2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayProperties2KHR
       (VkStructureType void* VkDisplayPropertiesKHR)
@@ -22663,6 +23864,7 @@ displayproperties2khr->displayProperties=___arg3;
 ___return (displayproperties2khr);"))
 (begin-ffi
    (make-VkDisplayPlaneProperties2KHR
+      ptr->VkDisplayPlaneProperties2KHR
       ref-VkDisplayPlaneProperties2KHR
       make-VkDisplayPlaneProperties2KHR*
       VkDisplayPlaneProperties2KHRdisplayPlaneProperties
@@ -22706,7 +23908,7 @@ ___return (displayproperties2khr);"))
       ref-VkDisplayPlaneProperties2KHR
       (VkDisplayPlaneProperties2KHR* int)
       VkDisplayPlaneProperties2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayPlaneProperties2KHR
       (VkStructureType void* VkDisplayPlanePropertiesKHR)
@@ -22718,6 +23920,7 @@ displayplaneproperties2khr->displayPlaneProperties=___arg3;
 ___return (displayplaneproperties2khr);"))
 (begin-ffi
    (make-VkDisplayModeProperties2KHR
+      ptr->VkDisplayModeProperties2KHR
       ref-VkDisplayModeProperties2KHR
       make-VkDisplayModeProperties2KHR*
       VkDisplayModeProperties2KHRdisplayModeProperties
@@ -22761,7 +23964,7 @@ ___return (displayplaneproperties2khr);"))
       ref-VkDisplayModeProperties2KHR
       (VkDisplayModeProperties2KHR* int)
       VkDisplayModeProperties2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayModeProperties2KHR
       (VkStructureType void* VkDisplayModePropertiesKHR)
@@ -22773,6 +23976,7 @@ displaymodeproperties2khr->displayModeProperties=___arg3;
 ___return (displaymodeproperties2khr);"))
 (begin-ffi
    (make-VkDisplayPlaneInfo2KHR
+      ptr->VkDisplayPlaneInfo2KHR
       ref-VkDisplayPlaneInfo2KHR
       make-VkDisplayPlaneInfo2KHR*
       VkDisplayPlaneInfo2KHRplaneIndex
@@ -22822,7 +24026,7 @@ ___return (displaymodeproperties2khr);"))
       ref-VkDisplayPlaneInfo2KHR
       (VkDisplayPlaneInfo2KHR* int)
       VkDisplayPlaneInfo2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayPlaneInfo2KHR
       (VkStructureType void* VkDisplayModeKHR uint32_t)
@@ -22835,6 +24039,7 @@ displayplaneinfo2khr->planeIndex=___arg4;
 ___return (displayplaneinfo2khr);"))
 (begin-ffi
    (make-VkDisplayPlaneCapabilities2KHR
+      ptr->VkDisplayPlaneCapabilities2KHR
       ref-VkDisplayPlaneCapabilities2KHR
       make-VkDisplayPlaneCapabilities2KHR*
       VkDisplayPlaneCapabilities2KHRcapabilities
@@ -22882,7 +24087,7 @@ ___return (displayplaneinfo2khr);"))
       ref-VkDisplayPlaneCapabilities2KHR
       (VkDisplayPlaneCapabilities2KHR* int)
       VkDisplayPlaneCapabilities2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkDisplayPlaneCapabilities2KHR
       (VkStructureType void* VkDisplayPlaneCapabilitiesKHR)
@@ -22894,6 +24099,7 @@ displayplanecapabilities2khr->capabilities=___arg3;
 ___return (displayplanecapabilities2khr);"))
 (begin-ffi
    (make-VkSharedPresentSurfaceCapabilitiesKHR
+      ptr->VkSharedPresentSurfaceCapabilitiesKHR
       ref-VkSharedPresentSurfaceCapabilitiesKHR
       make-VkSharedPresentSurfaceCapabilitiesKHR*
       VkSharedPresentSurfaceCapabilitiesKHRsharedPresentSupportedUsageFlags
@@ -22941,7 +24147,7 @@ ___return (displayplanecapabilities2khr);"))
       ref-VkSharedPresentSurfaceCapabilitiesKHR
       (VkSharedPresentSurfaceCapabilitiesKHR* int)
       VkSharedPresentSurfaceCapabilitiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSharedPresentSurfaceCapabilitiesKHR
       (VkStructureType void* VkImageUsageFlags)
@@ -22953,6 +24159,7 @@ sharedpresentsurfacecapabilitieskhr->sharedPresentSupportedUsageFlags=___arg3;
 ___return (sharedpresentsurfacecapabilitieskhr);"))
 (begin-ffi
    (make-VkPhysicalDevice16BitStorageFeatures
+      ptr->VkPhysicalDevice16BitStorageFeatures
       ref-VkPhysicalDevice16BitStorageFeatures
       make-VkPhysicalDevice16BitStorageFeatures*
       VkPhysicalDevice16BitStorageFeaturesstorageInputOutput16
@@ -23018,7 +24225,12 @@ ___return (sharedpresentsurfacecapabilitieskhr);"))
       ref-VkPhysicalDevice16BitStorageFeatures
       (VkPhysicalDevice16BitStorageFeatures* int)
       VkPhysicalDevice16BitStorageFeatures*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDevice16BitStorageFeatures
+      ((pointer VkPhysicalDevice16BitStorageFeatures))
+      VkPhysicalDevice16BitStorageFeatures
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDevice16BitStorageFeatures
       (VkStructureType void* VkBool32 VkBool32 VkBool32 VkBool32)
@@ -23033,6 +24245,7 @@ physicaldevice16bitstoragefeatures->storageInputOutput16=___arg6;
 ___return (physicaldevice16bitstoragefeatures);"))
 (begin-ffi
    (make-VkPhysicalDevice16BitStorageFeaturesKHR
+      ptr->VkPhysicalDevice16BitStorageFeaturesKHR
       ref-VkPhysicalDevice16BitStorageFeaturesKHR
       make-VkPhysicalDevice16BitStorageFeaturesKHR*
       VkPhysicalDevice16BitStorageFeaturesKHR
@@ -23058,7 +24271,6 @@ ___return (physicaldevice16bitstoragefeatures);"))
       VkPhysicalDevice16BitStorageFeaturesKHR*
       "VkPhysicalDevice16BitStorageFeaturesKHR* vkphysicaldevice16bitstoragefeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDevice16BitStorageFeaturesKHR));
       ___return (vkphysicaldevice16bitstoragefeatureskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDevice16BitStorageFeaturesKHR
       ()
@@ -23067,6 +24279,7 @@ ___return (physicaldevice16bitstoragefeatures);"))
 ___return (physicaldevice16bitstoragefeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceSubgroupProperties
+      ptr->VkPhysicalDeviceSubgroupProperties
       ref-VkPhysicalDeviceSubgroupProperties
       make-VkPhysicalDeviceSubgroupProperties*
       VkPhysicalDeviceSubgroupPropertiesquadOperationsInAllStages
@@ -23132,7 +24345,12 @@ ___return (physicaldevice16bitstoragefeatureskhr);"))
       ref-VkPhysicalDeviceSubgroupProperties
       (VkPhysicalDeviceSubgroupProperties* int)
       VkPhysicalDeviceSubgroupProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceSubgroupProperties
+      ((pointer VkPhysicalDeviceSubgroupProperties))
+      VkPhysicalDeviceSubgroupProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceSubgroupProperties
       (VkStructureType void* uint32_t VkShaderStageFlags VkSubgroupFeatureFlags VkBool32)
@@ -23147,6 +24365,7 @@ physicaldevicesubgroupproperties->quadOperationsInAllStages=___arg6;
 ___return (physicaldevicesubgroupproperties);"))
 (begin-ffi
    (make-VkBufferMemoryRequirementsInfo2
+      ptr->VkBufferMemoryRequirementsInfo2
       ref-VkBufferMemoryRequirementsInfo2
       make-VkBufferMemoryRequirementsInfo2*
       VkBufferMemoryRequirementsInfo2buffer
@@ -23194,7 +24413,12 @@ ___return (physicaldevicesubgroupproperties);"))
       ref-VkBufferMemoryRequirementsInfo2
       (VkBufferMemoryRequirementsInfo2* int)
       VkBufferMemoryRequirementsInfo2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBufferMemoryRequirementsInfo2
+      ((pointer VkBufferMemoryRequirementsInfo2))
+      VkBufferMemoryRequirementsInfo2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBufferMemoryRequirementsInfo2
       (VkStructureType void* VkBuffer)
@@ -23206,6 +24430,7 @@ buffermemoryrequirementsinfo2->buffer=___arg3;
 ___return (buffermemoryrequirementsinfo2);"))
 (begin-ffi
    (make-VkBufferMemoryRequirementsInfo2KHR
+      ptr->VkBufferMemoryRequirementsInfo2KHR
       ref-VkBufferMemoryRequirementsInfo2KHR
       make-VkBufferMemoryRequirementsInfo2KHR*
       VkBufferMemoryRequirementsInfo2KHR
@@ -23231,7 +24456,6 @@ ___return (buffermemoryrequirementsinfo2);"))
       VkBufferMemoryRequirementsInfo2KHR*
       "VkBufferMemoryRequirementsInfo2KHR* vkbuffermemoryrequirementsinfo2khr = malloc(___arg1 * sizeof(VkBufferMemoryRequirementsInfo2KHR));
       ___return (vkbuffermemoryrequirementsinfo2khr);")
-   quote
    (define-c-lambda
       make-VkBufferMemoryRequirementsInfo2KHR
       ()
@@ -23240,6 +24464,7 @@ ___return (buffermemoryrequirementsinfo2);"))
 ___return (buffermemoryrequirementsinfo2khr);"))
 (begin-ffi
    (make-VkImageMemoryRequirementsInfo2
+      ptr->VkImageMemoryRequirementsInfo2
       ref-VkImageMemoryRequirementsInfo2
       make-VkImageMemoryRequirementsInfo2*
       VkImageMemoryRequirementsInfo2image
@@ -23287,7 +24512,12 @@ ___return (buffermemoryrequirementsinfo2khr);"))
       ref-VkImageMemoryRequirementsInfo2
       (VkImageMemoryRequirementsInfo2* int)
       VkImageMemoryRequirementsInfo2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageMemoryRequirementsInfo2
+      ((pointer VkImageMemoryRequirementsInfo2))
+      VkImageMemoryRequirementsInfo2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageMemoryRequirementsInfo2
       (VkStructureType void* VkImage)
@@ -23299,6 +24529,7 @@ imagememoryrequirementsinfo2->image=___arg3;
 ___return (imagememoryrequirementsinfo2);"))
 (begin-ffi
    (make-VkImageMemoryRequirementsInfo2KHR
+      ptr->VkImageMemoryRequirementsInfo2KHR
       ref-VkImageMemoryRequirementsInfo2KHR
       make-VkImageMemoryRequirementsInfo2KHR*
       VkImageMemoryRequirementsInfo2KHR
@@ -23324,7 +24555,6 @@ ___return (imagememoryrequirementsinfo2);"))
       VkImageMemoryRequirementsInfo2KHR*
       "VkImageMemoryRequirementsInfo2KHR* vkimagememoryrequirementsinfo2khr = malloc(___arg1 * sizeof(VkImageMemoryRequirementsInfo2KHR));
       ___return (vkimagememoryrequirementsinfo2khr);")
-   quote
    (define-c-lambda
       make-VkImageMemoryRequirementsInfo2KHR
       ()
@@ -23333,6 +24563,7 @@ ___return (imagememoryrequirementsinfo2);"))
 ___return (imagememoryrequirementsinfo2khr);"))
 (begin-ffi
    (make-VkImageSparseMemoryRequirementsInfo2
+      ptr->VkImageSparseMemoryRequirementsInfo2
       ref-VkImageSparseMemoryRequirementsInfo2
       make-VkImageSparseMemoryRequirementsInfo2*
       VkImageSparseMemoryRequirementsInfo2image
@@ -23380,7 +24611,12 @@ ___return (imagememoryrequirementsinfo2khr);"))
       ref-VkImageSparseMemoryRequirementsInfo2
       (VkImageSparseMemoryRequirementsInfo2* int)
       VkImageSparseMemoryRequirementsInfo2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageSparseMemoryRequirementsInfo2
+      ((pointer VkImageSparseMemoryRequirementsInfo2))
+      VkImageSparseMemoryRequirementsInfo2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageSparseMemoryRequirementsInfo2
       (VkStructureType void* VkImage)
@@ -23392,6 +24628,7 @@ imagesparsememoryrequirementsinfo2->image=___arg3;
 ___return (imagesparsememoryrequirementsinfo2);"))
 (begin-ffi
    (make-VkImageSparseMemoryRequirementsInfo2KHR
+      ptr->VkImageSparseMemoryRequirementsInfo2KHR
       ref-VkImageSparseMemoryRequirementsInfo2KHR
       make-VkImageSparseMemoryRequirementsInfo2KHR*
       VkImageSparseMemoryRequirementsInfo2KHR
@@ -23417,7 +24654,6 @@ ___return (imagesparsememoryrequirementsinfo2);"))
       VkImageSparseMemoryRequirementsInfo2KHR*
       "VkImageSparseMemoryRequirementsInfo2KHR* vkimagesparsememoryrequirementsinfo2khr = malloc(___arg1 * sizeof(VkImageSparseMemoryRequirementsInfo2KHR));
       ___return (vkimagesparsememoryrequirementsinfo2khr);")
-   quote
    (define-c-lambda
       make-VkImageSparseMemoryRequirementsInfo2KHR
       ()
@@ -23426,6 +24662,7 @@ ___return (imagesparsememoryrequirementsinfo2);"))
 ___return (imagesparsememoryrequirementsinfo2khr);"))
 (begin-ffi
    (make-VkMemoryRequirements2
+      ptr->VkMemoryRequirements2
       ref-VkMemoryRequirements2
       make-VkMemoryRequirements2*
       VkMemoryRequirements2memoryRequirements
@@ -23469,7 +24706,12 @@ ___return (imagesparsememoryrequirementsinfo2khr);"))
       ref-VkMemoryRequirements2
       (VkMemoryRequirements2* int)
       VkMemoryRequirements2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryRequirements2
+      ((pointer VkMemoryRequirements2))
+      VkMemoryRequirements2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryRequirements2
       (VkStructureType void* VkMemoryRequirements)
@@ -23481,6 +24723,7 @@ memoryrequirements2->memoryRequirements=___arg3;
 ___return (memoryrequirements2);"))
 (begin-ffi
    (make-VkMemoryRequirements2KHR
+      ptr->VkMemoryRequirements2KHR
       ref-VkMemoryRequirements2KHR
       make-VkMemoryRequirements2KHR*
       VkMemoryRequirements2KHR
@@ -23502,7 +24745,6 @@ ___return (memoryrequirements2);"))
       VkMemoryRequirements2KHR*
       "VkMemoryRequirements2KHR* vkmemoryrequirements2khr = malloc(___arg1 * sizeof(VkMemoryRequirements2KHR));
       ___return (vkmemoryrequirements2khr);")
-   quote
    (define-c-lambda
       make-VkMemoryRequirements2KHR
       ()
@@ -23511,6 +24753,7 @@ ___return (memoryrequirements2);"))
 ___return (memoryrequirements2khr);"))
 (begin-ffi
    (make-VkSparseImageMemoryRequirements2
+      ptr->VkSparseImageMemoryRequirements2
       ref-VkSparseImageMemoryRequirements2
       make-VkSparseImageMemoryRequirements2*
       VkSparseImageMemoryRequirements2memoryRequirements
@@ -23558,7 +24801,12 @@ ___return (memoryrequirements2khr);"))
       ref-VkSparseImageMemoryRequirements2
       (VkSparseImageMemoryRequirements2* int)
       VkSparseImageMemoryRequirements2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSparseImageMemoryRequirements2
+      ((pointer VkSparseImageMemoryRequirements2))
+      VkSparseImageMemoryRequirements2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSparseImageMemoryRequirements2
       (VkStructureType void* VkSparseImageMemoryRequirements)
@@ -23570,6 +24818,7 @@ sparseimagememoryrequirements2->memoryRequirements=___arg3;
 ___return (sparseimagememoryrequirements2);"))
 (begin-ffi
    (make-VkSparseImageMemoryRequirements2KHR
+      ptr->VkSparseImageMemoryRequirements2KHR
       ref-VkSparseImageMemoryRequirements2KHR
       make-VkSparseImageMemoryRequirements2KHR*
       VkSparseImageMemoryRequirements2KHR
@@ -23595,7 +24844,6 @@ ___return (sparseimagememoryrequirements2);"))
       VkSparseImageMemoryRequirements2KHR*
       "VkSparseImageMemoryRequirements2KHR* vksparseimagememoryrequirements2khr = malloc(___arg1 * sizeof(VkSparseImageMemoryRequirements2KHR));
       ___return (vksparseimagememoryrequirements2khr);")
-   quote
    (define-c-lambda
       make-VkSparseImageMemoryRequirements2KHR
       ()
@@ -23604,6 +24852,7 @@ ___return (sparseimagememoryrequirements2);"))
 ___return (sparseimagememoryrequirements2khr);"))
 (begin-ffi
    (make-VkPhysicalDevicePointClippingProperties
+      ptr->VkPhysicalDevicePointClippingProperties
       ref-VkPhysicalDevicePointClippingProperties
       make-VkPhysicalDevicePointClippingProperties*
       VkPhysicalDevicePointClippingPropertiespointClippingBehavior
@@ -23651,7 +24900,12 @@ ___return (sparseimagememoryrequirements2khr);"))
       ref-VkPhysicalDevicePointClippingProperties
       (VkPhysicalDevicePointClippingProperties* int)
       VkPhysicalDevicePointClippingProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDevicePointClippingProperties
+      ((pointer VkPhysicalDevicePointClippingProperties))
+      VkPhysicalDevicePointClippingProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDevicePointClippingProperties
       (VkStructureType void* VkPointClippingBehavior)
@@ -23663,6 +24917,7 @@ physicaldevicepointclippingproperties->pointClippingBehavior=___arg3;
 ___return (physicaldevicepointclippingproperties);"))
 (begin-ffi
    (make-VkPhysicalDevicePointClippingPropertiesKHR
+      ptr->VkPhysicalDevicePointClippingPropertiesKHR
       ref-VkPhysicalDevicePointClippingPropertiesKHR
       make-VkPhysicalDevicePointClippingPropertiesKHR*
       VkPhysicalDevicePointClippingPropertiesKHR
@@ -23688,7 +24943,6 @@ ___return (physicaldevicepointclippingproperties);"))
       VkPhysicalDevicePointClippingPropertiesKHR*
       "VkPhysicalDevicePointClippingPropertiesKHR* vkphysicaldevicepointclippingpropertieskhr = malloc(___arg1 * sizeof(VkPhysicalDevicePointClippingPropertiesKHR));
       ___return (vkphysicaldevicepointclippingpropertieskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDevicePointClippingPropertiesKHR
       ()
@@ -23697,6 +24951,7 @@ ___return (physicaldevicepointclippingproperties);"))
 ___return (physicaldevicepointclippingpropertieskhr);"))
 (begin-ffi
    (make-VkMemoryDedicatedRequirements
+      ptr->VkMemoryDedicatedRequirements
       ref-VkMemoryDedicatedRequirements
       make-VkMemoryDedicatedRequirements*
       VkMemoryDedicatedRequirementsrequiresDedicatedAllocation
@@ -23746,7 +25001,12 @@ ___return (physicaldevicepointclippingpropertieskhr);"))
       ref-VkMemoryDedicatedRequirements
       (VkMemoryDedicatedRequirements* int)
       VkMemoryDedicatedRequirements*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryDedicatedRequirements
+      ((pointer VkMemoryDedicatedRequirements))
+      VkMemoryDedicatedRequirements
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryDedicatedRequirements
       (VkStructureType void* VkBool32 VkBool32)
@@ -23759,6 +25019,7 @@ memorydedicatedrequirements->requiresDedicatedAllocation=___arg4;
 ___return (memorydedicatedrequirements);"))
 (begin-ffi
    (make-VkMemoryDedicatedRequirementsKHR
+      ptr->VkMemoryDedicatedRequirementsKHR
       ref-VkMemoryDedicatedRequirementsKHR
       make-VkMemoryDedicatedRequirementsKHR*
       VkMemoryDedicatedRequirementsKHR
@@ -23784,7 +25045,6 @@ ___return (memorydedicatedrequirements);"))
       VkMemoryDedicatedRequirementsKHR*
       "VkMemoryDedicatedRequirementsKHR* vkmemorydedicatedrequirementskhr = malloc(___arg1 * sizeof(VkMemoryDedicatedRequirementsKHR));
       ___return (vkmemorydedicatedrequirementskhr);")
-   quote
    (define-c-lambda
       make-VkMemoryDedicatedRequirementsKHR
       ()
@@ -23793,6 +25053,7 @@ ___return (memorydedicatedrequirements);"))
 ___return (memorydedicatedrequirementskhr);"))
 (begin-ffi
    (make-VkMemoryDedicatedAllocateInfo
+      ptr->VkMemoryDedicatedAllocateInfo
       ref-VkMemoryDedicatedAllocateInfo
       make-VkMemoryDedicatedAllocateInfo*
       VkMemoryDedicatedAllocateInfobuffer
@@ -23842,7 +25103,12 @@ ___return (memorydedicatedrequirementskhr);"))
       ref-VkMemoryDedicatedAllocateInfo
       (VkMemoryDedicatedAllocateInfo* int)
       VkMemoryDedicatedAllocateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryDedicatedAllocateInfo
+      ((pointer VkMemoryDedicatedAllocateInfo))
+      VkMemoryDedicatedAllocateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryDedicatedAllocateInfo
       (VkStructureType void* VkImage VkBuffer)
@@ -23855,6 +25121,7 @@ memorydedicatedallocateinfo->buffer=___arg4;
 ___return (memorydedicatedallocateinfo);"))
 (begin-ffi
    (make-VkMemoryDedicatedAllocateInfoKHR
+      ptr->VkMemoryDedicatedAllocateInfoKHR
       ref-VkMemoryDedicatedAllocateInfoKHR
       make-VkMemoryDedicatedAllocateInfoKHR*
       VkMemoryDedicatedAllocateInfoKHR
@@ -23880,7 +25147,6 @@ ___return (memorydedicatedallocateinfo);"))
       VkMemoryDedicatedAllocateInfoKHR*
       "VkMemoryDedicatedAllocateInfoKHR* vkmemorydedicatedallocateinfokhr = malloc(___arg1 * sizeof(VkMemoryDedicatedAllocateInfoKHR));
       ___return (vkmemorydedicatedallocateinfokhr);")
-   quote
    (define-c-lambda
       make-VkMemoryDedicatedAllocateInfoKHR
       ()
@@ -23889,6 +25155,7 @@ ___return (memorydedicatedallocateinfo);"))
 ___return (memorydedicatedallocateinfokhr);"))
 (begin-ffi
    (make-VkImageViewUsageCreateInfo
+      ptr->VkImageViewUsageCreateInfo
       ref-VkImageViewUsageCreateInfo
       make-VkImageViewUsageCreateInfo*
       VkImageViewUsageCreateInfousage
@@ -23932,7 +25199,12 @@ ___return (memorydedicatedallocateinfokhr);"))
       ref-VkImageViewUsageCreateInfo
       (VkImageViewUsageCreateInfo* int)
       VkImageViewUsageCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageViewUsageCreateInfo
+      ((pointer VkImageViewUsageCreateInfo))
+      VkImageViewUsageCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageViewUsageCreateInfo
       (VkStructureType void* VkImageUsageFlags)
@@ -23944,6 +25216,7 @@ imageviewusagecreateinfo->usage=___arg3;
 ___return (imageviewusagecreateinfo);"))
 (begin-ffi
    (make-VkImageViewUsageCreateInfoKHR
+      ptr->VkImageViewUsageCreateInfoKHR
       ref-VkImageViewUsageCreateInfoKHR
       make-VkImageViewUsageCreateInfoKHR*
       VkImageViewUsageCreateInfoKHR
@@ -23965,7 +25238,6 @@ ___return (imageviewusagecreateinfo);"))
       VkImageViewUsageCreateInfoKHR*
       "VkImageViewUsageCreateInfoKHR* vkimageviewusagecreateinfokhr = malloc(___arg1 * sizeof(VkImageViewUsageCreateInfoKHR));
       ___return (vkimageviewusagecreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkImageViewUsageCreateInfoKHR
       ()
@@ -23974,6 +25246,7 @@ ___return (imageviewusagecreateinfo);"))
 ___return (imageviewusagecreateinfokhr);"))
 (begin-ffi
    (make-VkPipelineTessellationDomainOriginStateCreateInfo
+      ptr->VkPipelineTessellationDomainOriginStateCreateInfo
       ref-VkPipelineTessellationDomainOriginStateCreateInfo
       make-VkPipelineTessellationDomainOriginStateCreateInfo*
       VkPipelineTessellationDomainOriginStateCreateInfodomainOrigin
@@ -24021,7 +25294,12 @@ ___return (imageviewusagecreateinfokhr);"))
       ref-VkPipelineTessellationDomainOriginStateCreateInfo
       (VkPipelineTessellationDomainOriginStateCreateInfo* int)
       VkPipelineTessellationDomainOriginStateCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineTessellationDomainOriginStateCreateInfo
+      ((pointer VkPipelineTessellationDomainOriginStateCreateInfo))
+      VkPipelineTessellationDomainOriginStateCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineTessellationDomainOriginStateCreateInfo
       (VkStructureType void* VkTessellationDomainOrigin)
@@ -24033,6 +25311,7 @@ pipelinetessellationdomainoriginstatecreateinfo->domainOrigin=___arg3;
 ___return (pipelinetessellationdomainoriginstatecreateinfo);"))
 (begin-ffi
    (make-VkPipelineTessellationDomainOriginStateCreateInfoKHR
+      ptr->VkPipelineTessellationDomainOriginStateCreateInfoKHR
       ref-VkPipelineTessellationDomainOriginStateCreateInfoKHR
       make-VkPipelineTessellationDomainOriginStateCreateInfoKHR*
       VkPipelineTessellationDomainOriginStateCreateInfoKHR
@@ -24058,7 +25337,6 @@ ___return (pipelinetessellationdomainoriginstatecreateinfo);"))
       VkPipelineTessellationDomainOriginStateCreateInfoKHR*
       "VkPipelineTessellationDomainOriginStateCreateInfoKHR* vkpipelinetessellationdomainoriginstatecreateinfokhr = malloc(___arg1 * sizeof(VkPipelineTessellationDomainOriginStateCreateInfoKHR));
       ___return (vkpipelinetessellationdomainoriginstatecreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkPipelineTessellationDomainOriginStateCreateInfoKHR
       ()
@@ -24067,6 +25345,7 @@ ___return (pipelinetessellationdomainoriginstatecreateinfo);"))
 ___return (pipelinetessellationdomainoriginstatecreateinfokhr);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionInfo
+      ptr->VkSamplerYcbcrConversionInfo
       ref-VkSamplerYcbcrConversionInfo
       make-VkSamplerYcbcrConversionInfo*
       VkSamplerYcbcrConversionInfoconversion
@@ -24110,7 +25389,12 @@ ___return (pipelinetessellationdomainoriginstatecreateinfokhr);"))
       ref-VkSamplerYcbcrConversionInfo
       (VkSamplerYcbcrConversionInfo* int)
       VkSamplerYcbcrConversionInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSamplerYcbcrConversionInfo
+      ((pointer VkSamplerYcbcrConversionInfo))
+      VkSamplerYcbcrConversionInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSamplerYcbcrConversionInfo
       (VkStructureType void* VkSamplerYcbcrConversion)
@@ -24122,6 +25406,7 @@ samplerycbcrconversioninfo->conversion=___arg3;
 ___return (samplerycbcrconversioninfo);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionInfoKHR
+      ptr->VkSamplerYcbcrConversionInfoKHR
       ref-VkSamplerYcbcrConversionInfoKHR
       make-VkSamplerYcbcrConversionInfoKHR*
       VkSamplerYcbcrConversionInfoKHR
@@ -24147,7 +25432,6 @@ ___return (samplerycbcrconversioninfo);"))
       VkSamplerYcbcrConversionInfoKHR*
       "VkSamplerYcbcrConversionInfoKHR* vksamplerycbcrconversioninfokhr = malloc(___arg1 * sizeof(VkSamplerYcbcrConversionInfoKHR));
       ___return (vksamplerycbcrconversioninfokhr);")
-   quote
    (define-c-lambda
       make-VkSamplerYcbcrConversionInfoKHR
       ()
@@ -24156,6 +25440,7 @@ ___return (samplerycbcrconversioninfo);"))
 ___return (samplerycbcrconversioninfokhr);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionCreateInfo
+      ptr->VkSamplerYcbcrConversionCreateInfo
       ref-VkSamplerYcbcrConversionCreateInfo
       make-VkSamplerYcbcrConversionCreateInfo*
       VkSamplerYcbcrConversionCreateInfoforceExplicitReconstruction
@@ -24245,7 +25530,12 @@ ___return (samplerycbcrconversioninfokhr);"))
       ref-VkSamplerYcbcrConversionCreateInfo
       (VkSamplerYcbcrConversionCreateInfo* int)
       VkSamplerYcbcrConversionCreateInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSamplerYcbcrConversionCreateInfo
+      ((pointer VkSamplerYcbcrConversionCreateInfo))
+      VkSamplerYcbcrConversionCreateInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSamplerYcbcrConversionCreateInfo
       (VkStructureType
@@ -24273,6 +25563,7 @@ samplerycbcrconversioncreateinfo->forceExplicitReconstruction=___arg10;
 ___return (samplerycbcrconversioncreateinfo);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionCreateInfoKHR
+      ptr->VkSamplerYcbcrConversionCreateInfoKHR
       ref-VkSamplerYcbcrConversionCreateInfoKHR
       make-VkSamplerYcbcrConversionCreateInfoKHR*
       VkSamplerYcbcrConversionCreateInfoKHR
@@ -24298,7 +25589,6 @@ ___return (samplerycbcrconversioncreateinfo);"))
       VkSamplerYcbcrConversionCreateInfoKHR*
       "VkSamplerYcbcrConversionCreateInfoKHR* vksamplerycbcrconversioncreateinfokhr = malloc(___arg1 * sizeof(VkSamplerYcbcrConversionCreateInfoKHR));
       ___return (vksamplerycbcrconversioncreateinfokhr);")
-   quote
    (define-c-lambda
       make-VkSamplerYcbcrConversionCreateInfoKHR
       ()
@@ -24307,6 +25597,7 @@ ___return (samplerycbcrconversioncreateinfo);"))
 ___return (samplerycbcrconversioncreateinfokhr);"))
 (begin-ffi
    (make-VkBindImagePlaneMemoryInfo
+      ptr->VkBindImagePlaneMemoryInfo
       ref-VkBindImagePlaneMemoryInfo
       make-VkBindImagePlaneMemoryInfo*
       VkBindImagePlaneMemoryInfoplaneAspect
@@ -24350,7 +25641,12 @@ ___return (samplerycbcrconversioncreateinfokhr);"))
       ref-VkBindImagePlaneMemoryInfo
       (VkBindImagePlaneMemoryInfo* int)
       VkBindImagePlaneMemoryInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBindImagePlaneMemoryInfo
+      ((pointer VkBindImagePlaneMemoryInfo))
+      VkBindImagePlaneMemoryInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBindImagePlaneMemoryInfo
       (VkStructureType void* VkImageAspectFlagBits)
@@ -24362,6 +25658,7 @@ bindimageplanememoryinfo->planeAspect=___arg3;
 ___return (bindimageplanememoryinfo);"))
 (begin-ffi
    (make-VkBindImagePlaneMemoryInfoKHR
+      ptr->VkBindImagePlaneMemoryInfoKHR
       ref-VkBindImagePlaneMemoryInfoKHR
       make-VkBindImagePlaneMemoryInfoKHR*
       VkBindImagePlaneMemoryInfoKHR
@@ -24383,7 +25680,6 @@ ___return (bindimageplanememoryinfo);"))
       VkBindImagePlaneMemoryInfoKHR*
       "VkBindImagePlaneMemoryInfoKHR* vkbindimageplanememoryinfokhr = malloc(___arg1 * sizeof(VkBindImagePlaneMemoryInfoKHR));
       ___return (vkbindimageplanememoryinfokhr);")
-   quote
    (define-c-lambda
       make-VkBindImagePlaneMemoryInfoKHR
       ()
@@ -24392,6 +25688,7 @@ ___return (bindimageplanememoryinfo);"))
 ___return (bindimageplanememoryinfokhr);"))
 (begin-ffi
    (make-VkImagePlaneMemoryRequirementsInfo
+      ptr->VkImagePlaneMemoryRequirementsInfo
       ref-VkImagePlaneMemoryRequirementsInfo
       make-VkImagePlaneMemoryRequirementsInfo*
       VkImagePlaneMemoryRequirementsInfoplaneAspect
@@ -24439,7 +25736,12 @@ ___return (bindimageplanememoryinfokhr);"))
       ref-VkImagePlaneMemoryRequirementsInfo
       (VkImagePlaneMemoryRequirementsInfo* int)
       VkImagePlaneMemoryRequirementsInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImagePlaneMemoryRequirementsInfo
+      ((pointer VkImagePlaneMemoryRequirementsInfo))
+      VkImagePlaneMemoryRequirementsInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImagePlaneMemoryRequirementsInfo
       (VkStructureType void* VkImageAspectFlagBits)
@@ -24451,6 +25753,7 @@ imageplanememoryrequirementsinfo->planeAspect=___arg3;
 ___return (imageplanememoryrequirementsinfo);"))
 (begin-ffi
    (make-VkImagePlaneMemoryRequirementsInfoKHR
+      ptr->VkImagePlaneMemoryRequirementsInfoKHR
       ref-VkImagePlaneMemoryRequirementsInfoKHR
       make-VkImagePlaneMemoryRequirementsInfoKHR*
       VkImagePlaneMemoryRequirementsInfoKHR
@@ -24476,7 +25779,6 @@ ___return (imageplanememoryrequirementsinfo);"))
       VkImagePlaneMemoryRequirementsInfoKHR*
       "VkImagePlaneMemoryRequirementsInfoKHR* vkimageplanememoryrequirementsinfokhr = malloc(___arg1 * sizeof(VkImagePlaneMemoryRequirementsInfoKHR));
       ___return (vkimageplanememoryrequirementsinfokhr);")
-   quote
    (define-c-lambda
       make-VkImagePlaneMemoryRequirementsInfoKHR
       ()
@@ -24485,6 +25787,7 @@ ___return (imageplanememoryrequirementsinfo);"))
 ___return (imageplanememoryrequirementsinfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceSamplerYcbcrConversionFeatures
+      ptr->VkPhysicalDeviceSamplerYcbcrConversionFeatures
       ref-VkPhysicalDeviceSamplerYcbcrConversionFeatures
       make-VkPhysicalDeviceSamplerYcbcrConversionFeatures*
       VkPhysicalDeviceSamplerYcbcrConversionFeaturessamplerYcbcrConversion
@@ -24532,7 +25835,12 @@ ___return (imageplanememoryrequirementsinfokhr);"))
       ref-VkPhysicalDeviceSamplerYcbcrConversionFeatures
       (VkPhysicalDeviceSamplerYcbcrConversionFeatures* int)
       VkPhysicalDeviceSamplerYcbcrConversionFeatures*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceSamplerYcbcrConversionFeatures
+      ((pointer VkPhysicalDeviceSamplerYcbcrConversionFeatures))
+      VkPhysicalDeviceSamplerYcbcrConversionFeatures
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceSamplerYcbcrConversionFeatures
       (VkStructureType void* VkBool32)
@@ -24544,6 +25852,7 @@ physicaldevicesamplerycbcrconversionfeatures->samplerYcbcrConversion=___arg3;
 ___return (physicaldevicesamplerycbcrconversionfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
+      ptr->VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
       ref-VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
       make-VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR*
       VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
@@ -24569,7 +25878,6 @@ ___return (physicaldevicesamplerycbcrconversionfeatures);"))
       VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR*
       "VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR* vkphysicaldevicesamplerycbcrconversionfeatureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR));
       ___return (vkphysicaldevicesamplerycbcrconversionfeatureskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR
       ()
@@ -24578,6 +25886,7 @@ ___return (physicaldevicesamplerycbcrconversionfeatures);"))
 ___return (physicaldevicesamplerycbcrconversionfeatureskhr);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionImageFormatProperties
+      ptr->VkSamplerYcbcrConversionImageFormatProperties
       ref-VkSamplerYcbcrConversionImageFormatProperties
       make-VkSamplerYcbcrConversionImageFormatProperties*
       VkSamplerYcbcrConversionImageFormatPropertiescombinedImageSamplerDescriptorCount
@@ -24625,7 +25934,12 @@ ___return (physicaldevicesamplerycbcrconversionfeatureskhr);"))
       ref-VkSamplerYcbcrConversionImageFormatProperties
       (VkSamplerYcbcrConversionImageFormatProperties* int)
       VkSamplerYcbcrConversionImageFormatProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSamplerYcbcrConversionImageFormatProperties
+      ((pointer VkSamplerYcbcrConversionImageFormatProperties))
+      VkSamplerYcbcrConversionImageFormatProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSamplerYcbcrConversionImageFormatProperties
       (VkStructureType void* uint32_t)
@@ -24637,6 +25951,7 @@ samplerycbcrconversionimageformatproperties->combinedImageSamplerDescriptorCount
 ___return (samplerycbcrconversionimageformatproperties);"))
 (begin-ffi
    (make-VkSamplerYcbcrConversionImageFormatPropertiesKHR
+      ptr->VkSamplerYcbcrConversionImageFormatPropertiesKHR
       ref-VkSamplerYcbcrConversionImageFormatPropertiesKHR
       make-VkSamplerYcbcrConversionImageFormatPropertiesKHR*
       VkSamplerYcbcrConversionImageFormatPropertiesKHR
@@ -24662,7 +25977,6 @@ ___return (samplerycbcrconversionimageformatproperties);"))
       VkSamplerYcbcrConversionImageFormatPropertiesKHR*
       "VkSamplerYcbcrConversionImageFormatPropertiesKHR* vksamplerycbcrconversionimageformatpropertieskhr = malloc(___arg1 * sizeof(VkSamplerYcbcrConversionImageFormatPropertiesKHR));
       ___return (vksamplerycbcrconversionimageformatpropertieskhr);")
-   quote
    (define-c-lambda
       make-VkSamplerYcbcrConversionImageFormatPropertiesKHR
       ()
@@ -24671,6 +25985,7 @@ ___return (samplerycbcrconversionimageformatproperties);"))
 ___return (samplerycbcrconversionimageformatpropertieskhr);"))
 (begin-ffi
    (make-VkTextureLODGatherFormatPropertiesAMD
+      ptr->VkTextureLODGatherFormatPropertiesAMD
       ref-VkTextureLODGatherFormatPropertiesAMD
       make-VkTextureLODGatherFormatPropertiesAMD*
       VkTextureLODGatherFormatPropertiesAMDsupportsTextureGatherLODBiasAMD
@@ -24718,7 +26033,12 @@ ___return (samplerycbcrconversionimageformatpropertieskhr);"))
       ref-VkTextureLODGatherFormatPropertiesAMD
       (VkTextureLODGatherFormatPropertiesAMD* int)
       VkTextureLODGatherFormatPropertiesAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkTextureLODGatherFormatPropertiesAMD
+      ((pointer VkTextureLODGatherFormatPropertiesAMD))
+      VkTextureLODGatherFormatPropertiesAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkTextureLODGatherFormatPropertiesAMD
       (VkStructureType void* VkBool32)
@@ -24730,6 +26050,7 @@ texturelodgatherformatpropertiesamd->supportsTextureGatherLODBiasAMD=___arg3;
 ___return (texturelodgatherformatpropertiesamd);"))
 (begin-ffi
    (make-VkConditionalRenderingBeginInfoEXT
+      ptr->VkConditionalRenderingBeginInfoEXT
       ref-VkConditionalRenderingBeginInfoEXT
       make-VkConditionalRenderingBeginInfoEXT*
       VkConditionalRenderingBeginInfoEXTflags
@@ -24789,7 +26110,12 @@ ___return (texturelodgatherformatpropertiesamd);"))
       ref-VkConditionalRenderingBeginInfoEXT
       (VkConditionalRenderingBeginInfoEXT* int)
       VkConditionalRenderingBeginInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkConditionalRenderingBeginInfoEXT
+      ((pointer VkConditionalRenderingBeginInfoEXT))
+      VkConditionalRenderingBeginInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkConditionalRenderingBeginInfoEXT
       (VkStructureType void* VkBuffer VkDeviceSize VkConditionalRenderingFlagsEXT)
@@ -24803,6 +26129,7 @@ conditionalrenderingbegininfoext->flags=___arg5;
 ___return (conditionalrenderingbegininfoext);"))
 (begin-ffi
    (make-VkProtectedSubmitInfo
+      ptr->VkProtectedSubmitInfo
       ref-VkProtectedSubmitInfo
       make-VkProtectedSubmitInfo*
       VkProtectedSubmitInfoprotectedSubmit
@@ -24846,7 +26173,12 @@ ___return (conditionalrenderingbegininfoext);"))
       ref-VkProtectedSubmitInfo
       (VkProtectedSubmitInfo* int)
       VkProtectedSubmitInfo*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkProtectedSubmitInfo
+      ((pointer VkProtectedSubmitInfo))
+      VkProtectedSubmitInfo
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkProtectedSubmitInfo
       (VkStructureType void* VkBool32)
@@ -24858,6 +26190,7 @@ protectedsubmitinfo->protectedSubmit=___arg3;
 ___return (protectedsubmitinfo);"))
 (begin-ffi
    (make-VkPhysicalDeviceProtectedMemoryFeatures
+      ptr->VkPhysicalDeviceProtectedMemoryFeatures
       ref-VkPhysicalDeviceProtectedMemoryFeatures
       make-VkPhysicalDeviceProtectedMemoryFeatures*
       VkPhysicalDeviceProtectedMemoryFeaturesprotectedMemory
@@ -24905,7 +26238,12 @@ ___return (protectedsubmitinfo);"))
       ref-VkPhysicalDeviceProtectedMemoryFeatures
       (VkPhysicalDeviceProtectedMemoryFeatures* int)
       VkPhysicalDeviceProtectedMemoryFeatures*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceProtectedMemoryFeatures
+      ((pointer VkPhysicalDeviceProtectedMemoryFeatures))
+      VkPhysicalDeviceProtectedMemoryFeatures
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceProtectedMemoryFeatures
       (VkStructureType void* VkBool32)
@@ -24917,6 +26255,7 @@ physicaldeviceprotectedmemoryfeatures->protectedMemory=___arg3;
 ___return (physicaldeviceprotectedmemoryfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceProtectedMemoryProperties
+      ptr->VkPhysicalDeviceProtectedMemoryProperties
       ref-VkPhysicalDeviceProtectedMemoryProperties
       make-VkPhysicalDeviceProtectedMemoryProperties*
       VkPhysicalDeviceProtectedMemoryPropertiesprotectedNoFault
@@ -24964,7 +26303,12 @@ ___return (physicaldeviceprotectedmemoryfeatures);"))
       ref-VkPhysicalDeviceProtectedMemoryProperties
       (VkPhysicalDeviceProtectedMemoryProperties* int)
       VkPhysicalDeviceProtectedMemoryProperties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceProtectedMemoryProperties
+      ((pointer VkPhysicalDeviceProtectedMemoryProperties))
+      VkPhysicalDeviceProtectedMemoryProperties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceProtectedMemoryProperties
       (VkStructureType void* VkBool32)
@@ -24976,6 +26320,7 @@ physicaldeviceprotectedmemoryproperties->protectedNoFault=___arg3;
 ___return (physicaldeviceprotectedmemoryproperties);"))
 (begin-ffi
    (make-VkDeviceQueueInfo2
+      ptr->VkDeviceQueueInfo2
       ref-VkDeviceQueueInfo2
       make-VkDeviceQueueInfo2*
       VkDeviceQueueInfo2queueIndex
@@ -25031,7 +26376,12 @@ ___return (physicaldeviceprotectedmemoryproperties);"))
       ref-VkDeviceQueueInfo2
       (VkDeviceQueueInfo2* int)
       VkDeviceQueueInfo2*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceQueueInfo2
+      ((pointer VkDeviceQueueInfo2))
+      VkDeviceQueueInfo2
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceQueueInfo2
       (VkStructureType void* VkDeviceQueueCreateFlags uint32_t uint32_t)
@@ -25045,6 +26395,7 @@ devicequeueinfo2->queueIndex=___arg5;
 ___return (devicequeueinfo2);"))
 (begin-ffi
    (make-VkPipelineCoverageToColorStateCreateInfoNV
+      ptr->VkPipelineCoverageToColorStateCreateInfoNV
       ref-VkPipelineCoverageToColorStateCreateInfoNV
       make-VkPipelineCoverageToColorStateCreateInfoNV*
       VkPipelineCoverageToColorStateCreateInfoNVcoverageToColorLocation
@@ -25104,7 +26455,12 @@ ___return (devicequeueinfo2);"))
       ref-VkPipelineCoverageToColorStateCreateInfoNV
       (VkPipelineCoverageToColorStateCreateInfoNV* int)
       VkPipelineCoverageToColorStateCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineCoverageToColorStateCreateInfoNV
+      ((pointer VkPipelineCoverageToColorStateCreateInfoNV))
+      VkPipelineCoverageToColorStateCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineCoverageToColorStateCreateInfoNV
       (VkStructureType
@@ -25122,6 +26478,7 @@ pipelinecoveragetocolorstatecreateinfonv->coverageToColorLocation=___arg5;
 ___return (pipelinecoveragetocolorstatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
+      ptr->VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
       ref-VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
       make-VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT*
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXTfilterMinmaxImageComponentMapping
@@ -25175,7 +26532,12 @@ ___return (pipelinecoveragetocolorstatecreateinfonv);"))
       ref-VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
       (VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT* int)
       VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
+      ((pointer VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT))
+      VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT
       (VkStructureType void* VkBool32 VkBool32)
@@ -25188,6 +26550,7 @@ physicaldevicesamplerfilterminmaxpropertiesext->filterMinmaxImageComponentMappin
 ___return (physicaldevicesamplerfilterminmaxpropertiesext);"))
 (begin-ffi
    (make-VkSampleLocationEXT
+      ptr->VkSampleLocationEXT
       ref-VkSampleLocationEXT
       make-VkSampleLocationEXT*
       VkSampleLocationEXTy
@@ -25225,7 +26588,12 @@ ___return (physicaldevicesamplerfilterminmaxpropertiesext);"))
       ref-VkSampleLocationEXT
       (VkSampleLocationEXT* int)
       VkSampleLocationEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSampleLocationEXT
+      ((pointer VkSampleLocationEXT))
+      VkSampleLocationEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSampleLocationEXT
       (float float)
@@ -25236,6 +26604,7 @@ samplelocationext->y=___arg2;
 ___return (samplelocationext);"))
 (begin-ffi
    (make-VkSampleLocationsInfoEXT
+      ptr->VkSampleLocationsInfoEXT
       ref-VkSampleLocationsInfoEXT
       make-VkSampleLocationsInfoEXT*
       VkSampleLocationsInfoEXTpSampleLocations
@@ -25297,7 +26666,12 @@ ___return (samplelocationext);"))
       ref-VkSampleLocationsInfoEXT
       (VkSampleLocationsInfoEXT* int)
       VkSampleLocationsInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSampleLocationsInfoEXT
+      ((pointer VkSampleLocationsInfoEXT))
+      VkSampleLocationsInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSampleLocationsInfoEXT
       (VkStructureType
@@ -25317,6 +26691,7 @@ samplelocationsinfoext->pSampleLocations=___arg6;
 ___return (samplelocationsinfoext);"))
 (begin-ffi
    (make-VkAttachmentSampleLocationsEXT
+      ptr->VkAttachmentSampleLocationsEXT
       ref-VkAttachmentSampleLocationsEXT
       make-VkAttachmentSampleLocationsEXT*
       VkAttachmentSampleLocationsEXTsampleLocationsInfo
@@ -25358,7 +26733,12 @@ ___return (samplelocationsinfoext);"))
       ref-VkAttachmentSampleLocationsEXT
       (VkAttachmentSampleLocationsEXT* int)
       VkAttachmentSampleLocationsEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkAttachmentSampleLocationsEXT
+      ((pointer VkAttachmentSampleLocationsEXT))
+      VkAttachmentSampleLocationsEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkAttachmentSampleLocationsEXT
       (uint32_t VkSampleLocationsInfoEXT)
@@ -25369,6 +26749,7 @@ attachmentsamplelocationsext->sampleLocationsInfo=___arg2;
 ___return (attachmentsamplelocationsext);"))
 (begin-ffi
    (make-VkSubpassSampleLocationsEXT
+      ptr->VkSubpassSampleLocationsEXT
       ref-VkSubpassSampleLocationsEXT
       make-VkSubpassSampleLocationsEXT*
       VkSubpassSampleLocationsEXTsampleLocationsInfo
@@ -25406,7 +26787,12 @@ ___return (attachmentsamplelocationsext);"))
       ref-VkSubpassSampleLocationsEXT
       (VkSubpassSampleLocationsEXT* int)
       VkSubpassSampleLocationsEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSubpassSampleLocationsEXT
+      ((pointer VkSubpassSampleLocationsEXT))
+      VkSubpassSampleLocationsEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSubpassSampleLocationsEXT
       (uint32_t VkSampleLocationsInfoEXT)
@@ -25417,6 +26803,7 @@ subpasssamplelocationsext->sampleLocationsInfo=___arg2;
 ___return (subpasssamplelocationsext);"))
 (begin-ffi
    (make-VkRenderPassSampleLocationsBeginInfoEXT
+      ptr->VkRenderPassSampleLocationsBeginInfoEXT
       ref-VkRenderPassSampleLocationsBeginInfoEXT
       make-VkRenderPassSampleLocationsBeginInfoEXT*
       VkRenderPassSampleLocationsBeginInfoEXTpPostSubpassSampleLocations
@@ -25482,7 +26869,12 @@ ___return (subpasssamplelocationsext);"))
       ref-VkRenderPassSampleLocationsBeginInfoEXT
       (VkRenderPassSampleLocationsBeginInfoEXT* int)
       VkRenderPassSampleLocationsBeginInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkRenderPassSampleLocationsBeginInfoEXT
+      ((pointer VkRenderPassSampleLocationsBeginInfoEXT))
+      VkRenderPassSampleLocationsBeginInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkRenderPassSampleLocationsBeginInfoEXT
       (VkStructureType
@@ -25502,6 +26894,7 @@ renderpasssamplelocationsbegininfoext->pPostSubpassSampleLocations=___arg6;
 ___return (renderpasssamplelocationsbegininfoext);"))
 (begin-ffi
    (make-VkPipelineSampleLocationsStateCreateInfoEXT
+      ptr->VkPipelineSampleLocationsStateCreateInfoEXT
       ref-VkPipelineSampleLocationsStateCreateInfoEXT
       make-VkPipelineSampleLocationsStateCreateInfoEXT*
       VkPipelineSampleLocationsStateCreateInfoEXTsampleLocationsInfo
@@ -25555,7 +26948,12 @@ ___return (renderpasssamplelocationsbegininfoext);"))
       ref-VkPipelineSampleLocationsStateCreateInfoEXT
       (VkPipelineSampleLocationsStateCreateInfoEXT* int)
       VkPipelineSampleLocationsStateCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineSampleLocationsStateCreateInfoEXT
+      ((pointer VkPipelineSampleLocationsStateCreateInfoEXT))
+      VkPipelineSampleLocationsStateCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineSampleLocationsStateCreateInfoEXT
       (VkStructureType void* VkBool32 VkSampleLocationsInfoEXT)
@@ -25568,6 +26966,7 @@ pipelinesamplelocationsstatecreateinfoext->sampleLocationsInfo=___arg4;
 ___return (pipelinesamplelocationsstatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceSampleLocationsPropertiesEXT
+      ptr->VkPhysicalDeviceSampleLocationsPropertiesEXT
       ref-VkPhysicalDeviceSampleLocationsPropertiesEXT
       make-VkPhysicalDeviceSampleLocationsPropertiesEXT*
       VkPhysicalDeviceSampleLocationsPropertiesEXTvariableSampleLocations
@@ -25639,7 +27038,12 @@ ___return (pipelinesamplelocationsstatecreateinfoext);"))
       ref-VkPhysicalDeviceSampleLocationsPropertiesEXT
       (VkPhysicalDeviceSampleLocationsPropertiesEXT* int)
       VkPhysicalDeviceSampleLocationsPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceSampleLocationsPropertiesEXT
+      ((pointer VkPhysicalDeviceSampleLocationsPropertiesEXT))
+      VkPhysicalDeviceSampleLocationsPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceSampleLocationsPropertiesEXT
       (VkStructureType void* VkSampleCountFlags VkExtent2D float* uint32_t VkBool32)
@@ -25655,6 +27059,7 @@ physicaldevicesamplelocationspropertiesext->variableSampleLocations=___arg7;
 ___return (physicaldevicesamplelocationspropertiesext);"))
 (begin-ffi
    (make-VkMultisamplePropertiesEXT
+      ptr->VkMultisamplePropertiesEXT
       ref-VkMultisamplePropertiesEXT
       make-VkMultisamplePropertiesEXT*
       VkMultisamplePropertiesEXTmaxSampleLocationGridSize
@@ -25698,7 +27103,12 @@ ___return (physicaldevicesamplelocationspropertiesext);"))
       ref-VkMultisamplePropertiesEXT
       (VkMultisamplePropertiesEXT* int)
       VkMultisamplePropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMultisamplePropertiesEXT
+      ((pointer VkMultisamplePropertiesEXT))
+      VkMultisamplePropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMultisamplePropertiesEXT
       (VkStructureType void* VkExtent2D)
@@ -25710,6 +27120,7 @@ multisamplepropertiesext->maxSampleLocationGridSize=___arg3;
 ___return (multisamplepropertiesext);"))
 (begin-ffi
    (make-VkSamplerReductionModeCreateInfoEXT
+      ptr->VkSamplerReductionModeCreateInfoEXT
       ref-VkSamplerReductionModeCreateInfoEXT
       make-VkSamplerReductionModeCreateInfoEXT*
       VkSamplerReductionModeCreateInfoEXTreductionMode
@@ -25757,7 +27168,12 @@ ___return (multisamplepropertiesext);"))
       ref-VkSamplerReductionModeCreateInfoEXT
       (VkSamplerReductionModeCreateInfoEXT* int)
       VkSamplerReductionModeCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkSamplerReductionModeCreateInfoEXT
+      ((pointer VkSamplerReductionModeCreateInfoEXT))
+      VkSamplerReductionModeCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkSamplerReductionModeCreateInfoEXT
       (VkStructureType void* VkSamplerReductionModeEXT)
@@ -25769,6 +27185,7 @@ samplerreductionmodecreateinfoext->reductionMode=___arg3;
 ___return (samplerreductionmodecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
+      ptr->VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
       ref-VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
       make-VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT*
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXTadvancedBlendCoherentOperations
@@ -25816,7 +27233,12 @@ ___return (samplerreductionmodecreateinfoext);"))
       ref-VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
       (VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT* int)
       VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
+      ((pointer VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT))
+      VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -25828,6 +27250,7 @@ physicaldeviceblendoperationadvancedfeaturesext->advancedBlendCoherentOperations
 ___return (physicaldeviceblendoperationadvancedfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
+      ptr->VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
       ref-VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
       make-VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT*
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXTadvancedBlendAllOperations
@@ -25905,7 +27328,12 @@ ___return (physicaldeviceblendoperationadvancedfeaturesext);"))
       ref-VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
       (VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT* int)
       VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
+      ((pointer VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT))
+      VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT
       (VkStructureType void* uint32_t VkBool32 VkBool32 VkBool32 VkBool32 VkBool32)
@@ -25922,6 +27350,7 @@ physicaldeviceblendoperationadvancedpropertiesext->advancedBlendAllOperations=__
 ___return (physicaldeviceblendoperationadvancedpropertiesext);"))
 (begin-ffi
    (make-VkPipelineColorBlendAdvancedStateCreateInfoEXT
+      ptr->VkPipelineColorBlendAdvancedStateCreateInfoEXT
       ref-VkPipelineColorBlendAdvancedStateCreateInfoEXT
       make-VkPipelineColorBlendAdvancedStateCreateInfoEXT*
       VkPipelineColorBlendAdvancedStateCreateInfoEXTblendOverlap
@@ -25981,7 +27410,12 @@ ___return (physicaldeviceblendoperationadvancedpropertiesext);"))
       ref-VkPipelineColorBlendAdvancedStateCreateInfoEXT
       (VkPipelineColorBlendAdvancedStateCreateInfoEXT* int)
       VkPipelineColorBlendAdvancedStateCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineColorBlendAdvancedStateCreateInfoEXT
+      ((pointer VkPipelineColorBlendAdvancedStateCreateInfoEXT))
+      VkPipelineColorBlendAdvancedStateCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineColorBlendAdvancedStateCreateInfoEXT
       (VkStructureType void* VkBool32 VkBool32 VkBlendOverlapEXT)
@@ -25995,6 +27429,7 @@ pipelinecolorblendadvancedstatecreateinfoext->blendOverlap=___arg5;
 ___return (pipelinecolorblendadvancedstatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceInlineUniformBlockFeaturesEXT
+      ptr->VkPhysicalDeviceInlineUniformBlockFeaturesEXT
       ref-VkPhysicalDeviceInlineUniformBlockFeaturesEXT
       make-VkPhysicalDeviceInlineUniformBlockFeaturesEXT*
       VkPhysicalDeviceInlineUniformBlockFeaturesEXTdescriptorBindingInlineUniformBlockUpdateAfterBind
@@ -26048,7 +27483,12 @@ ___return (pipelinecolorblendadvancedstatecreateinfoext);"))
       ref-VkPhysicalDeviceInlineUniformBlockFeaturesEXT
       (VkPhysicalDeviceInlineUniformBlockFeaturesEXT* int)
       VkPhysicalDeviceInlineUniformBlockFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceInlineUniformBlockFeaturesEXT
+      ((pointer VkPhysicalDeviceInlineUniformBlockFeaturesEXT))
+      VkPhysicalDeviceInlineUniformBlockFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceInlineUniformBlockFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
@@ -26061,6 +27501,7 @@ physicaldeviceinlineuniformblockfeaturesext->descriptorBindingInlineUniformBlock
 ___return (physicaldeviceinlineuniformblockfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceInlineUniformBlockPropertiesEXT
+      ptr->VkPhysicalDeviceInlineUniformBlockPropertiesEXT
       ref-VkPhysicalDeviceInlineUniformBlockPropertiesEXT
       make-VkPhysicalDeviceInlineUniformBlockPropertiesEXT*
       VkPhysicalDeviceInlineUniformBlockPropertiesEXTmaxDescriptorSetUpdateAfterBindInlineUniformBlocks
@@ -26132,7 +27573,12 @@ ___return (physicaldeviceinlineuniformblockfeaturesext);"))
       ref-VkPhysicalDeviceInlineUniformBlockPropertiesEXT
       (VkPhysicalDeviceInlineUniformBlockPropertiesEXT* int)
       VkPhysicalDeviceInlineUniformBlockPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceInlineUniformBlockPropertiesEXT
+      ((pointer VkPhysicalDeviceInlineUniformBlockPropertiesEXT))
+      VkPhysicalDeviceInlineUniformBlockPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceInlineUniformBlockPropertiesEXT
       (VkStructureType void* uint32_t uint32_t uint32_t uint32_t uint32_t)
@@ -26148,6 +27594,7 @@ physicaldeviceinlineuniformblockpropertiesext->maxDescriptorSetUpdateAfterBindIn
 ___return (physicaldeviceinlineuniformblockpropertiesext);"))
 (begin-ffi
    (make-VkWriteDescriptorSetInlineUniformBlockEXT
+      ptr->VkWriteDescriptorSetInlineUniformBlockEXT
       ref-VkWriteDescriptorSetInlineUniformBlockEXT
       make-VkWriteDescriptorSetInlineUniformBlockEXT*
       VkWriteDescriptorSetInlineUniformBlockEXTpData
@@ -26201,7 +27648,12 @@ ___return (physicaldeviceinlineuniformblockpropertiesext);"))
       ref-VkWriteDescriptorSetInlineUniformBlockEXT
       (VkWriteDescriptorSetInlineUniformBlockEXT* int)
       VkWriteDescriptorSetInlineUniformBlockEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkWriteDescriptorSetInlineUniformBlockEXT
+      ((pointer VkWriteDescriptorSetInlineUniformBlockEXT))
+      VkWriteDescriptorSetInlineUniformBlockEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkWriteDescriptorSetInlineUniformBlockEXT
       (VkStructureType void* uint32_t void*)
@@ -26214,6 +27666,7 @@ writedescriptorsetinlineuniformblockext->pData=___arg4;
 ___return (writedescriptorsetinlineuniformblockext);"))
 (begin-ffi
    (make-VkDescriptorPoolInlineUniformBlockCreateInfoEXT
+      ptr->VkDescriptorPoolInlineUniformBlockCreateInfoEXT
       ref-VkDescriptorPoolInlineUniformBlockCreateInfoEXT
       make-VkDescriptorPoolInlineUniformBlockCreateInfoEXT*
       VkDescriptorPoolInlineUniformBlockCreateInfoEXTmaxInlineUniformBlockBindings
@@ -26261,7 +27714,12 @@ ___return (writedescriptorsetinlineuniformblockext);"))
       ref-VkDescriptorPoolInlineUniformBlockCreateInfoEXT
       (VkDescriptorPoolInlineUniformBlockCreateInfoEXT* int)
       VkDescriptorPoolInlineUniformBlockCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorPoolInlineUniformBlockCreateInfoEXT
+      ((pointer VkDescriptorPoolInlineUniformBlockCreateInfoEXT))
+      VkDescriptorPoolInlineUniformBlockCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorPoolInlineUniformBlockCreateInfoEXT
       (VkStructureType void* uint32_t)
@@ -26273,6 +27731,7 @@ descriptorpoolinlineuniformblockcreateinfoext->maxInlineUniformBlockBindings=___
 ___return (descriptorpoolinlineuniformblockcreateinfoext);"))
 (begin-ffi
    (make-VkPipelineCoverageModulationStateCreateInfoNV
+      ptr->VkPipelineCoverageModulationStateCreateInfoNV
       ref-VkPipelineCoverageModulationStateCreateInfoNV
       make-VkPipelineCoverageModulationStateCreateInfoNV*
       VkPipelineCoverageModulationStateCreateInfoNVpCoverageModulationTable
@@ -26344,7 +27803,12 @@ ___return (descriptorpoolinlineuniformblockcreateinfoext);"))
       ref-VkPipelineCoverageModulationStateCreateInfoNV
       (VkPipelineCoverageModulationStateCreateInfoNV* int)
       VkPipelineCoverageModulationStateCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineCoverageModulationStateCreateInfoNV
+      ((pointer VkPipelineCoverageModulationStateCreateInfoNV))
+      VkPipelineCoverageModulationStateCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineCoverageModulationStateCreateInfoNV
       (VkStructureType
@@ -26366,6 +27830,7 @@ pipelinecoveragemodulationstatecreateinfonv->pCoverageModulationTable=___arg7;
 ___return (pipelinecoveragemodulationstatecreateinfonv);"))
 (begin-ffi
    (make-VkImageFormatListCreateInfoKHR
+      ptr->VkImageFormatListCreateInfoKHR
       ref-VkImageFormatListCreateInfoKHR
       make-VkImageFormatListCreateInfoKHR*
       VkImageFormatListCreateInfoKHRpViewFormats
@@ -26419,7 +27884,7 @@ ___return (pipelinecoveragemodulationstatecreateinfonv);"))
       ref-VkImageFormatListCreateInfoKHR
       (VkImageFormatListCreateInfoKHR* int)
       VkImageFormatListCreateInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkImageFormatListCreateInfoKHR
       (VkStructureType void* uint32_t VkFormat*)
@@ -26432,6 +27897,7 @@ imageformatlistcreateinfokhr->pViewFormats=___arg4;
 ___return (imageformatlistcreateinfokhr);"))
 (begin-ffi
    (make-VkValidationCacheCreateInfoEXT
+      ptr->VkValidationCacheCreateInfoEXT
       ref-VkValidationCacheCreateInfoEXT
       make-VkValidationCacheCreateInfoEXT*
       VkValidationCacheCreateInfoEXTpInitialData
@@ -26491,7 +27957,12 @@ ___return (imageformatlistcreateinfokhr);"))
       ref-VkValidationCacheCreateInfoEXT
       (VkValidationCacheCreateInfoEXT* int)
       VkValidationCacheCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkValidationCacheCreateInfoEXT
+      ((pointer VkValidationCacheCreateInfoEXT))
+      VkValidationCacheCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkValidationCacheCreateInfoEXT
       (VkStructureType void* VkValidationCacheCreateFlagsEXT size_t void*)
@@ -26505,6 +27976,7 @@ validationcachecreateinfoext->pInitialData=___arg5;
 ___return (validationcachecreateinfoext);"))
 (begin-ffi
    (make-VkShaderModuleValidationCacheCreateInfoEXT
+      ptr->VkShaderModuleValidationCacheCreateInfoEXT
       ref-VkShaderModuleValidationCacheCreateInfoEXT
       make-VkShaderModuleValidationCacheCreateInfoEXT*
       VkShaderModuleValidationCacheCreateInfoEXTvalidationCache
@@ -26552,7 +28024,12 @@ ___return (validationcachecreateinfoext);"))
       ref-VkShaderModuleValidationCacheCreateInfoEXT
       (VkShaderModuleValidationCacheCreateInfoEXT* int)
       VkShaderModuleValidationCacheCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkShaderModuleValidationCacheCreateInfoEXT
+      ((pointer VkShaderModuleValidationCacheCreateInfoEXT))
+      VkShaderModuleValidationCacheCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkShaderModuleValidationCacheCreateInfoEXT
       (VkStructureType void* VkValidationCacheEXT)
@@ -26564,6 +28041,7 @@ shadermodulevalidationcachecreateinfoext->validationCache=___arg3;
 ___return (shadermodulevalidationcachecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceMaintenance3Properties
+      ptr->VkPhysicalDeviceMaintenance3Properties
       ref-VkPhysicalDeviceMaintenance3Properties
       make-VkPhysicalDeviceMaintenance3Properties*
       VkPhysicalDeviceMaintenance3PropertiesmaxMemoryAllocationSize
@@ -26617,7 +28095,12 @@ ___return (shadermodulevalidationcachecreateinfoext);"))
       ref-VkPhysicalDeviceMaintenance3Properties
       (VkPhysicalDeviceMaintenance3Properties* int)
       VkPhysicalDeviceMaintenance3Properties*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMaintenance3Properties
+      ((pointer VkPhysicalDeviceMaintenance3Properties))
+      VkPhysicalDeviceMaintenance3Properties
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMaintenance3Properties
       (VkStructureType void* uint32_t VkDeviceSize)
@@ -26630,6 +28113,7 @@ physicaldevicemaintenance3properties->maxMemoryAllocationSize=___arg4;
 ___return (physicaldevicemaintenance3properties);"))
 (begin-ffi
    (make-VkPhysicalDeviceMaintenance3PropertiesKHR
+      ptr->VkPhysicalDeviceMaintenance3PropertiesKHR
       ref-VkPhysicalDeviceMaintenance3PropertiesKHR
       make-VkPhysicalDeviceMaintenance3PropertiesKHR*
       VkPhysicalDeviceMaintenance3PropertiesKHR
@@ -26655,7 +28139,6 @@ ___return (physicaldevicemaintenance3properties);"))
       VkPhysicalDeviceMaintenance3PropertiesKHR*
       "VkPhysicalDeviceMaintenance3PropertiesKHR* vkphysicaldevicemaintenance3propertieskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceMaintenance3PropertiesKHR));
       ___return (vkphysicaldevicemaintenance3propertieskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceMaintenance3PropertiesKHR
       ()
@@ -26664,6 +28147,7 @@ ___return (physicaldevicemaintenance3properties);"))
 ___return (physicaldevicemaintenance3propertieskhr);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutSupport
+      ptr->VkDescriptorSetLayoutSupport
       ref-VkDescriptorSetLayoutSupport
       make-VkDescriptorSetLayoutSupport*
       VkDescriptorSetLayoutSupportsupported
@@ -26707,7 +28191,12 @@ ___return (physicaldevicemaintenance3propertieskhr);"))
       ref-VkDescriptorSetLayoutSupport
       (VkDescriptorSetLayoutSupport* int)
       VkDescriptorSetLayoutSupport*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorSetLayoutSupport
+      ((pointer VkDescriptorSetLayoutSupport))
+      VkDescriptorSetLayoutSupport
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorSetLayoutSupport
       (VkStructureType void* VkBool32)
@@ -26719,6 +28208,7 @@ descriptorsetlayoutsupport->supported=___arg3;
 ___return (descriptorsetlayoutsupport);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutSupportKHR
+      ptr->VkDescriptorSetLayoutSupportKHR
       ref-VkDescriptorSetLayoutSupportKHR
       make-VkDescriptorSetLayoutSupportKHR*
       VkDescriptorSetLayoutSupportKHR
@@ -26744,7 +28234,6 @@ ___return (descriptorsetlayoutsupport);"))
       VkDescriptorSetLayoutSupportKHR*
       "VkDescriptorSetLayoutSupportKHR* vkdescriptorsetlayoutsupportkhr = malloc(___arg1 * sizeof(VkDescriptorSetLayoutSupportKHR));
       ___return (vkdescriptorsetlayoutsupportkhr);")
-   quote
    (define-c-lambda
       make-VkDescriptorSetLayoutSupportKHR
       ()
@@ -26753,6 +28242,7 @@ ___return (descriptorsetlayoutsupport);"))
 ___return (descriptorsetlayoutsupportkhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderDrawParametersFeatures
+      ptr->VkPhysicalDeviceShaderDrawParametersFeatures
       ref-VkPhysicalDeviceShaderDrawParametersFeatures
       make-VkPhysicalDeviceShaderDrawParametersFeatures*
       VkPhysicalDeviceShaderDrawParametersFeaturesshaderDrawParameters
@@ -26800,7 +28290,12 @@ ___return (descriptorsetlayoutsupportkhr);"))
       ref-VkPhysicalDeviceShaderDrawParametersFeatures
       (VkPhysicalDeviceShaderDrawParametersFeatures* int)
       VkPhysicalDeviceShaderDrawParametersFeatures*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShaderDrawParametersFeatures
+      ((pointer VkPhysicalDeviceShaderDrawParametersFeatures))
+      VkPhysicalDeviceShaderDrawParametersFeatures
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderDrawParametersFeatures
       (VkStructureType void* VkBool32)
@@ -26812,6 +28307,7 @@ physicaldeviceshaderdrawparametersfeatures->shaderDrawParameters=___arg3;
 ___return (physicaldeviceshaderdrawparametersfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderDrawParameterFeatures
+      ptr->VkPhysicalDeviceShaderDrawParameterFeatures
       ref-VkPhysicalDeviceShaderDrawParameterFeatures
       make-VkPhysicalDeviceShaderDrawParameterFeatures*
       VkPhysicalDeviceShaderDrawParameterFeatures
@@ -26837,7 +28333,6 @@ ___return (physicaldeviceshaderdrawparametersfeatures);"))
       VkPhysicalDeviceShaderDrawParameterFeatures*
       "VkPhysicalDeviceShaderDrawParameterFeatures* vkphysicaldeviceshaderdrawparameterfeatures = malloc(___arg1 * sizeof(VkPhysicalDeviceShaderDrawParameterFeatures));
       ___return (vkphysicaldeviceshaderdrawparameterfeatures);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceShaderDrawParameterFeatures
       ()
@@ -26846,6 +28341,7 @@ ___return (physicaldeviceshaderdrawparametersfeatures);"))
 ___return (physicaldeviceshaderdrawparameterfeatures);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderFloat16Int8FeaturesKHR
+      ptr->VkPhysicalDeviceShaderFloat16Int8FeaturesKHR
       ref-VkPhysicalDeviceShaderFloat16Int8FeaturesKHR
       make-VkPhysicalDeviceShaderFloat16Int8FeaturesKHR*
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHRshaderInt8
@@ -26899,7 +28395,7 @@ ___return (physicaldeviceshaderdrawparameterfeatures);"))
       ref-VkPhysicalDeviceShaderFloat16Int8FeaturesKHR
       (VkPhysicalDeviceShaderFloat16Int8FeaturesKHR* int)
       VkPhysicalDeviceShaderFloat16Int8FeaturesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderFloat16Int8FeaturesKHR
       (VkStructureType void* VkBool32 VkBool32)
@@ -26912,6 +28408,7 @@ physicaldeviceshaderfloat16int8featureskhr->shaderInt8=___arg4;
 ___return (physicaldeviceshaderfloat16int8featureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceFloat16Int8FeaturesKHR
+      ptr->VkPhysicalDeviceFloat16Int8FeaturesKHR
       ref-VkPhysicalDeviceFloat16Int8FeaturesKHR
       make-VkPhysicalDeviceFloat16Int8FeaturesKHR*
       VkPhysicalDeviceFloat16Int8FeaturesKHR
@@ -26937,7 +28434,6 @@ ___return (physicaldeviceshaderfloat16int8featureskhr);"))
       VkPhysicalDeviceFloat16Int8FeaturesKHR*
       "VkPhysicalDeviceFloat16Int8FeaturesKHR* vkphysicaldevicefloat16int8featureskhr = malloc(___arg1 * sizeof(VkPhysicalDeviceFloat16Int8FeaturesKHR));
       ___return (vkphysicaldevicefloat16int8featureskhr);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceFloat16Int8FeaturesKHR
       ()
@@ -26946,6 +28442,7 @@ ___return (physicaldeviceshaderfloat16int8featureskhr);"))
 ___return (physicaldevicefloat16int8featureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceFloatControlsPropertiesKHR
+      ptr->VkPhysicalDeviceFloatControlsPropertiesKHR
       ref-VkPhysicalDeviceFloatControlsPropertiesKHR
       make-VkPhysicalDeviceFloatControlsPropertiesKHR*
       VkPhysicalDeviceFloatControlsPropertiesKHRshaderRoundingModeRTZFloat64
@@ -27089,7 +28586,7 @@ ___return (physicaldevicefloat16int8featureskhr);"))
       ref-VkPhysicalDeviceFloatControlsPropertiesKHR
       (VkPhysicalDeviceFloatControlsPropertiesKHR* int)
       VkPhysicalDeviceFloatControlsPropertiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDeviceFloatControlsPropertiesKHR
       (VkStructureType
@@ -27135,6 +28632,7 @@ physicaldevicefloatcontrolspropertieskhr->shaderRoundingModeRTZFloat64=___arg19;
 ___return (physicaldevicefloatcontrolspropertieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceHostQueryResetFeaturesEXT
+      ptr->VkPhysicalDeviceHostQueryResetFeaturesEXT
       ref-VkPhysicalDeviceHostQueryResetFeaturesEXT
       make-VkPhysicalDeviceHostQueryResetFeaturesEXT*
       VkPhysicalDeviceHostQueryResetFeaturesEXThostQueryReset
@@ -27182,7 +28680,12 @@ ___return (physicaldevicefloatcontrolspropertieskhr);"))
       ref-VkPhysicalDeviceHostQueryResetFeaturesEXT
       (VkPhysicalDeviceHostQueryResetFeaturesEXT* int)
       VkPhysicalDeviceHostQueryResetFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceHostQueryResetFeaturesEXT
+      ((pointer VkPhysicalDeviceHostQueryResetFeaturesEXT))
+      VkPhysicalDeviceHostQueryResetFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceHostQueryResetFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -27194,6 +28697,7 @@ physicaldevicehostqueryresetfeaturesext->hostQueryReset=___arg3;
 ___return (physicaldevicehostqueryresetfeaturesext);"))
 (begin-ffi
    (make-VkShaderResourceUsageAMD
+      ptr->VkShaderResourceUsageAMD
       ref-VkShaderResourceUsageAMD
       make-VkShaderResourceUsageAMD*
       VkShaderResourceUsageAMDscratchMemUsageInBytes
@@ -27249,7 +28753,12 @@ ___return (physicaldevicehostqueryresetfeaturesext);"))
       ref-VkShaderResourceUsageAMD
       (VkShaderResourceUsageAMD* int)
       VkShaderResourceUsageAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkShaderResourceUsageAMD
+      ((pointer VkShaderResourceUsageAMD))
+      VkShaderResourceUsageAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkShaderResourceUsageAMD
       (uint32_t uint32_t uint32_t size_t size_t)
@@ -27263,6 +28772,7 @@ shaderresourceusageamd->scratchMemUsageInBytes=___arg5;
 ___return (shaderresourceusageamd);"))
 (begin-ffi
    (make-VkShaderStatisticsInfoAMD
+      ptr->VkShaderStatisticsInfoAMD
       ref-VkShaderStatisticsInfoAMD
       make-VkShaderStatisticsInfoAMD*
       VkShaderStatisticsInfoAMDcomputeWorkGroupSize
@@ -27330,7 +28840,12 @@ ___return (shaderresourceusageamd);"))
       ref-VkShaderStatisticsInfoAMD
       (VkShaderStatisticsInfoAMD* int)
       VkShaderStatisticsInfoAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkShaderStatisticsInfoAMD
+      ((pointer VkShaderStatisticsInfoAMD))
+      VkShaderStatisticsInfoAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkShaderStatisticsInfoAMD
       (VkShaderStageFlags
@@ -27352,6 +28867,7 @@ memcpy(shaderstatisticsinfoamd->computeWorkGroupSize,___arg7,sizeof(___arg7));
 ___return (shaderstatisticsinfoamd);"))
 (begin-ffi
    (make-VkDeviceQueueGlobalPriorityCreateInfoEXT
+      ptr->VkDeviceQueueGlobalPriorityCreateInfoEXT
       ref-VkDeviceQueueGlobalPriorityCreateInfoEXT
       make-VkDeviceQueueGlobalPriorityCreateInfoEXT*
       VkDeviceQueueGlobalPriorityCreateInfoEXTglobalPriority
@@ -27399,7 +28915,12 @@ ___return (shaderstatisticsinfoamd);"))
       ref-VkDeviceQueueGlobalPriorityCreateInfoEXT
       (VkDeviceQueueGlobalPriorityCreateInfoEXT* int)
       VkDeviceQueueGlobalPriorityCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceQueueGlobalPriorityCreateInfoEXT
+      ((pointer VkDeviceQueueGlobalPriorityCreateInfoEXT))
+      VkDeviceQueueGlobalPriorityCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceQueueGlobalPriorityCreateInfoEXT
       (VkStructureType void* VkQueueGlobalPriorityEXT)
@@ -27411,6 +28932,7 @@ devicequeueglobalprioritycreateinfoext->globalPriority=___arg3;
 ___return (devicequeueglobalprioritycreateinfoext);"))
 (begin-ffi
    (make-VkDebugUtilsObjectNameInfoEXT
+      ptr->VkDebugUtilsObjectNameInfoEXT
       ref-VkDebugUtilsObjectNameInfoEXT
       make-VkDebugUtilsObjectNameInfoEXT*
       VkDebugUtilsObjectNameInfoEXTpObjectName
@@ -27466,7 +28988,12 @@ ___return (devicequeueglobalprioritycreateinfoext);"))
       ref-VkDebugUtilsObjectNameInfoEXT
       (VkDebugUtilsObjectNameInfoEXT* int)
       VkDebugUtilsObjectNameInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDebugUtilsObjectNameInfoEXT
+      ((pointer VkDebugUtilsObjectNameInfoEXT))
+      VkDebugUtilsObjectNameInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDebugUtilsObjectNameInfoEXT
       (VkStructureType void* VkObjectType uint64_t char*)
@@ -27480,6 +29007,7 @@ debugutilsobjectnameinfoext->pObjectName=___arg5;
 ___return (debugutilsobjectnameinfoext);"))
 (begin-ffi
    (make-VkDebugUtilsObjectTagInfoEXT
+      ptr->VkDebugUtilsObjectTagInfoEXT
       ref-VkDebugUtilsObjectTagInfoEXT
       make-VkDebugUtilsObjectTagInfoEXT*
       VkDebugUtilsObjectTagInfoEXTpTag
@@ -27547,7 +29075,12 @@ ___return (debugutilsobjectnameinfoext);"))
       ref-VkDebugUtilsObjectTagInfoEXT
       (VkDebugUtilsObjectTagInfoEXT* int)
       VkDebugUtilsObjectTagInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDebugUtilsObjectTagInfoEXT
+      ((pointer VkDebugUtilsObjectTagInfoEXT))
+      VkDebugUtilsObjectTagInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDebugUtilsObjectTagInfoEXT
       (VkStructureType void* VkObjectType uint64_t uint64_t size_t void*)
@@ -27563,6 +29096,7 @@ debugutilsobjecttaginfoext->pTag=___arg7;
 ___return (debugutilsobjecttaginfoext);"))
 (begin-ffi
    (make-VkDebugUtilsLabelEXT
+      ptr->VkDebugUtilsLabelEXT
       ref-VkDebugUtilsLabelEXT
       make-VkDebugUtilsLabelEXT*
       VkDebugUtilsLabelEXTcolor
@@ -27612,7 +29146,12 @@ ___return (debugutilsobjecttaginfoext);"))
       ref-VkDebugUtilsLabelEXT
       (VkDebugUtilsLabelEXT* int)
       VkDebugUtilsLabelEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDebugUtilsLabelEXT
+      ((pointer VkDebugUtilsLabelEXT))
+      VkDebugUtilsLabelEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDebugUtilsLabelEXT
       (VkStructureType void* char* float*)
@@ -27625,6 +29164,7 @@ memcpy(debugutilslabelext->color,___arg4,sizeof(___arg4));
 ___return (debugutilslabelext);"))
 (begin-ffi
    (make-VkDebugUtilsMessengerCallbackDataEXT
+      ptr->VkDebugUtilsMessengerCallbackDataEXT
       ref-VkDebugUtilsMessengerCallbackDataEXT
       make-VkDebugUtilsMessengerCallbackDataEXT*
       VkDebugUtilsMessengerCallbackDataEXTpObjects
@@ -27726,7 +29266,12 @@ ___return (debugutilslabelext);"))
       ref-VkDebugUtilsMessengerCallbackDataEXT
       (VkDebugUtilsMessengerCallbackDataEXT* int)
       VkDebugUtilsMessengerCallbackDataEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDebugUtilsMessengerCallbackDataEXT
+      ((pointer VkDebugUtilsMessengerCallbackDataEXT))
+      VkDebugUtilsMessengerCallbackDataEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDebugUtilsMessengerCallbackDataEXT
       (VkStructureType
@@ -27780,6 +29325,7 @@ ___return (debugutilsmessengercallbackdataext);"))
       (pointer PFN_vkDebugUtilsMessengerCallbackEXT)))
 (begin-ffi
    (make-VkDebugUtilsMessengerCreateInfoEXT
+      ptr->VkDebugUtilsMessengerCreateInfoEXT
       ref-VkDebugUtilsMessengerCreateInfoEXT
       make-VkDebugUtilsMessengerCreateInfoEXT*
       VkDebugUtilsMessengerCreateInfoEXTpUserData
@@ -27851,10 +29397,16 @@ ___return (debugutilsmessengercallbackdataext);"))
       ref-VkDebugUtilsMessengerCreateInfoEXT
       (VkDebugUtilsMessengerCreateInfoEXT* int)
       VkDebugUtilsMessengerCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDebugUtilsMessengerCreateInfoEXT
+      ((pointer VkDebugUtilsMessengerCreateInfoEXT))
+      VkDebugUtilsMessengerCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDebugUtilsMessengerCreateInfoEXT
-      (void*
+      (VkStructureType
+         void*
          VkDebugUtilsMessengerCreateFlagsEXT
          VkDebugUtilsMessageSeverityFlagsEXT
          VkDebugUtilsMessageTypeFlagsEXT
@@ -27862,16 +29414,17 @@ ___return (debugutilsmessengercallbackdataext);"))
          void*)
       VkDebugUtilsMessengerCreateInfoEXT*
       "VkDebugUtilsMessengerCreateInfoEXT *debugutilsmessengercreateinfoext = malloc(sizeof(VkDebugUtilsMessengerCreateInfoEXT));
-debugutilsmessengercreateinfoext->sType=VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
-debugutilsmessengercreateinfoext->pNext=___arg1;
-debugutilsmessengercreateinfoext->flags=___arg2;
-debugutilsmessengercreateinfoext->messageSeverity=___arg3;
-debugutilsmessengercreateinfoext->messageType=___arg4;
-debugutilsmessengercreateinfoext->pfnUserCallback=___arg5;
-debugutilsmessengercreateinfoext->pUserData=___arg6;
+debugutilsmessengercreateinfoext->sType=___arg1;
+debugutilsmessengercreateinfoext->pNext=___arg2;
+debugutilsmessengercreateinfoext->flags=___arg3;
+debugutilsmessengercreateinfoext->messageSeverity=___arg4;
+debugutilsmessengercreateinfoext->messageType=___arg5;
+debugutilsmessengercreateinfoext->pfnUserCallback=___arg6;
+debugutilsmessengercreateinfoext->pUserData=___arg7;
 ___return (debugutilsmessengercreateinfoext);"))
 (begin-ffi
    (make-VkImportMemoryHostPointerInfoEXT
+      ptr->VkImportMemoryHostPointerInfoEXT
       ref-VkImportMemoryHostPointerInfoEXT
       make-VkImportMemoryHostPointerInfoEXT*
       VkImportMemoryHostPointerInfoEXTpHostPointer
@@ -27925,7 +29478,12 @@ ___return (debugutilsmessengercreateinfoext);"))
       ref-VkImportMemoryHostPointerInfoEXT
       (VkImportMemoryHostPointerInfoEXT* int)
       VkImportMemoryHostPointerInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImportMemoryHostPointerInfoEXT
+      ((pointer VkImportMemoryHostPointerInfoEXT))
+      VkImportMemoryHostPointerInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImportMemoryHostPointerInfoEXT
       (VkStructureType void* VkExternalMemoryHandleTypeFlagBits void*)
@@ -27938,6 +29496,7 @@ importmemoryhostpointerinfoext->pHostPointer=___arg4;
 ___return (importmemoryhostpointerinfoext);"))
 (begin-ffi
    (make-VkMemoryHostPointerPropertiesEXT
+      ptr->VkMemoryHostPointerPropertiesEXT
       ref-VkMemoryHostPointerPropertiesEXT
       make-VkMemoryHostPointerPropertiesEXT*
       VkMemoryHostPointerPropertiesEXTmemoryTypeBits
@@ -27985,7 +29544,12 @@ ___return (importmemoryhostpointerinfoext);"))
       ref-VkMemoryHostPointerPropertiesEXT
       (VkMemoryHostPointerPropertiesEXT* int)
       VkMemoryHostPointerPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryHostPointerPropertiesEXT
+      ((pointer VkMemoryHostPointerPropertiesEXT))
+      VkMemoryHostPointerPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryHostPointerPropertiesEXT
       (VkStructureType void* uint32_t)
@@ -27997,6 +29561,7 @@ memoryhostpointerpropertiesext->memoryTypeBits=___arg3;
 ___return (memoryhostpointerpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceExternalMemoryHostPropertiesEXT
+      ptr->VkPhysicalDeviceExternalMemoryHostPropertiesEXT
       ref-VkPhysicalDeviceExternalMemoryHostPropertiesEXT
       make-VkPhysicalDeviceExternalMemoryHostPropertiesEXT*
       VkPhysicalDeviceExternalMemoryHostPropertiesEXTminImportedHostPointerAlignment
@@ -28044,7 +29609,12 @@ ___return (memoryhostpointerpropertiesext);"))
       ref-VkPhysicalDeviceExternalMemoryHostPropertiesEXT
       (VkPhysicalDeviceExternalMemoryHostPropertiesEXT* int)
       VkPhysicalDeviceExternalMemoryHostPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceExternalMemoryHostPropertiesEXT
+      ((pointer VkPhysicalDeviceExternalMemoryHostPropertiesEXT))
+      VkPhysicalDeviceExternalMemoryHostPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceExternalMemoryHostPropertiesEXT
       (VkStructureType void* VkDeviceSize)
@@ -28056,6 +29626,7 @@ physicaldeviceexternalmemoryhostpropertiesext->minImportedHostPointerAlignment=_
 ___return (physicaldeviceexternalmemoryhostpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceConservativeRasterizationPropertiesEXT
+      ptr->VkPhysicalDeviceConservativeRasterizationPropertiesEXT
       ref-VkPhysicalDeviceConservativeRasterizationPropertiesEXT
       make-VkPhysicalDeviceConservativeRasterizationPropertiesEXT*
       VkPhysicalDeviceConservativeRasterizationPropertiesEXTconservativeRasterizationPostDepthCoverage
@@ -28151,7 +29722,12 @@ ___return (physicaldeviceexternalmemoryhostpropertiesext);"))
       ref-VkPhysicalDeviceConservativeRasterizationPropertiesEXT
       (VkPhysicalDeviceConservativeRasterizationPropertiesEXT* int)
       VkPhysicalDeviceConservativeRasterizationPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceConservativeRasterizationPropertiesEXT
+      ((pointer VkPhysicalDeviceConservativeRasterizationPropertiesEXT))
+      VkPhysicalDeviceConservativeRasterizationPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceConservativeRasterizationPropertiesEXT
       (VkStructureType
@@ -28181,6 +29757,7 @@ physicaldeviceconservativerasterizationpropertiesext->conservativeRasterizationP
 ___return (physicaldeviceconservativerasterizationpropertiesext);"))
 (begin-ffi
    (make-VkCalibratedTimestampInfoEXT
+      ptr->VkCalibratedTimestampInfoEXT
       ref-VkCalibratedTimestampInfoEXT
       make-VkCalibratedTimestampInfoEXT*
       VkCalibratedTimestampInfoEXTtimeDomain
@@ -28224,7 +29801,12 @@ ___return (physicaldeviceconservativerasterizationpropertiesext);"))
       ref-VkCalibratedTimestampInfoEXT
       (VkCalibratedTimestampInfoEXT* int)
       VkCalibratedTimestampInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCalibratedTimestampInfoEXT
+      ((pointer VkCalibratedTimestampInfoEXT))
+      VkCalibratedTimestampInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCalibratedTimestampInfoEXT
       (VkStructureType void* VkTimeDomainEXT)
@@ -28236,6 +29818,7 @@ calibratedtimestampinfoext->timeDomain=___arg3;
 ___return (calibratedtimestampinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderCorePropertiesAMD
+      ptr->VkPhysicalDeviceShaderCorePropertiesAMD
       ref-VkPhysicalDeviceShaderCorePropertiesAMD
       make-VkPhysicalDeviceShaderCorePropertiesAMD*
       VkPhysicalDeviceShaderCorePropertiesAMDvgprAllocationGranularity
@@ -28361,7 +29944,12 @@ ___return (calibratedtimestampinfoext);"))
       ref-VkPhysicalDeviceShaderCorePropertiesAMD
       (VkPhysicalDeviceShaderCorePropertiesAMD* int)
       VkPhysicalDeviceShaderCorePropertiesAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShaderCorePropertiesAMD
+      ((pointer VkPhysicalDeviceShaderCorePropertiesAMD))
+      VkPhysicalDeviceShaderCorePropertiesAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderCorePropertiesAMD
       (VkStructureType
@@ -28401,6 +29989,7 @@ physicaldeviceshadercorepropertiesamd->vgprAllocationGranularity=___arg16;
 ___return (physicaldeviceshadercorepropertiesamd);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderCoreProperties2AMD
+      ptr->VkPhysicalDeviceShaderCoreProperties2AMD
       ref-VkPhysicalDeviceShaderCoreProperties2AMD
       make-VkPhysicalDeviceShaderCoreProperties2AMD*
       VkPhysicalDeviceShaderCoreProperties2AMDactiveComputeUnitCount
@@ -28454,7 +30043,12 @@ ___return (physicaldeviceshadercorepropertiesamd);"))
       ref-VkPhysicalDeviceShaderCoreProperties2AMD
       (VkPhysicalDeviceShaderCoreProperties2AMD* int)
       VkPhysicalDeviceShaderCoreProperties2AMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShaderCoreProperties2AMD
+      ((pointer VkPhysicalDeviceShaderCoreProperties2AMD))
+      VkPhysicalDeviceShaderCoreProperties2AMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderCoreProperties2AMD
       (VkStructureType void* VkShaderCorePropertiesFlagsAMD uint32_t)
@@ -28467,6 +30061,7 @@ physicaldeviceshadercoreproperties2amd->activeComputeUnitCount=___arg4;
 ___return (physicaldeviceshadercoreproperties2amd);"))
 (begin-ffi
    (make-VkPipelineRasterizationConservativeStateCreateInfoEXT
+      ptr->VkPipelineRasterizationConservativeStateCreateInfoEXT
       ref-VkPipelineRasterizationConservativeStateCreateInfoEXT
       make-VkPipelineRasterizationConservativeStateCreateInfoEXT*
       VkPipelineRasterizationConservativeStateCreateInfoEXTextraPrimitiveOverestimationSize
@@ -28526,7 +30121,12 @@ ___return (physicaldeviceshadercoreproperties2amd);"))
       ref-VkPipelineRasterizationConservativeStateCreateInfoEXT
       (VkPipelineRasterizationConservativeStateCreateInfoEXT* int)
       VkPipelineRasterizationConservativeStateCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineRasterizationConservativeStateCreateInfoEXT
+      ((pointer VkPipelineRasterizationConservativeStateCreateInfoEXT))
+      VkPipelineRasterizationConservativeStateCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineRasterizationConservativeStateCreateInfoEXT
       (VkStructureType
@@ -28544,6 +30144,7 @@ pipelinerasterizationconservativestatecreateinfoext->extraPrimitiveOverestimatio
 ___return (pipelinerasterizationconservativestatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceDescriptorIndexingFeaturesEXT
+      ptr->VkPhysicalDeviceDescriptorIndexingFeaturesEXT
       ref-VkPhysicalDeviceDescriptorIndexingFeaturesEXT
       make-VkPhysicalDeviceDescriptorIndexingFeaturesEXT*
       VkPhysicalDeviceDescriptorIndexingFeaturesEXTruntimeDescriptorArray
@@ -28705,7 +30306,12 @@ ___return (pipelinerasterizationconservativestatecreateinfoext);"))
       ref-VkPhysicalDeviceDescriptorIndexingFeaturesEXT
       (VkPhysicalDeviceDescriptorIndexingFeaturesEXT* int)
       VkPhysicalDeviceDescriptorIndexingFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceDescriptorIndexingFeaturesEXT
+      ((pointer VkPhysicalDeviceDescriptorIndexingFeaturesEXT))
+      VkPhysicalDeviceDescriptorIndexingFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceDescriptorIndexingFeaturesEXT
       (VkStructureType
@@ -28757,6 +30363,7 @@ physicaldevicedescriptorindexingfeaturesext->runtimeDescriptorArray=___arg22;
 ___return (physicaldevicedescriptorindexingfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceDescriptorIndexingPropertiesEXT
+      ptr->VkPhysicalDeviceDescriptorIndexingPropertiesEXT
       ref-VkPhysicalDeviceDescriptorIndexingPropertiesEXT
       make-VkPhysicalDeviceDescriptorIndexingPropertiesEXT*
       VkPhysicalDeviceDescriptorIndexingPropertiesEXTmaxDescriptorSetUpdateAfterBindInputAttachments
@@ -28936,7 +30543,12 @@ ___return (physicaldevicedescriptorindexingfeaturesext);"))
       ref-VkPhysicalDeviceDescriptorIndexingPropertiesEXT
       (VkPhysicalDeviceDescriptorIndexingPropertiesEXT* int)
       VkPhysicalDeviceDescriptorIndexingPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceDescriptorIndexingPropertiesEXT
+      ((pointer VkPhysicalDeviceDescriptorIndexingPropertiesEXT))
+      VkPhysicalDeviceDescriptorIndexingPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceDescriptorIndexingPropertiesEXT
       (VkStructureType
@@ -28994,6 +30606,7 @@ physicaldevicedescriptorindexingpropertiesext->maxDescriptorSetUpdateAfterBindIn
 ___return (physicaldevicedescriptorindexingpropertiesext);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
+      ptr->VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
       ref-VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
       make-VkDescriptorSetLayoutBindingFlagsCreateInfoEXT*
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXTpBindingFlags
@@ -29047,7 +30660,12 @@ ___return (physicaldevicedescriptorindexingpropertiesext);"))
       ref-VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
       (VkDescriptorSetLayoutBindingFlagsCreateInfoEXT* int)
       VkDescriptorSetLayoutBindingFlagsCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
+      ((pointer VkDescriptorSetLayoutBindingFlagsCreateInfoEXT))
+      VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorSetLayoutBindingFlagsCreateInfoEXT
       (VkStructureType void* uint32_t VkDescriptorBindingFlagsEXT*)
@@ -29060,6 +30678,7 @@ descriptorsetlayoutbindingflagscreateinfoext->pBindingFlags=___arg4;
 ___return (descriptorsetlayoutbindingflagscreateinfoext);"))
 (begin-ffi
    (make-VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
+      ptr->VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
       ref-VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
       make-VkDescriptorSetVariableDescriptorCountAllocateInfoEXT*
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXTpDescriptorCounts
@@ -29113,7 +30732,12 @@ ___return (descriptorsetlayoutbindingflagscreateinfoext);"))
       ref-VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
       (VkDescriptorSetVariableDescriptorCountAllocateInfoEXT* int)
       VkDescriptorSetVariableDescriptorCountAllocateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
+      ((pointer VkDescriptorSetVariableDescriptorCountAllocateInfoEXT))
+      VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorSetVariableDescriptorCountAllocateInfoEXT
       (VkStructureType void* uint32_t uint32_t*)
@@ -29126,6 +30750,7 @@ descriptorsetvariabledescriptorcountallocateinfoext->pDescriptorCounts=___arg4;
 ___return (descriptorsetvariabledescriptorcountallocateinfoext);"))
 (begin-ffi
    (make-VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
+      ptr->VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
       ref-VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
       make-VkDescriptorSetVariableDescriptorCountLayoutSupportEXT*
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXTmaxVariableDescriptorCount
@@ -29173,7 +30798,12 @@ ___return (descriptorsetvariabledescriptorcountallocateinfoext);"))
       ref-VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
       (VkDescriptorSetVariableDescriptorCountLayoutSupportEXT* int)
       VkDescriptorSetVariableDescriptorCountLayoutSupportEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
+      ((pointer VkDescriptorSetVariableDescriptorCountLayoutSupportEXT))
+      VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDescriptorSetVariableDescriptorCountLayoutSupportEXT
       (VkStructureType void* uint32_t)
@@ -29185,6 +30815,7 @@ descriptorsetvariabledescriptorcountlayoutsupportext->maxVariableDescriptorCount
 ___return (descriptorsetvariabledescriptorcountlayoutsupportext);"))
 (begin-ffi
    (make-VkAttachmentDescription2KHR
+      ptr->VkAttachmentDescription2KHR
       ref-VkAttachmentDescription2KHR
       make-VkAttachmentDescription2KHR*
       VkAttachmentDescription2KHRfinalLayout
@@ -29276,7 +30907,7 @@ ___return (descriptorsetvariabledescriptorcountlayoutsupportext);"))
       ref-VkAttachmentDescription2KHR
       (VkAttachmentDescription2KHR* int)
       VkAttachmentDescription2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkAttachmentDescription2KHR
       (VkStructureType
@@ -29306,6 +30937,7 @@ attachmentdescription2khr->finalLayout=___arg11;
 ___return (attachmentdescription2khr);"))
 (begin-ffi
    (make-VkAttachmentReference2KHR
+      ptr->VkAttachmentReference2KHR
       ref-VkAttachmentReference2KHR
       make-VkAttachmentReference2KHR*
       VkAttachmentReference2KHRaspectMask
@@ -29361,7 +30993,7 @@ ___return (attachmentdescription2khr);"))
       ref-VkAttachmentReference2KHR
       (VkAttachmentReference2KHR* int)
       VkAttachmentReference2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkAttachmentReference2KHR
       (VkStructureType void* uint32_t VkImageLayout VkImageAspectFlags)
@@ -29375,6 +31007,7 @@ attachmentreference2khr->aspectMask=___arg5;
 ___return (attachmentreference2khr);"))
 (begin-ffi
    (make-VkSubpassDescription2KHR
+      ptr->VkSubpassDescription2KHR
       ref-VkSubpassDescription2KHR
       make-VkSubpassDescription2KHR*
       VkSubpassDescription2KHRpPreserveAttachments
@@ -29478,7 +31111,7 @@ ___return (attachmentreference2khr);"))
       ref-VkSubpassDescription2KHR
       (VkSubpassDescription2KHR* int)
       VkSubpassDescription2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSubpassDescription2KHR
       (VkStructureType
@@ -29512,6 +31145,7 @@ subpassdescription2khr->pPreserveAttachments=___arg13;
 ___return (subpassdescription2khr);"))
 (begin-ffi
    (make-VkSubpassDependency2KHR
+      ptr->VkSubpassDependency2KHR
       ref-VkSubpassDependency2KHR
       make-VkSubpassDependency2KHR*
       VkSubpassDependency2KHRviewOffset
@@ -29597,7 +31231,7 @@ ___return (subpassdescription2khr);"))
       ref-VkSubpassDependency2KHR
       (VkSubpassDependency2KHR* int)
       VkSubpassDependency2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSubpassDependency2KHR
       (VkStructureType
@@ -29625,6 +31259,7 @@ subpassdependency2khr->viewOffset=___arg10;
 ___return (subpassdependency2khr);"))
 (begin-ffi
    (make-VkRenderPassCreateInfo2KHR
+      ptr->VkRenderPassCreateInfo2KHR
       ref-VkRenderPassCreateInfo2KHR
       make-VkRenderPassCreateInfo2KHR*
       VkRenderPassCreateInfo2KHRpCorrelatedViewMasks
@@ -29716,7 +31351,7 @@ ___return (subpassdependency2khr);"))
       ref-VkRenderPassCreateInfo2KHR
       (VkRenderPassCreateInfo2KHR* int)
       VkRenderPassCreateInfo2KHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkRenderPassCreateInfo2KHR
       (VkStructureType
@@ -29746,6 +31381,7 @@ renderpasscreateinfo2khr->pCorrelatedViewMasks=___arg11;
 ___return (renderpasscreateinfo2khr);"))
 (begin-ffi
    (make-VkSubpassBeginInfoKHR
+      ptr->VkSubpassBeginInfoKHR
       ref-VkSubpassBeginInfoKHR
       make-VkSubpassBeginInfoKHR*
       VkSubpassBeginInfoKHRcontents
@@ -29789,7 +31425,7 @@ ___return (renderpasscreateinfo2khr);"))
       ref-VkSubpassBeginInfoKHR
       (VkSubpassBeginInfoKHR* int)
       VkSubpassBeginInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSubpassBeginInfoKHR
       (VkStructureType void* VkSubpassContents)
@@ -29801,6 +31437,7 @@ subpassbegininfokhr->contents=___arg3;
 ___return (subpassbegininfokhr);"))
 (begin-ffi
    (make-VkSubpassEndInfoKHR
+      ptr->VkSubpassEndInfoKHR
       ref-VkSubpassEndInfoKHR
       make-VkSubpassEndInfoKHR*
       VkSubpassEndInfoKHRpNext
@@ -29838,7 +31475,7 @@ ___return (subpassbegininfokhr);"))
       ref-VkSubpassEndInfoKHR
       (VkSubpassEndInfoKHR* int)
       VkSubpassEndInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSubpassEndInfoKHR
       (VkStructureType void*)
@@ -29849,6 +31486,7 @@ subpassendinfokhr->pNext=___arg2;
 ___return (subpassendinfokhr);"))
 (begin-ffi
    (make-VkVertexInputBindingDivisorDescriptionEXT
+      ptr->VkVertexInputBindingDivisorDescriptionEXT
       ref-VkVertexInputBindingDivisorDescriptionEXT
       make-VkVertexInputBindingDivisorDescriptionEXT*
       VkVertexInputBindingDivisorDescriptionEXTdivisor
@@ -29890,7 +31528,12 @@ ___return (subpassendinfokhr);"))
       ref-VkVertexInputBindingDivisorDescriptionEXT
       (VkVertexInputBindingDivisorDescriptionEXT* int)
       VkVertexInputBindingDivisorDescriptionEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkVertexInputBindingDivisorDescriptionEXT
+      ((pointer VkVertexInputBindingDivisorDescriptionEXT))
+      VkVertexInputBindingDivisorDescriptionEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkVertexInputBindingDivisorDescriptionEXT
       (uint32_t uint32_t)
@@ -29901,6 +31544,7 @@ vertexinputbindingdivisordescriptionext->divisor=___arg2;
 ___return (vertexinputbindingdivisordescriptionext);"))
 (begin-ffi
    (make-VkPipelineVertexInputDivisorStateCreateInfoEXT
+      ptr->VkPipelineVertexInputDivisorStateCreateInfoEXT
       ref-VkPipelineVertexInputDivisorStateCreateInfoEXT
       make-VkPipelineVertexInputDivisorStateCreateInfoEXT*
       VkPipelineVertexInputDivisorStateCreateInfoEXTpVertexBindingDivisors
@@ -29954,7 +31598,12 @@ ___return (vertexinputbindingdivisordescriptionext);"))
       ref-VkPipelineVertexInputDivisorStateCreateInfoEXT
       (VkPipelineVertexInputDivisorStateCreateInfoEXT* int)
       VkPipelineVertexInputDivisorStateCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineVertexInputDivisorStateCreateInfoEXT
+      ((pointer VkPipelineVertexInputDivisorStateCreateInfoEXT))
+      VkPipelineVertexInputDivisorStateCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineVertexInputDivisorStateCreateInfoEXT
       (VkStructureType void* uint32_t VkVertexInputBindingDivisorDescriptionEXT*)
@@ -29967,6 +31616,7 @@ pipelinevertexinputdivisorstatecreateinfoext->pVertexBindingDivisors=___arg4;
 ___return (pipelinevertexinputdivisorstatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
+      ptr->VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
       ref-VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
       make-VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT*
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXTmaxVertexAttribDivisor
@@ -30014,7 +31664,12 @@ ___return (pipelinevertexinputdivisorstatecreateinfoext);"))
       ref-VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
       (VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT* int)
       VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
+      ((pointer VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT))
+      VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT
       (VkStructureType void* uint32_t)
@@ -30026,6 +31681,7 @@ physicaldevicevertexattributedivisorpropertiesext->maxVertexAttribDivisor=___arg
 ___return (physicaldevicevertexattributedivisorpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDevicePCIBusInfoPropertiesEXT
+      ptr->VkPhysicalDevicePCIBusInfoPropertiesEXT
       ref-VkPhysicalDevicePCIBusInfoPropertiesEXT
       make-VkPhysicalDevicePCIBusInfoPropertiesEXT*
       VkPhysicalDevicePCIBusInfoPropertiesEXTpciFunction
@@ -30091,7 +31747,12 @@ ___return (physicaldevicevertexattributedivisorpropertiesext);"))
       ref-VkPhysicalDevicePCIBusInfoPropertiesEXT
       (VkPhysicalDevicePCIBusInfoPropertiesEXT* int)
       VkPhysicalDevicePCIBusInfoPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDevicePCIBusInfoPropertiesEXT
+      ((pointer VkPhysicalDevicePCIBusInfoPropertiesEXT))
+      VkPhysicalDevicePCIBusInfoPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDevicePCIBusInfoPropertiesEXT
       (VkStructureType void* uint32_t uint32_t uint32_t uint32_t)
@@ -30106,6 +31767,7 @@ physicaldevicepcibusinfopropertiesext->pciFunction=___arg6;
 ___return (physicaldevicepcibusinfopropertiesext);"))
 (begin-ffi
    (make-VkCommandBufferInheritanceConditionalRenderingInfoEXT
+      ptr->VkCommandBufferInheritanceConditionalRenderingInfoEXT
       ref-VkCommandBufferInheritanceConditionalRenderingInfoEXT
       make-VkCommandBufferInheritanceConditionalRenderingInfoEXT*
       VkCommandBufferInheritanceConditionalRenderingInfoEXTconditionalRenderingEnable
@@ -30153,7 +31815,12 @@ ___return (physicaldevicepcibusinfopropertiesext);"))
       ref-VkCommandBufferInheritanceConditionalRenderingInfoEXT
       (VkCommandBufferInheritanceConditionalRenderingInfoEXT* int)
       VkCommandBufferInheritanceConditionalRenderingInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCommandBufferInheritanceConditionalRenderingInfoEXT
+      ((pointer VkCommandBufferInheritanceConditionalRenderingInfoEXT))
+      VkCommandBufferInheritanceConditionalRenderingInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCommandBufferInheritanceConditionalRenderingInfoEXT
       (VkStructureType void* VkBool32)
@@ -30165,6 +31832,7 @@ commandbufferinheritanceconditionalrenderinginfoext->conditionalRenderingEnable=
 ___return (commandbufferinheritanceconditionalrenderinginfoext);"))
 (begin-ffi
    (make-VkPhysicalDevice8BitStorageFeaturesKHR
+      ptr->VkPhysicalDevice8BitStorageFeaturesKHR
       ref-VkPhysicalDevice8BitStorageFeaturesKHR
       make-VkPhysicalDevice8BitStorageFeaturesKHR*
       VkPhysicalDevice8BitStorageFeaturesKHRstoragePushConstant8
@@ -30224,7 +31892,7 @@ ___return (commandbufferinheritanceconditionalrenderinginfoext);"))
       ref-VkPhysicalDevice8BitStorageFeaturesKHR
       (VkPhysicalDevice8BitStorageFeaturesKHR* int)
       VkPhysicalDevice8BitStorageFeaturesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDevice8BitStorageFeaturesKHR
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
@@ -30238,6 +31906,7 @@ physicaldevice8bitstoragefeatureskhr->storagePushConstant8=___arg5;
 ___return (physicaldevice8bitstoragefeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceConditionalRenderingFeaturesEXT
+      ptr->VkPhysicalDeviceConditionalRenderingFeaturesEXT
       ref-VkPhysicalDeviceConditionalRenderingFeaturesEXT
       make-VkPhysicalDeviceConditionalRenderingFeaturesEXT*
       VkPhysicalDeviceConditionalRenderingFeaturesEXTinheritedConditionalRendering
@@ -30291,7 +31960,12 @@ ___return (physicaldevice8bitstoragefeatureskhr);"))
       ref-VkPhysicalDeviceConditionalRenderingFeaturesEXT
       (VkPhysicalDeviceConditionalRenderingFeaturesEXT* int)
       VkPhysicalDeviceConditionalRenderingFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceConditionalRenderingFeaturesEXT
+      ((pointer VkPhysicalDeviceConditionalRenderingFeaturesEXT))
+      VkPhysicalDeviceConditionalRenderingFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceConditionalRenderingFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
@@ -30304,6 +31978,7 @@ physicaldeviceconditionalrenderingfeaturesext->inheritedConditionalRendering=___
 ___return (physicaldeviceconditionalrenderingfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceVulkanMemoryModelFeaturesKHR
+      ptr->VkPhysicalDeviceVulkanMemoryModelFeaturesKHR
       ref-VkPhysicalDeviceVulkanMemoryModelFeaturesKHR
       make-VkPhysicalDeviceVulkanMemoryModelFeaturesKHR*
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHRvulkanMemoryModelAvailabilityVisibilityChains
@@ -30363,7 +32038,7 @@ ___return (physicaldeviceconditionalrenderingfeaturesext);"))
       ref-VkPhysicalDeviceVulkanMemoryModelFeaturesKHR
       (VkPhysicalDeviceVulkanMemoryModelFeaturesKHR* int)
       VkPhysicalDeviceVulkanMemoryModelFeaturesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDeviceVulkanMemoryModelFeaturesKHR
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
@@ -30377,6 +32052,7 @@ physicaldevicevulkanmemorymodelfeatureskhr->vulkanMemoryModelAvailabilityVisibil
 ___return (physicaldevicevulkanmemorymodelfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderAtomicInt64FeaturesKHR
+      ptr->VkPhysicalDeviceShaderAtomicInt64FeaturesKHR
       ref-VkPhysicalDeviceShaderAtomicInt64FeaturesKHR
       make-VkPhysicalDeviceShaderAtomicInt64FeaturesKHR*
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHRshaderSharedInt64Atomics
@@ -30430,7 +32106,7 @@ ___return (physicaldevicevulkanmemorymodelfeatureskhr);"))
       ref-VkPhysicalDeviceShaderAtomicInt64FeaturesKHR
       (VkPhysicalDeviceShaderAtomicInt64FeaturesKHR* int)
       VkPhysicalDeviceShaderAtomicInt64FeaturesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderAtomicInt64FeaturesKHR
       (VkStructureType void* VkBool32 VkBool32)
@@ -30443,6 +32119,7 @@ physicaldeviceshaderatomicint64featureskhr->shaderSharedInt64Atomics=___arg4;
 ___return (physicaldeviceshaderatomicint64featureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
+      ptr->VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
       ref-VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
       make-VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT*
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXTvertexAttributeInstanceRateZeroDivisor
@@ -30496,7 +32173,12 @@ ___return (physicaldeviceshaderatomicint64featureskhr);"))
       ref-VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
       (VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT* int)
       VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
+      ((pointer VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT))
+      VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
@@ -30509,6 +32191,7 @@ physicaldevicevertexattributedivisorfeaturesext->vertexAttributeInstanceRateZero
 ___return (physicaldevicevertexattributedivisorfeaturesext);"))
 (begin-ffi
    (make-VkQueueFamilyCheckpointPropertiesNV
+      ptr->VkQueueFamilyCheckpointPropertiesNV
       ref-VkQueueFamilyCheckpointPropertiesNV
       make-VkQueueFamilyCheckpointPropertiesNV*
       VkQueueFamilyCheckpointPropertiesNVcheckpointExecutionStageMask
@@ -30556,7 +32239,12 @@ ___return (physicaldevicevertexattributedivisorfeaturesext);"))
       ref-VkQueueFamilyCheckpointPropertiesNV
       (VkQueueFamilyCheckpointPropertiesNV* int)
       VkQueueFamilyCheckpointPropertiesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkQueueFamilyCheckpointPropertiesNV
+      ((pointer VkQueueFamilyCheckpointPropertiesNV))
+      VkQueueFamilyCheckpointPropertiesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkQueueFamilyCheckpointPropertiesNV
       (VkStructureType void* VkPipelineStageFlags)
@@ -30568,6 +32256,7 @@ queuefamilycheckpointpropertiesnv->checkpointExecutionStageMask=___arg3;
 ___return (queuefamilycheckpointpropertiesnv);"))
 (begin-ffi
    (make-VkCheckpointDataNV
+      ptr->VkCheckpointDataNV
       ref-VkCheckpointDataNV
       make-VkCheckpointDataNV*
       VkCheckpointDataNVpCheckpointMarker
@@ -30617,7 +32306,12 @@ ___return (queuefamilycheckpointpropertiesnv);"))
       ref-VkCheckpointDataNV
       (VkCheckpointDataNV* int)
       VkCheckpointDataNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCheckpointDataNV
+      ((pointer VkCheckpointDataNV))
+      VkCheckpointDataNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCheckpointDataNV
       (VkStructureType void* VkPipelineStageFlagBits void*)
@@ -30630,6 +32324,7 @@ checkpointdatanv->pCheckpointMarker=___arg4;
 ___return (checkpointdatanv);"))
 (begin-ffi
    (make-VkPhysicalDeviceDepthStencilResolvePropertiesKHR
+      ptr->VkPhysicalDeviceDepthStencilResolvePropertiesKHR
       ref-VkPhysicalDeviceDepthStencilResolvePropertiesKHR
       make-VkPhysicalDeviceDepthStencilResolvePropertiesKHR*
       VkPhysicalDeviceDepthStencilResolvePropertiesKHRindependentResolve
@@ -30695,7 +32390,7 @@ ___return (checkpointdatanv);"))
       ref-VkPhysicalDeviceDepthStencilResolvePropertiesKHR
       (VkPhysicalDeviceDepthStencilResolvePropertiesKHR* int)
       VkPhysicalDeviceDepthStencilResolvePropertiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDeviceDepthStencilResolvePropertiesKHR
       (VkStructureType
@@ -30715,6 +32410,7 @@ physicaldevicedepthstencilresolvepropertieskhr->independentResolve=___arg6;
 ___return (physicaldevicedepthstencilresolvepropertieskhr);"))
 (begin-ffi
    (make-VkSubpassDescriptionDepthStencilResolveKHR
+      ptr->VkSubpassDescriptionDepthStencilResolveKHR
       ref-VkSubpassDescriptionDepthStencilResolveKHR
       make-VkSubpassDescriptionDepthStencilResolveKHR*
       VkSubpassDescriptionDepthStencilResolveKHRpDepthStencilResolveAttachment
@@ -30774,7 +32470,7 @@ ___return (physicaldevicedepthstencilresolvepropertieskhr);"))
       ref-VkSubpassDescriptionDepthStencilResolveKHR
       (VkSubpassDescriptionDepthStencilResolveKHR* int)
       VkSubpassDescriptionDepthStencilResolveKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSubpassDescriptionDepthStencilResolveKHR
       (VkStructureType
@@ -30792,6 +32488,7 @@ subpassdescriptiondepthstencilresolvekhr->pDepthStencilResolveAttachment=___arg5
 ___return (subpassdescriptiondepthstencilresolvekhr);"))
 (begin-ffi
    (make-VkImageViewASTCDecodeModeEXT
+      ptr->VkImageViewASTCDecodeModeEXT
       ref-VkImageViewASTCDecodeModeEXT
       make-VkImageViewASTCDecodeModeEXT*
       VkImageViewASTCDecodeModeEXTdecodeMode
@@ -30835,7 +32532,12 @@ ___return (subpassdescriptiondepthstencilresolvekhr);"))
       ref-VkImageViewASTCDecodeModeEXT
       (VkImageViewASTCDecodeModeEXT* int)
       VkImageViewASTCDecodeModeEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageViewASTCDecodeModeEXT
+      ((pointer VkImageViewASTCDecodeModeEXT))
+      VkImageViewASTCDecodeModeEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageViewASTCDecodeModeEXT
       (VkStructureType void* VkFormat)
@@ -30847,6 +32549,7 @@ imageviewastcdecodemodeext->decodeMode=___arg3;
 ___return (imageviewastcdecodemodeext);"))
 (begin-ffi
    (make-VkPhysicalDeviceASTCDecodeFeaturesEXT
+      ptr->VkPhysicalDeviceASTCDecodeFeaturesEXT
       ref-VkPhysicalDeviceASTCDecodeFeaturesEXT
       make-VkPhysicalDeviceASTCDecodeFeaturesEXT*
       VkPhysicalDeviceASTCDecodeFeaturesEXTdecodeModeSharedExponent
@@ -30894,7 +32597,12 @@ ___return (imageviewastcdecodemodeext);"))
       ref-VkPhysicalDeviceASTCDecodeFeaturesEXT
       (VkPhysicalDeviceASTCDecodeFeaturesEXT* int)
       VkPhysicalDeviceASTCDecodeFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceASTCDecodeFeaturesEXT
+      ((pointer VkPhysicalDeviceASTCDecodeFeaturesEXT))
+      VkPhysicalDeviceASTCDecodeFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceASTCDecodeFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -30906,6 +32614,7 @@ physicaldeviceastcdecodefeaturesext->decodeModeSharedExponent=___arg3;
 ___return (physicaldeviceastcdecodefeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceTransformFeedbackFeaturesEXT
+      ptr->VkPhysicalDeviceTransformFeedbackFeaturesEXT
       ref-VkPhysicalDeviceTransformFeedbackFeaturesEXT
       make-VkPhysicalDeviceTransformFeedbackFeaturesEXT*
       VkPhysicalDeviceTransformFeedbackFeaturesEXTgeometryStreams
@@ -30959,7 +32668,12 @@ ___return (physicaldeviceastcdecodefeaturesext);"))
       ref-VkPhysicalDeviceTransformFeedbackFeaturesEXT
       (VkPhysicalDeviceTransformFeedbackFeaturesEXT* int)
       VkPhysicalDeviceTransformFeedbackFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceTransformFeedbackFeaturesEXT
+      ((pointer VkPhysicalDeviceTransformFeedbackFeaturesEXT))
+      VkPhysicalDeviceTransformFeedbackFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceTransformFeedbackFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
@@ -30972,6 +32686,7 @@ physicaldevicetransformfeedbackfeaturesext->geometryStreams=___arg4;
 ___return (physicaldevicetransformfeedbackfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceTransformFeedbackPropertiesEXT
+      ptr->VkPhysicalDeviceTransformFeedbackPropertiesEXT
       ref-VkPhysicalDeviceTransformFeedbackPropertiesEXT
       make-VkPhysicalDeviceTransformFeedbackPropertiesEXT*
       VkPhysicalDeviceTransformFeedbackPropertiesEXTtransformFeedbackDraw
@@ -31073,7 +32788,12 @@ ___return (physicaldevicetransformfeedbackfeaturesext);"))
       ref-VkPhysicalDeviceTransformFeedbackPropertiesEXT
       (VkPhysicalDeviceTransformFeedbackPropertiesEXT* int)
       VkPhysicalDeviceTransformFeedbackPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceTransformFeedbackPropertiesEXT
+      ((pointer VkPhysicalDeviceTransformFeedbackPropertiesEXT))
+      VkPhysicalDeviceTransformFeedbackPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceTransformFeedbackPropertiesEXT
       (VkStructureType
@@ -31105,6 +32825,7 @@ physicaldevicetransformfeedbackpropertiesext->transformFeedbackDraw=___arg12;
 ___return (physicaldevicetransformfeedbackpropertiesext);"))
 (begin-ffi
    (make-VkPipelineRasterizationStateStreamCreateInfoEXT
+      ptr->VkPipelineRasterizationStateStreamCreateInfoEXT
       ref-VkPipelineRasterizationStateStreamCreateInfoEXT
       make-VkPipelineRasterizationStateStreamCreateInfoEXT*
       VkPipelineRasterizationStateStreamCreateInfoEXTrasterizationStream
@@ -31158,7 +32879,12 @@ ___return (physicaldevicetransformfeedbackpropertiesext);"))
       ref-VkPipelineRasterizationStateStreamCreateInfoEXT
       (VkPipelineRasterizationStateStreamCreateInfoEXT* int)
       VkPipelineRasterizationStateStreamCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineRasterizationStateStreamCreateInfoEXT
+      ((pointer VkPipelineRasterizationStateStreamCreateInfoEXT))
+      VkPipelineRasterizationStateStreamCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineRasterizationStateStreamCreateInfoEXT
       (VkStructureType void* VkPipelineRasterizationStateStreamCreateFlagsEXT uint32_t)
@@ -31171,6 +32897,7 @@ pipelinerasterizationstatestreamcreateinfoext->rasterizationStream=___arg4;
 ___return (pipelinerasterizationstatestreamcreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
+      ptr->VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
       ref-VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
       make-VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV*
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNVrepresentativeFragmentTest
@@ -31218,7 +32945,12 @@ ___return (pipelinerasterizationstatestreamcreateinfoext);"))
       ref-VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
       (VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV* int)
       VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
+      ((pointer VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV))
+      VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV
       (VkStructureType void* VkBool32)
@@ -31230,6 +32962,7 @@ physicaldevicerepresentativefragmenttestfeaturesnv->representativeFragmentTest=_
 ___return (physicaldevicerepresentativefragmenttestfeaturesnv);"))
 (begin-ffi
    (make-VkPipelineRepresentativeFragmentTestStateCreateInfoNV
+      ptr->VkPipelineRepresentativeFragmentTestStateCreateInfoNV
       ref-VkPipelineRepresentativeFragmentTestStateCreateInfoNV
       make-VkPipelineRepresentativeFragmentTestStateCreateInfoNV*
       VkPipelineRepresentativeFragmentTestStateCreateInfoNVrepresentativeFragmentTestEnable
@@ -31277,7 +33010,12 @@ ___return (physicaldevicerepresentativefragmenttestfeaturesnv);"))
       ref-VkPipelineRepresentativeFragmentTestStateCreateInfoNV
       (VkPipelineRepresentativeFragmentTestStateCreateInfoNV* int)
       VkPipelineRepresentativeFragmentTestStateCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineRepresentativeFragmentTestStateCreateInfoNV
+      ((pointer VkPipelineRepresentativeFragmentTestStateCreateInfoNV))
+      VkPipelineRepresentativeFragmentTestStateCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineRepresentativeFragmentTestStateCreateInfoNV
       (VkStructureType void* VkBool32)
@@ -31289,6 +33027,7 @@ pipelinerepresentativefragmentteststatecreateinfonv->representativeFragmentTestE
 ___return (pipelinerepresentativefragmentteststatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceExclusiveScissorFeaturesNV
+      ptr->VkPhysicalDeviceExclusiveScissorFeaturesNV
       ref-VkPhysicalDeviceExclusiveScissorFeaturesNV
       make-VkPhysicalDeviceExclusiveScissorFeaturesNV*
       VkPhysicalDeviceExclusiveScissorFeaturesNVexclusiveScissor
@@ -31336,7 +33075,12 @@ ___return (pipelinerepresentativefragmentteststatecreateinfonv);"))
       ref-VkPhysicalDeviceExclusiveScissorFeaturesNV
       (VkPhysicalDeviceExclusiveScissorFeaturesNV* int)
       VkPhysicalDeviceExclusiveScissorFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceExclusiveScissorFeaturesNV
+      ((pointer VkPhysicalDeviceExclusiveScissorFeaturesNV))
+      VkPhysicalDeviceExclusiveScissorFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceExclusiveScissorFeaturesNV
       (VkStructureType void* VkBool32)
@@ -31348,6 +33092,7 @@ physicaldeviceexclusivescissorfeaturesnv->exclusiveScissor=___arg3;
 ___return (physicaldeviceexclusivescissorfeaturesnv);"))
 (begin-ffi
    (make-VkPipelineViewportExclusiveScissorStateCreateInfoNV
+      ptr->VkPipelineViewportExclusiveScissorStateCreateInfoNV
       ref-VkPipelineViewportExclusiveScissorStateCreateInfoNV
       make-VkPipelineViewportExclusiveScissorStateCreateInfoNV*
       VkPipelineViewportExclusiveScissorStateCreateInfoNVpExclusiveScissors
@@ -31401,7 +33146,12 @@ ___return (physicaldeviceexclusivescissorfeaturesnv);"))
       ref-VkPipelineViewportExclusiveScissorStateCreateInfoNV
       (VkPipelineViewportExclusiveScissorStateCreateInfoNV* int)
       VkPipelineViewportExclusiveScissorStateCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineViewportExclusiveScissorStateCreateInfoNV
+      ((pointer VkPipelineViewportExclusiveScissorStateCreateInfoNV))
+      VkPipelineViewportExclusiveScissorStateCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineViewportExclusiveScissorStateCreateInfoNV
       (VkStructureType void* uint32_t VkRect2D*)
@@ -31414,6 +33164,7 @@ pipelineviewportexclusivescissorstatecreateinfonv->pExclusiveScissors=___arg4;
 ___return (pipelineviewportexclusivescissorstatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceCornerSampledImageFeaturesNV
+      ptr->VkPhysicalDeviceCornerSampledImageFeaturesNV
       ref-VkPhysicalDeviceCornerSampledImageFeaturesNV
       make-VkPhysicalDeviceCornerSampledImageFeaturesNV*
       VkPhysicalDeviceCornerSampledImageFeaturesNVcornerSampledImage
@@ -31461,7 +33212,12 @@ ___return (pipelineviewportexclusivescissorstatecreateinfonv);"))
       ref-VkPhysicalDeviceCornerSampledImageFeaturesNV
       (VkPhysicalDeviceCornerSampledImageFeaturesNV* int)
       VkPhysicalDeviceCornerSampledImageFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceCornerSampledImageFeaturesNV
+      ((pointer VkPhysicalDeviceCornerSampledImageFeaturesNV))
+      VkPhysicalDeviceCornerSampledImageFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceCornerSampledImageFeaturesNV
       (VkStructureType void* VkBool32)
@@ -31473,6 +33229,7 @@ physicaldevicecornersampledimagefeaturesnv->cornerSampledImage=___arg3;
 ___return (physicaldevicecornersampledimagefeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
+      ptr->VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
       ref-VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
       make-VkPhysicalDeviceComputeShaderDerivativesFeaturesNV*
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNVcomputeDerivativeGroupLinear
@@ -31526,7 +33283,12 @@ ___return (physicaldevicecornersampledimagefeaturesnv);"))
       ref-VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
       (VkPhysicalDeviceComputeShaderDerivativesFeaturesNV* int)
       VkPhysicalDeviceComputeShaderDerivativesFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
+      ((pointer VkPhysicalDeviceComputeShaderDerivativesFeaturesNV))
+      VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceComputeShaderDerivativesFeaturesNV
       (VkStructureType void* VkBool32 VkBool32)
@@ -31539,6 +33301,7 @@ physicaldevicecomputeshaderderivativesfeaturesnv->computeDerivativeGroupLinear=_
 ___return (physicaldevicecomputeshaderderivativesfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
+      ptr->VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
       ref-VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
       make-VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV*
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNVfragmentShaderBarycentric
@@ -31586,7 +33349,12 @@ ___return (physicaldevicecomputeshaderderivativesfeaturesnv);"))
       ref-VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
       (VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV* int)
       VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
+      ((pointer VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV))
+      VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV
       (VkStructureType void* VkBool32)
@@ -31598,6 +33366,7 @@ physicaldevicefragmentshaderbarycentricfeaturesnv->fragmentShaderBarycentric=___
 ___return (physicaldevicefragmentshaderbarycentricfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderImageFootprintFeaturesNV
+      ptr->VkPhysicalDeviceShaderImageFootprintFeaturesNV
       ref-VkPhysicalDeviceShaderImageFootprintFeaturesNV
       make-VkPhysicalDeviceShaderImageFootprintFeaturesNV*
       VkPhysicalDeviceShaderImageFootprintFeaturesNVimageFootprint
@@ -31645,7 +33414,12 @@ ___return (physicaldevicefragmentshaderbarycentricfeaturesnv);"))
       ref-VkPhysicalDeviceShaderImageFootprintFeaturesNV
       (VkPhysicalDeviceShaderImageFootprintFeaturesNV* int)
       VkPhysicalDeviceShaderImageFootprintFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShaderImageFootprintFeaturesNV
+      ((pointer VkPhysicalDeviceShaderImageFootprintFeaturesNV))
+      VkPhysicalDeviceShaderImageFootprintFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderImageFootprintFeaturesNV
       (VkStructureType void* VkBool32)
@@ -31657,6 +33431,7 @@ physicaldeviceshaderimagefootprintfeaturesnv->imageFootprint=___arg3;
 ___return (physicaldeviceshaderimagefootprintfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
+      ptr->VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
       ref-VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
       make-VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV*
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNVdedicatedAllocationImageAliasing
@@ -31704,7 +33479,12 @@ ___return (physicaldeviceshaderimagefootprintfeaturesnv);"))
       ref-VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
       (VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV* int)
       VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
+      ((pointer VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV))
+      VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV
       (VkStructureType void* VkBool32)
@@ -31716,6 +33496,7 @@ physicaldevicededicatedallocationimagealiasingfeaturesnv->dedicatedAllocationIma
 ___return (physicaldevicededicatedallocationimagealiasingfeaturesnv);"))
 (begin-ffi
    (make-VkShadingRatePaletteNV
+      ptr->VkShadingRatePaletteNV
       ref-VkShadingRatePaletteNV
       make-VkShadingRatePaletteNV*
       VkShadingRatePaletteNVpShadingRatePaletteEntries
@@ -31753,7 +33534,12 @@ ___return (physicaldevicededicatedallocationimagealiasingfeaturesnv);"))
       ref-VkShadingRatePaletteNV
       (VkShadingRatePaletteNV* int)
       VkShadingRatePaletteNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkShadingRatePaletteNV
+      ((pointer VkShadingRatePaletteNV))
+      VkShadingRatePaletteNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkShadingRatePaletteNV
       (uint32_t VkShadingRatePaletteEntryNV*)
@@ -31764,6 +33550,7 @@ shadingratepalettenv->pShadingRatePaletteEntries=___arg2;
 ___return (shadingratepalettenv);"))
 (begin-ffi
    (make-VkPipelineViewportShadingRateImageStateCreateInfoNV
+      ptr->VkPipelineViewportShadingRateImageStateCreateInfoNV
       ref-VkPipelineViewportShadingRateImageStateCreateInfoNV
       make-VkPipelineViewportShadingRateImageStateCreateInfoNV*
       VkPipelineViewportShadingRateImageStateCreateInfoNVpShadingRatePalettes
@@ -31823,7 +33610,12 @@ ___return (shadingratepalettenv);"))
       ref-VkPipelineViewportShadingRateImageStateCreateInfoNV
       (VkPipelineViewportShadingRateImageStateCreateInfoNV* int)
       VkPipelineViewportShadingRateImageStateCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineViewportShadingRateImageStateCreateInfoNV
+      ((pointer VkPipelineViewportShadingRateImageStateCreateInfoNV))
+      VkPipelineViewportShadingRateImageStateCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineViewportShadingRateImageStateCreateInfoNV
       (VkStructureType void* VkBool32 uint32_t VkShadingRatePaletteNV*)
@@ -31837,6 +33629,7 @@ pipelineviewportshadingrateimagestatecreateinfonv->pShadingRatePalettes=___arg5;
 ___return (pipelineviewportshadingrateimagestatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShadingRateImageFeaturesNV
+      ptr->VkPhysicalDeviceShadingRateImageFeaturesNV
       ref-VkPhysicalDeviceShadingRateImageFeaturesNV
       make-VkPhysicalDeviceShadingRateImageFeaturesNV*
       VkPhysicalDeviceShadingRateImageFeaturesNVshadingRateCoarseSampleOrder
@@ -31890,7 +33683,12 @@ ___return (pipelineviewportshadingrateimagestatecreateinfonv);"))
       ref-VkPhysicalDeviceShadingRateImageFeaturesNV
       (VkPhysicalDeviceShadingRateImageFeaturesNV* int)
       VkPhysicalDeviceShadingRateImageFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShadingRateImageFeaturesNV
+      ((pointer VkPhysicalDeviceShadingRateImageFeaturesNV))
+      VkPhysicalDeviceShadingRateImageFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShadingRateImageFeaturesNV
       (VkStructureType void* VkBool32 VkBool32)
@@ -31903,6 +33701,7 @@ physicaldeviceshadingrateimagefeaturesnv->shadingRateCoarseSampleOrder=___arg4;
 ___return (physicaldeviceshadingrateimagefeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShadingRateImagePropertiesNV
+      ptr->VkPhysicalDeviceShadingRateImagePropertiesNV
       ref-VkPhysicalDeviceShadingRateImagePropertiesNV
       make-VkPhysicalDeviceShadingRateImagePropertiesNV*
       VkPhysicalDeviceShadingRateImagePropertiesNVshadingRateMaxCoarseSamples
@@ -31962,7 +33761,12 @@ ___return (physicaldeviceshadingrateimagefeaturesnv);"))
       ref-VkPhysicalDeviceShadingRateImagePropertiesNV
       (VkPhysicalDeviceShadingRateImagePropertiesNV* int)
       VkPhysicalDeviceShadingRateImagePropertiesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShadingRateImagePropertiesNV
+      ((pointer VkPhysicalDeviceShadingRateImagePropertiesNV))
+      VkPhysicalDeviceShadingRateImagePropertiesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShadingRateImagePropertiesNV
       (VkStructureType void* VkExtent2D uint32_t uint32_t)
@@ -31976,6 +33780,7 @@ physicaldeviceshadingrateimagepropertiesnv->shadingRateMaxCoarseSamples=___arg5;
 ___return (physicaldeviceshadingrateimagepropertiesnv);"))
 (begin-ffi
    (make-VkCoarseSampleLocationNV
+      ptr->VkCoarseSampleLocationNV
       ref-VkCoarseSampleLocationNV
       make-VkCoarseSampleLocationNV*
       VkCoarseSampleLocationNVsample
@@ -32019,7 +33824,12 @@ ___return (physicaldeviceshadingrateimagepropertiesnv);"))
       ref-VkCoarseSampleLocationNV
       (VkCoarseSampleLocationNV* int)
       VkCoarseSampleLocationNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCoarseSampleLocationNV
+      ((pointer VkCoarseSampleLocationNV))
+      VkCoarseSampleLocationNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCoarseSampleLocationNV
       (uint32_t uint32_t uint32_t)
@@ -32031,6 +33841,7 @@ coarsesamplelocationnv->sample=___arg3;
 ___return (coarsesamplelocationnv);"))
 (begin-ffi
    (make-VkCoarseSampleOrderCustomNV
+      ptr->VkCoarseSampleOrderCustomNV
       ref-VkCoarseSampleOrderCustomNV
       make-VkCoarseSampleOrderCustomNV*
       VkCoarseSampleOrderCustomNVpSampleLocations
@@ -32080,7 +33891,12 @@ ___return (coarsesamplelocationnv);"))
       ref-VkCoarseSampleOrderCustomNV
       (VkCoarseSampleOrderCustomNV* int)
       VkCoarseSampleOrderCustomNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCoarseSampleOrderCustomNV
+      ((pointer VkCoarseSampleOrderCustomNV))
+      VkCoarseSampleOrderCustomNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCoarseSampleOrderCustomNV
       (VkShadingRatePaletteEntryNV uint32_t uint32_t VkCoarseSampleLocationNV*)
@@ -32093,6 +33909,7 @@ coarsesampleordercustomnv->pSampleLocations=___arg4;
 ___return (coarsesampleordercustomnv);"))
 (begin-ffi
    (make-VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
+      ptr->VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
       ref-VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
       make-VkPipelineViewportCoarseSampleOrderStateCreateInfoNV*
       VkPipelineViewportCoarseSampleOrderStateCreateInfoNVpCustomSampleOrders
@@ -32152,7 +33969,12 @@ ___return (coarsesampleordercustomnv);"))
       ref-VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
       (VkPipelineViewportCoarseSampleOrderStateCreateInfoNV* int)
       VkPipelineViewportCoarseSampleOrderStateCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
+      ((pointer VkPipelineViewportCoarseSampleOrderStateCreateInfoNV))
+      VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineViewportCoarseSampleOrderStateCreateInfoNV
       (VkStructureType
@@ -32170,6 +33992,7 @@ pipelineviewportcoarsesampleorderstatecreateinfonv->pCustomSampleOrders=___arg5;
 ___return (pipelineviewportcoarsesampleorderstatecreateinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceMeshShaderFeaturesNV
+      ptr->VkPhysicalDeviceMeshShaderFeaturesNV
       ref-VkPhysicalDeviceMeshShaderFeaturesNV
       make-VkPhysicalDeviceMeshShaderFeaturesNV*
       VkPhysicalDeviceMeshShaderFeaturesNVmeshShader
@@ -32223,7 +34046,12 @@ ___return (pipelineviewportcoarsesampleorderstatecreateinfonv);"))
       ref-VkPhysicalDeviceMeshShaderFeaturesNV
       (VkPhysicalDeviceMeshShaderFeaturesNV* int)
       VkPhysicalDeviceMeshShaderFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMeshShaderFeaturesNV
+      ((pointer VkPhysicalDeviceMeshShaderFeaturesNV))
+      VkPhysicalDeviceMeshShaderFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMeshShaderFeaturesNV
       (VkStructureType void* VkBool32 VkBool32)
@@ -32236,6 +34064,7 @@ physicaldevicemeshshaderfeaturesnv->meshShader=___arg4;
 ___return (physicaldevicemeshshaderfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceMeshShaderPropertiesNV
+      ptr->VkPhysicalDeviceMeshShaderPropertiesNV
       ref-VkPhysicalDeviceMeshShaderPropertiesNV
       make-VkPhysicalDeviceMeshShaderPropertiesNV*
       VkPhysicalDeviceMeshShaderPropertiesNVmeshOutputPerPrimitiveGranularity
@@ -32355,7 +34184,12 @@ ___return (physicaldevicemeshshaderfeaturesnv);"))
       ref-VkPhysicalDeviceMeshShaderPropertiesNV
       (VkPhysicalDeviceMeshShaderPropertiesNV* int)
       VkPhysicalDeviceMeshShaderPropertiesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMeshShaderPropertiesNV
+      ((pointer VkPhysicalDeviceMeshShaderPropertiesNV))
+      VkPhysicalDeviceMeshShaderPropertiesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMeshShaderPropertiesNV
       (VkStructureType
@@ -32393,6 +34227,7 @@ physicaldevicemeshshaderpropertiesnv->meshOutputPerPrimitiveGranularity=___arg15
 ___return (physicaldevicemeshshaderpropertiesnv);"))
 (begin-ffi
    (make-VkDrawMeshTasksIndirectCommandNV
+      ptr->VkDrawMeshTasksIndirectCommandNV
       ref-VkDrawMeshTasksIndirectCommandNV
       make-VkDrawMeshTasksIndirectCommandNV*
       VkDrawMeshTasksIndirectCommandNVfirstTask
@@ -32434,7 +34269,12 @@ ___return (physicaldevicemeshshaderpropertiesnv);"))
       ref-VkDrawMeshTasksIndirectCommandNV
       (VkDrawMeshTasksIndirectCommandNV* int)
       VkDrawMeshTasksIndirectCommandNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDrawMeshTasksIndirectCommandNV
+      ((pointer VkDrawMeshTasksIndirectCommandNV))
+      VkDrawMeshTasksIndirectCommandNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDrawMeshTasksIndirectCommandNV
       (uint32_t uint32_t)
@@ -32445,6 +34285,7 @@ drawmeshtasksindirectcommandnv->firstTask=___arg2;
 ___return (drawmeshtasksindirectcommandnv);"))
 (begin-ffi
    (make-VkRayTracingShaderGroupCreateInfoNV
+      ptr->VkRayTracingShaderGroupCreateInfoNV
       ref-VkRayTracingShaderGroupCreateInfoNV
       make-VkRayTracingShaderGroupCreateInfoNV*
       VkRayTracingShaderGroupCreateInfoNVintersectionShader
@@ -32516,7 +34357,12 @@ ___return (drawmeshtasksindirectcommandnv);"))
       ref-VkRayTracingShaderGroupCreateInfoNV
       (VkRayTracingShaderGroupCreateInfoNV* int)
       VkRayTracingShaderGroupCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkRayTracingShaderGroupCreateInfoNV
+      ((pointer VkRayTracingShaderGroupCreateInfoNV))
+      VkRayTracingShaderGroupCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkRayTracingShaderGroupCreateInfoNV
       (VkStructureType
@@ -32538,6 +34384,7 @@ raytracingshadergroupcreateinfonv->intersectionShader=___arg7;
 ___return (raytracingshadergroupcreateinfonv);"))
 (begin-ffi
    (make-VkRayTracingPipelineCreateInfoNV
+      ptr->VkRayTracingPipelineCreateInfoNV
       ref-VkRayTracingPipelineCreateInfoNV
       make-VkRayTracingPipelineCreateInfoNV*
       VkRayTracingPipelineCreateInfoNVbasePipelineIndex
@@ -32633,7 +34480,12 @@ ___return (raytracingshadergroupcreateinfonv);"))
       ref-VkRayTracingPipelineCreateInfoNV
       (VkRayTracingPipelineCreateInfoNV* int)
       VkRayTracingPipelineCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkRayTracingPipelineCreateInfoNV
+      ((pointer VkRayTracingPipelineCreateInfoNV))
+      VkRayTracingPipelineCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkRayTracingPipelineCreateInfoNV
       (VkStructureType
@@ -32663,6 +34515,7 @@ raytracingpipelinecreateinfonv->basePipelineIndex=___arg11;
 ___return (raytracingpipelinecreateinfonv);"))
 (begin-ffi
    (make-VkGeometryTrianglesNV
+      ptr->VkGeometryTrianglesNV
       ref-VkGeometryTrianglesNV
       make-VkGeometryTrianglesNV*
       VkGeometryTrianglesNVtransformOffset
@@ -32766,7 +34619,12 @@ ___return (raytracingpipelinecreateinfonv);"))
       ref-VkGeometryTrianglesNV
       (VkGeometryTrianglesNV* int)
       VkGeometryTrianglesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkGeometryTrianglesNV
+      ((pointer VkGeometryTrianglesNV))
+      VkGeometryTrianglesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkGeometryTrianglesNV
       (VkStructureType
@@ -32800,6 +34658,7 @@ geometrytrianglesnv->transformOffset=___arg13;
 ___return (geometrytrianglesnv);"))
 (begin-ffi
    (make-VkGeometryAABBNV
+      ptr->VkGeometryAABBNV
       ref-VkGeometryAABBNV
       make-VkGeometryAABBNV*
       VkGeometryAABBNVoffset
@@ -32861,7 +34720,12 @@ ___return (geometrytrianglesnv);"))
       ref-VkGeometryAABBNV
       (VkGeometryAABBNV* int)
       VkGeometryAABBNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkGeometryAABBNV
+      ((pointer VkGeometryAABBNV))
+      VkGeometryAABBNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkGeometryAABBNV
       (VkStructureType void* VkBuffer uint32_t uint32_t VkDeviceSize)
@@ -32876,6 +34740,7 @@ geometryaabbnv->offset=___arg6;
 ___return (geometryaabbnv);"))
 (begin-ffi
    (make-VkGeometryDataNV
+      ptr->VkGeometryDataNV
       ref-VkGeometryDataNV
       make-VkGeometryDataNV*
       VkGeometryDataNVaabbs
@@ -32913,7 +34778,12 @@ ___return (geometryaabbnv);"))
       ref-VkGeometryDataNV
       (VkGeometryDataNV* int)
       VkGeometryDataNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkGeometryDataNV
+      ((pointer VkGeometryDataNV))
+      VkGeometryDataNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkGeometryDataNV
       (VkGeometryTrianglesNV VkGeometryAABBNV)
@@ -32924,6 +34794,7 @@ geometrydatanv->aabbs=___arg2;
 ___return (geometrydatanv);"))
 (begin-ffi
    (make-VkGeometryNV
+      ptr->VkGeometryNV
       ref-VkGeometryNV
       make-VkGeometryNV*
       VkGeometryNVflags
@@ -32975,7 +34846,12 @@ ___return (geometrydatanv);"))
       ref-VkGeometryNV
       (VkGeometryNV* int)
       VkGeometryNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkGeometryNV
+      ((pointer VkGeometryNV))
+      VkGeometryNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkGeometryNV
       (VkStructureType void* VkGeometryTypeNV VkGeometryDataNV VkGeometryFlagsNV)
@@ -32989,6 +34865,7 @@ geometrynv->flags=___arg5;
 ___return (geometrynv);"))
 (begin-ffi
    (make-VkAccelerationStructureInfoNV
+      ptr->VkAccelerationStructureInfoNV
       ref-VkAccelerationStructureInfoNV
       make-VkAccelerationStructureInfoNV*
       VkAccelerationStructureInfoNVpGeometries
@@ -33056,7 +34933,12 @@ ___return (geometrynv);"))
       ref-VkAccelerationStructureInfoNV
       (VkAccelerationStructureInfoNV* int)
       VkAccelerationStructureInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkAccelerationStructureInfoNV
+      ((pointer VkAccelerationStructureInfoNV))
+      VkAccelerationStructureInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkAccelerationStructureInfoNV
       (VkStructureType
@@ -33078,6 +34960,7 @@ accelerationstructureinfonv->pGeometries=___arg7;
 ___return (accelerationstructureinfonv);"))
 (begin-ffi
    (make-VkAccelerationStructureCreateInfoNV
+      ptr->VkAccelerationStructureCreateInfoNV
       ref-VkAccelerationStructureCreateInfoNV
       make-VkAccelerationStructureCreateInfoNV*
       VkAccelerationStructureCreateInfoNVinfo
@@ -33131,7 +35014,12 @@ ___return (accelerationstructureinfonv);"))
       ref-VkAccelerationStructureCreateInfoNV
       (VkAccelerationStructureCreateInfoNV* int)
       VkAccelerationStructureCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkAccelerationStructureCreateInfoNV
+      ((pointer VkAccelerationStructureCreateInfoNV))
+      VkAccelerationStructureCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkAccelerationStructureCreateInfoNV
       (VkStructureType void* VkDeviceSize VkAccelerationStructureInfoNV)
@@ -33144,6 +35032,7 @@ accelerationstructurecreateinfonv->info=___arg4;
 ___return (accelerationstructurecreateinfonv);"))
 (begin-ffi
    (make-VkBindAccelerationStructureMemoryInfoNV
+      ptr->VkBindAccelerationStructureMemoryInfoNV
       ref-VkBindAccelerationStructureMemoryInfoNV
       make-VkBindAccelerationStructureMemoryInfoNV*
       VkBindAccelerationStructureMemoryInfoNVpDeviceIndices
@@ -33215,7 +35104,12 @@ ___return (accelerationstructurecreateinfonv);"))
       ref-VkBindAccelerationStructureMemoryInfoNV
       (VkBindAccelerationStructureMemoryInfoNV* int)
       VkBindAccelerationStructureMemoryInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBindAccelerationStructureMemoryInfoNV
+      ((pointer VkBindAccelerationStructureMemoryInfoNV))
+      VkBindAccelerationStructureMemoryInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBindAccelerationStructureMemoryInfoNV
       (VkStructureType
@@ -33237,6 +35131,7 @@ bindaccelerationstructurememoryinfonv->pDeviceIndices=___arg7;
 ___return (bindaccelerationstructurememoryinfonv);"))
 (begin-ffi
    (make-VkWriteDescriptorSetAccelerationStructureNV
+      ptr->VkWriteDescriptorSetAccelerationStructureNV
       ref-VkWriteDescriptorSetAccelerationStructureNV
       make-VkWriteDescriptorSetAccelerationStructureNV*
       VkWriteDescriptorSetAccelerationStructureNVpAccelerationStructures
@@ -33290,7 +35185,12 @@ ___return (bindaccelerationstructurememoryinfonv);"))
       ref-VkWriteDescriptorSetAccelerationStructureNV
       (VkWriteDescriptorSetAccelerationStructureNV* int)
       VkWriteDescriptorSetAccelerationStructureNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkWriteDescriptorSetAccelerationStructureNV
+      ((pointer VkWriteDescriptorSetAccelerationStructureNV))
+      VkWriteDescriptorSetAccelerationStructureNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkWriteDescriptorSetAccelerationStructureNV
       (VkStructureType void* uint32_t VkAccelerationStructureNV*)
@@ -33303,6 +35203,7 @@ writedescriptorsetaccelerationstructurenv->pAccelerationStructures=___arg4;
 ___return (writedescriptorsetaccelerationstructurenv);"))
 (begin-ffi
    (make-VkAccelerationStructureMemoryRequirementsInfoNV
+      ptr->VkAccelerationStructureMemoryRequirementsInfoNV
       ref-VkAccelerationStructureMemoryRequirementsInfoNV
       make-VkAccelerationStructureMemoryRequirementsInfoNV*
       VkAccelerationStructureMemoryRequirementsInfoNVaccelerationStructure
@@ -33356,7 +35257,12 @@ ___return (writedescriptorsetaccelerationstructurenv);"))
       ref-VkAccelerationStructureMemoryRequirementsInfoNV
       (VkAccelerationStructureMemoryRequirementsInfoNV* int)
       VkAccelerationStructureMemoryRequirementsInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkAccelerationStructureMemoryRequirementsInfoNV
+      ((pointer VkAccelerationStructureMemoryRequirementsInfoNV))
+      VkAccelerationStructureMemoryRequirementsInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkAccelerationStructureMemoryRequirementsInfoNV
       (VkStructureType
@@ -33372,6 +35278,7 @@ accelerationstructurememoryrequirementsinfonv->accelerationStructure=___arg4;
 ___return (accelerationstructurememoryrequirementsinfonv);"))
 (begin-ffi
    (make-VkPhysicalDeviceRayTracingPropertiesNV
+      ptr->VkPhysicalDeviceRayTracingPropertiesNV
       ref-VkPhysicalDeviceRayTracingPropertiesNV
       make-VkPhysicalDeviceRayTracingPropertiesNV*
       VkPhysicalDeviceRayTracingPropertiesNVmaxDescriptorSetAccelerationStructures
@@ -33461,7 +35368,12 @@ ___return (accelerationstructurememoryrequirementsinfonv);"))
       ref-VkPhysicalDeviceRayTracingPropertiesNV
       (VkPhysicalDeviceRayTracingPropertiesNV* int)
       VkPhysicalDeviceRayTracingPropertiesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceRayTracingPropertiesNV
+      ((pointer VkPhysicalDeviceRayTracingPropertiesNV))
+      VkPhysicalDeviceRayTracingPropertiesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceRayTracingPropertiesNV
       (VkStructureType
@@ -33489,6 +35401,7 @@ physicaldeviceraytracingpropertiesnv->maxDescriptorSetAccelerationStructures=___
 ___return (physicaldeviceraytracingpropertiesnv);"))
 (begin-ffi
    (make-VkDrmFormatModifierPropertiesEXT
+      ptr->VkDrmFormatModifierPropertiesEXT
       ref-VkDrmFormatModifierPropertiesEXT
       make-VkDrmFormatModifierPropertiesEXT*
       VkDrmFormatModifierPropertiesEXTdrmFormatModifierTilingFeatures
@@ -33536,7 +35449,12 @@ ___return (physicaldeviceraytracingpropertiesnv);"))
       ref-VkDrmFormatModifierPropertiesEXT
       (VkDrmFormatModifierPropertiesEXT* int)
       VkDrmFormatModifierPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDrmFormatModifierPropertiesEXT
+      ((pointer VkDrmFormatModifierPropertiesEXT))
+      VkDrmFormatModifierPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDrmFormatModifierPropertiesEXT
       (uint64_t uint32_t VkFormatFeatureFlags)
@@ -33548,6 +35466,7 @@ drmformatmodifierpropertiesext->drmFormatModifierTilingFeatures=___arg3;
 ___return (drmformatmodifierpropertiesext);"))
 (begin-ffi
    (make-VkDrmFormatModifierPropertiesListEXT
+      ptr->VkDrmFormatModifierPropertiesListEXT
       ref-VkDrmFormatModifierPropertiesListEXT
       make-VkDrmFormatModifierPropertiesListEXT*
       VkDrmFormatModifierPropertiesListEXTpDrmFormatModifierProperties
@@ -33601,7 +35520,12 @@ ___return (drmformatmodifierpropertiesext);"))
       ref-VkDrmFormatModifierPropertiesListEXT
       (VkDrmFormatModifierPropertiesListEXT* int)
       VkDrmFormatModifierPropertiesListEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDrmFormatModifierPropertiesListEXT
+      ((pointer VkDrmFormatModifierPropertiesListEXT))
+      VkDrmFormatModifierPropertiesListEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDrmFormatModifierPropertiesListEXT
       (VkStructureType void* uint32_t VkDrmFormatModifierPropertiesEXT*)
@@ -33614,6 +35538,7 @@ drmformatmodifierpropertieslistext->pDrmFormatModifierProperties=___arg4;
 ___return (drmformatmodifierpropertieslistext);"))
 (begin-ffi
    (make-VkPhysicalDeviceImageDrmFormatModifierInfoEXT
+      ptr->VkPhysicalDeviceImageDrmFormatModifierInfoEXT
       ref-VkPhysicalDeviceImageDrmFormatModifierInfoEXT
       make-VkPhysicalDeviceImageDrmFormatModifierInfoEXT*
       VkPhysicalDeviceImageDrmFormatModifierInfoEXTpQueueFamilyIndices
@@ -33679,7 +35604,12 @@ ___return (drmformatmodifierpropertieslistext);"))
       ref-VkPhysicalDeviceImageDrmFormatModifierInfoEXT
       (VkPhysicalDeviceImageDrmFormatModifierInfoEXT* int)
       VkPhysicalDeviceImageDrmFormatModifierInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceImageDrmFormatModifierInfoEXT
+      ((pointer VkPhysicalDeviceImageDrmFormatModifierInfoEXT))
+      VkPhysicalDeviceImageDrmFormatModifierInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceImageDrmFormatModifierInfoEXT
       (VkStructureType void* uint64_t VkSharingMode uint32_t uint32_t*)
@@ -33694,6 +35624,7 @@ physicaldeviceimagedrmformatmodifierinfoext->pQueueFamilyIndices=___arg6;
 ___return (physicaldeviceimagedrmformatmodifierinfoext);"))
 (begin-ffi
    (make-VkImageDrmFormatModifierListCreateInfoEXT
+      ptr->VkImageDrmFormatModifierListCreateInfoEXT
       ref-VkImageDrmFormatModifierListCreateInfoEXT
       make-VkImageDrmFormatModifierListCreateInfoEXT*
       VkImageDrmFormatModifierListCreateInfoEXTpDrmFormatModifiers
@@ -33747,7 +35678,12 @@ ___return (physicaldeviceimagedrmformatmodifierinfoext);"))
       ref-VkImageDrmFormatModifierListCreateInfoEXT
       (VkImageDrmFormatModifierListCreateInfoEXT* int)
       VkImageDrmFormatModifierListCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageDrmFormatModifierListCreateInfoEXT
+      ((pointer VkImageDrmFormatModifierListCreateInfoEXT))
+      VkImageDrmFormatModifierListCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageDrmFormatModifierListCreateInfoEXT
       (VkStructureType void* uint32_t uint64_t*)
@@ -33760,6 +35696,7 @@ imagedrmformatmodifierlistcreateinfoext->pDrmFormatModifiers=___arg4;
 ___return (imagedrmformatmodifierlistcreateinfoext);"))
 (begin-ffi
    (make-VkImageDrmFormatModifierExplicitCreateInfoEXT
+      ptr->VkImageDrmFormatModifierExplicitCreateInfoEXT
       ref-VkImageDrmFormatModifierExplicitCreateInfoEXT
       make-VkImageDrmFormatModifierExplicitCreateInfoEXT*
       VkImageDrmFormatModifierExplicitCreateInfoEXTpPlaneLayouts
@@ -33819,7 +35756,12 @@ ___return (imagedrmformatmodifierlistcreateinfoext);"))
       ref-VkImageDrmFormatModifierExplicitCreateInfoEXT
       (VkImageDrmFormatModifierExplicitCreateInfoEXT* int)
       VkImageDrmFormatModifierExplicitCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageDrmFormatModifierExplicitCreateInfoEXT
+      ((pointer VkImageDrmFormatModifierExplicitCreateInfoEXT))
+      VkImageDrmFormatModifierExplicitCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageDrmFormatModifierExplicitCreateInfoEXT
       (VkStructureType void* uint64_t uint32_t VkSubresourceLayout*)
@@ -33833,6 +35775,7 @@ imagedrmformatmodifierexplicitcreateinfoext->pPlaneLayouts=___arg5;
 ___return (imagedrmformatmodifierexplicitcreateinfoext);"))
 (begin-ffi
    (make-VkImageDrmFormatModifierPropertiesEXT
+      ptr->VkImageDrmFormatModifierPropertiesEXT
       ref-VkImageDrmFormatModifierPropertiesEXT
       make-VkImageDrmFormatModifierPropertiesEXT*
       VkImageDrmFormatModifierPropertiesEXTdrmFormatModifier
@@ -33880,7 +35823,12 @@ ___return (imagedrmformatmodifierexplicitcreateinfoext);"))
       ref-VkImageDrmFormatModifierPropertiesEXT
       (VkImageDrmFormatModifierPropertiesEXT* int)
       VkImageDrmFormatModifierPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageDrmFormatModifierPropertiesEXT
+      ((pointer VkImageDrmFormatModifierPropertiesEXT))
+      VkImageDrmFormatModifierPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageDrmFormatModifierPropertiesEXT
       (VkStructureType void* uint64_t)
@@ -33892,6 +35840,7 @@ imagedrmformatmodifierpropertiesext->drmFormatModifier=___arg3;
 ___return (imagedrmformatmodifierpropertiesext);"))
 (begin-ffi
    (make-VkImageStencilUsageCreateInfoEXT
+      ptr->VkImageStencilUsageCreateInfoEXT
       ref-VkImageStencilUsageCreateInfoEXT
       make-VkImageStencilUsageCreateInfoEXT*
       VkImageStencilUsageCreateInfoEXTstencilUsage
@@ -33939,7 +35888,12 @@ ___return (imagedrmformatmodifierpropertiesext);"))
       ref-VkImageStencilUsageCreateInfoEXT
       (VkImageStencilUsageCreateInfoEXT* int)
       VkImageStencilUsageCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageStencilUsageCreateInfoEXT
+      ((pointer VkImageStencilUsageCreateInfoEXT))
+      VkImageStencilUsageCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageStencilUsageCreateInfoEXT
       (VkStructureType void* VkImageUsageFlags)
@@ -33951,6 +35905,7 @@ imagestencilusagecreateinfoext->stencilUsage=___arg3;
 ___return (imagestencilusagecreateinfoext);"))
 (begin-ffi
    (make-VkDeviceMemoryOverallocationCreateInfoAMD
+      ptr->VkDeviceMemoryOverallocationCreateInfoAMD
       ref-VkDeviceMemoryOverallocationCreateInfoAMD
       make-VkDeviceMemoryOverallocationCreateInfoAMD*
       VkDeviceMemoryOverallocationCreateInfoAMDoverallocationBehavior
@@ -33998,7 +35953,12 @@ ___return (imagestencilusagecreateinfoext);"))
       ref-VkDeviceMemoryOverallocationCreateInfoAMD
       (VkDeviceMemoryOverallocationCreateInfoAMD* int)
       VkDeviceMemoryOverallocationCreateInfoAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkDeviceMemoryOverallocationCreateInfoAMD
+      ((pointer VkDeviceMemoryOverallocationCreateInfoAMD))
+      VkDeviceMemoryOverallocationCreateInfoAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkDeviceMemoryOverallocationCreateInfoAMD
       (VkStructureType void* VkMemoryOverallocationBehaviorAMD)
@@ -34010,6 +35970,7 @@ devicememoryoverallocationcreateinfoamd->overallocationBehavior=___arg3;
 ___return (devicememoryoverallocationcreateinfoamd);"))
 (begin-ffi
    (make-VkPhysicalDeviceFragmentDensityMapFeaturesEXT
+      ptr->VkPhysicalDeviceFragmentDensityMapFeaturesEXT
       ref-VkPhysicalDeviceFragmentDensityMapFeaturesEXT
       make-VkPhysicalDeviceFragmentDensityMapFeaturesEXT*
       VkPhysicalDeviceFragmentDensityMapFeaturesEXTfragmentDensityMapNonSubsampledImages
@@ -34069,7 +36030,12 @@ ___return (devicememoryoverallocationcreateinfoamd);"))
       ref-VkPhysicalDeviceFragmentDensityMapFeaturesEXT
       (VkPhysicalDeviceFragmentDensityMapFeaturesEXT* int)
       VkPhysicalDeviceFragmentDensityMapFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceFragmentDensityMapFeaturesEXT
+      ((pointer VkPhysicalDeviceFragmentDensityMapFeaturesEXT))
+      VkPhysicalDeviceFragmentDensityMapFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceFragmentDensityMapFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
@@ -34083,6 +36049,7 @@ physicaldevicefragmentdensitymapfeaturesext->fragmentDensityMapNonSubsampledImag
 ___return (physicaldevicefragmentdensitymapfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceFragmentDensityMapPropertiesEXT
+      ptr->VkPhysicalDeviceFragmentDensityMapPropertiesEXT
       ref-VkPhysicalDeviceFragmentDensityMapPropertiesEXT
       make-VkPhysicalDeviceFragmentDensityMapPropertiesEXT*
       VkPhysicalDeviceFragmentDensityMapPropertiesEXTfragmentDensityInvocations
@@ -34142,7 +36109,12 @@ ___return (physicaldevicefragmentdensitymapfeaturesext);"))
       ref-VkPhysicalDeviceFragmentDensityMapPropertiesEXT
       (VkPhysicalDeviceFragmentDensityMapPropertiesEXT* int)
       VkPhysicalDeviceFragmentDensityMapPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceFragmentDensityMapPropertiesEXT
+      ((pointer VkPhysicalDeviceFragmentDensityMapPropertiesEXT))
+      VkPhysicalDeviceFragmentDensityMapPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceFragmentDensityMapPropertiesEXT
       (VkStructureType void* VkExtent2D VkExtent2D VkBool32)
@@ -34156,6 +36128,7 @@ physicaldevicefragmentdensitymappropertiesext->fragmentDensityInvocations=___arg
 ___return (physicaldevicefragmentdensitymappropertiesext);"))
 (begin-ffi
    (make-VkRenderPassFragmentDensityMapCreateInfoEXT
+      ptr->VkRenderPassFragmentDensityMapCreateInfoEXT
       ref-VkRenderPassFragmentDensityMapCreateInfoEXT
       make-VkRenderPassFragmentDensityMapCreateInfoEXT*
       VkRenderPassFragmentDensityMapCreateInfoEXTfragmentDensityMapAttachment
@@ -34203,7 +36176,12 @@ ___return (physicaldevicefragmentdensitymappropertiesext);"))
       ref-VkRenderPassFragmentDensityMapCreateInfoEXT
       (VkRenderPassFragmentDensityMapCreateInfoEXT* int)
       VkRenderPassFragmentDensityMapCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkRenderPassFragmentDensityMapCreateInfoEXT
+      ((pointer VkRenderPassFragmentDensityMapCreateInfoEXT))
+      VkRenderPassFragmentDensityMapCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkRenderPassFragmentDensityMapCreateInfoEXT
       (VkStructureType void* VkAttachmentReference)
@@ -34215,6 +36193,7 @@ renderpassfragmentdensitymapcreateinfoext->fragmentDensityMapAttachment=___arg3;
 ___return (renderpassfragmentdensitymapcreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
+      ptr->VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
       ref-VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
       make-VkPhysicalDeviceScalarBlockLayoutFeaturesEXT*
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXTscalarBlockLayout
@@ -34262,7 +36241,12 @@ ___return (renderpassfragmentdensitymapcreateinfoext);"))
       ref-VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
       (VkPhysicalDeviceScalarBlockLayoutFeaturesEXT* int)
       VkPhysicalDeviceScalarBlockLayoutFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
+      ((pointer VkPhysicalDeviceScalarBlockLayoutFeaturesEXT))
+      VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceScalarBlockLayoutFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -34274,6 +36258,7 @@ physicaldevicescalarblocklayoutfeaturesext->scalarBlockLayout=___arg3;
 ___return (physicaldevicescalarblocklayoutfeaturesext);"))
 (begin-ffi
    (make-VkSurfaceProtectedCapabilitiesKHR
+      ptr->VkSurfaceProtectedCapabilitiesKHR
       ref-VkSurfaceProtectedCapabilitiesKHR
       make-VkSurfaceProtectedCapabilitiesKHR*
       VkSurfaceProtectedCapabilitiesKHRsupportsProtected
@@ -34321,7 +36306,7 @@ ___return (physicaldevicescalarblocklayoutfeaturesext);"))
       ref-VkSurfaceProtectedCapabilitiesKHR
       (VkSurfaceProtectedCapabilitiesKHR* int)
       VkSurfaceProtectedCapabilitiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkSurfaceProtectedCapabilitiesKHR
       (VkStructureType void* VkBool32)
@@ -34333,6 +36318,7 @@ surfaceprotectedcapabilitieskhr->supportsProtected=___arg3;
 ___return (surfaceprotectedcapabilitieskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
+      ptr->VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
       ref-VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
       make-VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR*
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHRuniformBufferStandardLayout
@@ -34380,7 +36366,7 @@ ___return (surfaceprotectedcapabilitieskhr);"))
       ref-VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
       (VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR* int)
       VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR
       (VkStructureType void* VkBool32)
@@ -34392,6 +36378,7 @@ physicaldeviceuniformbufferstandardlayoutfeatureskhr->uniformBufferStandardLayou
 ___return (physicaldeviceuniformbufferstandardlayoutfeatureskhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceDepthClipEnableFeaturesEXT
+      ptr->VkPhysicalDeviceDepthClipEnableFeaturesEXT
       ref-VkPhysicalDeviceDepthClipEnableFeaturesEXT
       make-VkPhysicalDeviceDepthClipEnableFeaturesEXT*
       VkPhysicalDeviceDepthClipEnableFeaturesEXTdepthClipEnable
@@ -34439,7 +36426,12 @@ ___return (physicaldeviceuniformbufferstandardlayoutfeatureskhr);"))
       ref-VkPhysicalDeviceDepthClipEnableFeaturesEXT
       (VkPhysicalDeviceDepthClipEnableFeaturesEXT* int)
       VkPhysicalDeviceDepthClipEnableFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceDepthClipEnableFeaturesEXT
+      ((pointer VkPhysicalDeviceDepthClipEnableFeaturesEXT))
+      VkPhysicalDeviceDepthClipEnableFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceDepthClipEnableFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -34451,6 +36443,7 @@ physicaldevicedepthclipenablefeaturesext->depthClipEnable=___arg3;
 ___return (physicaldevicedepthclipenablefeaturesext);"))
 (begin-ffi
    (make-VkPipelineRasterizationDepthClipStateCreateInfoEXT
+      ptr->VkPipelineRasterizationDepthClipStateCreateInfoEXT
       ref-VkPipelineRasterizationDepthClipStateCreateInfoEXT
       make-VkPipelineRasterizationDepthClipStateCreateInfoEXT*
       VkPipelineRasterizationDepthClipStateCreateInfoEXTdepthClipEnable
@@ -34504,7 +36497,12 @@ ___return (physicaldevicedepthclipenablefeaturesext);"))
       ref-VkPipelineRasterizationDepthClipStateCreateInfoEXT
       (VkPipelineRasterizationDepthClipStateCreateInfoEXT* int)
       VkPipelineRasterizationDepthClipStateCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineRasterizationDepthClipStateCreateInfoEXT
+      ((pointer VkPipelineRasterizationDepthClipStateCreateInfoEXT))
+      VkPipelineRasterizationDepthClipStateCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineRasterizationDepthClipStateCreateInfoEXT
       (VkStructureType void* VkPipelineRasterizationDepthClipStateCreateFlagsEXT VkBool32)
@@ -34517,6 +36515,7 @@ pipelinerasterizationdepthclipstatecreateinfoext->depthClipEnable=___arg4;
 ___return (pipelinerasterizationdepthclipstatecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryBudgetPropertiesEXT
+      ptr->VkPhysicalDeviceMemoryBudgetPropertiesEXT
       ref-VkPhysicalDeviceMemoryBudgetPropertiesEXT
       make-VkPhysicalDeviceMemoryBudgetPropertiesEXT*
       VkPhysicalDeviceMemoryBudgetPropertiesEXTheapUsage
@@ -34570,7 +36569,12 @@ ___return (pipelinerasterizationdepthclipstatecreateinfoext);"))
       ref-VkPhysicalDeviceMemoryBudgetPropertiesEXT
       (VkPhysicalDeviceMemoryBudgetPropertiesEXT* int)
       VkPhysicalDeviceMemoryBudgetPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMemoryBudgetPropertiesEXT
+      ((pointer VkPhysicalDeviceMemoryBudgetPropertiesEXT))
+      VkPhysicalDeviceMemoryBudgetPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMemoryBudgetPropertiesEXT
       (VkStructureType void* VkDeviceSize* VkDeviceSize*)
@@ -34583,6 +36587,7 @@ memcpy(physicaldevicememorybudgetpropertiesext->heapUsage,___arg4,sizeof(___arg4
 ___return (physicaldevicememorybudgetpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceMemoryPriorityFeaturesEXT
+      ptr->VkPhysicalDeviceMemoryPriorityFeaturesEXT
       ref-VkPhysicalDeviceMemoryPriorityFeaturesEXT
       make-VkPhysicalDeviceMemoryPriorityFeaturesEXT*
       VkPhysicalDeviceMemoryPriorityFeaturesEXTmemoryPriority
@@ -34630,7 +36635,12 @@ ___return (physicaldevicememorybudgetpropertiesext);"))
       ref-VkPhysicalDeviceMemoryPriorityFeaturesEXT
       (VkPhysicalDeviceMemoryPriorityFeaturesEXT* int)
       VkPhysicalDeviceMemoryPriorityFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceMemoryPriorityFeaturesEXT
+      ((pointer VkPhysicalDeviceMemoryPriorityFeaturesEXT))
+      VkPhysicalDeviceMemoryPriorityFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceMemoryPriorityFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -34642,6 +36652,7 @@ physicaldevicememorypriorityfeaturesext->memoryPriority=___arg3;
 ___return (physicaldevicememorypriorityfeaturesext);"))
 (begin-ffi
    (make-VkMemoryPriorityAllocateInfoEXT
+      ptr->VkMemoryPriorityAllocateInfoEXT
       ref-VkMemoryPriorityAllocateInfoEXT
       make-VkMemoryPriorityAllocateInfoEXT*
       VkMemoryPriorityAllocateInfoEXTpriority
@@ -34689,7 +36700,12 @@ ___return (physicaldevicememorypriorityfeaturesext);"))
       ref-VkMemoryPriorityAllocateInfoEXT
       (VkMemoryPriorityAllocateInfoEXT* int)
       VkMemoryPriorityAllocateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkMemoryPriorityAllocateInfoEXT
+      ((pointer VkMemoryPriorityAllocateInfoEXT))
+      VkMemoryPriorityAllocateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkMemoryPriorityAllocateInfoEXT
       (VkStructureType void* float)
@@ -34701,6 +36717,7 @@ memorypriorityallocateinfoext->priority=___arg3;
 ___return (memorypriorityallocateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
+      ptr->VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
       ref-VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
       make-VkPhysicalDeviceBufferDeviceAddressFeaturesEXT*
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXTbufferDeviceAddressMultiDevice
@@ -34760,7 +36777,12 @@ ___return (memorypriorityallocateinfoext);"))
       ref-VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
       (VkPhysicalDeviceBufferDeviceAddressFeaturesEXT* int)
       VkPhysicalDeviceBufferDeviceAddressFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
+      ((pointer VkPhysicalDeviceBufferDeviceAddressFeaturesEXT))
+      VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceBufferDeviceAddressFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
@@ -34774,6 +36796,7 @@ physicaldevicebufferdeviceaddressfeaturesext->bufferDeviceAddressMultiDevice=___
 ___return (physicaldevicebufferdeviceaddressfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceBufferAddressFeaturesEXT
+      ptr->VkPhysicalDeviceBufferAddressFeaturesEXT
       ref-VkPhysicalDeviceBufferAddressFeaturesEXT
       make-VkPhysicalDeviceBufferAddressFeaturesEXT*
       VkPhysicalDeviceBufferAddressFeaturesEXT
@@ -34799,7 +36822,6 @@ ___return (physicaldevicebufferdeviceaddressfeaturesext);"))
       VkPhysicalDeviceBufferAddressFeaturesEXT*
       "VkPhysicalDeviceBufferAddressFeaturesEXT* vkphysicaldevicebufferaddressfeaturesext = malloc(___arg1 * sizeof(VkPhysicalDeviceBufferAddressFeaturesEXT));
       ___return (vkphysicaldevicebufferaddressfeaturesext);")
-   quote
    (define-c-lambda
       make-VkPhysicalDeviceBufferAddressFeaturesEXT
       ()
@@ -34808,6 +36830,7 @@ ___return (physicaldevicebufferdeviceaddressfeaturesext);"))
 ___return (physicaldevicebufferaddressfeaturesext);"))
 (begin-ffi
    (make-VkBufferDeviceAddressInfoEXT
+      ptr->VkBufferDeviceAddressInfoEXT
       ref-VkBufferDeviceAddressInfoEXT
       make-VkBufferDeviceAddressInfoEXT*
       VkBufferDeviceAddressInfoEXTbuffer
@@ -34851,7 +36874,12 @@ ___return (physicaldevicebufferaddressfeaturesext);"))
       ref-VkBufferDeviceAddressInfoEXT
       (VkBufferDeviceAddressInfoEXT* int)
       VkBufferDeviceAddressInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBufferDeviceAddressInfoEXT
+      ((pointer VkBufferDeviceAddressInfoEXT))
+      VkBufferDeviceAddressInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBufferDeviceAddressInfoEXT
       (VkStructureType void* VkBuffer)
@@ -34863,6 +36891,7 @@ bufferdeviceaddressinfoext->buffer=___arg3;
 ___return (bufferdeviceaddressinfoext);"))
 (begin-ffi
    (make-VkBufferDeviceAddressCreateInfoEXT
+      ptr->VkBufferDeviceAddressCreateInfoEXT
       ref-VkBufferDeviceAddressCreateInfoEXT
       make-VkBufferDeviceAddressCreateInfoEXT*
       VkBufferDeviceAddressCreateInfoEXTdeviceAddress
@@ -34910,7 +36939,12 @@ ___return (bufferdeviceaddressinfoext);"))
       ref-VkBufferDeviceAddressCreateInfoEXT
       (VkBufferDeviceAddressCreateInfoEXT* int)
       VkBufferDeviceAddressCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkBufferDeviceAddressCreateInfoEXT
+      ((pointer VkBufferDeviceAddressCreateInfoEXT))
+      VkBufferDeviceAddressCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkBufferDeviceAddressCreateInfoEXT
       (VkStructureType void* VkDeviceAddress)
@@ -34922,6 +36956,7 @@ bufferdeviceaddresscreateinfoext->deviceAddress=___arg3;
 ___return (bufferdeviceaddresscreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceImageViewImageFormatInfoEXT
+      ptr->VkPhysicalDeviceImageViewImageFormatInfoEXT
       ref-VkPhysicalDeviceImageViewImageFormatInfoEXT
       make-VkPhysicalDeviceImageViewImageFormatInfoEXT*
       VkPhysicalDeviceImageViewImageFormatInfoEXTimageViewType
@@ -34969,7 +37004,12 @@ ___return (bufferdeviceaddresscreateinfoext);"))
       ref-VkPhysicalDeviceImageViewImageFormatInfoEXT
       (VkPhysicalDeviceImageViewImageFormatInfoEXT* int)
       VkPhysicalDeviceImageViewImageFormatInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceImageViewImageFormatInfoEXT
+      ((pointer VkPhysicalDeviceImageViewImageFormatInfoEXT))
+      VkPhysicalDeviceImageViewImageFormatInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceImageViewImageFormatInfoEXT
       (VkStructureType void* VkImageViewType)
@@ -34981,6 +37021,7 @@ physicaldeviceimageviewimageformatinfoext->imageViewType=___arg3;
 ___return (physicaldeviceimageviewimageformatinfoext);"))
 (begin-ffi
    (make-VkFilterCubicImageViewImageFormatPropertiesEXT
+      ptr->VkFilterCubicImageViewImageFormatPropertiesEXT
       ref-VkFilterCubicImageViewImageFormatPropertiesEXT
       make-VkFilterCubicImageViewImageFormatPropertiesEXT*
       VkFilterCubicImageViewImageFormatPropertiesEXTfilterCubicMinmax
@@ -35034,7 +37075,12 @@ ___return (physicaldeviceimageviewimageformatinfoext);"))
       ref-VkFilterCubicImageViewImageFormatPropertiesEXT
       (VkFilterCubicImageViewImageFormatPropertiesEXT* int)
       VkFilterCubicImageViewImageFormatPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkFilterCubicImageViewImageFormatPropertiesEXT
+      ((pointer VkFilterCubicImageViewImageFormatPropertiesEXT))
+      VkFilterCubicImageViewImageFormatPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkFilterCubicImageViewImageFormatPropertiesEXT
       (VkStructureType void* VkBool32 VkBool32)
@@ -35047,6 +37093,7 @@ filtercubicimageviewimageformatpropertiesext->filterCubicMinmax=___arg4;
 ___return (filtercubicimageviewimageformatpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceImagelessFramebufferFeaturesKHR
+      ptr->VkPhysicalDeviceImagelessFramebufferFeaturesKHR
       ref-VkPhysicalDeviceImagelessFramebufferFeaturesKHR
       make-VkPhysicalDeviceImagelessFramebufferFeaturesKHR*
       VkPhysicalDeviceImagelessFramebufferFeaturesKHRimagelessFramebuffer
@@ -35094,7 +37141,7 @@ ___return (filtercubicimageviewimageformatpropertiesext);"))
       ref-VkPhysicalDeviceImagelessFramebufferFeaturesKHR
       (VkPhysicalDeviceImagelessFramebufferFeaturesKHR* int)
       VkPhysicalDeviceImagelessFramebufferFeaturesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDeviceImagelessFramebufferFeaturesKHR
       (VkStructureType void* VkBool32)
@@ -35106,6 +37153,7 @@ physicaldeviceimagelessframebufferfeatureskhr->imagelessFramebuffer=___arg3;
 ___return (physicaldeviceimagelessframebufferfeatureskhr);"))
 (begin-ffi
    (make-VkFramebufferAttachmentImageInfoKHR
+      ptr->VkFramebufferAttachmentImageInfoKHR
       ref-VkFramebufferAttachmentImageInfoKHR
       make-VkFramebufferAttachmentImageInfoKHR*
       VkFramebufferAttachmentImageInfoKHRpViewFormats
@@ -35189,7 +37237,7 @@ ___return (physicaldeviceimagelessframebufferfeatureskhr);"))
       ref-VkFramebufferAttachmentImageInfoKHR
       (VkFramebufferAttachmentImageInfoKHR* int)
       VkFramebufferAttachmentImageInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkFramebufferAttachmentImageInfoKHR
       (VkStructureType
@@ -35215,6 +37263,7 @@ framebufferattachmentimageinfokhr->pViewFormats=___arg9;
 ___return (framebufferattachmentimageinfokhr);"))
 (begin-ffi
    (make-VkFramebufferAttachmentsCreateInfoKHR
+      ptr->VkFramebufferAttachmentsCreateInfoKHR
       ref-VkFramebufferAttachmentsCreateInfoKHR
       make-VkFramebufferAttachmentsCreateInfoKHR*
       VkFramebufferAttachmentsCreateInfoKHRpAttachmentImageInfos
@@ -35268,7 +37317,7 @@ ___return (framebufferattachmentimageinfokhr);"))
       ref-VkFramebufferAttachmentsCreateInfoKHR
       (VkFramebufferAttachmentsCreateInfoKHR* int)
       VkFramebufferAttachmentsCreateInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkFramebufferAttachmentsCreateInfoKHR
       (VkStructureType void* uint32_t VkFramebufferAttachmentImageInfoKHR*)
@@ -35281,6 +37330,7 @@ framebufferattachmentscreateinfokhr->pAttachmentImageInfos=___arg4;
 ___return (framebufferattachmentscreateinfokhr);"))
 (begin-ffi
    (make-VkRenderPassAttachmentBeginInfoKHR
+      ptr->VkRenderPassAttachmentBeginInfoKHR
       ref-VkRenderPassAttachmentBeginInfoKHR
       make-VkRenderPassAttachmentBeginInfoKHR*
       VkRenderPassAttachmentBeginInfoKHRpAttachments
@@ -35334,7 +37384,7 @@ ___return (framebufferattachmentscreateinfokhr);"))
       ref-VkRenderPassAttachmentBeginInfoKHR
       (VkRenderPassAttachmentBeginInfoKHR* int)
       VkRenderPassAttachmentBeginInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkRenderPassAttachmentBeginInfoKHR
       (VkStructureType void* uint32_t VkImageView*)
@@ -35347,6 +37397,7 @@ renderpassattachmentbegininfokhr->pAttachments=___arg4;
 ___return (renderpassattachmentbegininfokhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
+      ptr->VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
       ref-VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
       make-VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT*
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXTtextureCompressionASTC_HDR
@@ -35394,7 +37445,12 @@ ___return (renderpassattachmentbegininfokhr);"))
       ref-VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
       (VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT* int)
       VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
+      ((pointer VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT))
+      VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -35406,6 +37462,7 @@ physicaldevicetexturecompressionastchdrfeaturesext->textureCompressionASTC_HDR=_
 ___return (physicaldevicetexturecompressionastchdrfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceCooperativeMatrixFeaturesNV
+      ptr->VkPhysicalDeviceCooperativeMatrixFeaturesNV
       ref-VkPhysicalDeviceCooperativeMatrixFeaturesNV
       make-VkPhysicalDeviceCooperativeMatrixFeaturesNV*
       VkPhysicalDeviceCooperativeMatrixFeaturesNVcooperativeMatrixRobustBufferAccess
@@ -35459,7 +37516,12 @@ ___return (physicaldevicetexturecompressionastchdrfeaturesext);"))
       ref-VkPhysicalDeviceCooperativeMatrixFeaturesNV
       (VkPhysicalDeviceCooperativeMatrixFeaturesNV* int)
       VkPhysicalDeviceCooperativeMatrixFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceCooperativeMatrixFeaturesNV
+      ((pointer VkPhysicalDeviceCooperativeMatrixFeaturesNV))
+      VkPhysicalDeviceCooperativeMatrixFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceCooperativeMatrixFeaturesNV
       (VkStructureType void* VkBool32 VkBool32)
@@ -35472,6 +37534,7 @@ physicaldevicecooperativematrixfeaturesnv->cooperativeMatrixRobustBufferAccess=_
 ___return (physicaldevicecooperativematrixfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceCooperativeMatrixPropertiesNV
+      ptr->VkPhysicalDeviceCooperativeMatrixPropertiesNV
       ref-VkPhysicalDeviceCooperativeMatrixPropertiesNV
       make-VkPhysicalDeviceCooperativeMatrixPropertiesNV*
       VkPhysicalDeviceCooperativeMatrixPropertiesNVcooperativeMatrixSupportedStages
@@ -35519,7 +37582,12 @@ ___return (physicaldevicecooperativematrixfeaturesnv);"))
       ref-VkPhysicalDeviceCooperativeMatrixPropertiesNV
       (VkPhysicalDeviceCooperativeMatrixPropertiesNV* int)
       VkPhysicalDeviceCooperativeMatrixPropertiesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceCooperativeMatrixPropertiesNV
+      ((pointer VkPhysicalDeviceCooperativeMatrixPropertiesNV))
+      VkPhysicalDeviceCooperativeMatrixPropertiesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceCooperativeMatrixPropertiesNV
       (VkStructureType void* VkShaderStageFlags)
@@ -35531,6 +37599,7 @@ physicaldevicecooperativematrixpropertiesnv->cooperativeMatrixSupportedStages=__
 ___return (physicaldevicecooperativematrixpropertiesnv);"))
 (begin-ffi
    (make-VkCooperativeMatrixPropertiesNV
+      ptr->VkCooperativeMatrixPropertiesNV
       ref-VkCooperativeMatrixPropertiesNV
       make-VkCooperativeMatrixPropertiesNV*
       VkCooperativeMatrixPropertiesNVscope
@@ -35620,7 +37689,12 @@ ___return (physicaldevicecooperativematrixpropertiesnv);"))
       ref-VkCooperativeMatrixPropertiesNV
       (VkCooperativeMatrixPropertiesNV* int)
       VkCooperativeMatrixPropertiesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkCooperativeMatrixPropertiesNV
+      ((pointer VkCooperativeMatrixPropertiesNV))
+      VkCooperativeMatrixPropertiesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkCooperativeMatrixPropertiesNV
       (VkStructureType
@@ -35648,6 +37722,7 @@ cooperativematrixpropertiesnv->scope=___arg10;
 ___return (cooperativematrixpropertiesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
+      ptr->VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
       ref-VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
       make-VkPhysicalDeviceYcbcrImageArraysFeaturesEXT*
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXTycbcrImageArrays
@@ -35695,7 +37770,12 @@ ___return (cooperativematrixpropertiesnv);"))
       ref-VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
       (VkPhysicalDeviceYcbcrImageArraysFeaturesEXT* int)
       VkPhysicalDeviceYcbcrImageArraysFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
+      ((pointer VkPhysicalDeviceYcbcrImageArraysFeaturesEXT))
+      VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceYcbcrImageArraysFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -35707,6 +37787,7 @@ physicaldeviceycbcrimagearraysfeaturesext->ycbcrImageArrays=___arg3;
 ___return (physicaldeviceycbcrimagearraysfeaturesext);"))
 (begin-ffi
    (make-VkImageViewHandleInfoNVX
+      ptr->VkImageViewHandleInfoNVX
       ref-VkImageViewHandleInfoNVX
       make-VkImageViewHandleInfoNVX*
       VkImageViewHandleInfoNVXsampler
@@ -35762,7 +37843,12 @@ ___return (physicaldeviceycbcrimagearraysfeaturesext);"))
       ref-VkImageViewHandleInfoNVX
       (VkImageViewHandleInfoNVX* int)
       VkImageViewHandleInfoNVX*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkImageViewHandleInfoNVX
+      ((pointer VkImageViewHandleInfoNVX))
+      VkImageViewHandleInfoNVX
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkImageViewHandleInfoNVX
       (VkStructureType void* VkImageView VkDescriptorType VkSampler)
@@ -35776,6 +37862,7 @@ imageviewhandleinfonvx->sampler=___arg5;
 ___return (imageviewhandleinfonvx);"))
 (begin-ffi
    (make-VkPipelineCreationFeedbackEXT
+      ptr->VkPipelineCreationFeedbackEXT
       ref-VkPipelineCreationFeedbackEXT
       make-VkPipelineCreationFeedbackEXT*
       VkPipelineCreationFeedbackEXTduration
@@ -35813,7 +37900,12 @@ ___return (imageviewhandleinfonvx);"))
       ref-VkPipelineCreationFeedbackEXT
       (VkPipelineCreationFeedbackEXT* int)
       VkPipelineCreationFeedbackEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineCreationFeedbackEXT
+      ((pointer VkPipelineCreationFeedbackEXT))
+      VkPipelineCreationFeedbackEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineCreationFeedbackEXT
       (VkPipelineCreationFeedbackFlagsEXT uint64_t)
@@ -35824,6 +37916,7 @@ pipelinecreationfeedbackext->duration=___arg2;
 ___return (pipelinecreationfeedbackext);"))
 (begin-ffi
    (make-VkPipelineCreationFeedbackCreateInfoEXT
+      ptr->VkPipelineCreationFeedbackCreateInfoEXT
       ref-VkPipelineCreationFeedbackCreateInfoEXT
       make-VkPipelineCreationFeedbackCreateInfoEXT*
       VkPipelineCreationFeedbackCreateInfoEXTpPipelineStageCreationFeedbacks
@@ -35883,7 +37976,12 @@ ___return (pipelinecreationfeedbackext);"))
       ref-VkPipelineCreationFeedbackCreateInfoEXT
       (VkPipelineCreationFeedbackCreateInfoEXT* int)
       VkPipelineCreationFeedbackCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineCreationFeedbackCreateInfoEXT
+      ((pointer VkPipelineCreationFeedbackCreateInfoEXT))
+      VkPipelineCreationFeedbackCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineCreationFeedbackCreateInfoEXT
       (VkStructureType
@@ -35901,6 +37999,7 @@ pipelinecreationfeedbackcreateinfoext->pPipelineStageCreationFeedbacks=___arg5;
 ___return (pipelinecreationfeedbackcreateinfoext);"))
 (begin-ffi
    (make-VkHeadlessSurfaceCreateInfoEXT
+      ptr->VkHeadlessSurfaceCreateInfoEXT
       ref-VkHeadlessSurfaceCreateInfoEXT
       make-VkHeadlessSurfaceCreateInfoEXT*
       VkHeadlessSurfaceCreateInfoEXTflags
@@ -35948,7 +38047,12 @@ ___return (pipelinecreationfeedbackcreateinfoext);"))
       ref-VkHeadlessSurfaceCreateInfoEXT
       (VkHeadlessSurfaceCreateInfoEXT* int)
       VkHeadlessSurfaceCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkHeadlessSurfaceCreateInfoEXT
+      ((pointer VkHeadlessSurfaceCreateInfoEXT))
+      VkHeadlessSurfaceCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkHeadlessSurfaceCreateInfoEXT
       (VkStructureType void* VkHeadlessSurfaceCreateFlagsEXT)
@@ -35960,6 +38064,7 @@ headlesssurfacecreateinfoext->flags=___arg3;
 ___return (headlesssurfacecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceCoverageReductionModeFeaturesNV
+      ptr->VkPhysicalDeviceCoverageReductionModeFeaturesNV
       ref-VkPhysicalDeviceCoverageReductionModeFeaturesNV
       make-VkPhysicalDeviceCoverageReductionModeFeaturesNV*
       VkPhysicalDeviceCoverageReductionModeFeaturesNVcoverageReductionMode
@@ -36007,7 +38112,12 @@ ___return (headlesssurfacecreateinfoext);"))
       ref-VkPhysicalDeviceCoverageReductionModeFeaturesNV
       (VkPhysicalDeviceCoverageReductionModeFeaturesNV* int)
       VkPhysicalDeviceCoverageReductionModeFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceCoverageReductionModeFeaturesNV
+      ((pointer VkPhysicalDeviceCoverageReductionModeFeaturesNV))
+      VkPhysicalDeviceCoverageReductionModeFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceCoverageReductionModeFeaturesNV
       (VkStructureType void* VkBool32)
@@ -36019,6 +38129,7 @@ physicaldevicecoveragereductionmodefeaturesnv->coverageReductionMode=___arg3;
 ___return (physicaldevicecoveragereductionmodefeaturesnv);"))
 (begin-ffi
    (make-VkPipelineCoverageReductionStateCreateInfoNV
+      ptr->VkPipelineCoverageReductionStateCreateInfoNV
       ref-VkPipelineCoverageReductionStateCreateInfoNV
       make-VkPipelineCoverageReductionStateCreateInfoNV*
       VkPipelineCoverageReductionStateCreateInfoNVcoverageReductionMode
@@ -36072,7 +38183,12 @@ ___return (physicaldevicecoveragereductionmodefeaturesnv);"))
       ref-VkPipelineCoverageReductionStateCreateInfoNV
       (VkPipelineCoverageReductionStateCreateInfoNV* int)
       VkPipelineCoverageReductionStateCreateInfoNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineCoverageReductionStateCreateInfoNV
+      ((pointer VkPipelineCoverageReductionStateCreateInfoNV))
+      VkPipelineCoverageReductionStateCreateInfoNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineCoverageReductionStateCreateInfoNV
       (VkStructureType
@@ -36088,6 +38204,7 @@ pipelinecoveragereductionstatecreateinfonv->coverageReductionMode=___arg4;
 ___return (pipelinecoveragereductionstatecreateinfonv);"))
 (begin-ffi
    (make-VkFramebufferMixedSamplesCombinationNV
+      ptr->VkFramebufferMixedSamplesCombinationNV
       ref-VkFramebufferMixedSamplesCombinationNV
       make-VkFramebufferMixedSamplesCombinationNV*
       VkFramebufferMixedSamplesCombinationNVcolorSamples
@@ -36153,7 +38270,12 @@ ___return (pipelinecoveragereductionstatecreateinfonv);"))
       ref-VkFramebufferMixedSamplesCombinationNV
       (VkFramebufferMixedSamplesCombinationNV* int)
       VkFramebufferMixedSamplesCombinationNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkFramebufferMixedSamplesCombinationNV
+      ((pointer VkFramebufferMixedSamplesCombinationNV))
+      VkFramebufferMixedSamplesCombinationNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkFramebufferMixedSamplesCombinationNV
       (VkStructureType
@@ -36173,6 +38295,7 @@ framebuffermixedsamplescombinationnv->colorSamples=___arg6;
 ___return (framebuffermixedsamplescombinationnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
+      ptr->VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
       ref-VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
       make-VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL*
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTELshaderIntegerFunctions2
@@ -36220,7 +38343,12 @@ ___return (framebuffermixedsamplescombinationnv);"))
       ref-VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
       (VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL* int)
       VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
+      ((pointer VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL))
+      VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL
       (VkStructureType void* VkBool32)
@@ -36232,6 +38360,7 @@ physicaldeviceshaderintegerfunctions2featuresintel->shaderIntegerFunctions2=___a
 ___return (physicaldeviceshaderintegerfunctions2featuresintel);"))
 (begin-ffi
    (make-VkPerformanceValueINTEL
+      ptr->VkPerformanceValueINTEL
       ref-VkPerformanceValueINTEL
       make-VkPerformanceValueINTEL*
       VkPerformanceValueINTELdata
@@ -36269,7 +38398,12 @@ ___return (physicaldeviceshaderintegerfunctions2featuresintel);"))
       ref-VkPerformanceValueINTEL
       (VkPerformanceValueINTEL* int)
       VkPerformanceValueINTEL*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPerformanceValueINTEL
+      ((pointer VkPerformanceValueINTEL))
+      VkPerformanceValueINTEL
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPerformanceValueINTEL
       (VkPerformanceValueTypeINTEL VkPerformanceValueDataINTEL)
@@ -36280,6 +38414,7 @@ performancevalueintel->data=___arg2;
 ___return (performancevalueintel);"))
 (begin-ffi
    (make-VkInitializePerformanceApiInfoINTEL
+      ptr->VkInitializePerformanceApiInfoINTEL
       ref-VkInitializePerformanceApiInfoINTEL
       make-VkInitializePerformanceApiInfoINTEL*
       VkInitializePerformanceApiInfoINTELpUserData
@@ -36327,7 +38462,12 @@ ___return (performancevalueintel);"))
       ref-VkInitializePerformanceApiInfoINTEL
       (VkInitializePerformanceApiInfoINTEL* int)
       VkInitializePerformanceApiInfoINTEL*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkInitializePerformanceApiInfoINTEL
+      ((pointer VkInitializePerformanceApiInfoINTEL))
+      VkInitializePerformanceApiInfoINTEL
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkInitializePerformanceApiInfoINTEL
       (VkStructureType void* void*)
@@ -36339,6 +38479,7 @@ initializeperformanceapiinfointel->pUserData=___arg3;
 ___return (initializeperformanceapiinfointel);"))
 (begin-ffi
    (make-VkQueryPoolCreateInfoINTEL
+      ptr->VkQueryPoolCreateInfoINTEL
       ref-VkQueryPoolCreateInfoINTEL
       make-VkQueryPoolCreateInfoINTEL*
       VkQueryPoolCreateInfoINTELperformanceCountersSampling
@@ -36382,7 +38523,12 @@ ___return (initializeperformanceapiinfointel);"))
       ref-VkQueryPoolCreateInfoINTEL
       (VkQueryPoolCreateInfoINTEL* int)
       VkQueryPoolCreateInfoINTEL*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkQueryPoolCreateInfoINTEL
+      ((pointer VkQueryPoolCreateInfoINTEL))
+      VkQueryPoolCreateInfoINTEL
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkQueryPoolCreateInfoINTEL
       (VkStructureType void* VkQueryPoolSamplingModeINTEL)
@@ -36394,6 +38540,7 @@ querypoolcreateinfointel->performanceCountersSampling=___arg3;
 ___return (querypoolcreateinfointel);"))
 (begin-ffi
    (make-VkPerformanceMarkerInfoINTEL
+      ptr->VkPerformanceMarkerInfoINTEL
       ref-VkPerformanceMarkerInfoINTEL
       make-VkPerformanceMarkerInfoINTEL*
       VkPerformanceMarkerInfoINTELmarker
@@ -36437,7 +38584,12 @@ ___return (querypoolcreateinfointel);"))
       ref-VkPerformanceMarkerInfoINTEL
       (VkPerformanceMarkerInfoINTEL* int)
       VkPerformanceMarkerInfoINTEL*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPerformanceMarkerInfoINTEL
+      ((pointer VkPerformanceMarkerInfoINTEL))
+      VkPerformanceMarkerInfoINTEL
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPerformanceMarkerInfoINTEL
       (VkStructureType void* uint64_t)
@@ -36449,6 +38601,7 @@ performancemarkerinfointel->marker=___arg3;
 ___return (performancemarkerinfointel);"))
 (begin-ffi
    (make-VkPerformanceStreamMarkerInfoINTEL
+      ptr->VkPerformanceStreamMarkerInfoINTEL
       ref-VkPerformanceStreamMarkerInfoINTEL
       make-VkPerformanceStreamMarkerInfoINTEL*
       VkPerformanceStreamMarkerInfoINTELmarker
@@ -36496,7 +38649,12 @@ ___return (performancemarkerinfointel);"))
       ref-VkPerformanceStreamMarkerInfoINTEL
       (VkPerformanceStreamMarkerInfoINTEL* int)
       VkPerformanceStreamMarkerInfoINTEL*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPerformanceStreamMarkerInfoINTEL
+      ((pointer VkPerformanceStreamMarkerInfoINTEL))
+      VkPerformanceStreamMarkerInfoINTEL
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPerformanceStreamMarkerInfoINTEL
       (VkStructureType void* uint32_t)
@@ -36508,6 +38666,7 @@ performancestreammarkerinfointel->marker=___arg3;
 ___return (performancestreammarkerinfointel);"))
 (begin-ffi
    (make-VkPerformanceOverrideInfoINTEL
+      ptr->VkPerformanceOverrideInfoINTEL
       ref-VkPerformanceOverrideInfoINTEL
       make-VkPerformanceOverrideInfoINTEL*
       VkPerformanceOverrideInfoINTELparameter
@@ -36567,7 +38726,12 @@ ___return (performancestreammarkerinfointel);"))
       ref-VkPerformanceOverrideInfoINTEL
       (VkPerformanceOverrideInfoINTEL* int)
       VkPerformanceOverrideInfoINTEL*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPerformanceOverrideInfoINTEL
+      ((pointer VkPerformanceOverrideInfoINTEL))
+      VkPerformanceOverrideInfoINTEL
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPerformanceOverrideInfoINTEL
       (VkStructureType void* VkPerformanceOverrideTypeINTEL VkBool32 uint64_t)
@@ -36581,6 +38745,7 @@ performanceoverrideinfointel->parameter=___arg5;
 ___return (performanceoverrideinfointel);"))
 (begin-ffi
    (make-VkPerformanceConfigurationAcquireInfoINTEL
+      ptr->VkPerformanceConfigurationAcquireInfoINTEL
       ref-VkPerformanceConfigurationAcquireInfoINTEL
       make-VkPerformanceConfigurationAcquireInfoINTEL*
       VkPerformanceConfigurationAcquireInfoINTELtype
@@ -36628,7 +38793,12 @@ ___return (performanceoverrideinfointel);"))
       ref-VkPerformanceConfigurationAcquireInfoINTEL
       (VkPerformanceConfigurationAcquireInfoINTEL* int)
       VkPerformanceConfigurationAcquireInfoINTEL*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPerformanceConfigurationAcquireInfoINTEL
+      ((pointer VkPerformanceConfigurationAcquireInfoINTEL))
+      VkPerformanceConfigurationAcquireInfoINTEL
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPerformanceConfigurationAcquireInfoINTEL
       (VkStructureType void* VkPerformanceConfigurationTypeINTEL)
@@ -36640,6 +38810,7 @@ performanceconfigurationacquireinfointel->type=___arg3;
 ___return (performanceconfigurationacquireinfointel);"))
 (begin-ffi
    (make-VkPhysicalDeviceIndexTypeUint8FeaturesEXT
+      ptr->VkPhysicalDeviceIndexTypeUint8FeaturesEXT
       ref-VkPhysicalDeviceIndexTypeUint8FeaturesEXT
       make-VkPhysicalDeviceIndexTypeUint8FeaturesEXT*
       VkPhysicalDeviceIndexTypeUint8FeaturesEXTindexTypeUint8
@@ -36687,7 +38858,12 @@ ___return (performanceconfigurationacquireinfointel);"))
       ref-VkPhysicalDeviceIndexTypeUint8FeaturesEXT
       (VkPhysicalDeviceIndexTypeUint8FeaturesEXT* int)
       VkPhysicalDeviceIndexTypeUint8FeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceIndexTypeUint8FeaturesEXT
+      ((pointer VkPhysicalDeviceIndexTypeUint8FeaturesEXT))
+      VkPhysicalDeviceIndexTypeUint8FeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceIndexTypeUint8FeaturesEXT
       (VkStructureType void* VkBool32)
@@ -36699,6 +38875,7 @@ physicaldeviceindextypeuint8featuresext->indexTypeUint8=___arg3;
 ___return (physicaldeviceindextypeuint8featuresext);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
+      ptr->VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
       ref-VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
       make-VkPhysicalDeviceShaderSMBuiltinsPropertiesNV*
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNVshaderWarpsPerSM
@@ -36752,7 +38929,12 @@ ___return (physicaldeviceindextypeuint8featuresext);"))
       ref-VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
       (VkPhysicalDeviceShaderSMBuiltinsPropertiesNV* int)
       VkPhysicalDeviceShaderSMBuiltinsPropertiesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
+      ((pointer VkPhysicalDeviceShaderSMBuiltinsPropertiesNV))
+      VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderSMBuiltinsPropertiesNV
       (VkStructureType void* uint32_t uint32_t)
@@ -36765,6 +38947,7 @@ physicaldeviceshadersmbuiltinspropertiesnv->shaderWarpsPerSM=___arg4;
 ___return (physicaldeviceshadersmbuiltinspropertiesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
+      ptr->VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
       ref-VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
       make-VkPhysicalDeviceShaderSMBuiltinsFeaturesNV*
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNVshaderSMBuiltins
@@ -36812,7 +38995,12 @@ ___return (physicaldeviceshadersmbuiltinspropertiesnv);"))
       ref-VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
       (VkPhysicalDeviceShaderSMBuiltinsFeaturesNV* int)
       VkPhysicalDeviceShaderSMBuiltinsFeaturesNV*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
+      ((pointer VkPhysicalDeviceShaderSMBuiltinsFeaturesNV))
+      VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderSMBuiltinsFeaturesNV
       (VkStructureType void* VkBool32)
@@ -36824,6 +39012,7 @@ physicaldeviceshadersmbuiltinsfeaturesnv->shaderSMBuiltins=___arg3;
 ___return (physicaldeviceshadersmbuiltinsfeaturesnv);"))
 (begin-ffi
    (make-VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
+      ptr->VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
       ref-VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
       make-VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT*
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXTfragmentShaderShadingRateInterlock
@@ -36883,7 +39072,12 @@ ___return (physicaldeviceshadersmbuiltinsfeaturesnv);"))
       ref-VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
       (VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT* int)
       VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
+      ((pointer VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT))
+      VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32 VkBool32)
@@ -36897,6 +39091,7 @@ physicaldevicefragmentshaderinterlockfeaturesext->fragmentShaderShadingRateInter
 ___return (physicaldevicefragmentshaderinterlockfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR
+      ptr->VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR
       ref-VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR
       make-VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR*
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHRpipelineExecutableInfo
@@ -36944,7 +39139,7 @@ ___return (physicaldevicefragmentshaderinterlockfeaturesext);"))
       ref-VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR
       (VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR* int)
       VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR
       (VkStructureType void* VkBool32)
@@ -36956,6 +39151,7 @@ physicaldevicepipelineexecutablepropertiesfeatureskhr->pipelineExecutableInfo=__
 ___return (physicaldevicepipelineexecutablepropertiesfeatureskhr);"))
 (begin-ffi
    (make-VkPipelineInfoKHR
+      ptr->VkPipelineInfoKHR
       ref-VkPipelineInfoKHR
       make-VkPipelineInfoKHR*
       VkPipelineInfoKHRpipeline
@@ -36999,7 +39195,7 @@ ___return (physicaldevicepipelineexecutablepropertiesfeatureskhr);"))
       ref-VkPipelineInfoKHR
       (VkPipelineInfoKHR* int)
       VkPipelineInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPipelineInfoKHR
       (VkStructureType void* VkPipeline)
@@ -37011,6 +39207,7 @@ pipelineinfokhr->pipeline=___arg3;
 ___return (pipelineinfokhr);"))
 (begin-ffi
    (make-VkPipelineExecutablePropertiesKHR
+      ptr->VkPipelineExecutablePropertiesKHR
       ref-VkPipelineExecutablePropertiesKHR
       make-VkPipelineExecutablePropertiesKHR*
       VkPipelineExecutablePropertiesKHRsubgroupSize
@@ -37076,7 +39273,7 @@ ___return (pipelineinfokhr);"))
       ref-VkPipelineExecutablePropertiesKHR
       (VkPipelineExecutablePropertiesKHR* int)
       VkPipelineExecutablePropertiesKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPipelineExecutablePropertiesKHR
       (VkStructureType void* VkShaderStageFlags char* char* uint32_t)
@@ -37091,6 +39288,7 @@ pipelineexecutablepropertieskhr->subgroupSize=___arg6;
 ___return (pipelineexecutablepropertieskhr);"))
 (begin-ffi
    (make-VkPipelineExecutableInfoKHR
+      ptr->VkPipelineExecutableInfoKHR
       ref-VkPipelineExecutableInfoKHR
       make-VkPipelineExecutableInfoKHR*
       VkPipelineExecutableInfoKHRexecutableIndex
@@ -37140,7 +39338,7 @@ ___return (pipelineexecutablepropertieskhr);"))
       ref-VkPipelineExecutableInfoKHR
       (VkPipelineExecutableInfoKHR* int)
       VkPipelineExecutableInfoKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPipelineExecutableInfoKHR
       (VkStructureType void* VkPipeline uint32_t)
@@ -37153,6 +39351,7 @@ pipelineexecutableinfokhr->executableIndex=___arg4;
 ___return (pipelineexecutableinfokhr);"))
 (begin-ffi
    (make-VkPipelineExecutableStatisticKHR
+      ptr->VkPipelineExecutableStatisticKHR
       ref-VkPipelineExecutableStatisticKHR
       make-VkPipelineExecutableStatisticKHR*
       VkPipelineExecutableStatisticKHRvalue
@@ -37218,7 +39417,7 @@ ___return (pipelineexecutableinfokhr);"))
       ref-VkPipelineExecutableStatisticKHR
       (VkPipelineExecutableStatisticKHR* int)
       VkPipelineExecutableStatisticKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPipelineExecutableStatisticKHR
       (VkStructureType
@@ -37238,6 +39437,7 @@ pipelineexecutablestatistickhr->value=___arg6;
 ___return (pipelineexecutablestatistickhr);"))
 (begin-ffi
    (make-VkPipelineExecutableInternalRepresentationKHR
+      ptr->VkPipelineExecutableInternalRepresentationKHR
       ref-VkPipelineExecutableInternalRepresentationKHR
       make-VkPipelineExecutableInternalRepresentationKHR*
       VkPipelineExecutableInternalRepresentationKHRpData
@@ -37309,7 +39509,7 @@ ___return (pipelineexecutablestatistickhr);"))
       ref-VkPipelineExecutableInternalRepresentationKHR
       (VkPipelineExecutableInternalRepresentationKHR* int)
       VkPipelineExecutableInternalRepresentationKHR*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
    (define-c-lambda
       make-VkPipelineExecutableInternalRepresentationKHR
       (VkStructureType void* char* char* VkBool32 size_t void*)
@@ -37325,6 +39525,7 @@ pipelineexecutableinternalrepresentationkhr->pData=___arg7;
 ___return (pipelineexecutableinternalrepresentationkhr);"))
 (begin-ffi
    (make-VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
+      ptr->VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
       ref-VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
       make-VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT*
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXTshaderDemoteToHelperInvocation
@@ -37372,7 +39573,12 @@ ___return (pipelineexecutableinternalrepresentationkhr);"))
       ref-VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
       (VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT* int)
       VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
+      ((pointer VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT))
+      VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -37384,6 +39590,7 @@ physicaldeviceshaderdemotetohelperinvocationfeaturesext->shaderDemoteToHelperInv
 ___return (physicaldeviceshaderdemotetohelperinvocationfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
+      ptr->VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
       ref-VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
       make-VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT*
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXTtexelBufferAlignment
@@ -37431,7 +39638,12 @@ ___return (physicaldeviceshaderdemotetohelperinvocationfeaturesext);"))
       ref-VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
       (VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT* int)
       VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
+      ((pointer VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT))
+      VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT
       (VkStructureType void* VkBool32)
@@ -37443,6 +39655,7 @@ physicaldevicetexelbufferalignmentfeaturesext->texelBufferAlignment=___arg3;
 ___return (physicaldevicetexelbufferalignmentfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
+      ptr->VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
       ref-VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
       make-VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT*
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXTuniformTexelBufferOffsetSingleTexelAlignment
@@ -37508,7 +39721,12 @@ ___return (physicaldevicetexelbufferalignmentfeaturesext);"))
       ref-VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
       (VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT* int)
       VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
+      ((pointer VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT))
+      VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT
       (VkStructureType void* VkDeviceSize VkBool32 VkDeviceSize VkBool32)
@@ -37523,6 +39741,7 @@ physicaldevicetexelbufferalignmentpropertiesext->uniformTexelBufferOffsetSingleT
 ___return (physicaldevicetexelbufferalignmentpropertiesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
+      ptr->VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
       ref-VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
       make-VkPhysicalDeviceSubgroupSizeControlFeaturesEXT*
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXTcomputeFullSubgroups
@@ -37576,7 +39795,12 @@ ___return (physicaldevicetexelbufferalignmentpropertiesext);"))
       ref-VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
       (VkPhysicalDeviceSubgroupSizeControlFeaturesEXT* int)
       VkPhysicalDeviceSubgroupSizeControlFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
+      ((pointer VkPhysicalDeviceSubgroupSizeControlFeaturesEXT))
+      VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceSubgroupSizeControlFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32)
@@ -37589,6 +39813,7 @@ physicaldevicesubgroupsizecontrolfeaturesext->computeFullSubgroups=___arg4;
 ___return (physicaldevicesubgroupsizecontrolfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
+      ptr->VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
       ref-VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
       make-VkPhysicalDeviceSubgroupSizeControlPropertiesEXT*
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXTrequiredSubgroupSizeStages
@@ -37654,7 +39879,12 @@ ___return (physicaldevicesubgroupsizecontrolfeaturesext);"))
       ref-VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
       (VkPhysicalDeviceSubgroupSizeControlPropertiesEXT* int)
       VkPhysicalDeviceSubgroupSizeControlPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
+      ((pointer VkPhysicalDeviceSubgroupSizeControlPropertiesEXT))
+      VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceSubgroupSizeControlPropertiesEXT
       (VkStructureType void* uint32_t uint32_t uint32_t VkShaderStageFlags)
@@ -37669,6 +39899,7 @@ physicaldevicesubgroupsizecontrolpropertiesext->requiredSubgroupSizeStages=___ar
 ___return (physicaldevicesubgroupsizecontrolpropertiesext);"))
 (begin-ffi
    (make-VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
+      ptr->VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
       ref-VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
       make-VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT*
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXTrequiredSubgroupSize
@@ -37716,7 +39947,12 @@ ___return (physicaldevicesubgroupsizecontrolpropertiesext);"))
       ref-VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
       (VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT* int)
       VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
+      ((pointer VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT))
+      VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT
       (VkStructureType void* uint32_t)
@@ -37728,6 +39964,7 @@ pipelineshaderstagerequiredsubgroupsizecreateinfoext->requiredSubgroupSize=___ar
 ___return (pipelineshaderstagerequiredsubgroupsizecreateinfoext);"))
 (begin-ffi
    (make-VkPhysicalDeviceLineRasterizationFeaturesEXT
+      ptr->VkPhysicalDeviceLineRasterizationFeaturesEXT
       ref-VkPhysicalDeviceLineRasterizationFeaturesEXT
       make-VkPhysicalDeviceLineRasterizationFeaturesEXT*
       VkPhysicalDeviceLineRasterizationFeaturesEXTstippledSmoothLines
@@ -37805,7 +40042,12 @@ ___return (pipelineshaderstagerequiredsubgroupsizecreateinfoext);"))
       ref-VkPhysicalDeviceLineRasterizationFeaturesEXT
       (VkPhysicalDeviceLineRasterizationFeaturesEXT* int)
       VkPhysicalDeviceLineRasterizationFeaturesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceLineRasterizationFeaturesEXT
+      ((pointer VkPhysicalDeviceLineRasterizationFeaturesEXT))
+      VkPhysicalDeviceLineRasterizationFeaturesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceLineRasterizationFeaturesEXT
       (VkStructureType void* VkBool32 VkBool32 VkBool32 VkBool32 VkBool32 VkBool32)
@@ -37822,6 +40064,7 @@ physicaldevicelinerasterizationfeaturesext->stippledSmoothLines=___arg8;
 ___return (physicaldevicelinerasterizationfeaturesext);"))
 (begin-ffi
    (make-VkPhysicalDeviceLineRasterizationPropertiesEXT
+      ptr->VkPhysicalDeviceLineRasterizationPropertiesEXT
       ref-VkPhysicalDeviceLineRasterizationPropertiesEXT
       make-VkPhysicalDeviceLineRasterizationPropertiesEXT*
       VkPhysicalDeviceLineRasterizationPropertiesEXTlineSubPixelPrecisionBits
@@ -37869,7 +40112,12 @@ ___return (physicaldevicelinerasterizationfeaturesext);"))
       ref-VkPhysicalDeviceLineRasterizationPropertiesEXT
       (VkPhysicalDeviceLineRasterizationPropertiesEXT* int)
       VkPhysicalDeviceLineRasterizationPropertiesEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceLineRasterizationPropertiesEXT
+      ((pointer VkPhysicalDeviceLineRasterizationPropertiesEXT))
+      VkPhysicalDeviceLineRasterizationPropertiesEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceLineRasterizationPropertiesEXT
       (VkStructureType void* uint32_t)
@@ -37881,6 +40129,7 @@ physicaldevicelinerasterizationpropertiesext->lineSubPixelPrecisionBits=___arg3;
 ___return (physicaldevicelinerasterizationpropertiesext);"))
 (begin-ffi
    (make-VkPipelineRasterizationLineStateCreateInfoEXT
+      ptr->VkPipelineRasterizationLineStateCreateInfoEXT
       ref-VkPipelineRasterizationLineStateCreateInfoEXT
       make-VkPipelineRasterizationLineStateCreateInfoEXT*
       VkPipelineRasterizationLineStateCreateInfoEXTlineStipplePattern
@@ -37946,7 +40195,12 @@ ___return (physicaldevicelinerasterizationpropertiesext);"))
       ref-VkPipelineRasterizationLineStateCreateInfoEXT
       (VkPipelineRasterizationLineStateCreateInfoEXT* int)
       VkPipelineRasterizationLineStateCreateInfoEXT*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineRasterizationLineStateCreateInfoEXT
+      ((pointer VkPipelineRasterizationLineStateCreateInfoEXT))
+      VkPipelineRasterizationLineStateCreateInfoEXT
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineRasterizationLineStateCreateInfoEXT
       (VkStructureType void* VkLineRasterizationModeEXT VkBool32 uint32_t uint16_t)
@@ -37961,6 +40215,7 @@ pipelinerasterizationlinestatecreateinfoext->lineStipplePattern=___arg6;
 ___return (pipelinerasterizationlinestatecreateinfoext);"))
 (begin-ffi
    (make-VkPipelineCompilerControlCreateInfoAMD
+      ptr->VkPipelineCompilerControlCreateInfoAMD
       ref-VkPipelineCompilerControlCreateInfoAMD
       make-VkPipelineCompilerControlCreateInfoAMD*
       VkPipelineCompilerControlCreateInfoAMDcompilerControlFlags
@@ -38008,7 +40263,12 @@ ___return (pipelinerasterizationlinestatecreateinfoext);"))
       ref-VkPipelineCompilerControlCreateInfoAMD
       (VkPipelineCompilerControlCreateInfoAMD* int)
       VkPipelineCompilerControlCreateInfoAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPipelineCompilerControlCreateInfoAMD
+      ((pointer VkPipelineCompilerControlCreateInfoAMD))
+      VkPipelineCompilerControlCreateInfoAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPipelineCompilerControlCreateInfoAMD
       (VkStructureType void* VkPipelineCompilerControlFlagsAMD)
@@ -38020,6 +40280,7 @@ pipelinecompilercontrolcreateinfoamd->compilerControlFlags=___arg3;
 ___return (pipelinecompilercontrolcreateinfoamd);"))
 (begin-ffi
    (make-VkPhysicalDeviceCoherentMemoryFeaturesAMD
+      ptr->VkPhysicalDeviceCoherentMemoryFeaturesAMD
       ref-VkPhysicalDeviceCoherentMemoryFeaturesAMD
       make-VkPhysicalDeviceCoherentMemoryFeaturesAMD*
       VkPhysicalDeviceCoherentMemoryFeaturesAMDdeviceCoherentMemory
@@ -38067,7 +40328,12 @@ ___return (pipelinecompilercontrolcreateinfoamd);"))
       ref-VkPhysicalDeviceCoherentMemoryFeaturesAMD
       (VkPhysicalDeviceCoherentMemoryFeaturesAMD* int)
       VkPhysicalDeviceCoherentMemoryFeaturesAMD*
-      "___return (___arg1 + ___arg2);")
+      "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      ptr->VkPhysicalDeviceCoherentMemoryFeaturesAMD
+      ((pointer VkPhysicalDeviceCoherentMemoryFeaturesAMD))
+      VkPhysicalDeviceCoherentMemoryFeaturesAMD
+      "___return(*___arg1);")
    (define-c-lambda
       make-VkPhysicalDeviceCoherentMemoryFeaturesAMD
       (VkStructureType void* VkBool32)
@@ -38289,7 +40555,7 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       "vkGetDeviceProcAddr")
    (define-c-lambda
       vkGetInstanceProcAddr
-      (VkInstance char-string)
+      (VkInstance (pointer char))
       PFN_vkVoidFunction
       "vkGetInstanceProcAddr")
    (define-c-lambda
@@ -39247,68 +41513,479 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       void
       "vkGetDescriptorSetLayoutSupport"))
 (begin-ffi
-   (debug-callback)
-   ;; (c-define
-   ;;    (vulkan-debug-callback str)
-   ;;    (char-string)
-   ;;    void
-   ;;    "vulkan_callback"
-   ;;    ""
-   ;;    (displayln "debug callback: str"))
-
-  	   (define-c-lambda make-int-ptr
-	     () (pointer int)
-	     "
- uint32_t* res = malloc (sizeof (uint32_t));
- if (res)
- {
-  *res = 0;
- }
- ___return (res);")
-
-	   (define-c-lambda read-int-ptr ((pointer int)) int
-	     "___return (*___arg1);")
-
-  
-  (c-define (debug-callback message-severity message-type callback-data user-data)
-	    (VkDebugUtilsMessageSeverityFlagBitsEXT
-	     VkDebugUtilsMessageTypeFlagsEXT
-	     VkDebugUtilsMessengerCallbackDataEXT*
-	     void*) VkBool32 "debugCallback" "static"
-	     ;; (displayln "hello")
-	     (make-int-ptr))
-   
-   ;; (c-declare
-   ;;    "
-   ;; static VKAPI_ATTR VkBool32 VKAPI_CALL
-   ;; debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
-   ;;               VkDebugUtilsMessageTypeFlagsEXT messageType,
-   ;;               const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
-   ;;               void* pUserData) {
-   ;;     vulkan_callback(pCallbackData->pMessage);
-   ;;     return VK_FALSE;
-   ;; }")
-
-   ;; (define-c-lambda debugCallback () PFN_vkDebugUtilsMessengerCallbackEXT
-   ;;   "___return (debugCallback);")
-   )
-
-(begin-ffi (createDebugUtils
-	    destroyDebugUtils)
-
-  (define-c-lambda createDebugUtils
-    (VkInstance VkDebugUtilsMessengerCreateInfoEXT*
-		VkAllocationCallbacks*
-		VkDebugUtilsMessengerEXT*) VkResult
-    "PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT) 
-vkGetInstanceProcAddr(___arg1, \"vkCreateDebugUtilsMessengerEXT\");
-___return (func(___arg1, ___arg2, ___arg3, ___arg4));
+   (vulkan-debug-callback)
+   (c-define
+      (vulkan-debug-callback str)
+      (char-string)
+      void
+      "vulkan_callback"
+      ""
+      (displayln "debug callback:" str))
+   (c-declare
+      "
+   static VKAPI_ATTR VkBool32 VKAPI_CALL
+   debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+                 VkDebugUtilsMessageTypeFlagsEXT messageType,
+                 const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+                 void* pUserData) {
+       vulkan_callback(pCallbackData->pMessage);
+       return VK_FALSE;
+   }"))
+(define VK_KHR_SURFACE_SPEC_VERSION 25)
+(begin-ffi
+   (vkDestroySurfaceKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 ")
-
-  (define-c-lambda destroyDebugUtils
-    (VkInstance VkDebugUtilsMessengerEXT VkAllocationCallbacks*) void
-    "PFN_vkDestroyDebugUtilsMessengerEXT func = (PFN_vkDestroyDebugUtilsMessengerEXT) 
-vkGetInstanceProcAddr(___arg1, \"vkDestroyDebugUtilsMessengerEXT\");
-     func(___arg1, ___arg2, ___arg3);
-     ___return;
-"))
+   (define-c-lambda
+      vkDestroySurfaceKHR
+      (VkInstance VkSurfaceKHR (pointer VkAllocationCallbacks))
+      void
+      "PFN_vkDestroySurfaceKHR func = (PFN_vkDestroySurfaceKHR) vkGetInstanceProcAddr(___arg1,\"vkDestroySurfaceKHR\");
+func(___arg1,___arg2,___arg3);
+ ___return;"))
+(begin-ffi
+   (vkGetPhysicalDeviceSurfaceSupportKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfaceSupportKHR
+      (VkInstance VkPhysicalDevice uint32_t VkSurfaceKHR (pointer VkBool32))
+      VkResult
+      "PFN_vkGetPhysicalDeviceSurfaceSupportKHR func = (PFN_vkGetPhysicalDeviceSurfaceSupportKHR) vkGetInstanceProcAddr(___arg1,\"vkGetPhysicalDeviceSurfaceSupportKHR\");
+___return (func(___arg2,___arg3,___arg4,___arg5));"))
+(begin-ffi
+   (vkGetPhysicalDeviceSurfaceCapabilitiesKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfaceCapabilitiesKHR
+      (VkInstance VkPhysicalDevice VkSurfaceKHR (pointer VkSurfaceCapabilitiesKHR))
+      VkResult
+      "PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR func = (PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR) vkGetInstanceProcAddr(___arg1,\"vkGetPhysicalDeviceSurfaceCapabilitiesKHR\");
+___return (func(___arg2,___arg3,___arg4));"))
+(begin-ffi
+   (vkGetPhysicalDeviceSurfaceFormatsKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfaceFormatsKHR
+      (VkInstance
+         VkPhysicalDevice
+         VkSurfaceKHR
+         (pointer uint32_t)
+         (pointer VkSurfaceFormatKHR))
+      VkResult
+      "PFN_vkGetPhysicalDeviceSurfaceFormatsKHR func = (PFN_vkGetPhysicalDeviceSurfaceFormatsKHR) vkGetInstanceProcAddr(___arg1,\"vkGetPhysicalDeviceSurfaceFormatsKHR\");
+___return (func(___arg2,___arg3,___arg4,___arg5));"))
+(begin-ffi
+   (vkGetPhysicalDeviceSurfacePresentModesKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkGetPhysicalDeviceSurfacePresentModesKHR
+      (VkInstance
+         VkPhysicalDevice
+         VkSurfaceKHR
+         (pointer uint32_t)
+         (pointer VkPresentModeKHR))
+      VkResult
+      "PFN_vkGetPhysicalDeviceSurfacePresentModesKHR func = (PFN_vkGetPhysicalDeviceSurfacePresentModesKHR) vkGetInstanceProcAddr(___arg1,\"vkGetPhysicalDeviceSurfacePresentModesKHR\");
+___return (func(___arg2,___arg3,___arg4,___arg5));"))
+(define VK_KHR_SWAPCHAIN_SPEC_VERSION 70)
+(define VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR 1)
+(define VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR 2)
+(begin-ffi
+   (vkCreateSwapchainKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkCreateSwapchainKHR
+      (VkInstance
+         VkDevice
+         (pointer VkSwapchainCreateInfoKHR)
+         (pointer VkAllocationCallbacks)
+         (pointer VkSwapchainKHR))
+      VkResult
+      "PFN_vkCreateSwapchainKHR func = (PFN_vkCreateSwapchainKHR) vkGetInstanceProcAddr(___arg1,\"vkCreateSwapchainKHR\");
+___return (func(___arg2,___arg3,___arg4,___arg5));"))
+(begin-ffi
+   (vkDestroySwapchainKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkDestroySwapchainKHR
+      (VkInstance VkDevice VkSwapchainKHR (pointer VkAllocationCallbacks))
+      void
+      "PFN_vkDestroySwapchainKHR func = (PFN_vkDestroySwapchainKHR) vkGetInstanceProcAddr(___arg1,\"vkDestroySwapchainKHR\");
+func(___arg2,___arg3,___arg4);
+ ___return;"))
+(begin-ffi
+   (vkGetSwapchainImagesKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkGetSwapchainImagesKHR
+      (VkInstance VkDevice VkSwapchainKHR (pointer uint32_t) (pointer VkImage))
+      VkResult
+      "PFN_vkGetSwapchainImagesKHR func = (PFN_vkGetSwapchainImagesKHR) vkGetInstanceProcAddr(___arg1,\"vkGetSwapchainImagesKHR\");
+___return (func(___arg2,___arg3,___arg4,___arg5));"))
+(begin-ffi
+   (vkAcquireNextImageKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkAcquireNextImageKHR
+      (VkInstance VkDevice VkSwapchainKHR uint64_t VkSemaphore VkFence (pointer uint32_t))
+      VkResult
+      "PFN_vkAcquireNextImageKHR func = (PFN_vkAcquireNextImageKHR) vkGetInstanceProcAddr(___arg1,\"vkAcquireNextImageKHR\");
+___return (func(___arg2,___arg3,___arg4,___arg5,___arg6,___arg7));"))
+(begin-ffi
+   (vkQueuePresentKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkQueuePresentKHR
+      (VkInstance VkQueue (pointer VkPresentInfoKHR))
+      VkResult
+      "PFN_vkQueuePresentKHR func = (PFN_vkQueuePresentKHR) vkGetInstanceProcAddr(___arg1,\"vkQueuePresentKHR\");
+___return (func(___arg2,___arg3));"))
+(begin-ffi
+   (vkGetDeviceGroupPresentCapabilitiesKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkGetDeviceGroupPresentCapabilitiesKHR
+      (VkInstance VkDevice (pointer VkDeviceGroupPresentCapabilitiesKHR))
+      VkResult
+      "PFN_vkGetDeviceGroupPresentCapabilitiesKHR func = (PFN_vkGetDeviceGroupPresentCapabilitiesKHR) vkGetInstanceProcAddr(___arg1,\"vkGetDeviceGroupPresentCapabilitiesKHR\");
+___return (func(___arg2,___arg3));"))
+(begin-ffi
+   (vkGetDeviceGroupSurfacePresentModesKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkGetDeviceGroupSurfacePresentModesKHR
+      (VkInstance VkDevice VkSurfaceKHR (pointer VkDeviceGroupPresentModeFlagsKHR))
+      VkResult
+      "PFN_vkGetDeviceGroupSurfacePresentModesKHR func = (PFN_vkGetDeviceGroupSurfacePresentModesKHR) vkGetInstanceProcAddr(___arg1,\"vkGetDeviceGroupSurfacePresentModesKHR\");
+___return (func(___arg2,___arg3,___arg4));"))
+(begin-ffi
+   (vkGetPhysicalDevicePresentRectanglesKHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkGetPhysicalDevicePresentRectanglesKHR
+      (VkInstance VkPhysicalDevice VkSurfaceKHR (pointer uint32_t) (pointer VkRect2D))
+      VkResult
+      "PFN_vkGetPhysicalDevicePresentRectanglesKHR func = (PFN_vkGetPhysicalDevicePresentRectanglesKHR) vkGetInstanceProcAddr(___arg1,\"vkGetPhysicalDevicePresentRectanglesKHR\");
+___return (func(___arg2,___arg3,___arg4,___arg5));"))
+(begin-ffi
+   (vkAcquireNextImage2KHR)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkAcquireNextImage2KHR
+      (VkInstance VkDevice (pointer VkAcquireNextImageInfoKHR) (pointer uint32_t))
+      VkResult
+      "PFN_vkAcquireNextImage2KHR func = (PFN_vkAcquireNextImage2KHR) vkGetInstanceProcAddr(___arg1,\"vkAcquireNextImage2KHR\");
+___return (func(___arg2,___arg3,___arg4));"))
+(define VK_EXT_DEBUG_UTILS_SPEC_VERSION 1)
+(begin-ffi
+   (vkSetDebugUtilsObjectNameEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkSetDebugUtilsObjectNameEXT
+      (VkInstance VkDevice (pointer VkDebugUtilsObjectNameInfoEXT))
+      VkResult
+      "PFN_vkSetDebugUtilsObjectNameEXT func = (PFN_vkSetDebugUtilsObjectNameEXT) vkGetInstanceProcAddr(___arg1,\"vkSetDebugUtilsObjectNameEXT\");
+___return (func(___arg2,___arg3));"))
+(begin-ffi
+   (vkSetDebugUtilsObjectTagEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkSetDebugUtilsObjectTagEXT
+      (VkInstance VkDevice (pointer VkDebugUtilsObjectTagInfoEXT))
+      VkResult
+      "PFN_vkSetDebugUtilsObjectTagEXT func = (PFN_vkSetDebugUtilsObjectTagEXT) vkGetInstanceProcAddr(___arg1,\"vkSetDebugUtilsObjectTagEXT\");
+___return (func(___arg2,___arg3));"))
+(begin-ffi
+   (vkQueueBeginDebugUtilsLabelEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkQueueBeginDebugUtilsLabelEXT
+      (VkInstance VkQueue (pointer VkDebugUtilsLabelEXT))
+      void
+      "PFN_vkQueueBeginDebugUtilsLabelEXT func = (PFN_vkQueueBeginDebugUtilsLabelEXT) vkGetInstanceProcAddr(___arg1,\"vkQueueBeginDebugUtilsLabelEXT\");
+func(___arg2,___arg3);
+ ___return;"))
+(begin-ffi
+   (vkQueueEndDebugUtilsLabelEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkQueueEndDebugUtilsLabelEXT
+      (VkInstance VkQueue)
+      void
+      "PFN_vkQueueEndDebugUtilsLabelEXT func = (PFN_vkQueueEndDebugUtilsLabelEXT) vkGetInstanceProcAddr(___arg1,\"vkQueueEndDebugUtilsLabelEXT\");
+func(___arg2);
+ ___return;"))
+(begin-ffi
+   (vkQueueInsertDebugUtilsLabelEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkQueueInsertDebugUtilsLabelEXT
+      (VkInstance VkQueue (pointer VkDebugUtilsLabelEXT))
+      void
+      "PFN_vkQueueInsertDebugUtilsLabelEXT func = (PFN_vkQueueInsertDebugUtilsLabelEXT) vkGetInstanceProcAddr(___arg1,\"vkQueueInsertDebugUtilsLabelEXT\");
+func(___arg2,___arg3);
+ ___return;"))
+(begin-ffi
+   (vkCmdBeginDebugUtilsLabelEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkCmdBeginDebugUtilsLabelEXT
+      (VkInstance VkCommandBuffer (pointer VkDebugUtilsLabelEXT))
+      void
+      "PFN_vkCmdBeginDebugUtilsLabelEXT func = (PFN_vkCmdBeginDebugUtilsLabelEXT) vkGetInstanceProcAddr(___arg1,\"vkCmdBeginDebugUtilsLabelEXT\");
+func(___arg2,___arg3);
+ ___return;"))
+(begin-ffi
+   (vkCmdEndDebugUtilsLabelEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkCmdEndDebugUtilsLabelEXT
+      (VkInstance VkCommandBuffer)
+      void
+      "PFN_vkCmdEndDebugUtilsLabelEXT func = (PFN_vkCmdEndDebugUtilsLabelEXT) vkGetInstanceProcAddr(___arg1,\"vkCmdEndDebugUtilsLabelEXT\");
+func(___arg2);
+ ___return;"))
+(begin-ffi
+   (vkCmdInsertDebugUtilsLabelEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkCmdInsertDebugUtilsLabelEXT
+      (VkInstance VkCommandBuffer (pointer VkDebugUtilsLabelEXT))
+      void
+      "PFN_vkCmdInsertDebugUtilsLabelEXT func = (PFN_vkCmdInsertDebugUtilsLabelEXT) vkGetInstanceProcAddr(___arg1,\"vkCmdInsertDebugUtilsLabelEXT\");
+func(___arg2,___arg3);
+ ___return;"))
+(begin-ffi
+   (vkCreateDebugUtilsMessengerEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkCreateDebugUtilsMessengerEXT
+      (VkInstance
+         (pointer VkDebugUtilsMessengerCreateInfoEXT)
+         (pointer VkAllocationCallbacks)
+         (pointer VkDebugUtilsMessengerEXT))
+      VkResult
+      "PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(___arg1,\"vkCreateDebugUtilsMessengerEXT\");
+___return (func(___arg1,___arg2,___arg3,___arg4));"))
+(begin-ffi
+   (vkDestroyDebugUtilsMessengerEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkDestroyDebugUtilsMessengerEXT
+      (VkInstance VkDebugUtilsMessengerEXT (pointer VkAllocationCallbacks))
+      void
+      "PFN_vkDestroyDebugUtilsMessengerEXT func = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(___arg1,\"vkDestroyDebugUtilsMessengerEXT\");
+func(___arg1,___arg2,___arg3);
+ ___return;"))
+(begin-ffi
+   (vkSubmitDebugUtilsMessageEXT)
+   (c-declare
+      "   
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <vulkan/vulkan.h> 
+#include <X11/Xlib.h>
+#include <xcb/xcb.h>
+")
+   (define-c-lambda
+      vkSubmitDebugUtilsMessageEXT
+      (VkInstance
+         VkDebugUtilsMessageSeverityFlagBitsEXT
+         VkDebugUtilsMessageTypeFlagsEXT
+         (pointer VkDebugUtilsMessengerCallbackDataEXT))
+      void
+      "PFN_vkSubmitDebugUtilsMessageEXT func = (PFN_vkSubmitDebugUtilsMessageEXT) vkGetInstanceProcAddr(___arg1,\"vkSubmitDebugUtilsMessageEXT\");
+func(___arg1,___arg2,___arg3,___arg4);
+ ___return;"))
