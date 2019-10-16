@@ -2,6 +2,7 @@
 	:std/format
 	:std/misc/list
 	:std/srfi/1
+	:std/srfi/8
 	:std/srfi/13
 	:gerbil/gambit/ports
 	:gerbil/gambit/bits
@@ -48,9 +49,15 @@
 
     ((c-types types-ffi-lambda lambda-ffi-lambda) 
      (let (make-ffi (lambda (sym code-for-sym ffi-code)
+		      (displayln "sym" sym (string? sym))
 		      (let (exports (cadr ffi-code))
 			(append (list (car ffi-code)
-				      (append sym exports))
+				      (append (cond
+					       ((string? sym) (list (string->symbol sym)))
+					       ((symbol? sym) (list sym))
+					       ((list? sym) sym)
+					       (else (raise (cons 'incorrect-symbol sym))))
+					      exports))
 				(filter (lambda (x) (not (null? x)))
 					(append (cddr ffi-code) code-for-sym))))))
        (foldl (lambda (sym-info+type ffi-code)
@@ -63,7 +70,7 @@
 					 (make-ptr-code sym))
 					ffi-code)))
 		    
-		    ((lambda) (make-ffi (list (assget 'symbol sym-info))
+		    ((lambda) (make-ffi (assget 'symbol sym-info)
 				   (lambda-ffi-lambda  sym-info)
 				   ffi-code)))))
 	      '(begin-ffi ()
@@ -387,7 +394,7 @@
 	(ptr (string-append struct-name "*")))
     `((define-c-lambda ,(string->symbol (string-append "ref-" struct-name))
 	(,(string->symbol ptr) int)  ,(string->symbol ptr) 
-	,(string-append "___return (___arg1 + ___arg2);")))))
+	,(string-append "___return(___arg1 + ___arg2);")))))
 
 (define (gen-syms struct-name)
   (list (list (cons 'symbol (string->symbol (string-append "make-" struct-name "*")))
@@ -395,7 +402,10 @@
 	      (cons 'struct-name struct-name))
 	(list (cons 'symbol (string->symbol (string-append "ref-" struct-name)))
 	      (cons 'type 'ref-array)
-	      (cons 'struct-name struct-name))	))
+	      (cons 'struct-name struct-name))
+	(list (cons 'symbol (string->symbol (string-append "ptr->" struct-name)))
+	      (cons 'type 'ptr-ref)
+	      (cons 'struct-name struct-name))))
 
 
 (define (gen-malloc-lambda malloc-lambda-info members)
@@ -407,7 +417,16 @@
 			((equal? arg-type 'void) '(pointer void))
 			(else arg-type))))
 	      members) ,return-type
-	,(malloc-function-definition struct-name members)))))
+	      ,(malloc-function-definition struct-name members)))))
+
+;; ptr ref lambdas
+
+(define (gen-ptr-ref-definition sym-info)
+  (let ((sym (assget 'symbol sym-info))
+	(struct-type (string->symbol (assget 'struct-name sym-info))))
+    `((define-c-lambda ,sym
+	((pointer ,struct-type)) ,struct-type
+	"___return(*___arg1);"))))
 
 ;; getters
 
@@ -451,10 +470,7 @@
 			      (append (gen-getter-names struct-name members)
 				      (gen-syms struct-name)))
 			 
-			 (list (cons (gen-malloc-info struct-name) 'lambda)
-			       )
-
-			 )
+			 (list (cons (gen-malloc-info struct-name) 'lambda)))
 		 ;; types ffi lambda
 		 (lambda (sym)
 		   (let (type-name (symbol->string sym))
@@ -467,8 +483,16 @@
 		     ((getter) (gen-getter-lambda sym-info-alist members))
 		     ((malloc-array) (malloc-array-definition sym-info-alist))
 		     ((ref-array) (if (null? members)
-				    ''()
-				    (ref-array-definition sym-info-alist )))))))
+				    '()
+				    (ref-array-definition sym-info-alist )))
+		     ((ptr-ref) (if (or (string-suffix? "KHR" struct-name)
+					(member struct-name
+						'("VkPhysicalDeviceVariablePointerFeatures"
+						  "VkPhysicalDeviceShaderDrawParameterFeatures"
+						  "VkPhysicalDeviceBufferAddressFeaturesEXT"
+						  )))
+				  '()
+				  (gen-ptr-ref-definition sym-info-alist)))))))
 
 
 ;; usually defined in platform specific header files
@@ -633,16 +657,28 @@
 	  (string-contains qualifiers "[")) (list 'pointer type))
      (else type))))
 
+(define (command-info cmd)
+  (values ;; name-res
+          ((sxpath '(proto name)) cmd)
+	  ;; params
+	  ((sxpath '(param)) cmd) 
+	  ;; re-type
+	  ((sxpath '(proto type)) cmd)))
+
+;; its invalid either if either it does not have a name (has alias)
+;; or contains some types which are avialable on specific platforms
+(define (invalid-command? name-res params)
+  (or (null? name-res)
+      (any (lambda (p)
+	     (member (cadar ((sxpath '(type)) p))
+		     platform-specific-type-names))
+	   params)))
+
+
 (define (c-lambda-for-cmd cmd)
-  (let ((name-res  ((sxpath '(proto name)) cmd))
-	(params ((sxpath '(param)) cmd))
-	(ret-type ((sxpath '(proto type)) cmd)))
-    (if (or (null? name-res)
-	   (any (lambda (p)
-		  (member (cadar ((sxpath '(type)) p))
-			  platform-specific-type-names))
-		params)
-	   (member (cadar name-res) extension-commands))
+  (receive (name-res params ret-type) (command-info cmd)
+    (if (or (invalid-command? name-res params)
+	    (member (cadar name-res) extension-commands))
       #f
       (let (name (cadar name-res))
 	(cons name
@@ -650,23 +686,99 @@
 		   ,(map get-type-from-param params) ,(string->symbol (cadar ret-type))
 		   ,name)))))))
 
+
+
 (define (gen-ffi-for-commands)
-  (let (name+ffi (filter identity (map c-lambda-for-cmd commands)))
+  (let (command-name+ffi (filter identity (map c-lambda-for-cmd commands)))
     (make-ffi-code (map (lambda (n+f)
 			  (cons
 			   (list (cons 'symbol (string->symbol (car n+f)))) 'lambda))
-			name+ffi)
+			command-name+ffi)
 		   identity
 		   (lambda (sym)
-		     (assget (symbol->string (assget 'symbol sym)) name+ffi)))))
+		     (assget (symbol->string (assget 'symbol sym)) command-name+ffi)))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ffi for vulkan  extensions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+#|
+Extensions for which we are generating ffi code. 
+This should only be generated for extensions which are present on the device o/w
+it will lead to compilation failure.
+Build script will have to be modified to control when this code is executed and then
+compiled
+|#
+(define extension-names '("VK_KHR_surface" "VK_KHR_swapchain" "VK_EXT_debug_utils"))
+
+(define name+cmds (foldl (lambda (cmd acc)
+			   (let (res ((sxpath '(proto name)) cmd))
+			     (cond
+			      ((not (null? res)) (append acc
+						       (list (cons (cadar res) cmd))))
+			      (else acc))))
+			 '()
+			 commands))
+
+
+(define (gen-dynamic-ffi-for-cmd command-name)
+  (make-ffi-code  (list (receive (name-res params ret-type) (command-info
+							     (assget command-name name+cmds))
+			  
+			  (cond
+			   ((invalid-command? name-res params) #f)
+			   (else (cons (list (cons 'symbol (cadar name-res))
+					     (cons 'params params)
+					     (cons 'ret-type ret-type))
+				       'lambda)))))
+		  identity
+		  (lambda (sym-info)
+		    (let* ((name (assget 'symbol sym-info))
+			   (params (map get-type-from-param (assget 'params sym-info)))
+			   (ret-type (string->symbol (cadar (assget 'ret-type sym-info))))
+			   (params-with-instance (cond
+						  ((equal? 'VkInstance (car params)) params)
+						  (else (append '(VkInstance) params))))
+			   (void-return? (equal? ret-type 'void))
+			   (definition (string-append
+					"func("
+					(string-join
+					 (map (lambda (i)
+						(string-append "___arg" (number->string i)))
+					      (iota (length params)
+						    (1+ (- (length params-with-instance)
+							   (length params)))))
+					 ",")
+					")")))
+		      `((define-c-lambda ,(string->symbol name)
+			  ,params-with-instance ,ret-type
+			  ,(string-append
+			    "PFN_" name " func = (PFN_" name
+			    ") vkGetInstanceProcAddr(___arg1,\"" name "\");\n"
+			    (if void-return?
+			      (string-append definition ";\n ___return;")
+			      (string-append "___return (" definition ");")))))))))
+
+
+(define (gen-ffi-for-extensions)
+  (let (exts (filter (lambda (e) (member (cadar ((sxpath '(@ name)) e)) extension-names))
+		     extensions))
+    (concatenate (map (lambda (e)
+			(let ((enums ((sxpath '(require enum)) e))
+			      (commands ((sxpath '(require command @ name)) e)))
+			  (append
+			   (gen-enum-consts enums)
+			   (map (lambda (cmd) (gen-dynamic-ffi-for-cmd (cadr cmd)))
+				commands))))
+		      exts))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation callbacks ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (gen-ffi-for-vulkan-callback)
-  '((begin-ffi ()
+  '((begin-ffi (vulkan-debug-callback)
     (c-define (vulkan-debug-callback str) (char-string) void
 	      "vulkan_callback" ""
 	      (displayln "debug callback:" str))
@@ -707,7 +819,8 @@
 			       (list (gen-ffi-for-opaque-structs types))
 			       (combine-structs-with-func-ptrs types)
 			       (list (gen-ffi-for-commands))
-			       (gen-ffi-for-vulkan-callback)))))
+			       (gen-ffi-for-vulkan-callback)
+			       (gen-ffi-for-extensions)))))
 
 ;;;;;;;;;;
 ;; main ;;
@@ -726,5 +839,3 @@
 		    (display (pretty-print-lisp-form st) out)
 		    (newline out))
 		  (make-ffi-module)))))
-
-
