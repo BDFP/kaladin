@@ -28,7 +28,7 @@
   (cond
    ((string-contains arr-type-name "[]")
     (string-append (string-drop-right arr-type-name 2) "*"))
-
+   
    (else arr-type-name)))
 
 ;; (arr->ptr-member-type-name "float[]")
@@ -161,7 +161,7 @@
 
 
 (define (gen-handle-lambda-definition sym-info)
-  (let* ((type (assget 'var-type sym-info))
+  (let* ((type (assget 'struct-name sym-info))
 	 (var (string-downcase (string-drop type 2))))
     (case (assget 'type sym-info)
       ((malloc) `((define-c-lambda ,(assget 'symbol  sym-info)
@@ -194,6 +194,7 @@
 
 (define (get-name+type type)
   (let* ((return-type (cadar ((sxpath '(type)) type)))
+	 (value ((sxpath '(@ values)) type))
 	 (type-info (string-concatenate (map string-trim-both ((sxpath '(*text*)) type))))
 	 (ptr-type (cond
 		    ((string-contains type-info  "*")
@@ -202,8 +203,10 @@
 				      (string-concatenate (map (lambda (i) "*")
 								(iota ptr-level 1))))))
 
-		    ((string-contains type-info "[")
-		     (string-append return-type "[]"))
+		    ((string-contains type-info "[") (string-append return-type "[]"))
+
+		    ((and (equal? return-type "VkStructureType")
+			(not (null? value))) (cadar value))
 		     
 		    (else return-type))))
     (cons (cadar ((sxpath '(name)) type))
@@ -293,7 +296,10 @@
 		 (let ((name   (cadar ((sxpath '(@ name)) e)))
 		       (value  ((sxpath '(@ value)) e))
 		       (bitpos ((sxpath '(@ bitpos)) e))
-		       (alias  ((sxpath '(@ alias)) e)))
+		       (alias  ((sxpath '(@ alias)) e))
+		       (offset ((sxpath '(@ offset)) e))
+		       (extnumber ((sxpath '(@ extnumber)) e))
+		       (dir ((sxpath '(@ dir)) e)))
 		   (cond
 		    ((and (not (null? value))
 			  (number-potential? (cadar value)))
@@ -305,6 +311,20 @@
 		    ((not (null? bitpos))
 		     (list 'define (string->symbol name)
 			   (arithmetic-shift 1 (string->number (cadar bitpos)))))
+
+
+		    ((not (null? offset))
+		     (displayln "offset: " offset " ex: " extnumber)
+		     (let* ((extnumber (if (null? extnumber)
+					 0
+					 (string->number (cadar extnumber))))
+			    (value (+ 1000000000
+				      (* 100 (- extnumber 1))
+				      (string->number (cadar offset)))))
+		       (list 'define (string->symbol name)
+			     (cond
+			      ((null? dir) value)
+			      (else (* value -1))))))
 
 		    ;; todo this may refer to float or long types which have not been
 		    ;; converted yet
@@ -374,9 +394,14 @@
   (with* (([setter-name . type] member)
 	  (struct-member (string-append malloc-var-name "->" setter-name))
 	  (arg (string-append "___arg" (number->string arg-index))))
-    (if (string-suffix? "[]" type)
-      (string-append "memcpy(" struct-member "," arg "," "sizeof(" arg "));")
-      (string-append  struct-member "=" arg ";"))))
+	 (cond
+	  ((string-suffix? "[]" type)
+	   (string-append "memcpy(" struct-member "," arg "," "sizeof(" arg "));"))
+
+	  ((and (equal? "sType" setter-name) (not (equal? type "VkStructureType")))
+	   (string-append struct-member "=" type ";"))
+	  
+	  (else (string-append  struct-member "=" arg ";")))))
 
 
 (define (malloc-function-definition struct-name members)
@@ -389,7 +414,10 @@
 			  (foldl
 			   (lambda (m index+setters)
 			     (with ([index . setters] index+setters)
-				   (let (index1 (1+ index))
+				   (let (index1 (if (and (equal? (car m) "sType")
+						       (not (equal? (cdr m) "VkStructureType")))
+						    index
+						    (1+ index)))
 				     (cons index1
 					   (append setters
 						   (list
@@ -401,7 +429,12 @@
 			 (list (string-append "___return (" malloc-var-name ");")))
 		 "\n")))
 
-;; (displayln (malloc-function-definition struct-name members))
+#|
+
+(def members (assget struct-name struct+members))
+
+(displayln (malloc-function-definition struct-name members))
+|#
 
 (define (malloc-array-definition info)
   (let* ((struct-name (assget 'struct-name info))
@@ -435,33 +468,37 @@
   (let* ((struct-name (assget 'struct-name malloc-lambda-info))
 	 (return-type (string->symbol (string-append struct-name "*"))))
     `((define-c-lambda ,(assget 'symbol malloc-lambda-info)
-	,(map (lambda (m) (let (arg-type (string->symbol (arr->ptr-member-type-name (cdr m))))
-		       (cond
-			((equal? arg-type 'void) '(pointer void))
-			(else arg-type))))
-	      members) ,return-type
-	      ,(malloc-function-definition struct-name members)))))
+	,(filter identity
+		 (map (lambda (m)
+			(let (arg-type (string->symbol (arr->ptr-member-type-name (cdr m))))
+			  (cond
+			   ((equal? arg-type 'void) '(pointer void))
+			   ((and (equal? (car m) "sType")
+			       (not (equal? (cdr m) "VkStructureType"))) #f)
+			   (else arg-type))))
+		      members))
+	,return-type
+	,(malloc-function-definition struct-name members)))))
 
 ;; getters
 
 (define (gen-getter-names struct-name members)
   (map (lambda (member-name-with-type)
 	 (with ([member-name . member-type] member-name-with-type)
-	   (list (cons 'symbol (string->symbol (string-append struct-name
-							      member-name)))
-		 (cons 'member-name member-name)
+	   (list (cons 'symbol (string->symbol (string-append struct-name member-name)))
+		 (cons 'getter-name member-name)
 		 (cons 'type 'getter)
 		 (cons 'struct-name struct-name))))
        (or members '())))
 
 (define (gen-getter-lambda symbol-info-alist members)
-  (let (member-name (assget 'member-name symbol-info-alist))
+  (let (getter-name (assget 'getter-name symbol-info-alist))
     `((define-c-lambda ,(assget 'symbol symbol-info-alist)
-	(,(string->symbol (string-append (assget 'struct-name
-						 symbol-info-alist)
-					 "*")))
-	,(string->symbol (arr->ptr-member-type-name (assget member-name members)))
-	,(string-append "___return (___arg1->" member-name ");")))))
+	(,(string->symbol (string-append (assget 'struct-name symbol-info-alist) "*")))
+	,(string->symbol (if (equal? getter-name "sType")
+			     "VkStructureType"
+			     (arr->ptr-member-type-name (assget getter-name members))))
+	,(string-append "___return (___arg1->" getter-name ");")))))
 
 
 
