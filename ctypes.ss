@@ -9,7 +9,9 @@
 	    read-int32-ptr
 	    make-float
 	    make-int-ptr
-	    read-int-ptr)
+	    read-int-ptr
+	    make-bool-ptr
+	    read-bool-ptr)
 	   (c-declare "#include <stdint.h>
               #include <stdlib.h>")
 	   
@@ -58,6 +60,16 @@
   *res = ___arg1;
  }
  ___return (res);")
+
+	   (c-define-type bool* (pointer bool))
+
+	   (define-c-lambda make-bool-ptr (bool) bool*
+	    "uint32_t* val = malloc(sizeof(uint32_t));
+             *val = ___arg1;
+             ___return (val);")
+
+	   (define-c-lambda read-bool-ptr (bool*) bool
+	     "___return (*___arg1);")
 	   
 	   ;; (define-c-lambda first-c ((pointer type)) type
 	   ;;   "___return *___arg1;")

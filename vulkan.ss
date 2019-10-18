@@ -8,6 +8,15 @@
 
 (export #t)
 
+;; vulkan state
+
+(defstruct queue-indices (graphics presentation))
+(defstruct queues (graphics presentation))
+(defstruct device (physical logical))
+(defstruct presentation (window surface))
+
+(defstruct vulkan (instance presentation device queue-family-indices))
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; validation layer ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -25,6 +34,23 @@
     (cons 1 (scheme->char** (list +validation-layer+)))
     (cons 0 #f)))
 
+;;;;;;;;;;;;;;;;;;;;
+;; Window Surface ;;
+;;;;;;;;;;;;;;;;;;;;
+
+(define init-window
+  (lambda ()
+    (glfw-init!)
+    (glfw-window-hint GLFW_CLIENT_API GLFW_NO_API)
+    (glfw-window-hint GLFW_RESIZABLE GLFW_FALSE)
+    (glfw-create-window 800 600 "Vulkan" #f #f)))
+
+(define (make-surface vk-instance window)
+  (let (surface (make-VkSurfaceKHR))
+    (cons (glfwCreateWindowSurface vk-instance window #f  surface)
+	  surface)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; physical device and families ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -37,10 +63,19 @@
 		make-VkQueueFamilyProperties*))
 
 
-(define (queue-family-valid? queue-family)
+(define (graphics-support? queue-family)
   (and (< 0 (VkQueueFamilyPropertiesqueueCount queue-family))
        (bitwise-and (VkQueueFamilyPropertiesqueueFlags queue-family)
 		    VK_QUEUE_GRAPHICS_BIT)))
+
+(define (presentation-support? vk-instance physical-device family-index surface)
+  (let (support? (make-bool-ptr #f))
+    (vkGetPhysicalDeviceSurfaceSupportKHR vk-instance
+					  physical-device
+					  family-index
+					  surface
+					  support?)
+    (read-bool-ptr support?)))
 
 
 (define (get-physical-devices vk-instance)
@@ -52,43 +87,60 @@
 		  (map (lambda (i) (make-VkPhysicalDevice)) (iota count 0)))))
 
 
-;; returns first index of queue families supported by device which is valid
+;; returns queue-indices of queue families supported by device which is valid
 ;; as checked by valid-lambda
-(define (get-queue-family-index device valid-lambda)
-  (car (first (cvector-transduce (compose (tenumerate)
-					  (tfilter (lambda (i+fam)
-						     (valid-lambda (cdr i+fam)))))
-				 rcons
-				 (get-queue-family-props device)
-				 ref-VkQueueFamilyProperties))))
+(define (get-queue-family-index vk-instance device* surface*)
+  (let (families (cvector-transduce (compose (tenumerate))
+				    rcons
+				    (get-queue-family-props device*)
+				    ref-VkQueueFamilyProperties))
+    (make-queue-indices (caar (filter (lambda (i+fam) (graphics-support? (cdr i+fam)))
+				      families))
+			(caar (filter (lambda (i+fam)
+					(presentation-support? vk-instance
+							       (ptr->VkPhysicalDevice device*)
+							       (car i+fam)
+							       (ptr->VkSurfaceKHR surface*)))
+				      families)))))
 
 
-(define (select-device-and-queue-index vk-instance)
-  (let* ((devices (get-physical-devices vk-instance))
-	 (device (list-ref (cdr devices) 0)))
+(define (select-device-and-queue-index vk-instance window)
+  (with* ((devices (get-physical-devices vk-instance))
+	  (device* (list-ref (cdr devices) 0))
+	  ([res . surface*] (make-surface vk-instance window)))
     (cond
      ((null? devices) (error 'physical-device-not-found))
-     (else (cons device (get-queue-family-index device queue-family-valid?))))))
+     (else (cons device* (get-queue-family-index vk-instance device* surface*))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Logical Device and Queues ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define (create-queue-create-info queue-indices)
+  (let (queue-create-info* (make-VkDeviceQueueCreateInfo* 2))
+    (map (lambda (i)
+	   (displayln i)
+	   (set-VkDeviceQueueCreateInfo! queue-create-info*
+					 i
+					 (make-VkDeviceQueueCreateInfo #f
+								       0
+								       i
+								       1
+								       (make-float 1.0))))
+	 (iota 2))
+    queue-create-info*))
+
 (define (create-device physical-device+queue-family-index)
-  (with (([physical-device* . queue-family-index] physical-device+queue-family-index)
+  (with (([physical-device* . queue-family-indices] physical-device+queue-family-index)
 	 ([layer-count . layers] (get-enabled-layers))
 	 (device (make-VkDevice)))
     (cons 
      (vkCreateDevice (ptr->VkPhysicalDevice physical-device*)
 		     (make-VkDeviceCreateInfo #f
 					      0
-					      1
-					      (make-VkDeviceQueueCreateInfo #f
-									    0
-									    queue-family-index
-									    1
-									    (make-float 1.0))
+					      2
+					      (create-queue-create-info queue-family-indices)
 					      layer-count
 					      layers
 					      0
@@ -99,15 +151,30 @@
 		     device)
      device)))
 
-
-(define (get-device+queue vk-instance)
-  (let* ((physical-device+queue-family-index (select-device-and-queue-index vk-instance))
+(define (get-device+queue vk-instance window)
+  (let* ((physical-device+queue-family-index (select-device-and-queue-index vk-instance
+									    window))
 	 (res+device (create-device physical-device+queue-family-index))
 	 (device* (cdr res+device))
-	 (queue (make-VkQueue)))
+	 (graphics-queue (make-VkQueue))
+	 (presentation-queue (make-VkQueue)))
     (vkGetDeviceQueue (ptr->VkDevice device*)
-		      (cdr physical-device+queue-family-index) 0 queue)
-    (cons device* queue)))
+		      (queue-indices-graphics (cdr physical-device+queue-family-index))
+		      0
+		      graphics-queue)
+    (vkGetDeviceQueue (ptr->VkDevice device*)
+		      (queue-indices-presentation (cdr physical-device+queue-family-index))
+		      0
+		      presentation-queue)
+    (cons device* (make-queues graphics-queue presentation-queue))))
+
+
+#|
+Cleanup todo:
++ device
++ surface
+|#
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;
@@ -203,6 +270,15 @@
   (with* (([res . vk-instance*] (create-vulkan-instance))
   	  (messenger* (create-debug-utils-messenger (ptr->VkInstance vk-instance*))))
     (cons vk-instance* messenger*)))
+
+#|
+Dev:
+
+(define vk-instance (ptr->VkInstance (car (create-vulkan-instance-with-validation))))
+
+(define window (init-window))
+
+|#
 
 
 (define (with-new-instance f)

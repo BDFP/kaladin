@@ -5298,6 +5298,7 @@ ___return (allocationcallbacks);"))
    (make-VkDeviceQueueCreateInfo
       ptr->VkDeviceQueueCreateInfo
       ref-VkDeviceQueueCreateInfo
+      set-VkDeviceQueueCreateInfo!
       make-VkDeviceQueueCreateInfo*
       VkDeviceQueueCreateInfopQueuePriorities
       VkDeviceQueueCreateInfoqueueCount
@@ -5359,6 +5360,11 @@ ___return (allocationcallbacks);"))
       (VkDeviceQueueCreateInfo* int)
       VkDeviceQueueCreateInfo*
       "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+      set-VkDeviceQueueCreateInfo!
+      (VkDeviceQueueCreateInfo* int VkDeviceQueueCreateInfo*)
+      void
+      "*(___arg1 + ___arg2) = *___arg3; ___return;")
    (define-c-lambda
       ptr->VkDeviceQueueCreateInfo
       ((pointer VkDeviceQueueCreateInfo))
