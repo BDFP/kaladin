@@ -8,6 +8,23 @@
 
 (export #t)
 
+;;;;;;;;;;;;;;;;;;;;;;
+;; validation layer ;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+(define *enable-validation-layer* #t)
+(define +validation-layer+ "VK_LAYER_KHRONOS_validation")
+(define +validation-extension+ "VK_EXT_debug_utils")
+
+(define (validation-layer-supported?)
+  (and *enable-validation-layer* 
+     (any (lambda (e) (equal? +validation-layer+ e)) (get-available-layers))))
+
+(define (get-enabled-layers)
+  (if (validation-layer-supported?)
+    (cons 1 (scheme->char** (list +validation-layer+)))
+    (cons 0 #f)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; physical device and families ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -34,6 +51,7 @@
 		(lambda (count)
 		  (map (lambda (i) (make-VkPhysicalDevice)) (iota count 0)))))
 
+
 ;; returns first index of queue families supported by device which is valid
 ;; as checked by valid-lambda
 (define (get-queue-family-index device valid-lambda)
@@ -44,6 +62,7 @@
 				 (get-queue-family-props device)
 				 ref-VkQueueFamilyProperties))))
 
+
 (define (select-device-and-queue-index vk-instance)
   (let* ((devices (get-physical-devices vk-instance))
 	 (device (list-ref (cdr devices) 0)))
@@ -51,18 +70,48 @@
      ((null? devices) (error 'physical-device-not-found))
      (else (cons device (get-queue-family-index device queue-family-valid?))))))
 
-;;;;;;;;;;;;;;;;;;;;;;
-;; validation layer ;;
-;;;;;;;;;;;;;;;;;;;;;;
 
-(define *enable-validation-layer* #t)
-(define +validation-layer+ "VK_LAYER_KHRONOS_validation")
-(define +validation-extension+ "VK_EXT_debug_utils")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Logical Device and Queues ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (validation-layer-supported?)
-  (and *enable-validation-layer* 
-     (any (lambda (e) (equal? +validation-layer+ e)) (get-available-layers))))
+(define (create-device physical-device+queue-family-index)
+  (with (([physical-device* . queue-family-index] physical-device+queue-family-index)
+	 ([layer-count . layers] (get-enabled-layers))
+	 (device (make-VkDevice)))
+    (cons 
+     (vkCreateDevice (ptr->VkPhysicalDevice physical-device*)
+		     (make-VkDeviceCreateInfo #f
+					      0
+					      1
+					      (make-VkDeviceQueueCreateInfo #f
+									    0
+									    queue-family-index
+									    1
+									    (make-float 1.0))
+					      layer-count
+					      layers
+					      0
+					      #f
+					      (apply make-VkPhysicalDeviceFeatures
+						(map (lambda (i) #f) (iota 55))))
+		     #f
+		     device)
+     device)))
 
+
+(define (get-device+queue vk-instance)
+  (let* ((physical-device+queue-family-index (select-device-and-queue-index vk-instance))
+	 (res+device (create-device physical-device+queue-family-index))
+	 (device* (cdr res+device))
+	 (queue (make-VkQueue)))
+    (vkGetDeviceQueue (ptr->VkDevice device*)
+		      (cdr physical-device+queue-family-index) 0 queue)
+    (cons device* queue)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; validation messenger  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (create-debug-utils-messenger vk-instance)
   (let (messenger (make-VkDebugUtilsMessengerEXT))
