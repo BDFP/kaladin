@@ -12,10 +12,15 @@
 
 (defstruct queue-indices (graphics presentation))
 (defstruct queues (graphics presentation))
-(defstruct device (physical logical))
+
 (defstruct presentation (window surface))
 
-(defstruct vulkan (instance presentation device queue-family-indices))
+(defstruct vulkan-state (instance physical-device
+				  logical-device
+				  surface
+				  window
+				  queues
+				  queue-family-indices))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; validation layer ;;
@@ -37,6 +42,8 @@
 ;;;;;;;;;;;;;;;;;;;;
 ;; Window Surface ;;
 ;;;;;;;;;;;;;;;;;;;;
+
+(define +device-extensions+ (list "VK_KHR_swapchain"))
 
 (define init-window
   (lambda ()
@@ -110,7 +117,13 @@
 	  ([res . surface*] (make-surface vk-instance window)))
     (cond
      ((null? devices) (error 'physical-device-not-found))
-     (else (cons device* (get-queue-family-index vk-instance device* surface*))))))
+     (else (make-vulkan-state vk-instance
+			      device*
+			      #f
+			      surface*
+			      window
+			      #f
+			      (get-queue-family-index vk-instance device* surface*))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -120,7 +133,6 @@
 (define (create-queue-create-info queue-indices)
   (let (queue-create-info* (make-VkDeviceQueueCreateInfo* 2))
     (map (lambda (i)
-	   (displayln i)
 	   (set-VkDeviceQueueCreateInfo! queue-create-info*
 					 i
 					 (make-VkDeviceQueueCreateInfo #f
@@ -131,42 +143,50 @@
 	 (iota 2))
     queue-create-info*))
 
-(define (create-device physical-device+queue-family-index)
-  (with (([physical-device* . queue-family-indices] physical-device+queue-family-index)
-	 ([layer-count . layers] (get-enabled-layers))
-	 (device (make-VkDevice)))
-    (cons 
-     (vkCreateDevice (ptr->VkPhysicalDevice physical-device*)
-		     (make-VkDeviceCreateInfo #f
-					      0
-					      2
-					      (create-queue-create-info queue-family-indices)
-					      layer-count
-					      layers
-					      0
-					      #f
-					      (apply make-VkPhysicalDeviceFeatures
-						(map (lambda (i) #f) (iota 55))))
-		     #f
-		     device)
-     device)))
+(define (create-device physical-device* queue-family-indices)
+  (with (([layer-count . layers] (get-enabled-layers))
+	 (device* (make-VkDevice))
+	 (queue-create-info* (create-queue-create-info queue-family-indices)))
+    ;; todo check for VkResult
+    (vkCreateDevice (ptr->VkPhysicalDevice physical-device*)
+		    (make-VkDeviceCreateInfo #f
+					     0
+					     2
+					     queue-create-info*
+					     layer-count
+					     layers
+					     1
+					     (scheme->char** +device-extensions+)
+					     (apply make-VkPhysicalDeviceFeatures
+					       (map (lambda (i) #f) (iota 55))))
+		    #f
+		    device*)
+    device*))
+
 
 (define (get-device+queue vk-instance window)
-  (let* ((physical-device+queue-family-index (select-device-and-queue-index vk-instance
-									    window))
-	 (res+device (create-device physical-device+queue-family-index))
-	 (device* (cdr res+device))
+  (let* ((vulkan-state (select-device-and-queue-index vk-instance
+						      window))
+	 (queue-family-indices (vulkan-state-queue-family-indices vulkan-state))
+	 (logical-device* (create-device (vulkan-state-physical-device vulkan-state)
+					 queue-family-indices))
 	 (graphics-queue (make-VkQueue))
 	 (presentation-queue (make-VkQueue)))
-    (vkGetDeviceQueue (ptr->VkDevice device*)
-		      (queue-indices-graphics (cdr physical-device+queue-family-index))
+    (vkGetDeviceQueue (ptr->VkDevice logical-device*)
+		      (queue-indices-graphics queue-family-indices)
 		      0
 		      graphics-queue)
-    (vkGetDeviceQueue (ptr->VkDevice device*)
-		      (queue-indices-presentation (cdr physical-device+queue-family-index))
+    (vkGetDeviceQueue (ptr->VkDevice logical-device*)
+		      (queue-indices-presentation queue-family-indices)
 		      0
 		      presentation-queue)
-    (cons device* (make-queues graphics-queue presentation-queue))))
+    (make-vulkan-state vk-instance
+		       (vulkan-state-physical-device vulkan-state)
+		       logical-device*
+		       (vulkan-state-surface vulkan-state)
+		       window
+		       (make-queues graphics-queue presentation-queue)
+		       queue-family-indices)))
 
 
 #|
