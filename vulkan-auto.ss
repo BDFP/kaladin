@@ -13922,7 +13922,8 @@ displaypresentinfokhr->dstRect=___arg3;
 displaypresentinfokhr->persistent=___arg4;
 ___return (displaypresentinfokhr);"))
 (begin-ffi
-   (make-VkSurfaceCapabilitiesKHR
+    (make-VkSurfaceCapabilitiesKHR
+     malloc-VkSurfaceCapabilitiesKHR
       ptr->VkSurfaceCapabilitiesKHR
       ref-VkSurfaceCapabilitiesKHR
       make-VkSurfaceCapabilitiesKHR*
@@ -14010,6 +14011,10 @@ ___return (displaypresentinfokhr);"))
       (VkSurfaceCapabilitiesKHR* int)
       VkSurfaceCapabilitiesKHR*
       "___return(___arg1 + ___arg2);")
+   (define-c-lambda
+     malloc-VkSurfaceCapabilitiesKHR
+     () VkSurfaceCapabilitiesKHR*
+     "___return (malloc(sizeof(VkSurfaceCapabilitiesKHR)));")
    (define-c-lambda
       make-VkSurfaceCapabilitiesKHR
       (uint32_t

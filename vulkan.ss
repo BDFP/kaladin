@@ -13,7 +13,7 @@
 (defstruct queue-indices (graphics presentation))
 (defstruct queues (graphics presentation))
 
-(defstruct presentation (window surface))
+(defstruct swapchain-support-details (capabilities formats present-modes))
 
 (defstruct vulkan-state (instance physical-device
 				  logical-device
@@ -190,10 +190,65 @@
 
 
 #|
+
+usage:
+
+> (define vs (get-device+queue vk-instance window))
+
 Cleanup todo:
 + device
 + surface
+
 |#
+
+;;;;;;;;;;;;;;;
+;; swapchain ;;
+;;;;;;;;;;;;;;;
+
+;; check swapchain support
+
+(define (get-device-capabilities vs)
+  (match vs
+    ((vulkan-state instance physical-device* _ surface* _ _ _)
+     (let (capabilities (malloc-VkSurfaceCapabilitiesKHR))
+       (vkGetPhysicalDeviceSurfaceCapabilitiesKHR instance
+						  (ptr->VkPhysicalDevice physical-device*)
+						  (ptr->VkSurfaceKHR surface*)
+						  capabilities)
+       capabilities))))
+
+(define (supported-surface-formats vs)
+  (match vs
+    ((vulkan-state instance physical-device* _ surface* _ _ _)
+     (let ((physical-device (ptr->VkPhysicalDevice physical-device*))
+	   (surface (ptr->VkSurfaceKHR surface*)))
+       (make-cvector (lambda (count formats)
+		       (vkGetPhysicalDeviceSurfaceFormatsKHR instance
+							     physical-device
+							     surface
+							     count
+							     formats))
+		     make-VkSurfaceFormatKHR*)))))
+
+(define (supported-presentation-modes vs)
+  (match vs
+    ((vulkan-state instance physical-device* _ surface* _ _ _)
+     (let ((physical-device (ptr->VkPhysicalDevice physical-device*))
+	   (surface (ptr->VkSurfaceKHR surface*)))
+       (make-cvector (lambda (count formats)
+		       (vkGetPhysicalDeviceSurfacePresentModesKHR instance
+								  physical-device
+								  surface
+								  count
+								  formats))
+		     malloc-integer-list)))))
+
+
+(define (check-swapchain-support? vs)
+  (let ((formats (supported-surface-formats vs))
+	(modes (supported-presentation-modes vs)))
+    (and (< 0 (car formats))
+	 (< 0 (car modes)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -235,6 +290,24 @@ Cleanup todo:
 		       rcons
 		       extensions-cvector
 		       ref-VkExtensionProperties)))
+
+
+;; device extensions
+
+(define (get-device-extensions physical-device*)
+  (make-cvector (lambda (count props)
+		  (vkEnumerateDeviceExtensionProperties
+		   (ptr->VkPhysicalDevice physical-device*) #f count props))
+		make-VkExtensionProperties*))
+
+(define (device-extensions-supported? vulkan-state)
+  (let (supported-extensions (cvector-transduce (tmap VkExtensionPropertiesextensionName)
+						rcons
+						(get-device-extensions
+						 (vulkan-state-physical-device vulkan-state))
+						ref-VkExtensionProperties))
+    (not (equal? (every (lambda (e) (member e supported-extensions)) +device-extensions+)
+		 #f))))
 
 
 ;; returns cvector containing required extensions
@@ -294,9 +367,15 @@ Cleanup todo:
 #|
 Dev:
 
+First execute all the import stmts in the repl, then:
+
+(begin 
+
 (define vk-instance (ptr->VkInstance (car (create-vulkan-instance-with-validation))))
 
 (define window (init-window))
+
+(define vs (get-device+queue vk-instance window)))
 
 |#
 

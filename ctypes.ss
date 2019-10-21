@@ -11,7 +11,8 @@
 	    make-int-ptr
 	    read-int-ptr
 	    make-bool-ptr
-	    read-bool-ptr)
+	    read-bool-ptr
+	    malloc-integer-list)
 	   (c-declare "#include <stdint.h>
               #include <stdlib.h>")
 	   
@@ -42,10 +43,9 @@
 	     "___return (*___arg1);")
 
 	   (define-c-lambda malloc-integer-list
-	     () (pointer (pointer int))
-	     "int **a = (malloc(sizeof(int) * 4));
-     *a = 12;
-     ___return (a);")
+	     (int)  (pointer int)
+	     "int *a = (malloc(sizeof(int) * ___arg1));
+              ___return (a);")
 
 	   (c-define-type void* (pointer "void"))
 
