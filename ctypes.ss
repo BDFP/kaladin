@@ -1,7 +1,6 @@
 (import :std/foreign
 	:srfi/171-meta
 	:srfi/171)
-
 (export #t)
 
 (begin-ffi (make-int32
@@ -86,14 +85,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; transducers for cvectors ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compose . procs)
+  (define (comp-rec arg)
+    (if (null? procs)
+        arg
+        (let ((proc (car procs))
+              (rest (cdr procs)))
+          (set! procs rest)
+          (proc (comp-rec arg)))))
+  comp-rec)
 
-(define (compose . functions)
-  (define (make-chain thunk chain)
-    (lambda args
-      (call-with-values (lambda () (apply thunk args)) chain)))
-  (if (null? functions)
-      values
-      (fold make-chain (car functions) (cdr functions))))
+
+(define log-transducer (tlog (lambda (res input)
+			       (displayln input))))
 
 (define (cvector-reduce f identity cvector ref-lambda)
   (let ((len (car cvector)))
@@ -104,7 +108,7 @@
 	(let (acc (f acc (ref-lambda (cdr cvector) i)))
 	  (if (reduced? acc)
 	    (unreduce acc)
-	    (loop (1+ i) acc)))))))
+	    (loop (+ i 1) acc)))))))
 
 (define cvector-transduce
   (case-lambda
@@ -115,11 +119,23 @@
 	    (result (cvector-reduce xf init coll ref-lambda)))
        (xf result)))))
 
-(define arr '("hello" "world"))
+;; (define (append-cvectors append-fn . cvectors)
+;;   (foldl (lambda (cvec acc)
+;; 	   (cons (+ (car cvec) (car acc))
+;; 		 ))
+;; 	 (cons 0 #f)
+;; 	 cvectors))
 
-(define cvector (cons (length arr) (scheme->char** arr)))
+;; (cvector-transduce (tmap (lambda (x) (string-append x "as")))
+;; 		   (rany (lambda (x) (equal? x "helloas")))
+;; 		   #t
+;; 		   cvector
+;; 		   ref-char-string)
 
-;; (cvector-transduce (tfilter (lambda (s) (equal? s "hello"))) rcons cvector ref-char-string)
+;; (cvector-transduce tconcatenate
+;; 		   rcons
+;; 		   (list cvector cvector2)
+;; 		   ref-char-string)
 
 ;; (def (map-cvector f cvector ref-lambda:)
 ;;   (with ([length . vector] cvector)
