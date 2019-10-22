@@ -142,6 +142,30 @@
 ;; ffi for handle types ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define (malloc-array-definition info)
+  (let* ((struct-name (assget 'struct-name info))
+	 (ptr (string-append struct-name "*")))
+    `((define-c-lambda ,(string->symbol (string-append "make-" ptr))
+	(int) ,(string->symbol ptr)
+      ,(string-append ptr " " (string-downcase struct-name)
+		      " = malloc(___arg1 * sizeof(" struct-name "));
+      ___return (" (string-downcase struct-name) ");")))))
+
+(define (ref-array-definition info)
+  (let* ((struct-name (assget 'struct-name info))
+	(ptr (string-append struct-name "*")))
+    `((define-c-lambda ,(string->symbol (string-append "ref-" struct-name))
+	(,(string->symbol ptr) int)  ,(string->symbol ptr) 
+	,(string-append "___return(___arg1 + ___arg2);")))))
+
+(define (set-array-definition info)
+  (let* ((struct-name (assget 'struct-name info))
+	(ptr (string-append struct-name "*")))
+    `((define-c-lambda ,(string->symbol (string-append "set-" struct-name "!"))
+	(,(string->symbol ptr) int ,(string->symbol ptr))  void 
+	,(string-append "*(___arg1 + ___arg2) = *___arg3; ___return;")))))
+
+
 (define (get-type-names-of-category category types)
   (get-type-names (get-types-of-category category types)))
 
@@ -168,7 +192,9 @@
 		    () (pointer ,(string->symbol  type))
 		    ,(string-append type "* "  var " = " "malloc(sizeof(" type "));"
 				    "\n" "___return(" var ");"))))
-      ((ptr-ref) (gen-ptr-ref-definition sym-info)))))
+      ((ptr-ref) (gen-ptr-ref-definition sym-info))
+      ((malloc-array) (malloc-array-definition sym-info))
+      ((ref-array) (ref-array-definition sym-info)))))
 
 
 (define (gen-ffi-for-handle types)
@@ -176,15 +202,22 @@
     (make-ffi-code (append (map (lambda (t) (cons t 'type)) handle-types)
 			   (concatenate
 			    (map (lambda (t)
-				   (list
-				    (make-lambda-info
-				     (string->symbol (string-append "make-" t))
-				     'malloc
-				     t)
-				    (make-lambda-info
-				     (string->symbol (string-append "ptr->" t))
-				     'ptr-ref
-				     t)))
+				   (list (make-lambda-info
+					  (string->symbol (string-append "make-" t))
+					  'malloc
+					  t)
+					 (make-lambda-info
+					  (string->symbol (string-append "ptr->" t))
+					  'ptr-ref
+					  t)
+					 (make-lambda-info
+					  (string->symbol (string-append "make-" t "*"))
+					  'malloc-array
+					  t)
+					 (make-lambda-info
+					  (string->symbol (string-append "ref-" t))
+					  'ref-array
+					  t)))
 				 handle-types)))
 		   (lambda (sym)
 		     ;; making no difference b/w
@@ -219,12 +252,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (gen-ffi-for-basetype types)
-  (let (name+type (map get-name+type (get-types-of-category "basetype" types)))
+  (let (name+type (map (lambda (name+type)
+			 (cond
+			  ((equal? (car name+type) "VkBool32") (cons "VkBool32" "bool"))
+			  (else name+type)))
+		       (map get-name+type (get-types-of-category "basetype" types))))
     (make-ffi-code (map car name+type)
 		   (lambda (sym)
 		     `((c-define-type ,sym
-				      ,(cdr (assoc (symbol->string sym)
-						   name+type))))))))
+				      ,(string->symbol (cdr (assoc (symbol->string sym)
+								   name+type)))))))))
 
 
 (define base-integer-types '("int32_t" "int64_t" "uint64_t" "uint32_t" "uint8_t" "uint16_t"))
@@ -438,28 +475,15 @@
 (displayln (malloc-function-definition struct-name members))
 |#
 
-(define (malloc-array-definition info)
-  (let* ((struct-name (assget 'struct-name info))
-	 (ptr (string-append struct-name "*")))
-    `((define-c-lambda ,(string->symbol (string-append "make-" ptr))
-	(int) ,(string->symbol ptr)
-      ,(string-append ptr " " (string-downcase struct-name)
-		      " = malloc(___arg1 * sizeof(" struct-name "));
-      ___return (" (string-downcase struct-name) ");")))))
-
-(define (ref-array-definition info)
-  (let* ((struct-name (assget 'struct-name info))
-	(ptr (string-append struct-name "*")))
-    `((define-c-lambda ,(string->symbol (string-append "ref-" struct-name))
-	(,(string->symbol ptr) int)  ,(string->symbol ptr) 
-	,(string-append "___return(___arg1 + ___arg2);")))))
-
 (define (gen-syms struct-name)
   (list (list (cons 'symbol (string->symbol (string-append "make-" struct-name "*")))
 	      (cons 'type 'malloc-array)
 	      (cons 'struct-name struct-name))
 	(list (cons 'symbol (string->symbol (string-append "ref-" struct-name)))
 	      (cons 'type 'ref-array)
+	      (cons 'struct-name struct-name))
+	(list (cons 'symbol (string->symbol (string-append "set-" struct-name "!")))
+	      (cons 'type 'set-array)
 	      (cons 'struct-name struct-name))
 	(list (cons 'symbol (string->symbol (string-append "ptr->" struct-name)))
 	      (cons 'type 'ptr-ref)
@@ -538,6 +562,9 @@
 		     ((ref-array) (if (null? members)
 				    '()
 				    (ref-array-definition sym-info-alist )))
+		     ((set-array) (if (null? members)
+				    '()
+				    (set-array-definition sym-info-alist)))
 		     ((ptr-ref) (if (or (string-suffix? "KHR" struct-name)
 					(member struct-name
 						'("VkPhysicalDeviceVariablePointerFeatures"
@@ -863,9 +890,9 @@ compiled
 			       (gen-enum-consts enums)
 			       (list (gen-ffi-for-native-types))
 			       (list (gen-ffi-for-handle types))
-			       (list (gen-ffi-for-basetype types))
 			       (list (gen-ffi-for-bitmask types))
 			       (list (gen-ffi-for-platform-integers))
+			       (list (gen-ffi-for-basetype types))
 			       (list (gen-base-pointer-types))
 			       (list (gen-ffi-for-enums types))
 			       (list (gen-ffi-for-unions types))

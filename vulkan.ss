@@ -202,6 +202,7 @@ Cleanup todo:
 + device
 + surface
 + swapchain
++ image views
 
 |#
 
@@ -214,7 +215,7 @@ Cleanup todo:
 (define (get-device-capabilities vs)
   (match vs
     ((vulkan-state instance physical-device* _ surface* _ _ _ _)
-     (let (capabilities (malloc-VkSurfaceCapabilitiesKHR))
+     (let (capabilities (make-VkSurfaceCapabilitiesKHR* 1))
        (vkGetPhysicalDeviceSurfaceCapabilitiesKHR instance
 						  (ptr->VkPhysicalDevice physical-device*)
 						  (ptr->VkSurfaceKHR surface*)
