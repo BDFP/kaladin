@@ -997,6 +997,9 @@
       ptr->VkImage
       make-VkImage
       make-VkImage*
+      ref-VkImage
+      make-VkImageView*
+      ref-VkImageView
       ptr->VkBufferView
       make-VkBufferView
       ptr->VkBuffer
@@ -1291,6 +1294,11 @@ ___return(image);")
       (pointer VkImage)
       "VkImage* images = malloc(___arg1 * sizeof(VkImage));
 ___return(images);")
+      (define-c-lambda
+      ref-VkImage
+      ((pointer VkImage) int)
+      (pointer VkImage)
+      "___return (___arg1 + ___arg2);")
    (define-c-lambda ptr->VkImage ((pointer VkImage)) VkImage "___return(*___arg1);")
    (define-c-lambda
       make-VkImageView
@@ -1303,6 +1311,17 @@ ___return(imageview);")
       ((pointer VkImageView))
       VkImageView
       "___return(*___arg1);")
+   (define-c-lambda
+      make-VkImageView*
+      (int)
+      (pointer VkImageView)
+      "VkImageView* imageViews = malloc(___arg1 * sizeof(VkImageView));
+___return(imageViews);")
+      (define-c-lambda
+      ref-VkImageView
+      ((pointer VkImageView) int)
+      (pointer VkImageView)
+      "___return (___arg1 + ___arg2);")
    (define-c-lambda
       make-VkShaderModule
       ()

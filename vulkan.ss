@@ -355,6 +355,60 @@ Cleanup todo:
 			      (VkSwapchainCreateInfoKHRimageExtent swapchain-info)))
      (else (error 'swapchain-creation-failed)))))
 
+;;;;;;;;;;;;;;;;;
+;; image views ;;
+;;;;;;;;;;;;;;;;;
+
+(define (create-swapchain-image-view-infos swapchain-detail)
+  (with (((swapchain-details swapchain images image-format extent) swapchain-detail)
+	 (components (ptr->VkComponentMapping
+		      (make-VkComponentMapping VK_COMPONENT_SWIZZLE_IDENTITY
+					       VK_COMPONENT_SWIZZLE_IDENTITY
+					       VK_COMPONENT_SWIZZLE_IDENTITY
+					       VK_COMPONENT_SWIZZLE_IDENTITY)))
+	 (subresource-range (ptr->VkImageSubresourceRange
+			     (make-VkImageSubresourceRange VK_IMAGE_ASPECT_COLOR_BIT 0 1 0 1))))
+    (cvector-transduce (tmap (lambda (swapchain-image)
+			       (make-VkImageViewCreateInfo #f
+							   0
+							   (ptr->VkImage swapchain-image)
+							   VK_IMAGE_VIEW_TYPE_2D
+							   image-format
+							   components
+							   subresource-range)))
+		       rcons
+		       images
+		       ref-VkImage)))
+
+
+(define (create-swapchain-image-views vs)
+  (let* ((swapchain-detail (create-swapchain vs))
+	 (image-view-infos (create-swapchain-image-view-infos swapchain-detail))
+	 (num-images (length image-view-infos))
+	 (image-views-cvector (cons num-images (make-VkImageView* num-images))))
+    (cvector-transduce (compose (tenumerate)
+				(tmap
+				 (lambda (index+image-view)
+				   (cond
+				    ((equal? 0
+					     (vkCreateImageView
+					      (ptr->VkDevice (vulkan-state-logical-device vs))
+					      (list-ref image-view-infos
+							(car index+image-view))
+					      #f
+					      (cdr index+image-view)))
+				     (cdr index+image-view))
+				    (else (error 'image-view-creation-failed))))))
+		       rcons
+		       image-views-cvector
+		       ref-VkImageView)))
+
+#|
+
+> (define swapchain-detail (create-swapchain vs))
+
+|#
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
