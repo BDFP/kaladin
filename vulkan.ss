@@ -13,14 +13,15 @@
 (defstruct queue-indices (graphics presentation))
 (defstruct queues (graphics presentation))
 
-(defstruct swapchain-support-details (capabilities formats present-modes))
+(defstruct swapchain-details (swapchain images image-format extent))
 
 (defstruct vulkan-state (instance physical-device
 				  logical-device
 				  surface
 				  window
 				  queues
-				  queue-family-indices))
+				  queue-family-indices
+				  swapchain-details))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; validation layer ;;
@@ -123,7 +124,8 @@
 			      surface*
 			      window
 			      #f
-			      (get-queue-family-index vk-instance device* surface*))))))
+			      (get-queue-family-index vk-instance device* surface*)
+			      #f)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -186,7 +188,8 @@
 		       (vulkan-state-surface vulkan-state)
 		       window
 		       (make-queues graphics-queue presentation-queue)
-		       queue-family-indices)))
+		       queue-family-indices
+		       #f)))
 
 
 #|
@@ -198,6 +201,7 @@ usage:
 Cleanup todo:
 + device
 + surface
++ swapchain
 
 |#
 
@@ -209,7 +213,7 @@ Cleanup todo:
 
 (define (get-device-capabilities vs)
   (match vs
-    ((vulkan-state instance physical-device* _ surface* _ _ _)
+    ((vulkan-state instance physical-device* _ surface* _ _ _ _)
      (let (capabilities (malloc-VkSurfaceCapabilitiesKHR))
        (vkGetPhysicalDeviceSurfaceCapabilitiesKHR instance
 						  (ptr->VkPhysicalDevice physical-device*)
@@ -219,7 +223,7 @@ Cleanup todo:
 
 (define (supported-surface-formats vs)
   (match vs
-    ((vulkan-state instance physical-device* _ surface* _ _ _)
+    ((vulkan-state instance physical-device* _ surface* _ _ _ _)
      (let ((physical-device (ptr->VkPhysicalDevice physical-device*))
 	   (surface (ptr->VkSurfaceKHR surface*)))
        (make-cvector (lambda (count formats)
@@ -232,7 +236,7 @@ Cleanup todo:
 
 (define (supported-presentation-modes vs)
   (match vs
-    ((vulkan-state instance physical-device* _ surface* _ _ _)
+    ((vulkan-state instance physical-device* _ surface* _ _ _ _)
      (let ((physical-device (ptr->VkPhysicalDevice physical-device*))
 	   (surface (ptr->VkSurfaceKHR surface*)))
        (make-cvector (lambda (count formats)
@@ -244,12 +248,112 @@ Cleanup todo:
 		     malloc-integer-list)))))
 
 
-(define (check-swapchain-support? vs)
-  (let ((formats (supported-surface-formats vs))
-	(modes (supported-presentation-modes vs)))
-    (and (< 0 (car formats))
-	 (< 0 (car modes)))))
+(define (check-swapchain-support? formats modes)
+  (and (< 0 (car formats))
+       (< 0 (car modes))))
 
+;; choose right settings for swap chain
+
+(define (list-or . lists)  (car (apply append lists)))
+
+(define (choose-surface-format surface-formats)
+  (let (xf (lambda (f)
+	     (cvector-transduce f rcons surface-formats ref-VkSurfaceFormatKHR)))
+    (list-or (xf (tfilter (lambda (surface-format)
+			    (and (equal? (VkSurfaceFormatKHRformat surface-format)
+					 VK_FORMAT_B8G8R8A8_UNORM)
+				 (equal? (VkSurfaceFormatKHRcolorSpace surface-format)
+					      VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)))))
+	     (xf (ttake 1)))))
+
+
+(define (choose-present-mode presentation-modes)
+  (list-or (cvector-transduce (tfilter (lambda (mode)
+					  (equal? mode VK_PRESENT_MODE_MAILBOX_KHR)))
+			       rcons
+			       presentation-modes
+			       ref-integer-list)
+	   (list VK_PRESENT_MODE_FIFO_KHR)))
+
+
+(define (choose-swap-extent capabilities)
+  (VkSurfaceCapabilitiesKHRcurrentExtent capabilities))
+
+(define (get-swapchain-image-count capabilities)
+  (let (max (VkSurfaceCapabilitiesKHRmaxImageCount capabilities))
+    (cond
+     ((< 0 max) max)
+     (else (1+ (VkSurfaceCapabilitiesKHRminImageCount capabilities))))))
+
+(define (image-sharing-info indices)
+  (match indices
+    ((queue-indices graphics presentation)
+     (cond
+      ((equal? graphics presentation) (list VK_SHARING_MODE_EXCLUSIVE 0 #f))
+      ;; todo test this path
+      (else (list VK_SHARING_MODE_CONCURRENT
+		  2
+		  (let (indices (malloc-integer-list 2))
+		    (foldl (lambda (queue-index i)
+			     (set-integer-list! i queue-index))
+			   0
+			   (list graphics presentation)))))))))
+
+(define (create-swapchain-info vs)
+  (let ((surface-formats (supported-surface-formats vs))
+	(presentation-modes (supported-presentation-modes vs))
+	(capabilities (get-device-capabilities vs)))
+    (if (check-swapchain-support? surface-formats presentation-modes)
+      (with ((surface-format (choose-surface-format surface-formats))
+	     (present-mode (choose-present-mode presentation-modes))
+	     ([sharing-mode index-count indices] (image-sharing-info
+						  (vulkan-state-queue-family-indices vs))))
+	(make-VkSwapchainCreateInfoKHR #f
+				       0
+				       (ptr->VkSurfaceKHR (vulkan-state-surface vs))
+				       (get-swapchain-image-count capabilities)
+				       (VkSurfaceFormatKHRformat surface-format)
+				       (VkSurfaceFormatKHRcolorSpace surface-format)
+				       (choose-swap-extent capabilities)
+				       1
+				       VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT
+				       sharing-mode
+				       index-count
+				       indices
+				       (VkSurfaceCapabilitiesKHRcurrentTransform capabilities)
+				       VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR
+				       present-mode
+				       VK_TRUE
+				       #f))
+      (error 'swapchain-not-supported))))
+
+
+(define (get-swapchain-images instance logical-device swapchain)
+  (make-cvector (lambda (count ptr)
+		  (vkGetSwapchainImagesKHR instance
+					   logical-device
+					   (ptr->VkSwapchainKHR swapchain)
+					   count
+					   ptr))
+		 make-VkImage*))
+
+(define (create-swapchain vs)
+  (let ((swapchain (make-VkSwapchainKHR))
+	(logical-device (ptr->VkDevice (vulkan-state-logical-device vs)))
+	(swapchain-info (create-swapchain-info vs)))
+    (cond
+     ((equal? 0 (vkCreateSwapchainKHR (vulkan-state-instance vs)
+				      logical-device
+				      swapchain-info
+				      #f
+				      swapchain))
+      (make-swapchain-details swapchain
+			      (get-swapchain-images (vulkan-state-instance vs)
+						    logical-device
+						    swapchain)
+			      (VkSwapchainCreateInfoKHRimageFormat swapchain-info)
+			      (VkSwapchainCreateInfoKHRimageExtent swapchain-info)))
+     (else (error 'swapchain-creation-failed)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;

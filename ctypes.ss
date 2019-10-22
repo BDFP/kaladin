@@ -12,7 +12,9 @@
 	    read-int-ptr
 	    make-bool-ptr
 	    read-bool-ptr
-	    malloc-integer-list)
+	    malloc-integer-list
+	    ref-integer-list
+	    set-integer-list!)
 	   (c-declare "#include <stdint.h>
               #include <stdlib.h>")
 	   
@@ -46,6 +48,13 @@
 	     (int)  (pointer int)
 	     "int *a = (malloc(sizeof(int) * ___arg1));
               ___return (a);")
+
+	   (define-c-lambda ref-integer-list ((pointer int) int) (pointer int)
+	     "___return (___arg1 + ___arg2);")
+
+	   (define-c-lambda set-integer-list! ((pointer int) int int) void
+	     "*(___arg1 + ___arg2) = ___arg3;
+              ___return;")
 
 	   (c-define-type void* (pointer "void"))
 
@@ -125,32 +134,37 @@
 (define cvector-transduce
   (case-lambda
     ((xform f coll ref-lambda) (cvector-transduce xform f (f) coll ref-lambda))
-
     ((xform f init coll ref-lambda)
      (let* ((xf (xform f))
 	    (result (cvector-reduce xf init coll ref-lambda)))
        (xf result)))))
 
-;; (define (append-cvectors append-fn . cvectors)
-;;   (foldl (lambda (cvec acc)
-;; 	   (cons (+ (car cvec) (car acc))
-;; 		 ))
-;; 	 (cons 0 #f)
-;; 	 cvectors))
+#|
 
-;; (cvector-transduce (tmap (lambda (x) (string-append x "as")))
-;; 		   (rany (lambda (x) (equal? x "helloas")))
-;; 		   #t
-;; 		   cvector
-;; 		   ref-char-string)
+(define (append-cvectors append-fn . cvectors)
+  (foldl (lambda (cvec acc)
+	   (cons (+ (car cvec) (car acc))
+		 ))
+	 (cons 0 #f)
+	 cvectors))
 
-;; (cvector-transduce tconcatenate
-;; 		   rcons
-;; 		   (list cvector cvector2)
-;; 		   ref-char-string)
+(define cvector (char**->cvector '("abcd" "defgh")))
 
-;; (def (map-cvector f cvector ref-lambda:)
-;;   (with ([length . vector] cvector)
-;;     (map (lambda (i) (f (ref-lambda i)))
-;; 	 (iota length 0))))
+(cvector-transduce (tmap (lambda (x) (string-append x "as")))
+		   (rany (lambda (x) (equal? x "helloas")))
+		   #t
+		   cvector
+		   ref-char-string)
 
+(cvector-transduce (ttake 1)
+		   rcons
+                   cvector
+		   ref-char-string)
+
+(def (map-cvector f cvector ref-lambda:)
+  (with ([length . vector] cvector)
+    (map (lambda (i) (f (ref-lambda i)))
+	 (iota length 0))))
+
+
+|#

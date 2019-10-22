@@ -996,6 +996,7 @@
       make-VkImageView
       ptr->VkImage
       make-VkImage
+      make-VkImage*
       ptr->VkBufferView
       make-VkBufferView
       ptr->VkBuffer
@@ -1284,6 +1285,12 @@ ___return(bufferview);")
       (pointer VkImage)
       "VkImage* image = malloc(sizeof(VkImage));
 ___return(image);")
+   (define-c-lambda
+      make-VkImage*
+      (int)
+      (pointer VkImage)
+      "VkImage* images = malloc(___arg1 * sizeof(VkImage));
+___return(images);")
    (define-c-lambda ptr->VkImage ((pointer VkImage)) VkImage "___return(*___arg1);")
    (define-c-lambda
       make-VkImageView
