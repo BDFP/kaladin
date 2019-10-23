@@ -8,12 +8,6 @@
 
 (export #t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; vulkan function dispatch ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; validation layer ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -26,13 +20,99 @@
   (and *enable-validation-layer* 
      (any (lambda (e) (equal? +validation-layer+ e)) (get-available-layers))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; // todo						  ;;
-;; // 1. enum constants for extensions			  ;;
-;; // 2. generation of ffi according to extension present ;;
-;; // *. pass foreign pointer somehow			  ;;
-;; // *. call the fns					  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (get-enabled-layers)
+  (if (validation-layer-supported?)
+    (cons 1 (scheme->char** (list +validation-layer+)))
+    (cons 0 #f)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; physical device and families ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (get-queue-family-props device)
+  (make-cvector (lambda (count-ptr ptr)
+		  (vkGetPhysicalDeviceQueueFamilyProperties (ptr->VkPhysicalDevice device)
+							    count-ptr
+							    ptr))
+		make-VkQueueFamilyProperties*))
+
+
+(define (queue-family-valid? queue-family)
+  (and (< 0 (VkQueueFamilyPropertiesqueueCount queue-family))
+       (bitwise-and (VkQueueFamilyPropertiesqueueFlags queue-family)
+		    VK_QUEUE_GRAPHICS_BIT)))
+
+
+(define (get-physical-devices vk-instance)
+  (make-cvector (lambda (count-ptr ptr)
+		  (vkEnumeratePhysicalDevices vk-instance
+					      count-ptr
+					      (if ptr (car ptr) #f)))
+		(lambda (count)
+		  (map (lambda (i) (make-VkPhysicalDevice)) (iota count 0)))))
+
+
+;; returns first index of queue families supported by device which is valid
+;; as checked by valid-lambda
+(define (get-queue-family-index device valid-lambda)
+  (car (first (cvector-transduce (compose (tenumerate)
+					  (tfilter (lambda (i+fam)
+						     (valid-lambda (cdr i+fam)))))
+				 rcons
+				 (get-queue-family-props device)
+				 ref-VkQueueFamilyProperties))))
+
+
+(define (select-device-and-queue-index vk-instance)
+  (let* ((devices (get-physical-devices vk-instance))
+	 (device (list-ref (cdr devices) 0)))
+    (cond
+     ((null? devices) (error 'physical-device-not-found))
+     (else (cons device (get-queue-family-index device queue-family-valid?))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Logical Device and Queues ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (create-device physical-device+queue-family-index)
+  (with (([physical-device* . queue-family-index] physical-device+queue-family-index)
+	 ([layer-count . layers] (get-enabled-layers))
+	 (device (make-VkDevice)))
+    (cons 
+     (vkCreateDevice (ptr->VkPhysicalDevice physical-device*)
+		     (make-VkDeviceCreateInfo #f
+					      0
+					      1
+					      (make-VkDeviceQueueCreateInfo #f
+									    0
+									    queue-family-index
+									    1
+									    (make-float 1.0))
+					      layer-count
+					      layers
+					      0
+					      #f
+					      (apply make-VkPhysicalDeviceFeatures
+						(map (lambda (i) #f) (iota 55))))
+		     #f
+		     device)
+     device)))
+
+
+(define (get-device+queue vk-instance)
+  (let* ((physical-device+queue-family-index (select-device-and-queue-index vk-instance))
+	 (res+device (create-device physical-device+queue-family-index))
+	 (device* (cdr res+device))
+	 (queue (make-VkQueue)))
+    (vkGetDeviceQueue (ptr->VkDevice device*)
+		      (cdr physical-device+queue-family-index) 0 queue)
+    (cons device* queue)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; validation messenger  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define (create-debug-utils-messenger vk-instance)
   (let (messenger (make-VkDebugUtilsMessengerEXT))
     (vkCreateDebugUtilsMessengerEXT vk-instance
@@ -119,11 +199,20 @@
 	    vk-instance))))
 
 
-(define (setup-validation-utils)
+(define (create-vulkan-instance-with-validation)
   (with* (([res . vk-instance*] (create-vulkan-instance))
-  	  (vk-instance (ptr->VkInstance vk-instance*))
-  	  (messenger* (create-debug-utils-messenger vk-instance)))
-    (vkDestroyDebugUtilsMessengerEXT vk-instance
-				     (ptr->VkDebugUtilsMessengerEXT messenger*)
-				     #f)
-    (vkDestroyInstance vk-instance #f)))
+  	  (messenger* (create-debug-utils-messenger (ptr->VkInstance vk-instance*))))
+    (cons vk-instance* messenger*)))
+
+
+(define (with-new-instance f)
+  (with* (([vk-instance* . messenger*] (create-vulkan-instance-with-validation))
+	  (vk-instance (ptr->VkInstance vk-instance*)))
+    (dynamic-wind
+	(lambda () #f)
+	(lambda () (f vk-instance))
+	(lambda ()
+	  (vkDestroyDebugUtilsMessengerEXT vk-instance
+					   (ptr->VkDebugUtilsMessengerEXT messenger*)
+					   #f)
+	  (vkDestroyInstance vk-instance #f)))))

@@ -177,12 +177,14 @@
 			   (concatenate
 			    (map (lambda (t)
 				   (list
-				    (make-lambda-info (string->symbol (string-append "make-" t))
-						 'malloc
-						 t)
-				    (make-lambda-info (string->symbol (string-append "ptr->" t))
-						 'ptr-ref
-						 t)))
+				    (make-lambda-info
+				     (string->symbol (string-append "make-" t))
+				     'malloc
+				     t)
+				    (make-lambda-info
+				     (string->symbol (string-append "ptr->" t))
+				     'ptr-ref
+				     t)))
 				 handle-types)))
 		   (lambda (sym)
 		     ;; making no difference b/w
