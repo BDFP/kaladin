@@ -1,10 +1,11 @@
 (import :gerbil/gambit
 	:std/srfi/1
 	:srfi/171
-	:kaladin/vulkan-auto
-	:kaladin/glfw
 	:kaladin/ctypes
-	:kaladin/cstrings)
+	:kaladin/cstrings
+	:kaladin/libshaderc
+	:kaladin/vulkan-auto
+	:kaladin/glfw)
 
 (export #t)
 
@@ -409,6 +410,85 @@ Cleanup todo:
 > (define swapchain-detail (create-swapchain vs))
 
 |#
+
+
+;;;;;;;;;;;;;;;;;;;;
+;; Shader Modules ;;
+;;;;;;;;;;;;;;;;;;;;
+
+(define (dynamic-wind-with-catch pre-thunk value-thunk post-thunk)
+  (with-catch raise (lambda () (dynamic-wind pre-thunk value-thunk post-thunk))))
+
+(define (with-shader-module logical-device shader-file-path shader-type f)
+  (let (shader-module #f)
+    (dynamic-wind-with-catch
+     (lambda ()
+       (with-glsl-compiler shader-file-path
+			   shader-type
+			   (lambda (spirv)
+			     (let ((shader-module-info (make-VkShaderModuleCreateInfo
+							#f
+							0
+							(shaderc-result-get-length spirv)
+							(shaderc-result-get-bytes spirv)))
+				   (shader-module (make-VkShaderModule)))
+			       (vkCreateShaderModule logical-device
+						     shader-module-info
+						     #f
+						     shader-module)
+			       (set! shader-module shader-module)))))
+     (lambda () (f shader-module))
+     (lambda () (vkDestroyShaderModule logical-device shader-module #f)))))
+
+
+(define (create-vertex-shader-stage-info vs vertex-shader-filepath)
+  (with-shader-module (ptr->VkDevice (vulkan-state-logical-device vs))
+		      vertex-shader-filepath
+		      shaderc_vertex_shader
+		      (lambda (shader-module)
+			(make-VkPipelineShaderStageCreateInfo
+			 #f
+			 0
+			 VK_SHADER_STAGE_VERTEX_BIT
+			 shader-module
+			 "main"
+			 #f))))
+
+(define (create-fragment-shader-stage-info vs fragment-shader-filepath)
+  (with-shader-module (ptr->VkDevice (vulkan-state-logical-device vs))
+		      fragment-shader-filepath
+		      shaderc_fragment_shader
+		      (lambda (shader-module)
+			(make-VkPipelineShaderStageCreateInfo
+			 #f
+			 0
+			 VK_SHADER_STAGE_FRAGMENT_BIT
+			 shader-module
+			 "main"
+			 #f))))
+
+(define (create-shader-stages vs
+			      vertex-shader-filepath
+			      fragment-shader-filepath)
+  (let ((shader-stages (make-VkPipelineShaderStageCreateInfo* 2))
+	(shader-stage-infos (list (create-vertex-shader-stage-info
+				   vs
+				   vertex-shader-filepath)
+				  (create-fragment-shader-stage-info
+				   vs
+				   fragment-shader-filepath))))
+    (foldl (lambda (stage-info i)
+	     (set-VkPipelineShaderStageCreateInfo! shader-stages
+						   i
+						   stage-info)
+	     (1+ i))
+	   0
+	   shader-stage-infos)
+    shader-stages))
+
+;; (create-shader-stages vs "shaders/shader.vert" "shaders/shader.frag")
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;
