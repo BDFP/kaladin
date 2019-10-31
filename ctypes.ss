@@ -12,9 +12,15 @@
 	    read-int-ptr
 	    make-bool-ptr
 	    read-bool-ptr
+	    
 	    malloc-integer-list
 	    ref-integer-list
-	    set-integer-list!)
+	    set-integer-list!
+
+	    malloc-float-list
+	    ref-float-list
+	    set-float-list!)
+  
 	   (c-declare "#include <stdint.h>
               #include <stdlib.h>")
 	   
@@ -69,6 +75,19 @@
   *res = ___arg1;
  }
  ___return (res);")
+
+	   (define-c-lambda malloc-float-list
+	     (int)  (pointer float)
+	     "float *a = (malloc(sizeof(float) * ___arg1));
+              ___return (a);")
+
+	   (define-c-lambda ref-float-list ((pointer float) int) (pointer float)
+	     "___return (___arg1 + ___arg2);")
+
+	   (define-c-lambda set-float-list! ((pointer float) int float) void
+	     "*(___arg1 + ___arg2) = ___arg3;
+              ___return;")
+
 
 	   (c-define-type bool* (pointer bool))
 
@@ -139,6 +158,15 @@
 	    (result (cvector-reduce xf init coll ref-lambda)))
        (xf result)))))
 
+(define (list->float-ptr xs)
+  (let (ptr (malloc-float-list (length xs)))
+    (foldl (lambda (x i)
+	     (set-float-list! ptr i x)
+	     (1+ i))
+	   0
+	   xs)
+    ptr))
+
 #|
 
 (define (append-cvectors append-fn . cvectors)
@@ -166,5 +194,6 @@
     (map (lambda (i) (f (ref-lambda i)))
 	 (iota length 0))))
 
+(list->float-ptr '(1.0 0.5 1.0))
 
 |#

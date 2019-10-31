@@ -7,8 +7,6 @@
 (define VK_MAX_DESCRIPTION_SIZE 256)
 (define VK_MAX_MEMORY_TYPES 32)
 (define VK_MAX_MEMORY_HEAPS 16)
-(define VK_TRUE 1)
-(define VK_FALSE 0)
 (define VK_MAX_DEVICE_GROUP_SIZE 32)
 (define VK_MAX_DRIVER_NAME_SIZE_KHR 256)
 (define VK_MAX_DRIVER_INFO_SIZE_KHR 256)
@@ -1165,7 +1163,9 @@
       VkPhysicalDevice
       VkPhysicalDevice*
       VkInstance
-      VkInstance*)
+      VkInstance*
+      VK_TRUE
+      VK_FALSE)
    (c-declare
       "   
 #include <stdio.h>
@@ -1175,6 +1175,8 @@
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
+   (define-const VK_TRUE)
+(define-const VK_FALSE)
    (c-define-type VkInstance (pointer (struct "VkInstance_T")))
    (c-define-type VkInstance* (pointer VkInstance))
    (c-define-type VkPhysicalDevice (pointer (struct "VkPhysicalDevice_T")))
@@ -4023,12 +4025,12 @@ ___return (offset3d);"))
 ")
    (c-define-type VkExtent2D (struct "VkExtent2D"))
    (c-define-type VkExtent2D* (pointer VkExtent2D))
-   (define-c-lambda VkExtent2Dwidth (VkExtent2D*) uint32_t "___return (___arg1->width);")
+   (define-c-lambda VkExtent2Dwidth (VkExtent2D) uint32_t "___return  (___arg1.width);")
    (define-c-lambda
       VkExtent2Dheight
-      (VkExtent2D*)
+      (VkExtent2D)
       uint32_t
-      "___return (___arg1->height);")
+      "___return (___arg1.height);")
    (define-c-lambda
       make-VkExtent2D*
       (int)
@@ -44928,12 +44930,14 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
 (begin-ffi
    (vulkan-debug-callback)
    (c-define
-      (vulkan-debug-callback str)
-      (char-string)
+      (vulkan-debug-callback message-severity message-type callback-data user-data)
+      (VkDebugUtilsMessageSeverityFlagBitsEXT VkDebugUtilsMessageTypeFlagsEXT
+					      VkDebugUtilsMessengerCallbackDataEXT*
+					      void*)
       void
       "vulkan_callback"
       ""
-      (displayln "debug callback:" str))
+      (displayln "debug callback:" (VkDebugUtilsMessengerCallbackDataEXTpMessage callback-data)))
    (c-declare
       "
    static VKAPI_ATTR VkBool32 VKAPI_CALL
@@ -44941,7 +44945,7 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
                  VkDebugUtilsMessageTypeFlagsEXT messageType,
                  const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
                  void* pUserData) {
-       vulkan_callback(pCallbackData->pMessage);
+       vulkan_callback(messageSeverity, messageType, pCallbackData, pUserData);
        return VK_FALSE;
    }"))
 (define VK_KHR_SURFACE_SPEC_VERSION 25)
@@ -45045,7 +45049,7 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
 (define VK_KHR_SWAPCHAIN_SPEC_VERSION 70)
 (define VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR 999999900)
 (define VK_STRUCTURE_TYPE_PRESENT_INFO_KHR 999999901)
-(define VK_IMAGE_LAYOUT_PRESENT_SRC_KHR 999999902)
+;; (define VK_IMAGE_LAYOUT_PRESENT_SRC_KHR 999999902)
 (define VK_SUBOPTIMAL_KHR 999999903)
 (define VK_ERROR_OUT_OF_DATE_KHR -999999904)
 (define VK_OBJECT_TYPE_SWAPCHAIN_KHR 999999900)
@@ -45058,7 +45062,8 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
 (define VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR 1)
 (define VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR 2)
 (begin-ffi
-   (vkCreateSwapchainKHR)
+ (vkCreateSwapchainKHR
+  VK_IMAGE_LAYOUT_PRESENT_SRC_KHR)
    (c-declare
       "   
 #include <stdio.h>
@@ -45068,6 +45073,7 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
+   (define-const VK_IMAGE_LAYOUT_PRESENT_SRC_KHR)
    (define-c-lambda
       vkCreateSwapchainKHR
       (VkInstance

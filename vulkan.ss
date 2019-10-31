@@ -22,11 +22,26 @@
 				  window
 				  queues
 				  queue-family-indices
-				  swapchain-details))
+				  swapchain-details
+				  swapchain-image-views))
+
+(define (add-swapchain-info vs swapchain-details swapchain-image-views)
+  (match vs
+	 ((vulkan-state instance physical-device logical-device surface window
+			queues queue-family-indices _ _)
+	  (make-vulkan-state instance physical-device logical-device surface window queues
+			     queue-family-indices swapchain-details swapchain-image-views))
+	 (else (error "vulkan state incorrect"))))
+
+
+(define (get-logical-device vs)
+  (ptr->VkDevice (vulkan-state-logical-device vs)))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; validation layer ;;
 ;;;;;;;;;;;;;;;;;;;;;;
+
+(define VK_NULL_HANDLE 0)
 
 (define *enable-validation-layer* #t)
 (define +validation-layer+ "VK_LAYER_KHRONOS_validation")
@@ -126,6 +141,7 @@
 			      window
 			      #f
 			      (get-queue-family-index vk-instance device* surface*)
+			      #f
 			      #f)))))
 
 
@@ -190,6 +206,7 @@
 		       window
 		       (make-queues graphics-queue presentation-queue)
 		       queue-family-indices
+		       #f
 		       #f)))
 
 
@@ -341,7 +358,7 @@ Cleanup todo:
 
 (define (create-swapchain vs)
   (let ((swapchain (make-VkSwapchainKHR))
-	(logical-device (ptr->VkDevice (vulkan-state-logical-device vs)))
+	(logical-device (get-logical-device vs))
 	(swapchain-info (create-swapchain-info vs)))
     (cond
      ((equal? 0 (vkCreateSwapchainKHR (vulkan-state-instance vs)
@@ -382,28 +399,31 @@ Cleanup todo:
 		       images
 		       ref-VkImage)))
 
-
+;; todo rename this
+;; this is a state functions
 (define (create-swapchain-image-views vs)
   (let* ((swapchain-detail (create-swapchain vs))
 	 (image-view-infos (create-swapchain-image-view-infos swapchain-detail))
 	 (num-images (length image-view-infos))
-	 (image-views-cvector (cons num-images (make-VkImageView* num-images))))
-    (cvector-transduce (compose (tenumerate)
-				(tmap
-				 (lambda (index+image-view)
-				   (cond
-				    ((equal? 0
-					     (vkCreateImageView
-					      (ptr->VkDevice (vulkan-state-logical-device vs))
-					      (list-ref image-view-infos
-							(car index+image-view))
-					      #f
-					      (cdr index+image-view)))
-				     (cdr index+image-view))
-				    (else (error 'image-view-creation-failed))))))
-		       rcons
-		       image-views-cvector
-		       ref-VkImageView)))
+	 (image-views-cvector (cons num-images (make-VkImageView* num-images)))
+	 (create-image-view (lambda (index+image-view)
+			      (cond
+			       ((equal? 0
+					(vkCreateImageView (get-logical-device vs)
+							   (list-ref image-view-infos
+								     (car index+image-view))
+							   #f
+							   (cdr index+image-view)))
+				(cdr index+image-view))
+			       (else (error 'image-view-creation-failed))))))
+    (add-swapchain-info vs
+			swapchain-detail
+			(cvector-transduce (compose (tenumerate)
+						    (tmap create-image-view))
+					   rcons
+					   image-views-cvector
+					   ref-VkImageView))))
+
 
 #|
 
@@ -420,12 +440,13 @@ Cleanup todo:
   (with-catch raise (lambda () (dynamic-wind pre-thunk value-thunk post-thunk))))
 
 (define (with-shader-module logical-device shader-file-path shader-type f)
-  (let (shader-module #f)
+  (let (*shader-module* #f)
     (dynamic-wind-with-catch
      (lambda ()
        (with-glsl-compiler shader-file-path
 			   shader-type
 			   (lambda (spirv)
+			     (displayln "init called")
 			     (let ((shader-module-info (make-VkShaderModuleCreateInfo
 							#f
 							0
@@ -436,48 +457,53 @@ Cleanup todo:
 						     shader-module-info
 						     #f
 						     shader-module)
-			       (set! shader-module shader-module)))))
-     (lambda () (f shader-module))
-     (lambda () (vkDestroyShaderModule logical-device shader-module #f)))))
+			       (set! *shader-module* shader-module)))))
+     (lambda ()
+       (f *shader-module*))
+     (lambda () ;; (vkDestroyShaderModule logical-device shader-module #f)
+	#f))))
 
 
-(define (create-vertex-shader-stage-info vs vertex-shader-filepath)
-  (with-shader-module (ptr->VkDevice (vulkan-state-logical-device vs))
+(define (create-vertex-shader-stage-info logical-device vertex-shader-filepath)
+  (with-shader-module logical-device
 		      vertex-shader-filepath
 		      shaderc_vertex_shader
 		      (lambda (shader-module)
+			(displayln "vertex" shader-module)
 			(make-VkPipelineShaderStageCreateInfo
 			 #f
 			 0
 			 VK_SHADER_STAGE_VERTEX_BIT
-			 shader-module
+			 (ptr->VkShaderModule shader-module)
 			 "main"
 			 #f))))
 
-(define (create-fragment-shader-stage-info vs fragment-shader-filepath)
-  (with-shader-module (ptr->VkDevice (vulkan-state-logical-device vs))
+(define (create-fragment-shader-stage-info logical-device fragment-shader-filepath)
+  (with-shader-module logical-device
 		      fragment-shader-filepath
 		      shaderc_fragment_shader
 		      (lambda (shader-module)
+			(displayln "fragment" shader-module)
 			(make-VkPipelineShaderStageCreateInfo
 			 #f
 			 0
 			 VK_SHADER_STAGE_FRAGMENT_BIT
-			 shader-module
+			 (ptr->VkShaderModule  shader-module)
 			 "main"
 			 #f))))
 
-(define (create-shader-stages vs
+(define (create-shader-stages logical-device
 			      vertex-shader-filepath
 			      fragment-shader-filepath)
   (let ((shader-stages (make-VkPipelineShaderStageCreateInfo* 2))
 	(shader-stage-infos (list (create-vertex-shader-stage-info
-				   vs
+				   logical-device
 				   vertex-shader-filepath)
 				  (create-fragment-shader-stage-info
-				   vs
+				   logical-device
 				   fragment-shader-filepath))))
     (foldl (lambda (stage-info i)
+	     (displayln "shader pname: " (VkPipelineShaderStageCreateInfopName stage-info) " i: " i)
 	     (set-VkPipelineShaderStageCreateInfo! shader-stages
 						   i
 						   stage-info)
@@ -486,9 +512,174 @@ Cleanup todo:
 	   shader-stage-infos)
     shader-stages))
 
-;; (create-shader-stages vs "shaders/shader.vert" "shaders/shader.frag")
+;; (create-shader-stages (get-logical-device vs) "shaders/shader.vert" "shaders/shader.frag")
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Fixed functions ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(define (create-vertex-input-state)
+  (make-VkPipelineVertexInputStateCreateInfo #f 0 0 #f 0 #f))
+
+(define (create-pipeline-input-assembly)
+  (make-VkPipelineInputAssemblyStateCreateInfo #f
+					       0
+					       VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST
+					       #f))
+
+(define (create-viewport swapchain-extent)
+  (let ((viewport (make-VkViewport 0.0
+				   0.0
+				   (exact->inexact (VkExtent2Dwidth swapchain-extent))
+				   (exact->inexact (VkExtent2Dheight swapchain-extent))
+				   0.0
+				   1.0))
+	(scissor (make-VkRect2D (ptr->VkOffset2D (make-VkOffset2D 0 0))
+				swapchain-extent)))
+    (make-VkPipelineViewportStateCreateInfo #f
+					    0
+					    1
+					    viewport
+					    1
+					    scissor)))
+
+(define (create-rasterizer)
+  (make-VkPipelineRasterizationStateCreateInfo #f
+					       0
+					       #f
+					       VK_FALSE
+					       VK_POLYGON_MODE_FILL
+					       VK_CULL_MODE_BACK_BIT
+					       VK_FRONT_FACE_CLOCKWISE
+					       VK_FALSE
+					       0.0
+					       0.0
+					       0.0
+					       1.0))
+
+(define (create-multisampling)
+  (make-VkPipelineMultisampleStateCreateInfo #f
+					     0
+					     VK_SAMPLE_COUNT_1_BIT
+					     #f
+					     0.0
+					     #f
+					     #f
+					     #f))
+
+(define (create-color-blending)
+  (let* ((color-write-mask (bitwise-ior VK_COLOR_COMPONENT_R_BIT
+					VK_COLOR_COMPONENT_G_BIT
+					VK_COLOR_COMPONENT_B_BIT
+					VK_COLOR_COMPONENT_A_BIT))
+	 (attachment (make-VkPipelineColorBlendAttachmentState #f
+							       0
+							       0
+							       0
+							       0
+							       0
+							       0
+							       color-write-mask)))
+    (make-VkPipelineColorBlendStateCreateInfo #f
+					      0
+					      #f
+					      VK_LOGIC_OP_COPY
+					      1
+					      attachment
+					      (list->float-ptr '(0.0 0.0 0.0 0.0)))))
 
 
+(define (create-pipeline-layout logical-device)
+    (displayln "creating pipeline layout")
+  (let ((pipeline-layout-info (make-VkPipelineLayoutCreateInfo #f
+								0
+								0
+								#f
+								0
+								#f))
+	(pipeline-layout (make-VkPipelineLayout)))
+    (vkCreatePipelineLayout logical-device pipeline-layout-info #f pipeline-layout)
+    pipeline-layout))
+
+;;;;;;;;;;;;;;;;;;;
+;; Render passes ;;
+;;;;;;;;;;;;;;;;;;;
+
+(define (create-color-attachment swapchain-image-format)
+  (displayln "creating color attachment")
+  (values (make-VkAttachmentDescription 0
+					swapchain-image-format
+					VK_SAMPLE_COUNT_1_BIT
+					VK_ATTACHMENT_LOAD_OP_CLEAR
+					VK_ATTACHMENT_STORE_OP_STORE
+					VK_ATTACHMENT_LOAD_OP_DONT_CARE
+					VK_ATTACHMENT_STORE_OP_DONT_CARE
+					VK_IMAGE_LAYOUT_UNDEFINED
+					VK_IMAGE_LAYOUT_PRESENT_SRC_KHR)
+	  (make-VkAttachmentReference 0
+				      VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)))
+
+(define (create-render-pass logical-device swapchain-image-format)
+  (displayln "creating render pass info " logical-device " " swapchain-image-format)
+  (let*-values (((attachment attachment-ref) (create-color-attachment swapchain-image-format))
+		((subpass) (make-VkSubpassDescription 0
+						    VK_PIPELINE_BIND_POINT_GRAPHICS
+						    0
+						    #f
+						    1
+						    attachment-ref
+						    #f
+						    #f
+						    0
+						    #f))
+		((render-pass-info) (make-VkRenderPassCreateInfo #f
+							       0
+							       1
+							       attachment
+							       1
+							       subpass
+							       0
+							       #f))
+		((render-pass) (make-VkRenderPass)))
+    (displayln "attachments" attachment attachment-ref)
+    (displayln "result render pass"
+	       (vkCreateRenderPass logical-device render-pass-info #f render-pass))
+    render-pass))
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Graphics Pipeline ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (create-graphics-pipeline vs vertex-shader-filepath fragment-shader-filepath)
+  (with* ((logical-device (get-logical-device vs))
+	 ((swapchain-details _ _ image-format extent) (vulkan-state-swapchain-details vs))
+	 (pipeline-info (make-VkGraphicsPipelineCreateInfo
+			 #f
+			 0
+			 2
+			 (create-shader-stages (get-logical-device vs)
+					       vertex-shader-filepath
+					       fragment-shader-filepath)
+			 (create-vertex-input-state)
+			 (create-pipeline-input-assembly)
+			 #f
+			 (create-viewport extent)
+			 (create-rasterizer)
+			 (create-multisampling)
+			 #f
+			 (create-color-blending)
+			 #f
+			 (ptr->VkPipelineLayout (create-pipeline-layout logical-device))
+			 (ptr->VkRenderPass (create-render-pass logical-device image-format))
+			 0
+			 #f
+			 0))
+	 (infos (make-VkGraphicsPipelineCreateInfo* 1))
+	 (pipelines (make-VkPipeline* 1)))
+    (set-VkGraphicsPipelineCreateInfo! infos 0 pipeline-info)
+    (displayln "now creating pipelines: "
+	       (vkCreateGraphicsPipelines logical-device #f 1 infos #f pipelines))
+    pipelines))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;
@@ -606,15 +797,22 @@ Cleanup todo:
 #|
 Dev:
 
-First execute all the import stmts in the repl, then:
+(import :kaladin/vulkan-auto
+        :kaladin/glfw
+        :kaladin/vulkan)
 
 (begin 
 
-(define vk-instance (ptr->VkInstance (car (create-vulkan-instance-with-validation))))
+ (define vk-instance (ptr->VkInstance (car (create-vulkan-instance-with-validation))))
 
-(define window (init-window))
+ (define window (init-window))
 
-(define vs (get-device+queue vk-instance window)))
+ (define vs (get-device+queue vk-instance window))
+ (define vs2 (create-swapchain-image-views vs)))
+
+
+
+(create-graphics-pipeline vs2 "shaders/shader.vert" "shaders/shader.frag")
 
 |#
 

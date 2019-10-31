@@ -13,6 +13,7 @@
 	  "-ld-options" "-lshaderc_combined -lstdc++ -lpthread")
     (gxc: "vulkan"
 	  "-ld-options" "-lvulkan")
+    (exe: "vulkan-runner")
     ;; (gxc: "inotify.scm")
     ;; (gxc: "test-runner.scm")
     (gxc: "pprint")
