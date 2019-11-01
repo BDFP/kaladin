@@ -16,6 +16,8 @@
 
 (defstruct swapchain-details (swapchain images image-format extent))
 
+(defstruct pipeline-details (renderpass pipelines))
+
 (defstruct vulkan-state (instance physical-device
 				  logical-device
 				  surface
@@ -23,14 +25,24 @@
 				  queues
 				  queue-family-indices
 				  swapchain-details
-				  swapchain-image-views))
+				  swapchain-image-views
+				  pipeline-details))
 
 (define (add-swapchain-info vs swapchain-details swapchain-image-views)
   (match vs
 	 ((vulkan-state instance physical-device logical-device surface window
-			queues queue-family-indices _ _)
+			queues queue-family-indices _ _ _)
 	  (make-vulkan-state instance physical-device logical-device surface window queues
-			     queue-family-indices swapchain-details swapchain-image-views))
+			     queue-family-indices swapchain-details swapchain-image-views #f))
+	 (else (error "vulkan state incorrect"))))
+
+(define (add-pipeline-details vs pipeline-details)
+  (match vs
+	 ((vulkan-state instance physical-device logical-device surface window
+			queues queue-family-indices swapchain-details swapchain-image-views _)
+	  (make-vulkan-state instance physical-device logical-device surface window queues
+			     queue-family-indices swapchain-details swapchain-image-views
+			     pipeline-details))
 	 (else (error "vulkan state incorrect"))))
 
 
@@ -142,6 +154,7 @@
 			      #f
 			      (get-queue-family-index vk-instance device* surface*)
 			      #f
+			      #f
 			      #f)))))
 
 
@@ -206,6 +219,7 @@
 		       window
 		       (make-queues graphics-queue presentation-queue)
 		       queue-family-indices
+		       #f
 		       #f
 		       #f)))
 
@@ -686,8 +700,9 @@ Cleanup todo:
 
 (define (create-graphics-pipeline vs vertex-shader-filepath fragment-shader-filepath)
   (with* ((logical-device (get-logical-device vs))
-	 ((swapchain-details _ _ image-format extent) (vulkan-state-swapchain-details vs))
-	 (pipeline-info (make-VkGraphicsPipelineCreateInfo
+	  ((swapchain-details _ _ image-format extent) (vulkan-state-swapchain-details vs))
+	  (render-pass (create-render-pass logical-device image-format))
+	  (pipeline-info (make-VkGraphicsPipelineCreateInfo
 			 #f
 			 0
 			 2
@@ -704,7 +719,7 @@ Cleanup todo:
 			 (create-color-blending)
 			 #f
 			 (ptr->VkPipelineLayout (create-pipeline-layout logical-device))
-			 (ptr->VkRenderPass (create-render-pass logical-device image-format))
+			 (ptr->VkRenderPass render-pass)
 			 0
 			 #f
 			 0))
@@ -713,7 +728,31 @@ Cleanup todo:
     (set-VkGraphicsPipelineCreateInfo! infos 0 pipeline-info)
     (displayln "now creating pipelines: "
 	       (vkCreateGraphicsPipelines logical-device #f 1 infos #f pipelines))
-    pipelines))
+    (add-pipeline-details vs (make-pipeline-details render-pass pipelines))))
+
+
+;;;;;;;;;;;;;;;;;;
+;; Framebuffers ;;
+;;;;;;;;;;;;;;;;;;
+
+(define (create-frame-buffers vs)
+  (let ((render-pass (pipeline-details-renderpass (vulkan-state-pipeline-details vs)))
+	(swapchain-extent (swapchain-details-extent (vulkan-state-swapchain-details vs)))
+	(device (get-logical-device vs)))
+    (map (lambda (image-view)
+	   (let ((framebuffer-info (make-VkFramebufferCreateInfo #f
+								 0
+								 (ptr->VkRenderPass render-pass)
+								 1
+								 image-view
+								 (VkExtent2Dwidth swapchain-extent)
+								 (VkExtent2Dheight swapchain-extent)
+								 1))
+		 (framebuffer (make-VkFramebuffer)))
+	     ;; todo check for VK_SUCCESS
+	     (vkCreateFramebuffer device framebuffer-info #f framebuffer)
+	     framebuffer))
+	 (vulkan-state-swapchain-image-views vs))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;
@@ -846,7 +885,7 @@ Dev:
 
 
 
-(create-graphics-pipeline vs2 "shaders/shader.vert" "shaders/shader.frag")
+(define vs3  (create-graphics-pipeline vs2 "shaders/shader.vert" "shaders/shader.frag"))
 
 |#
 
