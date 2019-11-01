@@ -13055,7 +13055,8 @@ ___return (commandbufferbegininfo);"))
       VkRenderPassBeginInfo
       "___return(*___arg1);")
    (define-c-lambda
-      make-VkRenderPassBeginInfo
+     make-VkRenderPassBeginInfo
+     ;; todo change float* to the union type and fix union type
       (void* VkRenderPass VkFramebuffer VkRect2D uint32_t float*)
       VkRenderPassBeginInfo*
       "VkRenderPassBeginInfo *renderpassbegininfo = malloc(sizeof(VkRenderPassBeginInfo));
