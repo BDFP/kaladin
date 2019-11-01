@@ -13056,7 +13056,7 @@ ___return (commandbufferbegininfo);"))
       "___return(*___arg1);")
    (define-c-lambda
       make-VkRenderPassBeginInfo
-      (void* VkRenderPass VkFramebuffer VkRect2D uint32_t VkClearValue*)
+      (void* VkRenderPass VkFramebuffer VkRect2D uint32_t float*)
       VkRenderPassBeginInfo*
       "VkRenderPassBeginInfo *renderpassbegininfo = malloc(sizeof(VkRenderPassBeginInfo));
 renderpassbegininfo->sType=VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;

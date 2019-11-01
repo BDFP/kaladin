@@ -122,6 +122,8 @@
       (init-fn count ptr)
       (cons (read-int-ptr count) ptr))))
 
+(define (ptr->cvector len ptr) (cons len ptr))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; transducers for cvectors ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

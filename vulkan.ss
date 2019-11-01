@@ -18,6 +18,10 @@
 
 (defstruct pipeline-details (renderpass pipelines))
 
+;; command is cvector
+;; frame is list of cptrs
+(defstruct buffers (frame command))
+
 (defstruct vulkan-state (instance physical-device
 				  logical-device
 				  surface
@@ -753,6 +757,70 @@ Cleanup todo:
 	     (vkCreateFramebuffer device framebuffer-info #f framebuffer)
 	     framebuffer))
 	 (vulkan-state-swapchain-image-views vs))))
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Command buffers ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(define (create-command-pool vs)
+  (let ((pool-info (make-VkCommandPoolCreateInfo #f
+						 (queue-indices-graphics
+						  (vulkan-state-queue-family-indices vs))
+						 0))
+	(command-pool (make-VkCommandPool)))
+    (vkCreateCommandPool (get-logical-device vs)
+			 pool-info
+			 #f
+			 command-pool)
+    command-pool))
+
+(define (create-buffers vs)
+  (let* ((framebuffers (create-frame-buffers vs))
+	 (len (length framebuffers))
+	 (command-pool (create-command-pool vs))
+	 (alloc-info (make-VkCommandBufferAllocateInfo #f
+						       (ptr->VkCommandPool command-pool)
+						       VK_COMMAND_BUFFER_LEVEL_PRIMARY
+						       len))
+	 (command-buffers (make-VkCommandBuffer* len)))
+    ;; todo VK_RESULT check
+    (vkAllocateCommandBuffers (get-logical-device vs) alloc-info command-buffers)
+    (make-buffers framebuffers (cons len command-buffers))))
+
+(define (perform-render-pass vs framebuffer command-buffer*)
+  (with* ((render-area (ptr->VkRect2D
+			(make-VkRect2D (ptr->VkOffset2D (make-VkOffset2D 0 0))
+				       (swapchain-details-extent (vulkan-state-swapchain-details vs)))))
+	  (command-buffer (ptr->VkCommandBuffer command-buffer*))
+	  ((pipeline-details renderpass pipelines) (vulkan-state-pipeline-details vs))
+	  (begin-info (make-VkRenderPassBeginInfo #f
+						  (ptr->VkRenderPass renderpass)
+						  (ptr->VkFramebuffer framebuffer)
+						  render-area
+						  1
+						  (list->float-ptr (list 0.0 0.0 0.0 1.0)))))
+
+    ;; todo VK_RESULT check
+    (vkBeginCommandBuffer command-buffer (make-VkCommandBufferBeginInfo #f 0 #f))
+    (vkCmdBeginRenderPass command-buffer begin-info VK_SUBPASS_CONTENTS_INLINE)
+    (vkCmdBindPipeline command-buffer VK_PIPELINE_BIND_POINT_GRAPHICS (ptr->VkPipeline pipelines))
+    (vkCmdDraw command-buffer 3 1 0 0)
+    (vkCmdEndRenderPass command-buffer)
+    ;; todo VK_RESULT check
+    (vkEndCommandBuffer command-buffer)))
+
+
+(define (record-command-buffers vs)
+  (with ((buffers frame command) (create-buffers vs))
+    (cvector-transduce (compose (tenumerate)
+				(tmap (lambda (index+command-buffer)
+					(with ([i . command-buffer] index+command-buffer)
+					  (perform-render-pass vs
+							       (list-ref frame i)
+							       command-buffer)))))
+		       rcons
+		       command
+		       ref-VkCommandBuffer)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;
