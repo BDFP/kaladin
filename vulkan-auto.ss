@@ -9910,7 +9910,7 @@ ___return (imageresolve);"))
       "___return(*___arg1);")
    (define-c-lambda
       make-VkShaderModuleCreateInfo
-      (void* VkShaderModuleCreateFlags size_t uint32_t*)
+      (void* VkShaderModuleCreateFlags size_t (pointer unsigned-int32))
       VkShaderModuleCreateInfo*
       "VkShaderModuleCreateInfo *shadermodulecreateinfo = malloc(sizeof(VkShaderModuleCreateInfo));
 shadermodulecreateinfo->sType=VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -10556,7 +10556,7 @@ pipelineshaderstagecreateinfo->pNext=___arg1;
 pipelineshaderstagecreateinfo->flags=___arg2;
 pipelineshaderstagecreateinfo->stage=___arg3;
 pipelineshaderstagecreateinfo->module=___arg4;
-pipelineshaderstagecreateinfo->pName=___arg5;
+pipelineshaderstagecreateinfo->pName=strdup(___arg5);
 pipelineshaderstagecreateinfo->pSpecializationInfo=___arg6;
 ___return (pipelineshaderstagecreateinfo);"))
 (begin-ffi

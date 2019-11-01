@@ -53,7 +53,7 @@
   (define-c-lambda shaderc-result-get-length (shaderc_compilation_result*) size_t
     "shaderc_result_get_length")
 
-  (define-c-lambda shaderc-result-get-bytes (shaderc_compilation_result*) (pointer int)
+  (define-c-lambda shaderc-result-get-bytes (shaderc_compilation_result*) (pointer unsigned-int32)
     "___return ((uint32_t*) shaderc_result_get_bytes(___arg1));")
 
   (define-c-lambda shaderc-result-release (shaderc_compilation_result*) void
@@ -74,6 +74,24 @@
 	 ((eof-object? l) (string-join (reverse res) "\n"))
 	 (else (loop (read-line p) (cons l res))))))))
 
+(define (glsl->spirv shader-file shader-type)
+  (let* ((glsl-code (file->string shader-file))
+			       (result (shaderc-compile-into-spv (shaderc-compiler-initialize)
+								 glsl-code
+								 (string-length glsl-code)
+								 shader-type
+								 shader-file
+								 "main"
+								 (shaderc-compile-options-initialize)))
+			       (status (shaderc-result-get-compilation-status result)))
+			  (displayln "compilation result " result status)
+			  (displayln "file: " shader-file shader-type)
+			  (cond
+			   ((equal? status 0) result)
+			   
+			   (else
+			    (raise (cons 'shader-compilation-failed status))))))
+
 (define (with-glsl-compiler shader-file shader-type f)
   (let ((compiler #f)
 	(compiler-options #f)
@@ -90,7 +108,7 @@
 								 glsl-code
 								 (string-length glsl-code)
 								 shader-type
-								 "a.glsl"
+								 shader-file
 								 "main"
 								 compiler-options))
 			       (status (shaderc-result-get-compilation-status result)))
@@ -104,7 +122,7 @@
 		      (lambda ()
 			(shaderc-compile-options-release compiler-options)
 			(when compiler-result (shaderc-result-release compiler-result))
-			(shaderc-compiler-release compiler)))))))
+			 (shaderc-compiler-release compiler)))))))
 
 
 #|

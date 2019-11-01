@@ -177,7 +177,7 @@
 					     1
 					     (scheme->char** +device-extensions+)
 					     (apply make-VkPhysicalDeviceFeatures
-					       (map (lambda (i) #f) (iota 55))))
+						    (map (lambda (i) #f) (iota 55))))
 		    #f
 		    device*)
     device*))
@@ -356,6 +356,7 @@ Cleanup todo:
 					   ptr))
 		 make-VkImage*))
 
+
 (define (create-swapchain vs)
   (let ((swapchain (make-VkSwapchainKHR))
 	(logical-device (get-logical-device vs))
@@ -460,48 +461,59 @@ Cleanup todo:
 			       (set! *shader-module* shader-module)))))
      (lambda ()
        (f *shader-module*))
-     (lambda () ;; (vkDestroyShaderModule logical-device shader-module #f)
+     (lambda ()
+       ;; (vkDestroyShaderModule logical-device (ptr->VkShaderModule *shader-module*) #f)
 	#f))))
+
+(define (new-shader-module logical-device shader-filepath shader-type)
+  (let (spir-result (glsl->spirv shader-filepath shader-type))
+    (displayln spir-result)
+    (let ((shader-module-info (make-VkShaderModuleCreateInfo
+							#f
+							0
+							(shaderc-result-get-length spir-result)
+							(shaderc-result-get-bytes spir-result)))
+	  (shader-module (make-VkShaderModule)))
+      (vkCreateShaderModule logical-device
+			    shader-module-info
+			    #f
+			    shader-module)
+      shader-module)))
 
 
 (define (create-vertex-shader-stage-info logical-device vertex-shader-filepath)
   (with-shader-module logical-device
-		      vertex-shader-filepath
-		      shaderc_vertex_shader
-		      (lambda (shader-module)
-			(displayln "vertex" shader-module)
-			(make-VkPipelineShaderStageCreateInfo
-			 #f
-			 0
-			 VK_SHADER_STAGE_VERTEX_BIT
-			 (ptr->VkShaderModule shader-module)
-			 "main"
-			 #f))))
+  		      vertex-shader-filepath
+  		      shaderc_vertex_shader
+  		      (lambda (shader-module)
+			  (make-VkPipelineShaderStageCreateInfo #f
+								0
+								VK_SHADER_STAGE_VERTEX_BIT
+								(ptr->VkShaderModule shader-module)
+								"main"
+								#f))))
+
 
 (define (create-fragment-shader-stage-info logical-device fragment-shader-filepath)
   (with-shader-module logical-device
-		      fragment-shader-filepath
-		      shaderc_fragment_shader
-		      (lambda (shader-module)
-			(displayln "fragment" shader-module)
-			(make-VkPipelineShaderStageCreateInfo
-			 #f
-			 0
-			 VK_SHADER_STAGE_FRAGMENT_BIT
-			 (ptr->VkShaderModule  shader-module)
-			 "main"
-			 #f))))
+  		      fragment-shader-filepath
+  		      shaderc_fragment_shader
+  		      (lambda (shader-module)
+			(make-VkPipelineShaderStageCreateInfo #f
+							      0
+							      VK_SHADER_STAGE_FRAGMENT_BIT
+							      (ptr->VkShaderModule shader-module)
+							      "main"
+							      #f))))
 
 (define (create-shader-stages logical-device
 			      vertex-shader-filepath
 			      fragment-shader-filepath)
   (let ((shader-stages (make-VkPipelineShaderStageCreateInfo* 2))
-	(shader-stage-infos (list (create-vertex-shader-stage-info
-				   logical-device
-				   vertex-shader-filepath)
-				  (create-fragment-shader-stage-info
-				   logical-device
-				   fragment-shader-filepath))))
+	(shader-stage-infos (list (create-vertex-shader-stage-info logical-device
+								   vertex-shader-filepath)
+				  (create-fragment-shader-stage-info logical-device
+								     fragment-shader-filepath))))
     (foldl (lambda (stage-info i)
 	     (displayln "shader pname: " (VkPipelineShaderStageCreateInfopName stage-info) " i: " i)
 	     (set-VkPipelineShaderStageCreateInfo! shader-stages
@@ -511,6 +523,28 @@ Cleanup todo:
 	   0
 	   shader-stage-infos)
     shader-stages))
+
+#|
+
+(begin 
+(define logical-device (get-logical-device vs2))
+(define vertex-shader-filepath "shaders/shader.vert")
+(define fragment-shader-filepath "shaders/shader.frag")
+
+(define m "main")
+
+(define a (create-vertex-shader-stage-info logical-device vertex-shader-filepath))
+
+(displayln "before " (VkPipelineShaderStageCreateInfopName a))
+
+
+(define b (create-fragment-shader-stage-info logical-device fragment-shader-filepath))
+
+(displayln "after")
+
+(displayln  (equal? (VkPipelineShaderStageCreateInfopName b) m)
+ (VkPipelineShaderStageCreateInfopName a)))
+|#
 
 ;; (create-shader-stages (get-logical-device vs) "shaders/shader.vert" "shaders/shader.frag")
 
