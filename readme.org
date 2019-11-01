@@ -19,6 +19,10 @@ gxpkg install <repo-url>
 + Start repl 
 
 #+BEGIN_SRC gxi
-(import :kaladin/app)
-(main)
+> (import :kaladin/vulkan)
+> (import :kaladin/vulkan-auto)
+> (define vk-instance (ptr->VkInstance (car (create-vulkan-instance-with-validation))))
+> (define window (init-window))
+> (define vs (get-device+queue vk-instance window)) 
+> (create-swapchain-image-views vs)
 #+END_SRC

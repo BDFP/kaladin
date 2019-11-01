@@ -4,6 +4,13 @@
 
 (export #t)
 
+
+(define GLFW_CLIENT_API #x00022001)
+(define GLFW_NO_API 0)
+(define GLFW_RESIZABLE #x00020003)
+(define GLFW_FALSE 0)
+
+
 (begin-ffi (glfwInit
 	    glfw-window-hint
 	    glfw-create-window
@@ -12,7 +19,8 @@
 	    glfw-poll-events
 	    glfw-destroy-window
 	    glfw-terminate
-	    window*)
+	    window*
+	    glfwCreateWindowSurface)
   
   (c-declare "#define GLFW_INCLUDE_NONE
               #include <GLFW/glfw3.h>")
@@ -47,7 +55,16 @@
   (define-c-lambda glfw-window-should-close (window*) int
     "glfwWindowShouldClose")
 
-  (define-c-lambda glfw-poll-events () void "glfwPollEvents"))
+  (define-c-lambda glfw-poll-events () void "glfwPollEvents")
+
+  (c-define-type VkInstance (pointer (struct "VkInstance_T")))
+  (c-define-type VkAllocationCallbacks* (pointer (struct "VkAllocationCallbacks")))
+  (c-define-type VkSurfaceKHR* (pointer (pointer (struct "VkSurfaceKHR_T"))))
+  
+
+  (define-c-lambda glfwCreateWindowSurface
+    (VkInstance window* VkAllocationCallbacks* VkSurfaceKHR*) int
+    "glfwCreateWindowSurface"))
 
 
 ;; https://www.glfw.org/docs/latest/group__init.html#ga317aac130a235ab08c6db0834907d85e
