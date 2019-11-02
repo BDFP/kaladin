@@ -936,7 +936,8 @@
    (c-define-type float* (pointer float))
    (c-define-type float** (pointer float*)))
 (begin-ffi
-   (ref-VkDebugUtilsMessengerEXT
+    (set-VkSemaphore!
+     ref-VkDebugUtilsMessengerEXT
       make-VkDebugUtilsMessengerEXT*
       ptr->VkDebugUtilsMessengerEXT
       make-VkDebugUtilsMessengerEXT
@@ -1013,6 +1014,7 @@
       ptr->VkSemaphore
       make-VkSemaphore
       ref-VkFence
+      set-VkFence!
       make-VkFence*
       ptr->VkFence
       make-VkFence
@@ -1164,19 +1166,28 @@
       VkPhysicalDevice*
       VkInstance
       VkInstance*
-      VK_TRUE
-      VK_FALSE)
+      VK_TRUE1
+      VK_FALSE1
+      UINT64_MAX
+      VK_SUBPASS_EXTERNAL1
+      )
    (c-declare
       "   
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <vulkan/vulkan.h> 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 ")
-   (define-const VK_TRUE)
-(define-const VK_FALSE)
+   
+   (define-c-lambda VK_TRUE1 () int "___return (VK_TRUE);")
+   (define-c-lambda VK_FALSE1 () int "___return (VK_FALSE);")
+   (define-c-lambda UINT64_MAX () unsigned-int64 "___return (UINT64_MAX);")
+   ;; (define-const UINT64_MAX)
+   ;; (define-const VK_SUBPASS_EXTERNAL)
+   (define-c-lambda VK_SUBPASS_EXTERNAL1 () int  "___return (VK_SUBPASS_EXTERNAL);")
    (c-define-type VkInstance (pointer (struct "VkInstance_T")))
    (c-define-type VkInstance* (pointer VkInstance))
    (c-define-type VkPhysicalDevice (pointer (struct "VkPhysicalDevice_T")))
@@ -1651,6 +1662,9 @@ ___return(fence);")
       "VkFence* vkfence = malloc(___arg1 * sizeof(VkFence));
       ___return (vkfence);")
    (define-c-lambda ref-VkFence (VkFence* int) VkFence* "___return(___arg1 + ___arg2);")
+   (define-c-lambda set-VkFence! (VkFence* int VkFence*) void
+     "*(___arg1 + ___arg2) = *___arg3; 
+      ___return;")
    (define-c-lambda
       make-VkSemaphore
       ()
@@ -1668,6 +1682,12 @@ ___return(semaphore);")
       VkSemaphore*
       "VkSemaphore* vksemaphore = malloc(___arg1 * sizeof(VkSemaphore));
       ___return (vksemaphore);")
+   (define-c-lambda
+      set-VkSemaphore!
+      (VkSemaphore* int VkSemaphore*)
+      void
+      "*(___arg1 + ___arg2) = *___arg3;
+       ___return;")
    (define-c-lambda
       ref-VkSemaphore
       (VkSemaphore* int)
@@ -2061,6 +2081,10 @@ ___return(debugutilsmessengerext);")
       (VkDebugUtilsMessengerEXT* int)
       VkDebugUtilsMessengerEXT*
       "___return(___arg1 + ___arg2);"))
+
+(define VK_TRUE #t)
+(define VK_FALSE #f)
+(define VK_SUBPASS_EXTERNAL (VK_SUBPASS_EXTERNAL1))
 (begin-ffi
    (VkSwapchainImageUsageFlagsANDROID
       VkSwapchainImageUsageFlagsANDROID*
@@ -13056,7 +13080,7 @@ ___return (commandbufferbegininfo);"))
       "___return(*___arg1);")
    (define-c-lambda
      make-VkRenderPassBeginInfo
-     ;; todo change float* to the union type and fix union type
+     ;; todo change float* to the union type
       (void* VkRenderPass VkFramebuffer VkRect2D uint32_t float*)
       VkRenderPassBeginInfo*
       "VkRenderPassBeginInfo *renderpassbegininfo = malloc(sizeof(VkRenderPassBeginInfo));
@@ -44157,7 +44181,7 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    (define-c-lambda vkGetFenceStatus (VkDevice VkFence) VkResult "vkGetFenceStatus")
    (define-c-lambda
       vkWaitForFences
-      (VkDevice uint32_t (pointer VkFence) VkBool32 uint64_t)
+      (VkDevice uint32_t (pointer VkFence) VkBool32 unsigned-int64)
       VkResult
       "vkWaitForFences")
    (define-c-lambda
@@ -44950,9 +44974,9 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
        return VK_FALSE;
    }"))
 (define VK_KHR_SURFACE_SPEC_VERSION 25)
-(define VK_ERROR_SURFACE_LOST_KHR -999999900)
-(define VK_ERROR_NATIVE_WINDOW_IN_USE_KHR -999999901)
-(define VK_OBJECT_TYPE_SURFACE_KHR 999999900)
+;; (define VK_ERROR_SURFACE_LOST_KHR -999999900)
+;; (define VK_ERROR_NATIVE_WINDOW_IN_USE_KHR -999999901)
+;; (define VK_OBJECT_TYPE_SURFACE_KHR 999999900)
 (begin-ffi
    (vkDestroySurfaceKHR)
    (c-declare
@@ -45048,18 +45072,18 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
       "PFN_vkGetPhysicalDeviceSurfacePresentModesKHR func = (PFN_vkGetPhysicalDeviceSurfacePresentModesKHR) vkGetInstanceProcAddr(___arg1,\"vkGetPhysicalDeviceSurfacePresentModesKHR\");
 ___return (func(___arg2,___arg3,___arg4,___arg5));"))
 (define VK_KHR_SWAPCHAIN_SPEC_VERSION 70)
-(define VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR 999999900)
-(define VK_STRUCTURE_TYPE_PRESENT_INFO_KHR 999999901)
+;; (define VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR 999999900)
+;; (define VK_STRUCTURE_TYPE_PRESENT_INFO_KHR 999999901)
 ;; (define VK_IMAGE_LAYOUT_PRESENT_SRC_KHR 999999902)
-(define VK_SUBOPTIMAL_KHR 999999903)
-(define VK_ERROR_OUT_OF_DATE_KHR -999999904)
-(define VK_OBJECT_TYPE_SWAPCHAIN_KHR 999999900)
-(define VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR 1000006007)
-(define VK_STRUCTURE_TYPE_IMAGE_SWAPCHAIN_CREATE_INFO_KHR 1000006008)
-(define VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR 1000006009)
-(define VK_STRUCTURE_TYPE_ACQUIRE_NEXT_IMAGE_INFO_KHR 1000006010)
-(define VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_INFO_KHR 1000006011)
-(define VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR 1000006012)
+;; (define VK_SUBOPTIMAL_KHR 999999903)
+;; (define VK_ERROR_OUT_OF_DATE_KHR -999999904)
+;; (define VK_OBJECT_TYPE_SWAPCHAIN_KHR 999999900)
+;; (define VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR 1000006007)
+;; (define VK_STRUCTURE_TYPE_IMAGE_SWAPCHAIN_CREATE_INFO_KHR 1000006008)
+;; (define VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR 1000006009)
+;; (define VK_STRUCTURE_TYPE_ACQUIRE_NEXT_IMAGE_INFO_KHR 1000006010)
+;; (define VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_INFO_KHR 1000006011)
+;; (define VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR 1000006012)
 (define VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR 1)
 (define VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR 2)
 (begin-ffi
@@ -45133,7 +45157,7 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
 ")
    (define-c-lambda
       vkAcquireNextImageKHR
-      (VkInstance VkDevice VkSwapchainKHR uint64_t VkSemaphore VkFence (pointer uint32_t))
+      (VkInstance VkDevice VkSwapchainKHR unsigned-int64 VkSemaphore VkFence (pointer uint32_t))
       VkResult
       "PFN_vkAcquireNextImageKHR func = (PFN_vkAcquireNextImageKHR) vkGetInstanceProcAddr(___arg1,\"vkAcquireNextImageKHR\");
 ___return (func(___arg2,___arg3,___arg4,___arg5,___arg6,___arg7));"))
@@ -45223,12 +45247,12 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
       "PFN_vkAcquireNextImage2KHR func = (PFN_vkAcquireNextImage2KHR) vkGetInstanceProcAddr(___arg1,\"vkAcquireNextImage2KHR\");
 ___return (func(___arg2,___arg3,___arg4));"))
 (define VK_EXT_DEBUG_UTILS_SPEC_VERSION 1)
-(define VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT 999999900)
-(define VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_TAG_INFO_EXT 999999901)
-(define VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT 999999902)
-(define VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT 999999903)
-(define VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT 999999904)
-(define VK_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT 999999900)
+;; (define VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT 999999900)
+;; (define VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_TAG_INFO_EXT 999999901)
+;; (define VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT 999999902)
+;; (define VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT 999999903)
+;; (define VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT 999999904)
+;; (define VK_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT 999999900)
 (begin-ffi
    (vkSetDebugUtilsObjectNameEXT)
    (c-declare

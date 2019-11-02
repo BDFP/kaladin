@@ -30,23 +30,34 @@
 				  queue-family-indices
 				  swapchain-details
 				  swapchain-image-views
-				  pipeline-details))
+				  pipeline-details
+				  buffers))
 
 (define (add-swapchain-info vs swapchain-details swapchain-image-views)
   (match vs
 	 ((vulkan-state instance physical-device logical-device surface window
-			queues queue-family-indices _ _ _)
+			queues queue-family-indices _ _ _ _)
 	  (make-vulkan-state instance physical-device logical-device surface window queues
-			     queue-family-indices swapchain-details swapchain-image-views #f))
+			     queue-family-indices swapchain-details swapchain-image-views #f #f))
 	 (else (error "vulkan state incorrect"))))
 
 (define (add-pipeline-details vs pipeline-details)
   (match vs
 	 ((vulkan-state instance physical-device logical-device surface window
-			queues queue-family-indices swapchain-details swapchain-image-views _)
+			queues queue-family-indices swapchain-details swapchain-image-views _ _)
 	  (make-vulkan-state instance physical-device logical-device surface window queues
 			     queue-family-indices swapchain-details swapchain-image-views
-			     pipeline-details))
+			     pipeline-details #f))
+	 (else (error "vulkan state incorrect"))))
+
+(define (add-buffers vs buffers)
+  (match vs
+	 ((vulkan-state instance physical-device logical-device surface window
+			queues queue-family-indices swapchain-details swapchain-image-views
+			pipeline-details _)
+	  (make-vulkan-state instance physical-device logical-device surface window queues
+			     queue-family-indices swapchain-details swapchain-image-views
+			     pipeline-details buffers))
 	 (else (error "vulkan state incorrect"))))
 
 
@@ -83,7 +94,7 @@
     (glfw-init!)
     (glfw-window-hint GLFW_CLIENT_API GLFW_NO_API)
     (glfw-window-hint GLFW_RESIZABLE GLFW_FALSE)
-    (glfw-create-window 800 600 "Vulkan" #f #f)))
+    (glfw-create-window 1366 768 "Vulkan" #f #f)))
 
 (define (make-surface vk-instance window)
   (let (surface (make-VkSurfaceKHR))
@@ -159,6 +170,7 @@
 			      (get-queue-family-index vk-instance device* surface*)
 			      #f
 			      #f
+			      #f
 			      #f)))))
 
 
@@ -223,6 +235,7 @@
 		       window
 		       (make-queues graphics-queue presentation-queue)
 		       queue-family-indices
+		       #f
 		       #f
 		       #f
 		       #f)))
@@ -310,7 +323,8 @@ Cleanup todo:
 			       rcons
 			       presentation-modes
 			       ref-integer-list)
-	   (list VK_PRESENT_MODE_FIFO_KHR)))
+	   (list VK_PRESENT_MODE_FIFO_KHR))
+  VK_PRESENT_MODE_FIFO_KHR)
 
 
 (define (choose-swap-extent capabilities)
@@ -465,7 +479,7 @@ Cleanup todo:
        (with-glsl-compiler shader-file-path
 			   shader-type
 			   (lambda (spirv)
-			     (displayln "init called")
+			     (displayln "init called" (shaderc-result-get-length spirv))
 			     (let ((shader-module-info (make-VkShaderModuleCreateInfo
 							#f
 							0
@@ -598,7 +612,7 @@ Cleanup todo:
 (define (create-rasterizer)
   (make-VkPipelineRasterizationStateCreateInfo #f
 					       0
-					       #f
+					       VK_FALSE
 					       VK_FALSE
 					       VK_POLYGON_MODE_FILL
 					       VK_CULL_MODE_BACK_BIT
@@ -613,7 +627,7 @@ Cleanup todo:
   (make-VkPipelineMultisampleStateCreateInfo #f
 					     0
 					     VK_SAMPLE_COUNT_1_BIT
-					     #f
+					     VK_FALSE
 					     0.0
 					     #f
 					     #f
@@ -624,7 +638,7 @@ Cleanup todo:
 					VK_COLOR_COMPONENT_G_BIT
 					VK_COLOR_COMPONENT_B_BIT
 					VK_COLOR_COMPONENT_A_BIT))
-	 (attachment (make-VkPipelineColorBlendAttachmentState #f
+	 (attachment (make-VkPipelineColorBlendAttachmentState VK_FALSE
 							       0
 							       0
 							       0
@@ -634,7 +648,7 @@ Cleanup todo:
 							       color-write-mask)))
     (make-VkPipelineColorBlendStateCreateInfo #f
 					      0
-					      #f
+					      VK_FALSE
 					      VK_LOGIC_OP_COPY
 					      1
 					      attachment
@@ -650,7 +664,7 @@ Cleanup todo:
 								0
 								#f))
 	(pipeline-layout (make-VkPipelineLayout)))
-    (vkCreatePipelineLayout logical-device pipeline-layout-info #f pipeline-layout)
+    (displayln "pipeline layput " (vkCreatePipelineLayout logical-device pipeline-layout-info #f pipeline-layout))
     pipeline-layout))
 
 ;;;;;;;;;;;;;;;;;;;
@@ -675,23 +689,31 @@ Cleanup todo:
   (displayln "creating render pass info " logical-device " " swapchain-image-format)
   (let*-values (((attachment attachment-ref) (create-color-attachment swapchain-image-format))
 		((subpass) (make-VkSubpassDescription 0
-						    VK_PIPELINE_BIND_POINT_GRAPHICS
-						    0
-						    #f
-						    1
-						    attachment-ref
-						    #f
-						    #f
-						    0
-						    #f))
+						      VK_PIPELINE_BIND_POINT_GRAPHICS
+						      0
+						      #f
+						      1
+						      attachment-ref
+						      #f
+						      #f
+						      0
+						      #f))
+		((dependency) (make-VkSubpassDependency VK_SUBPASS_EXTERNAL
+							0
+							VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT
+							VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT
+							0
+							(bitwise-ior VK_ACCESS_COLOR_ATTACHMENT_READ_BIT
+								     VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT)
+							0))
 		((render-pass-info) (make-VkRenderPassCreateInfo #f
-							       0
-							       1
-							       attachment
-							       1
-							       subpass
-							       0
-							       #f))
+								 0
+								 1
+								 attachment
+								 1
+								 subpass
+								 1
+								 dependency))
 		((render-pass) (make-VkRenderPass)))
     (displayln "attachments" attachment attachment-ref)
     (displayln "result render pass"
@@ -754,7 +776,8 @@ Cleanup todo:
 								 1))
 		 (framebuffer (make-VkFramebuffer)))
 	     ;; todo check for VK_SUCCESS
-	     (vkCreateFramebuffer device framebuffer-info #f framebuffer)
+	     (displayln "frame buffer res:"
+			(vkCreateFramebuffer device framebuffer-info #f framebuffer))
 	     framebuffer))
 	 (vulkan-state-swapchain-image-views vs))))
 
@@ -768,10 +791,10 @@ Cleanup todo:
 						  (vulkan-state-queue-family-indices vs))
 						 0))
 	(command-pool (make-VkCommandPool)))
-    (vkCreateCommandPool (get-logical-device vs)
-			 pool-info
-			 #f
-			 command-pool)
+    (displayln "command pool res;"  (vkCreateCommandPool (get-logical-device vs)
+							 pool-info
+							 #f
+							 command-pool))
     command-pool))
 
 (define (create-buffers vs)
@@ -801,26 +824,151 @@ Cleanup todo:
 						  (list->float-ptr (list 0.0 0.0 0.0 1.0)))))
 
     ;; todo VK_RESULT check
-    (vkBeginCommandBuffer command-buffer (make-VkCommandBufferBeginInfo #f 0 #f))
+    (displayln "begin command bugger : " (vkBeginCommandBuffer command-buffer (make-VkCommandBufferBeginInfo #f 0 #f)))
     (vkCmdBeginRenderPass command-buffer begin-info VK_SUBPASS_CONTENTS_INLINE)
     (vkCmdBindPipeline command-buffer VK_PIPELINE_BIND_POINT_GRAPHICS (ptr->VkPipeline pipelines))
     (vkCmdDraw command-buffer 3 1 0 0)
     (vkCmdEndRenderPass command-buffer)
     ;; todo VK_RESULT check
-    (vkEndCommandBuffer command-buffer)))
+    (displayln "end comabd bufe " (vkEndCommandBuffer command-buffer))))
 
 
 (define (record-command-buffers vs)
-  (with ((buffers frame command) (create-buffers vs))
+  (let (buffers (create-buffers vs))
     (cvector-transduce (compose (tenumerate)
 				(tmap (lambda (index+command-buffer)
 					(with ([i . command-buffer] index+command-buffer)
+					  (displayln "index of buffer:" i)
 					  (perform-render-pass vs
-							       (list-ref frame i)
+							       (list-ref (buffers-frame buffers) i)
 							       command-buffer)))))
 		       rcons
-		       command
-		       ref-VkCommandBuffer)))
+		       (buffers-command buffers)
+		       ref-VkCommandBuffer)
+    (add-buffers vs buffers)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Rendering and Presentation ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (make-semaphore logical-device)
+  (let (semaphore (make-VkSemaphore))
+    ;; todo VK_RESULT check
+    (displayln "semaphore: "
+	       (vkCreateSemaphore logical-device (make-VkSemaphoreCreateInfo #f 0) #f semaphore))
+    semaphore))
+
+(define (make-fence logical-device)
+  (let ((fence-info (make-VkFenceCreateInfo #f VK_FENCE_CREATE_SIGNALED_BIT))
+	(fence (make-VkFence)))
+    (vkCreateFence logical-device fence-info #f fence)
+    fence))
+
+
+(define (submit-command-buffer vs
+			       image-index
+			       image-available-semaphore
+			       render-finished-semaphore
+			       in-flight-fence)
+  (let* ((wait-semaphores (make-VkSemaphore* 1))
+	 (signal-semaphores (make-VkSemaphore* 1))
+	 (_ (begin (set-VkSemaphore! wait-semaphores 0 image-available-semaphore)
+		   (set-VkSemaphore! signal-semaphores 0 render-finished-semaphore)))
+	 (submit-info (make-VkSubmitInfo #f
+					 1
+					 wait-semaphores
+					 (list->int-ptr (list
+							 VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT))
+					 1
+					 (ref-VkCommandBuffer (cdr (buffers-command
+								    (vulkan-state-buffers vs)))
+							      (read-int-ptr image-index))
+					 1
+					 signal-semaphores)))
+    (displayln "queue submit" (vkQueueSubmit (ptr->VkQueue (queues-graphics (vulkan-state-queues vs)))
+					     1
+					     submit-info
+					     (ptr->VkFence in-flight-fence)))
+    signal-semaphores))
+
+
+(define (present-to-swapchain vs image-index s)
+  (let (present-info (make-VkPresentInfoKHR #f
+					    1
+					      s
+					      1
+					      (swapchain-details-swapchain
+					       (vulkan-state-swapchain-details vs))
+					      image-index
+					      #f))
+    (displayln "Image index: " (read-int-ptr image-index))
+    (displayln "present: " (vkQueuePresentKHR (vulkan-state-instance vs)
+					      (ptr->VkQueue
+					       (queues-presentation (vulkan-state-queues vs)))
+					      present-info))
+    ;; (vkQueueWaitIdle (ptr->VkQueue (queues-presentation (vulkan-state-queues vs))))
+    ))
+
+(define +frames-in-flight+ 2)
+
+(defstruct sync-objects (current-frame
+			 image-available-semaphores
+			 render-finished-semaphores
+			 in-flight-fences))
+
+(define (create-sync-objects vs)
+  (let ((image-sem (make-VkSemaphore* +frames-in-flight+))
+	(render-sem (make-VkSemaphore* +frames-in-flight+))
+	(in-flight-fences (make-VkFence* +frames-in-flight+)))
+    (map (lambda (frame-index)
+	   (set-VkSemaphore! image-sem frame-index (make-semaphore (get-logical-device vs)))
+	   (set-VkSemaphore! render-sem frame-index (make-semaphore (get-logical-device vs)))
+	   (set-VkFence! in-flight-fences frame-index (make-fence (get-logical-device vs))))
+	 (iota +frames-in-flight+))
+    (make-sync-objects 0 image-sem render-sem in-flight-fences)))
+
+(define +max-int+ (UINT64_MAX))
+
+(define (draw-frame vs so)
+  (with* ((logical-device (get-logical-device vs))
+	  (image-index (make-int-ptr))
+	  ((sync-objects current-frame
+			 image-available-semaphores
+			 render-finished-semaphores
+			 in-flight-fences) so)
+	  (frame-fence (ref-VkFence in-flight-fences current-frame)))
+	 (displayln (vkWaitForFences logical-device 1 frame-fence VK_TRUE +max-int+))
+    (vkResetFences logical-device 1 frame-fence)
+    
+    (displayln "current-frame"  current-frame)
+    (displayln "semaphores"
+	       (ref-VkSemaphore image-available-semaphores current-frame)
+	       (ref-VkSemaphore render-finished-semaphores current-frame))
+    (vkAcquireNextImageKHR (vulkan-state-instance vs)
+			   logical-device
+			   (ptr->VkSwapchainKHR (swapchain-details-swapchain
+						 (vulkan-state-swapchain-details vs)))
+			   +max-int+
+			   (ptr->VkSemaphore
+			    (ref-VkSemaphore image-available-semaphores current-frame))
+			   #f
+			   image-index)
+    (let (s (submit-command-buffer vs
+				   image-index
+				   (ref-VkSemaphore image-available-semaphores current-frame)
+				   (ref-VkSemaphore render-finished-semaphores current-frame)
+				   frame-fence))
+      (present-to-swapchain vs image-index s))
+    (make-sync-objects (modulo (1+ current-frame) +frames-in-flight+)
+		       image-available-semaphores
+		       render-finished-semaphores
+		       in-flight-fences)))
+
+
+(define (wait-for-device vs)
+  (vkDeviceWaitIdle (get-logical-device vs)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;
@@ -905,9 +1053,10 @@ Cleanup todo:
 ;; instance creation ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
+
 (define (create-vulkan-instance)
   (with* ((app-info (make-VkApplicationInfo #f
-					    "Hello triangle"
+					    "Hello tria"
 					    #x010000
 					    "Kaladin"
 					    #x010000

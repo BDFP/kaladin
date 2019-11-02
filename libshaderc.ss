@@ -120,9 +120,11 @@
 			   (else
 			    (raise (cons 'shader-compilation-failed status))))))
 		      (lambda ()
-			(shaderc-compile-options-release compiler-options)
-			(when compiler-result (shaderc-result-release compiler-result))
-			 (shaderc-compiler-release compiler)))))))
+			;; (shaderc-compile-options-release compiler-options)
+			;; (when compiler-result (shaderc-result-release compiler-result))
+			;;  (shaderc-compiler-release compiler)
+			#f
+			 ))))))
 
 
 #|

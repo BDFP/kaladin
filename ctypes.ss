@@ -169,6 +169,15 @@
 	   xs)
     ptr))
 
+(define (list->int-ptr xs)
+  (let (ptr (malloc-integer-list (length xs)))
+    (foldl (lambda (x i)
+	     (set-integer-list! ptr i x)
+	     (1+ i))
+	   0
+	   xs)
+    ptr))
+
 #|
 
 (define (append-cvectors append-fn . cvectors)
