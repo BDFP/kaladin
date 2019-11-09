@@ -53,7 +53,7 @@
   (define-c-lambda shaderc-result-get-length (shaderc_compilation_result*) size_t
     "shaderc_result_get_length")
 
-  (define-c-lambda shaderc-result-get-bytes (shaderc_compilation_result*) (pointer unsigned-int32)
+  (define-c-lambda shaderc-result-get-bytes (shaderc_compilation_result*) (pointer int)
     "___return ((uint32_t*) shaderc_result_get_bytes(___arg1));")
 
   (define-c-lambda shaderc-result-release (shaderc_compilation_result*) void

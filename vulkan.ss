@@ -525,8 +525,8 @@ Cleanup todo:
 (define (create-viewport swapchain-extent)
   (let ((viewport (make-VkViewport 0.0
 				   0.0
-				   (exact->inexact (VkExtent2Dwidth swapchain-extent))
-				   (exact->inexact (VkExtent2Dheight swapchain-extent))
+				   (exact->inexact (val-VkExtent2Dwidth swapchain-extent))
+				   (exact->inexact (val-VkExtent2Dheight swapchain-extent))
 				   0.0
 				   1.0))
 	(scissor (make-VkRect2D (ptr->VkOffset2D (make-VkOffset2D 0 0))
@@ -702,8 +702,10 @@ Cleanup todo:
 								 (ptr->VkRenderPass render-pass)
 								 1
 								 image-view
-								 (VkExtent2Dwidth swapchain-extent)
-								 (VkExtent2Dheight swapchain-extent)
+								 (val-VkExtent2Dwidth
+								  swapchain-extent)
+								 (val-VkExtent2Dheight
+								  swapchain-extent)
 								 1))
 		 (framebuffer (make-VkFramebuffer)))
 	     (call-vk-cmd vkCreateFramebuffer logical-device framebuffer-info #f framebuffer)
@@ -742,12 +744,15 @@ Cleanup todo:
 				       (swapchain-info-extent swapchain-info))))
 	  (command-buffer (ptr->VkCommandBuffer command-buffer*))
 	  ((pipeline-details renderpass pipelines) pipeline-detail)
+	  (clear-value (make-VkClearValue-with-color
+			(ptr->VkClearColorValue (make-VkClearColorValue-with-float32
+						 (list->float-ptr (list 0.0 0.0 0.0 1.0))))))
 	  (begin-info (make-VkRenderPassBeginInfo #f
 						  (ptr->VkRenderPass renderpass)
 						  (ptr->VkFramebuffer framebuffer)
 						  render-area
 						  1
-						  (list->float-ptr (list 0.0 0.0 0.0 1.0)))))
+						  clear-value)))
     (call-vk-cmd vkBeginCommandBuffer command-buffer (make-VkCommandBufferBeginInfo #f 0 #f))
     (vkCmdBeginRenderPass command-buffer begin-info VK_SUBPASS_CONTENTS_INLINE)
     (vkCmdBindPipeline command-buffer VK_PIPELINE_BIND_POINT_GRAPHICS (ptr->VkPipeline pipelines))
@@ -842,7 +847,7 @@ Cleanup todo:
 	 (iota +frames-in-flight+))
     (make-sync-objects 0 image-sem render-sem in-flight-fences)))
 
-(define +max-int+ (UINT64_MAX))
+(define +max-int+ UINT64_MAX)
 
 (define (draw-frame vs sync-obj)
   (with* (((vulkan-state instance devices window-details queue-details swapchain-details

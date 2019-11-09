@@ -62,6 +62,7 @@
 					(append (cddr ffi-code) code-for-sym))))))
        (foldl (lambda (sym-info+type ffi-code)
 		(with ([sym-info . type] sym-info+type)
+		  (displayln "type is " type)
 		  (case type
 		    ((type) (let (sym (string->symbol sym-info))
 			      (make-ffi (list sym (make-ptr-symbol sym))
@@ -79,6 +80,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <vulkan/vulkan.h> 
+#include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 "))
@@ -194,7 +196,8 @@
 				    "\n" "___return(" var ");"))))
       ((ptr-ref) (gen-ptr-ref-definition sym-info))
       ((malloc-array) (malloc-array-definition sym-info))
-      ((ref-array) (ref-array-definition sym-info)))))
+      ((ref-array) (ref-array-definition sym-info))
+      ((set-array) (set-array-definition sym-info)))))
 
 
 (define (gen-ffi-for-handle types)
@@ -217,6 +220,10 @@
 					 (make-lambda-info
 					  (string->symbol (string-append "ref-" t))
 					  'ref-array
+					  t)
+					 (make-lambda-info
+					  (string->symbol (string-append "set-" t "!"))
+					  'set-array
 					  t)))
 				 handle-types)))
 		   (lambda (sym)
@@ -286,9 +293,11 @@
 ;; 		   `((c-define-type ,sym char-string)))))
 
 (define (gen-base-pointer-types)
-  '(begin-ffi (char* char**)
+  '(begin-ffi (char* char** UINT64_MAX_F VK_SUBPASS_EXTERNAL_F)
      (c-define-type char* char-string)
-     (c-define-type char** (pointer char-string))))
+     (c-define-type char** (pointer char-string))
+     (define-c-lambda UINT64_MAX_F () int "___return (UINT64_MAX);")
+     (define-c-lambda VK_SUBPASS_EXTERNAL_F () int "___return (VK_SUBPASS_EXTERNAL);")))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; ffi for bitmask ;;
@@ -330,7 +339,7 @@
       (string->number s)))
 
 (define (gen-enum-consts enums)
-  (filter (lambda (d) (not (null? d)))
+   (filter (lambda (d) (not (null? d)))
 	  (map (lambda (e)
 		 (let ((name   (cadar ((sxpath '(@ name)) e)))
 		       (value  ((sxpath '(@ value)) e))
@@ -340,6 +349,9 @@
 		       (extnumber ((sxpath '(@ extnumber)) e))
 		       (dir ((sxpath '(@ dir)) e)))
 		   (cond
+		    ((equal? name "VK_TRUE") '(define VK_TRUE #t))
+		    ((equal? name "VK_FALSE") '(define VK_FALSE #f))
+		    
 		    ((and (not (null? value))
 			  (number-potential? (cadar value)))
 		     (list 'define
@@ -352,25 +364,18 @@
 			   (arithmetic-shift 1 (string->number (cadar bitpos)))))
 
 
-		    ((not (null? offset))
-		     (displayln "offset: " offset " ex: " extnumber)
-		     (let* ((extnumber (if (null? extnumber)
-					 0
-					 (string->number (cadar extnumber))))
-			    (value (+ 1000000000
-				      (* 100 (- extnumber 1))
-				      (string->number (cadar offset)))))
-		       (list 'define (string->symbol name)
-			     (cond
-			      ((null? dir) value)
-			      (else (* value -1))))))
+		    ;; ((not (null? offset))
+		    ;;  )
 
 		    ;; todo this may refer to float or long types which have not been
 		    ;; converted yet
 		    ;; ((not (null? alias))
 		    ;;  (list 'define (string->symbol name) (string->symbol (cadar alias))))
 
-		    (else (list)))))
+		    (else (make-ffi-code (list (cons (list (cons 'symbol (string->symbol name)))
+						       'lambda))
+					   identity
+					   (lambda (t) `((define-const ,(assget 'symbol t)))))))))
 	       enums)))
 
 
@@ -436,6 +441,8 @@
 	 (cond
 	  ((string-suffix? "[]" type)
 	   (string-append "memcpy(" struct-member "," arg "," "sizeof(" arg "));"))
+
+	  ((equal? type "char*") (string-append struct-member "=" "strdup(" arg ");"))
 
 	  ((and (equal? "sType" setter-name) (not (equal? type "VkStructureType")))
 	   (string-append struct-member "=" type ";"))
@@ -508,28 +515,43 @@
 
 ;; getters
 
+(define (make-getter-info struct-name member-name getter-type)
+  (let (sym (case getter-type
+	      (("getter") (string-append struct-name member-name))
+	      (("val-getter") (string-append "val-" struct-name member-name))
+	      (else (error "invalid getter type info " getter-type))))
+    (list (cons 'symbol (string->symbol sym))
+	  (cons 'getter-name member-name)
+	  (cons 'type  'getter)
+	  (cons 'getter-type (string->symbol getter-type))
+	  (cons 'struct-name struct-name))))
+
 (define (gen-getter-names struct-name members)
-  (map (lambda (member-name-with-type)
-	 (with ([member-name . member-type] member-name-with-type)
-	   (list (cons 'symbol (string->symbol (string-append struct-name member-name)))
-		 (cons 'getter-name member-name)
-		 (cons 'type 'getter)
-		 (cons 'struct-name struct-name))))
-       (or members '())))
+  (concatenate (map (lambda (member-name-with-type)
+		      (with ([member-name . member-type] member-name-with-type)
+			(list (make-getter-info struct-name member-name "getter")
+			      (make-getter-info struct-name member-name "val-getter"))))
+		    (or members '()))))
 
 (define (gen-getter-lambda symbol-info-alist members)
-  (let (getter-name (assget 'getter-name symbol-info-alist))
+  ;; todo use a pattern matching macro for alists
+  (with* ((getter-name (assget 'getter-name symbol-info-alist))
+	  (getter-type (assget 'getter-type symbol-info-alist))
+	  (struct-name (assget 'struct-name symbol-info-alist))
+	  ([arg-type . body] (case getter-type
+			       ((getter) (cons (string-append struct-name "*")
+					      "___return (___arg1->"))
+			       ((val-getter) (cons struct-name "___return (___arg1."))
+			       (else (error "invalid getter type" getter-type)))))
     `((define-c-lambda ,(assget 'symbol symbol-info-alist)
-	(,(string->symbol (string-append (assget 'struct-name symbol-info-alist) "*")))
+	(,(string->symbol arg-type))
 	,(string->symbol (if (equal? getter-name "sType")
 			     "VkStructureType"
 			     (arr->ptr-member-type-name (assget getter-name members))))
-	,(string-append "___return (___arg1->" getter-name ");")))))
+	,(string-append body getter-name ");")))))
 
 
-
-
-(define (gen-struct-types type-name members)
+(define (gen-struct-types type-name)
   (if (string-suffix? "*" type-name)
     `((c-define-type ,(string->symbol type-name)
 		     (pointer ,(string->symbol
@@ -537,21 +559,21 @@
     `((c-define-type ,(string->symbol type-name)
 		     (struct ,type-name)))))
 
+(define (list-export-symbols struct-name members)
+  (append (list (cons struct-name 'type))
+
+	  (map (lambda (n) (cons n 'lambda))
+	       (append (gen-getter-names struct-name members)
+		       (gen-syms struct-name)))
+	  
+	  (list (cons (gen-malloc-info struct-name) 'lambda))))
 
 (define (gen-ffi-for-struct struct-name members)
-  (make-ffi-code (append (list (cons struct-name 'type)
-			       ;; (cons (string-append struct-name "*") 'type)
-			       )
-
-			 (map (lambda (n) (cons n 'lambda))
-			      (append (gen-getter-names struct-name members)
-				      (gen-syms struct-name)))
-			 
-			 (list (cons (gen-malloc-info struct-name) 'lambda)))
+  (make-ffi-code (list-export-symbols struct-name members)
 		 ;; types ffi lambda
 		 (lambda (sym)
 		   (let (type-name (symbol->string sym))
-		     (gen-struct-types type-name members)))
+		     (gen-struct-types type-name)))
 		 ;; lambda ffi lambda
 		 (lambda (sym-info-alist)
 		   ;; member is only present for getters
@@ -569,10 +591,10 @@
 					(member struct-name
 						'("VkPhysicalDeviceVariablePointerFeatures"
 						  "VkPhysicalDeviceShaderDrawParameterFeatures"
-						  "VkPhysicalDeviceBufferAddressFeaturesEXT"
-						  )))
+						  "VkPhysicalDeviceBufferAddressFeaturesEXT")))
 				  '()
-				  (gen-ptr-ref-definition sym-info-alist)))))))
+				  (gen-ptr-ref-definition sym-info-alist)))
+		     (else (error "incorrect type wtf"))))))
 
 
 ;; usually defined in platform specific header files
@@ -595,11 +617,69 @@
 ;; ffi for union types ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (gen-ffi-for-unions types)
-  (make-ffi-code (map cadr
-		      ((sxpath '(@ name)) (get-types-of-category "union" types)))
-		 (lambda (sym)
-		   `((c-define-type ,sym (union ,(symbol->string sym)))))))
+(define (get-members type)
+  (map get-name+type ((sxpath '(member)) type)))
+
+(define (malloc-definition-for-union struct-name sym member)
+  (with ([member-name . member-type] member)
+    `((define-c-lambda ,sym
+	(,(string->symbol (arr->ptr-member-type-name member-type)))
+	,(string->symbol (string-append struct-name "*"))
+	,(malloc-function-definition struct-name (list member))))))
+
+
+(define (gen-malloc-lambda-for-union malloc-lambda-info)
+  (let ((struct-name (assget 'struct-name malloc-lambda-info))
+	(sym (assget 'symbol malloc-lambda-info))
+	(member (assget 'member malloc-lambda-info)))
+    (malloc-definition-for-union struct-name sym member)))
+
+(define (gen-union-types type-name)
+  (if (string-suffix? "*" type-name)
+    `((c-define-type ,(string->symbol type-name)
+		     (pointer ,(string->symbol
+				(string-drop-right type-name 1)))))
+    `((c-define-type ,(string->symbol type-name)
+		     (union ,type-name)))))
+
+(define (union-export-syms struct-name members)
+  (map (lambda (m) (cons (list (cons 'symbol (string->symbol
+					 (string-append "make-" struct-name "-with-" (car m))))
+			  (cons 'struct-name struct-name)
+			  (cons 'type 'malloc-union)
+			  (cons 'member m))
+		    'lambda))
+       members))
+
+(define (gen-ffi-for-union type members)
+  (make-ffi-code  (append (list-export-symbols (get-struct-name-from-type type) members)
+			  (union-export-syms (get-struct-name-from-type type) members))
+		  ;; types ffi lambda
+		  (lambda (sym)
+		    (let (type-name (symbol->string sym))
+		      (gen-union-types type-name)))
+		  ;; lambda ffi lambda
+		  (lambda (sym-info-alist)
+		    (let (struct-name (assget 'struct-name sym-info-alist))
+		      ;; member is only present for getters
+		      (case (assget 'type sym-info-alist)
+			((malloc-union) (gen-malloc-lambda-for-union sym-info-alist))
+			((getter) (gen-getter-lambda sym-info-alist members))
+			((malloc-array) (malloc-array-definition sym-info-alist))
+			((ref-array) (if (null? members)
+				       '()
+				       (ref-array-definition sym-info-alist )))
+			((set-array) (if (null? members)
+				       '()
+				       (set-array-definition sym-info-alist)))
+			((ptr-ref) (gen-ptr-ref-definition sym-info-alist))
+			(else (list)))))))
+
+(define (gen-tagged-ffi-for-unions types)
+  (map (lambda (t)
+	 (cons (get-struct-name-from-type t)
+	       (gen-ffi-for-union t (get-members t))))
+       (get-types-of-category "union" types)))
 
 ;;;;;;;;;;;;;;;;
 ;; tagged ffi ;;
@@ -616,11 +696,9 @@
 			       (get-types-of-category "struct" types)))
 	 (struct+members (map (lambda (type)
 				(let ((name (get-struct-name-from-type type))
-				      (members (map get-name+type
-						    ((sxpath '(member)) type))))
+				      (members (get-members type)))
 				  (cons name members)))
 			      struct-types))
-	 
 	 (struct-names (map car struct+members)))
     (map (lambda (struct-name)
 	   (cons struct-name
@@ -699,7 +777,8 @@
 
 (define (gen-tagged-ffi types)
   (let ((structs-ffi (gen-tagged-ffi-for-structs types))
-	(func-ptrs-ffi (gen-tagged-ffi-for-func-ptrs types)))
+	(func-ptrs-ffi (gen-tagged-ffi-for-func-ptrs types))
+	(unions-ffi (gen-tagged-ffi-for-unions types)))
     (filter identity
 	    (map (lambda (type)
 		   (case (get-category-from-type type)
@@ -710,6 +789,10 @@
 		     (("funcpointer")
 		      (assoc (get-func-ptr-name-from-type type)
 			     func-ptrs-ffi))
+
+		     (("union")
+		      (assoc (get-struct-name-from-type type)
+			     unions-ffi))
 		     
 		     (else #f)))
 		 types))))
@@ -719,6 +802,7 @@
 (define (combine-structs-with-func-ptrs types)
   (let ((type-order (order-dependent-types
 		     (append (get-types-of-category "struct" types)
+			     (get-types-of-category "union" types)
 			     (get-types-of-category "funcpointer" types))))
 	(tagged-ffi (gen-tagged-ffi types)))
     (filter identity (map (lambda (type) (assget type tagged-ffi)) type-order))))
@@ -859,18 +943,23 @@ compiled
 
 (define (gen-ffi-for-vulkan-callback)
   '((begin-ffi (vulkan-debug-callback)
-    (c-define (vulkan-debug-callback str) (char-string) void
-	      "vulkan_callback" ""
-	      (displayln "debug callback:" str))
-
-    (c-declare 
-     "
+      (c-define
+       (vulkan-debug-callback message-severity message-type callback-data user-data)
+       (VkDebugUtilsMessageSeverityFlagBitsEXT VkDebugUtilsMessageTypeFlagsEXT
+					       VkDebugUtilsMessengerCallbackDataEXT*
+					       void*)
+       void
+       "vulkan_callback"
+       ""
+       (displayln "debug callback:" (VkDebugUtilsMessengerCallbackDataEXTpMessage callback-data)))
+      (c-declare
+       "
    static VKAPI_ATTR VkBool32 VKAPI_CALL
    debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
                  VkDebugUtilsMessageTypeFlagsEXT messageType,
                  const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
                  void* pUserData) {
-       vulkan_callback(pCallbackData->pMessage);
+       vulkan_callback(messageSeverity, messageType, pCallbackData, pUserData);
        return VK_FALSE;
    }"))))
 
@@ -885,6 +974,11 @@ compiled
 			  `((import :std/foreign
 				    :kaladin/ctypes)
 			    (export #t)
+
+			    ;; (define VK_TRUE #t)
+			    ;; (define VK_FALSE #f)
+			    (define UINT64_MAX (UINT64_MAX_F))
+			    ;; (define VK_SUBPASS_EXTERNAL (VK_SUBPASS_EXTERNAL_F))
 			    
 			    ,@(append
 			       (gen-enum-consts enums)
@@ -895,7 +989,6 @@ compiled
 			       (list (gen-ffi-for-basetype types))
 			       (list (gen-base-pointer-types))
 			       (list (gen-ffi-for-enums types))
-			       (list (gen-ffi-for-unions types))
 			       (list (gen-ffi-for-opaque-structs types))
 			       (combine-structs-with-func-ptrs types)
 			       (list (gen-ffi-for-commands))
