@@ -61,7 +61,8 @@ Uses OpTypeQueue, OpTypeDeviceEvent, and device side enqueue instructions.
 (define pipes-capability "Pipes")
 (define tessellation-capability "Tessellation")
 (define device-enqueue-capability "DeviceEnqueue")
-
+(define generic-pointer-capability "GenericPointer")
+(define atomic-storage-capability "AtomicStorage")
 
 #|
 Import an extended set of instructions. It can be later referenced by the Result <id>.
@@ -392,6 +393,124 @@ Only valid for the Input, Output, and UniformConstant Storage Classes.
 		    (append (list label decoration) args)))
 
 ;; (decorate-instruction "%outColor" location-decoration 0)
+
+;;;;;;;;;;;;;;;;;;;
+;; Storage Class ;;
+;;;;;;;;;;;;;;;;;;;
+
+#|
+UniformConstant
+
+Shared externally, visible across all functions in all invocations in all work groups. 
+Graphics uniform memory. OpenCL constant memory. Variables declared with this storage 
+class are read-only. They may have initializers, as allowed by the client API.
+|#
+
+(define uniform-constant-storage (make-field-value "UniformConstant"))
+
+#|
+Input
+
+Input from pipeline. Visible across all functions in the current invocation. Variables declared with this storage class are read-only, and cannot have initializers.
+|#
+
+(define input-storage (make-field-value "Input"))
+
+#|
+Uniform
+
+Shared externally, visible across all functions in all invocations in all work groups. Graphics uniform blocks and buffer blocks.
+|#
+
+(define uniform-storage (make-field-value "Uniform"))
+
+#|
+Output
+
+Output to pipeline. Visible across all functions in the current invocation.
+|#
+
+(define output-storage (make-field-value "Output" shader-capability))
+
+#|
+Workgroup
+
+Shared across all invocations within a work group. Visible across all functions. 
+The OpenGL "shared" storage qualifier. OpenCL local memory.
+|#
+
+(define workgroup-storage (make-field-value "Workgroup"))
+
+#|
+CrossWorkgroup
+
+Visible across all functions of all invocations of all work groups. OpenCL global memory.
+|#
+
+(define cross-workgroup-storage (make-field-value "CrossWorkgroup"))
+
+#|	
+Private
+
+Visible to all functions in the current invocation. Regular global memory.
+|#
+
+(define private-storage (make-field-value "Private" shader-capability))
+
+#|
+Function
+
+Visible only within the declaring function of the current invocation.
+Regular function memory.
+|#
+
+(define function-storage (make-field-value "Function"))
+
+#|
+Generic
+
+For generic pointers, which overload the Function, Workgroup, and CrossWorkgroup 
+Storage Classes.
+|#
+
+(define generic-storage (make-field-value "Generic" ))
+
+#|
+PushConstant
+
+For holding push-constant memory, visible across all functions in all invocations in all
+work groups. Intended to contain a small bank of values pushed from the API. Variables 
+declared with this storage class are read-only, and cannot have initializers.
+|#
+
+(define push-constant-storage (make-field-value "PushConstant" shader-capability))
+
+#|
+AtomicCounter
+
+For holding atomic counters. Visible across all functions of the current invocation. 
+Atomic counter-specific memory.
+|#
+
+(deine atomic-storage (make-field-value "AtomicCounter"))
+
+#|
+Image
+
+For holding image memory
+|#
+
+(define image-storage (make-field-value "Image"))
+
+#|
+StorageBuffer
+
+To use this 
+SPV_KHR_storage_buffer_storage_class, SPV_KHR_variable_pointers extensions must be 
+enabled
+|#
+
+(define storage-bugger-storage (make-field-value "StorageBuffer" shader-capability))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Type Declaration Instructions ;;
@@ -1087,6 +1206,25 @@ type has Signedness of 1, its sign bit cannot be set.
 (define (stop-lifetime pointer size)
   (make-instruction "OpLifetimeStop" (list pointer size)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Memory Instruction ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+#|
+OpVariable
+
+Allocate an object in memory, resulting in a pointer to it, which can be used with 
+OpLoad and OpStore.
+
+Result Type must be an OpTypePointer. Its Type operand is the type of object in memory.
+
+Storage Class is the Storage Class of the memory holding the object. It cannot be Generica.
+
+Initializer is optional. If Initializer is present, it will be the initial value of the variable’s memory content. Initializer must be an <id> from a constant instruction or a global (module scope) OpVariable instruction. Initializer must have the same type as the type pointed to by Result Type.
+|#
+
+(define (make-variable pointer storage-class initializer)
+  (make-instruction "OpVariable" (list pointer storage-class initializer)))
 
 (define (spirv->shader-module logical-device spirv-path)  
   (let* ((shader-module-info  (spirv->VkShaderModuleCreateInfo spirv-path))
