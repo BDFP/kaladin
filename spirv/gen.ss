@@ -697,8 +697,66 @@ Storage Class is the Storage Class of the memory holding the object pointed to.
 		    (list pointer-type storage-class)
 		    address-capability))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Constant-Creation Instructions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#|
+OpConstantTrue
 
+Declare a true Boolean-type scalar constant
+
+Result Type must be the scalar Boolean type
+|#
+
+(define true-constant (make-instruction "OpConstantTrue" (list make-bool-type)))
+
+#|
+OpConstantFalse
+
+Declare a false Boolean-type scalar constant.
+
+Result Type must be the scalar Boolean type.
+|#
+
+(define false-constant (make-instruction "OpConstantFalse" (list make-bool-type)))
+
+#|
+OpConstant
+
+Declare a new integer-type or floating-point-type scalar constant.
+
+Result Type must be a scalar integer type or floating-point type.
+
+Value is the bit pattern for the constant. Types 32 bits wide or smaller take one word. 
+Larger types take multiple words, with low-order words appearing first.
+|#
+
+(define (make-constant type value) (make-instruction "OpConstant"
+						     (list type value)))
+
+#|
+
+OpConstantComposite
+
+Declare a new composite constant.
+
+Result Type must be a composite type, whose top-level 
+members/elements/components/columns have the same type as the types of the Constituents. The ordering must be the same between the top-level types in Result Type and the 
+Constituents.
+
+Constituents will become members of a structure, or elements of an array, or components 
+of a vector, or columns of a matrix. 
+There must be exactly one Constituent for each top-level member/element/component/column
+of the result. 
+The Constituents must appear in the order needed by the definition of the Result Type. 
+The Constituents must all be <id>s of other constant declarations or an OpUndef.
+|#
+
+(define (make-composite-constant type . constituents)
+  (make-instruction "OpConstantComposite" (append (list type) constituents)))
+
+;; todo add other constant instructions
 
 (define (spirv->shader-module logical-device spirv-path)  
   (let* ((shader-module-info  (spirv->VkShaderModuleCreateInfo spirv-path))
