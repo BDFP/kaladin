@@ -7,6 +7,7 @@
     (gxc: "cstrings")
     (gxc: "vulkan-auto"
 	  "-ld-options" "-lvulkan")
+    (gxc: "spirv/gen")
     (gxc: "glfw"
 	  "-ld-options" "-lglfw")
     (gxc: "libshaderc"

@@ -12979,7 +12979,8 @@ ___return (imageresolve);"))
       val-VkShaderModuleCreateInfosType
       VkShaderModuleCreateInfosType
       VkShaderModuleCreateInfo
-      VkShaderModuleCreateInfo*)
+      VkShaderModuleCreateInfo*
+      spirv->VkShaderModuleCreateInfo)
    (c-declare
       "   
 #include <stdio.h>
@@ -13065,7 +13066,7 @@ ___return (imageresolve);"))
       "___return(*___arg1);")
    (define-c-lambda
       make-VkShaderModuleCreateInfo
-      (void* VkShaderModuleCreateFlags size_t uint32_t*)
+      (void* VkShaderModuleCreateFlags size_t (pointer unsigned-int32))
       VkShaderModuleCreateInfo*
       "VkShaderModuleCreateInfo *shadermodulecreateinfo = malloc(sizeof(VkShaderModuleCreateInfo));
 shadermodulecreateinfo->sType=VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -13073,6 +13074,33 @@ shadermodulecreateinfo->pNext=___arg1;
 shadermodulecreateinfo->flags=___arg2;
 shadermodulecreateinfo->codeSize=___arg3;
 shadermodulecreateinfo->pCode=___arg4;
+___return (shadermodulecreateinfo);")
+   (define-c-lambda
+      spirv->VkShaderModuleCreateInfo
+      (char-string)
+      VkShaderModuleCreateInfo*
+      "
+FILE* pFile;
+pFile = fopen(___arg1, \"rb\");
+fseek(pFile, 0L, SEEK_END);
+size_t size = ftell(pFile);
+fseek(pFile, 0L, SEEK_SET);
+uint8_t* ByteArray = malloc(sizeof(uint8_t) * size);
+if (pFile != NULL)
+{
+    int counter = 0;
+    do {
+        ByteArray[counter] = fgetc(pFile);
+        counter++;
+    } while (counter <= size);
+    fclose(pFile);
+}
+VkShaderModuleCreateInfo *shadermodulecreateinfo = malloc(sizeof(VkShaderModuleCreateInfo));
+shadermodulecreateinfo->sType=VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+shadermodulecreateinfo->pNext=NULL;
+shadermodulecreateinfo->flags=0;
+shadermodulecreateinfo->codeSize=size;
+shadermodulecreateinfo->pCode=ByteArray;
 ___return (shadermodulecreateinfo);"))
 (begin-ffi
    (make-VkDescriptorSetLayoutBinding

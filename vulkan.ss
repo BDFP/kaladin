@@ -5,7 +5,8 @@
 	:kaladin/cstrings
 	:kaladin/libshaderc
 	:kaladin/vulkan-auto
-	:kaladin/glfw)
+	:kaladin/glfw
+	:kaladin/spirv/gen)
 
 (export #t)
 
@@ -444,29 +445,45 @@ Cleanup todo:
 
 
 (define (create-vertex-shader-stage-info logical-device vertex-shader-filepath)
-  (with-shader-module logical-device
-  		      vertex-shader-filepath
-  		      shaderc_vertex_shader
-  		      (lambda (shader-module)
-			  (make-VkPipelineShaderStageCreateInfo #f
-								0
-								VK_SHADER_STAGE_VERTEX_BIT
-								(ptr->VkShaderModule shader-module)
-								"main"
-								#f))))
+  (let (shader-module (spirv->shader-module logical-device "spirv/vert2.spv"))
+    (make-VkPipelineShaderStageCreateInfo #f
+					  0
+					  VK_SHADER_STAGE_VERTEX_BIT
+					  (ptr->VkShaderModule shader-module)
+					  "main"
+					  #f))
+  ;; (with-shader-module logical-device
+  ;; 		      vertex-shader-filepath
+  ;; 		      shaderc_vertex_shader
+  ;; 		      (lambda (shader-module)
+  ;; 			  (make-VkPipelineShaderStageCreateInfo #f
+  ;; 								0
+  ;; 								VK_SHADER_STAGE_VERTEX_BIT
+  ;; 								(ptr->VkShaderModule shader-module)
+  ;; 								"main"
+  ;; 								#f)))
+  )
 
 
 (define (create-fragment-shader-stage-info logical-device fragment-shader-filepath)
-  (with-shader-module logical-device
-  		      fragment-shader-filepath
-  		      shaderc_fragment_shader
-  		      (lambda (shader-module)
-			(make-VkPipelineShaderStageCreateInfo #f
-							      0
-							      VK_SHADER_STAGE_FRAGMENT_BIT
-							      (ptr->VkShaderModule shader-module)
-							      "main"
-							      #f))))
+  (let (shader-module (spirv->shader-module logical-device "spirv/frag2.spv"))
+    (make-VkPipelineShaderStageCreateInfo #f
+					  0
+					  VK_SHADER_STAGE_FRAGMENT_BIT
+					  (ptr->VkShaderModule shader-module)
+					  "main"
+					  #f))
+  ;; (with-shader-module logical-device
+  ;; 		      fragment-shader-filepath
+  ;; 		      shaderc_fragment_shader
+  ;; 		      (lambda (shader-module)
+  ;; 			(make-VkPipelineShaderStageCreateInfo #f
+  ;; 							      0
+  ;; 							      VK_SHADER_STAGE_FRAGMENT_BIT
+  ;; 							      (ptr->VkShaderModule shader-module)
+  ;; 							      "main"
+  ;; 							      #f)))
+  )
 
 (define (create-shader-stages logical-device
 			      vertex-shader-filepath

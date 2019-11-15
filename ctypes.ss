@@ -19,7 +19,10 @@
 
 	    malloc-float-list
 	    ref-float-list
-	    set-float-list!)
+	    set-float-list!
+	    set-int32-list!
+	    ref-int32-list
+	    malloc-int32-list)
   
 	   (c-declare "#include <stdint.h>
               #include <stdlib.h>")
@@ -49,6 +52,20 @@
 
 	   (define-c-lambda read-int32-ptr ((pointer unsigned-int32)) unsigned-int32
 	     "___return (*___arg1);")
+
+	   (define-c-lambda ref-int32-list
+	     ((pointer unsigned-int32) unsigned-int32) (pointer unsigned-int32)
+	     "___return (___arg1 + ___arg2);")
+
+	   (define-c-lambda set-int32-list!
+	     ((pointer unsigned-int32) int unsigned-int32) void
+	     "*(___arg1 + ___arg2) = ___arg3;
+              ___return;")
+
+	    (define-c-lambda malloc-int32-list
+	     (int)  (pointer unsigned-int32)
+	     "int *a = (malloc(sizeof(uint32_t) * ___arg1));
+              ___return (a);")
 
 	   (define-c-lambda malloc-integer-list
 	     (int)  (pointer int)
@@ -95,7 +112,7 @@
 	    "uint32_t* val = malloc(sizeof(uint32_t));
              *val = ___arg1;
              ___return (val);")
-
+	   
 	   (define-c-lambda read-bool-ptr (bool*) bool
 	     "___return (*___arg1);")
 	   
@@ -177,6 +194,22 @@
 	   0
 	   xs)
     ptr))
+
+
+(define (list->int32-ptr xs)
+  (let (ptr (malloc-int32-list (length xs)))
+    (foldl (lambda (x i)
+	     (set-int32-list! ptr i x)
+	     (1+ i))
+	   0
+	   xs)
+    ptr))
+
+(define (int32-cvector->list ptr)
+  (cvector-transduce (tmap (lambda (int-ptr) (read-int32-ptr int-ptr)))
+		     rcons
+		     ptr
+		     ref-int32-list))
 
 #|
 
