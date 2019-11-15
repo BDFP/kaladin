@@ -8,11 +8,17 @@
 
 (defstruct field-value (value capability))
 
-;; field-values will be a list of (U field-value label arg #f)
+(define make-field-value
+  (case-lambda
+    ((value) (make-field-value value #f))
+    ((value capability) (make-field-value value capability))))
+
+;; field-values will be a list of (U field-value label arg)
 (defstruct instruction (opcode-name field-values capability))
 
 (deine make-instruction
        (case-lambda
+	 ((opcode-name) (make-instruction opcode-name #f #f))
 	 ((opcode-name field-values) (make-instruction opcode-name field-values #f))
 	 ((opcode-name field-values capability)
 	  (make-instruction opcode-name field-values capability))))
@@ -517,7 +523,7 @@ Access Qualifier is an image Access Qualifier.
 
 (define (make-image-type sampled-type dim depth arrayed multi-sampling sampled format
 			 access-qualifier)
-  (make-instruction "OpTypeImage" (list scaled-type dim depth arrayed multi-sampling
+  (make-instruction "OpTypeImage" (list sampled-type dim depth arrayed multi-sampling
 					sampled format access-qualifier)))
 
 #|
@@ -757,6 +763,330 @@ The Constituents must all be <id>s of other constant declarations or an OpUndef.
   (make-instruction "OpConstantComposite" (append (list type) constituents)))
 
 ;; todo add other constant instructions
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Control Flow Instruction ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+#|
+OpPhi
+
+The SSA phi function.
+
+The result is selected based on control flow: 
+If control reached the current block from Parent i, Result Id gets the value that 
+Variable i had at the end of Parent i.
+
+Result Type can be any type.
+
+Operands are a sequence of pairs: 
+(Variable 1, Parent 1 block), (Variable 2, Parent 2 block), … 
+Each Parent i block is the label of an immediate predecessor in the CFG of the current 
+block. There must be exactly one Parent i for each parent block of the current block in 
+the CFG. All Variables must have a type matching Result Type.
+
+Within a block, this instruction must appear before all non-OpPhi instructions 
+(except for OpLine, which can be mixed with OpPhi).
+|#
+
+(define (make-φ-instruction result-type . operands)
+  (make-instruction "OpPhi" (append (list result-type) operands)))
+
+#|
+Structured Control Flow
+
+SPIR-V can explicitly declare structured control-flow constructs using merge 
+instructions. These explicitly declare a header block before the control flow diverges 
+and a merge block where control flow subsequently converges. 
+These blocks delimit constructs that must nest, and can only be entered and exited 
+in structured ways, as per the following.
+
+Structured control-flow declarations must satisfy the following rules:
+
+the merge block declared by a header block cannot be a merge block declared by any other
+header block
+
+each header block must strictly dominate its merge block, unless the merge block is 
+unreachable in the CFG
+
+all CFG back edges must branch to a loop header, with each loop header having exactly 
+one back edge branching to it
+
+for a given loop header, its OpLoopMerge Continue Target, and corresponding back-edge 
+block:
+
+the loop header must dominate the Continue Target, unless the Continue Target is 
+unreachable in the CFG
+
+the Continue Target must dominate the back-edge block
+
+the back-edge block must post dominate the Continue Target
+
+A structured control-flow construct is then defined as one of:
+
+a selection construct: the set of blocks dominated by a selection header, minus the set 
+of blocks dominated by the header’s merge block
+
+a continue construct: the set of blocks dominated by an OpLoopMerge’s Continue Target and
+post dominated by the corresponding back-edge block
+
+a loop construct: the set of blocks dominated by a loop header, minus the set of blocks 
+dominated by the loop’s merge block, minus the loop’s corresponding continue construct
+
+a case construct: the set of blocks dominated by an OpSwitch Target or Default, minus 
+the set of blocks dominated by the OpSwitch’s merge block (this construct is only 
+defined for those OpSwitch Target or Default that are not equal to the OpSwitch’s 
+corresponding merge block)
+
+The above structured control-flow constructs must satisfy the following rules:
+
+if a construct contains another header block, then it also contains that header’s 
+corresponding merge block
+
+the only blocks in a construct that can branch outside the construct are
+
+a block branching to the construct’s merge block
+
+a block branching from one case construct to another, for the same OpSwitch
+
+a continue block for the innermost loop it is nested inside of
+
+a break block for the innermost loop it is nested inside of
+
+a return block
+
+additionally for switches:
+
+an OpSwitch block dominates all its defined case constructs
+
+each case construct has at most one branch to another case construct
+
+each case construct is branched to by at most one other case construct
+
+if Target T1 branches to Target T2, or if Target T1 branches to the Default and the 
+Default branches to Target T2, then T1 must immediately precede T2 in the list of the 
+OpSwitch Target operands
+
+|#
+
+#|
+OpLoopMerge
+
+Declare a structured loop.
+
+This instruction must immediately precede either an OpBranch or OpBranchConditional 
+instruction. That is, it must be the second-to-last instruction in its block.
+
+Merge Block is the label of the merge block for this structured loop.
+
+Continue Target is the label of a block targeted for processing a loop "continue".
+
+Loop Control
+None
+
+Unroll
+Strong request, to the extent possible, to unroll or unwind this loop.
+
+DontUnroll
+Strong request, to the extent possible, to keep this loop as a loop, without unrolling.
+
+See Structured Control Flow for more detail.
+|#
+
+(define none-loop-control (make-field-value "None"))
+(define unroll-loop-control (make-field-value "Unroll"))
+(define dont-unroll-loop-control (make-field-value "DontUnroll"))
+
+(define (make-merge-loop merge-block continue-target loop-control)
+  (make-instruction "OpLoopMerge" (list merge-block continue-target loop-control)))
+
+#|
+OpSelectionMerge
+
+Declare a structured selection.
+
+This instruction must immediately precede either an OpBranchConditional or OpSwitch 
+instruction. That is, it must be the second-to-last instruction in its block.
+
+Merge Block is the label of the merge block for this structured selection.
+
+Selection Control
+None
+
+Flatten
+Strong request, to the extent possible, to remove the control flow for this selection.
+
+DontFlatten
+Strong request, to the extent possible, to keep this selection as control flow.
+
+See Structured Control Flow for more detail.
+|#
+
+(define none-selection-control (make-field-value "None"))
+(define flatten-selection-control (make-field-value "Flatten"))
+(define dont-flatten-selection-control (make-field-value "DontFlatten"))
+
+(define (make-selection-merge merge-block selection-control)
+  (make-instruction "OpSelectionMerge" (list merge-block selection-control)))
+
+#|
+OpLabel
+
+The block label instruction: Any reference to a block is through the Result <id> of its 
+label.
+
+Must be the first instruction of any block, and appears only as the first instruction of
+a block.
+|#
+
+(define (make-label) (make-instruction "OpLabel" #f))
+
+#|
+OpBranch
+
+Unconditional branch to Target Label.
+
+Target Label must be the Result <id> of an OpLabel instruction in the current function.
+
+This instruction must be the last instruction in a block.
+|#
+
+(define (make-branch target-label) (make-instruction "OpBranch" (list target-label)))
+
+#|
+OpBranchConditional
+
+If Condition is true, branch to True Label, otherwise branch to False Label.
+
+Condition must be a Boolean type scalar.
+
+True Label must be an OpLabel in the current function.
+
+False Label must be an OpLabel in the current function.
+
+Branch weights are unsigned 32-bit integer literals. There must be either no Branch 
+Weights or exactly two branch weights. If present, the first is the weight for 
+branching to True Label, and the second is the weight for branching to False Label. 
+The implied probability that a branch is taken is its weight divided by the sum of the 
+two Branch weights.
+
+This instruction must be the last instruction in a block.
+|#
+
+(define (make-conditional-branch condition true-label false-label . branch-weights)
+  (make-instruction "OpBranchConditional" (append (list condition true-label false-label)
+						  branch-weights)))
+
+#|
+OpSwitch
+
+Multi-way branch to one of the operand label <id>.
+
+Selector must have a type of OpTypeInt. Selector will be compared for equality to the 
+Target literals.
+
+Default must be the <id> of a label. If Selector does not equal any of the Target 
+literals, control flow will branch to the Default label <id>.
+
+Target must be alternating scalar integer literals and the <id> of a label. 
+If Selector equals a literal, control flow will branch to the following label <id>. 
+It is invalid for any two literal to be equal to each other. If Selector does not equal 
+any literal, control flow will branch to the Default label <id>. 
+Each literal is interpreted with the type of Selector: 
+The bit width of Selector’s type will be the width of each literal’s type. If this width
+is not a multiple of 32-bits, the literals must be sign extended when the OpTypeInt 
+Signedness is set to 1. (See Literal Number.)
+
+This instruction must be the last instruction in a block.
+|#
+
+(define (make-switch selector default-label . targets)
+  (make-instruction "OpSwitch" (append (list selector default-label) targets)))
+
+#|
+OpKill
+
+Fragment-shader discard.
+
+Ceases all further processing in any invocation that executes it: 
+Only instructions these invocations executed before OpKill will have observable side 
+effects. If this instruction is executed in non-uniform control flow, all subsequent 
+control flow is non-uniform (for invocations that continue to execute).
+
+This instruction must be the last instruction in a block.
+
+This instruction is only valid in the Fragment Execution Model.
+|#
+
+(define (make-kill) (make-instruction "OpKill" #f shader-capability))
+
+#|
+OpReturn
+
+Return with no value from a function with void return type.
+
+This instruction must be the last instruction in a block.
+|#
+
+(define (make-return) (make-instruction "OpReturn"))
+
+#|
+OpReturnValue
+
+Return a value from a function.
+
+Value is the value returned, by copy, and must match the Return Type operand of the 
+OpTypeFunction type of the OpFunction body this return instruction is in.
+
+This instruction must be the last instruction in a block.
+|#
+
+(define (make-return-value value) (make-instruction "OpReturnValue" (list value)))
+
+#|
+OpUnreachable
+
+Declares that this block is not reachable in the CFG.
+
+This instruction must be the last instruction in a block.
+|#
+
+(define (make-unreachable) (make-instruction "OpUnreachable"))
+
+#|
+OpLifetimeStart
+
+Declare that an object was not defined before this instruction.
+
+Pointer is a pointer to the object whose lifetime is starting. Its type must be an 
+OpTypePointer with Storage Class Function.
+
+Size must be 0 if Pointer is a pointer to a non-void type or the Addresses capability is
+not being used. If Size is non-zero, it is the number of bytes of memory whose lifetime 
+is starting. Its type must be an integer type scalar. It is treated as unsigned; if its 
+type has Signedness of 1, its sign bit cannot be set.
+|#
+
+(define (start-lifetime pointer size)
+  (make-instruction "OpLifetimeStart" (list pointer size)))
+
+#|
+OpLifetimeStop
+
+Declare that an object is dead after this instruction.
+
+Pointer is a pointer to the object whose lifetime is ending. Its type must be an 
+OpTypePointer with Storage Class Function.
+
+Size must be 0 if Pointer is a pointer to a non-void type or the Addresses capability is
+not being used. If Size is non-zero, it is the number of bytes of memory whose lifetime 
+is ending. Its type must be an integer type scalar. It is treated as unsigned; if its 
+type has Signedness of 1, its sign bit cannot be set.
+|#
+
+(define (stop-lifetime pointer size)
+  (make-instruction "OpLifetimeStop" (list pointer size)))
+
 
 (define (spirv->shader-module logical-device spirv-path)  
   (let* ((shader-module-info  (spirv->VkShaderModuleCreateInfo spirv-path))
