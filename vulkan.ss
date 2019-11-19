@@ -845,7 +845,33 @@ Cleanup todo:
 	   (set-VkSemaphore! render-sem frame-index (make-semaphore logical-device))
 	   (set-VkFence! in-flight-fences frame-index (make-fence logical-device)))
 	 (iota +frames-in-flight+))
-    (make-sync-objects 0 image-sem render-sem in-flight-fences)))
+    (make-sync-objects 0
+		       (ptr->cvector +frames-in-flight+ image-sem)
+		       (ptr->cvector +frames-in-flight+ render-sem)
+		       (ptr->cvector +frames-in-flight+ in-flight-fences))))
+
+;; todo these can be generated
+
+(define (semaphore-map f semaphore-ptr)
+  (cvector-transduce (tmap f) rcons semaphore-ptr ref-VkSemaphore))
+
+(define (fence-map f fence-ptr)
+  (cvector-transduce (tmap f) rcons fence-ptr ref-VkFence))
+
+(define (destroy-semaphore-ptr logical-device ptr)
+  (semaphore-map (lambda (s)
+		   (vkDestroySemaphore logical-device (ptr->VkSemaphore s) #f))
+		 ptr))
+
+(define (cleanup-sync-objects logical-device so)
+  (with ((sync-objects _ image-available-semaphores render-finished-semaphores fences)
+	 so)
+    (map (lambda (i)
+	   (destroy-semaphore-ptr logical-device render-finished-semaphores)
+	   (destroy-semaphore-ptr logical-device image-available-semaphores)
+	   (fence-map (lambda (f) (vkDestroyFence logical-device (ptr->VkFence f) #f))
+		      fences))
+	 (iota +frames-in-flight+))))
 
 (define +max-int+ UINT64_MAX)
 
@@ -855,10 +881,12 @@ Cleanup todo:
 	  (logical-device (ptr->VkDevice (devices-logical devices)))
 	  (image-index (make-int-ptr))
 	  ((sync-objects current-frame
-			 image-available-semaphores
-			 render-finished-semaphores
+			 image-available-cvector
+			 render-finished-cvector
 			 in-flight-fences) sync-obj)
-	  (frame-fence (ref-VkFence in-flight-fences current-frame)))
+	  (image-available-semaphores (cvector-ptr image-available-cvector))
+	  (render-finished-semaphores (cvector-ptr render-finished-cvector))
+	  (frame-fence (ref-VkFence (cvector-ptr in-flight-fences) current-frame)))
 
     (call-vk-cmd vkWaitForFences logical-device 1 frame-fence VK_TRUE +max-int+)
     (call-vk-cmd vkResetFences logical-device 1 frame-fence)
@@ -885,14 +913,19 @@ Cleanup todo:
 			    image-index
 			    s)
       (make-sync-objects (modulo (1+ current-frame) +frames-in-flight+)
-			 image-available-semaphores
-			 render-finished-semaphores
+			 image-available-cvector
+			 render-finished-cvector
 			 in-flight-fences))))
 
 
 (define (wait-for-device logical-device)
   (vkDeviceWaitIdle logical-device))
 
+
+(define (cleanup-vulkan vs so)
+  (let (logical-device (get-logical-device vs))
+    (wait-for-device logical-device)
+    (cleanup-sync-objects logical-device so)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;

@@ -105,8 +105,7 @@
 	   )
 
 
-;; (defstruct cvector (count ptr)
-;;   constructor: :init!)
+;; (defstruct cvector (count ptr))
 
 ;; (defmethod {first cvector}
 ;;   (lambda (self first-fn)
@@ -123,6 +122,11 @@
       (cons (read-int-ptr count) ptr))))
 
 (define (ptr->cvector len ptr) (cons len ptr))
+
+(define (cvector-length cvector)
+  (if (pair? cvector) (car cvector) #f))
+(define (cvector-ptr cvector)
+  (if (pair? cvector) (cdr cvector) #f))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; transducers for cvectors ;;

@@ -16,5 +16,6 @@
     (exe: "vulkan-runner")
     ;; (gxc: "inotify.scm")
     ;; (gxc: "test-runner.scm")
+    (gxc: "vulkan-test")
     (gxc: "pprint")
     (exe: "ffi")))
