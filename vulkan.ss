@@ -917,14 +917,12 @@ Cleanup todo:
 			 render-finished-cvector
 			 in-flight-fences))))
 
-
-(define (wait-for-device logical-device)
-  (vkDeviceWaitIdle logical-device))
-
+;; (define (destoy-vulkan-objects logical-device vs)
+;;   )
 
 (define (cleanup-vulkan vs so)
   (let (logical-device (get-logical-device vs))
-    (wait-for-device logical-device)
+    (vkDeviceWaitIdle logical-device)
     (cleanup-sync-objects logical-device so)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;

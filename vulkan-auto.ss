@@ -9,8 +9,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26,8 +24,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39,8 +35,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52,8 +46,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -65,8 +57,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -78,8 +68,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -93,8 +81,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -106,8 +92,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -119,8 +103,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -132,8 +114,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -145,8 +125,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -159,8 +137,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -174,8 +150,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -776,8 +750,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -796,8 +768,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -865,8 +835,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -883,8 +851,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -1149,8 +1115,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -1430,8 +1394,6 @@
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -2777,8 +2739,6 @@ ___return(debugutilsmessengerext);")
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -3166,8 +3126,6 @@ ___return(debugutilsmessengerext);")
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -3199,8 +3157,6 @@ ___return(debugutilsmessengerext);")
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -3606,8 +3562,6 @@ ___return(debugutilsmessengerext);")
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4153,8 +4107,6 @@ ___return(debugutilsmessengerext);")
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4219,8 +4171,6 @@ ___return(debugutilsmessengerext);")
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4292,8 +4242,6 @@ ___return (baseoutstructure);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4365,8 +4313,6 @@ ___return (baseinstructure);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4424,8 +4370,6 @@ ___return (offset2d);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4484,8 +4428,6 @@ ___return (offset3d);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4555,8 +4497,6 @@ ___return (extent2d);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4639,8 +4579,6 @@ ___return (extent3d);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4724,8 +4662,6 @@ ___return (viewport);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4787,8 +4723,6 @@ ___return (rect2d);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4871,8 +4805,6 @@ ___return (clearrect);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -4972,8 +4904,6 @@ ___return (componentmapping);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -5290,8 +5220,6 @@ ___return (physicaldevicesparseproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -6626,8 +6554,6 @@ ___return (physicaldevicelimits);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -6784,8 +6710,6 @@ ___return (physicaldeviceproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -6861,8 +6785,6 @@ ___return (extensionproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -6966,8 +6888,6 @@ ___return (layerproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -7084,8 +7004,6 @@ ___return (applicationinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -7104,8 +7022,6 @@ ___return (applicationinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -7124,8 +7040,6 @@ ___return (applicationinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -7138,8 +7052,6 @@ ___return (applicationinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -7156,8 +7068,6 @@ ___return (applicationinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -7190,8 +7100,6 @@ ___return (applicationinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -7320,8 +7228,6 @@ ___return (allocationcallbacks);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -7543,8 +7449,6 @@ ___return (devicequeuecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -8269,8 +8173,6 @@ ___return (physicaldevicefeatures);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -8450,8 +8352,6 @@ ___return (devicecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -8593,8 +8493,6 @@ ___return (instancecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -8688,8 +8586,6 @@ ___return (queuefamilyproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -8761,8 +8657,6 @@ ___return (memoryheap);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -8838,8 +8732,6 @@ ___return (memorytype);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -8941,8 +8833,6 @@ ___return (physicaldevicememoryproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -9038,8 +8928,6 @@ ___return (memoryallocateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -9124,8 +9012,6 @@ ___return (memoryrequirements);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -9214,8 +9100,6 @@ ___return (sparseimageformatproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -9330,8 +9214,6 @@ ___return (sparseimagememoryrequirements);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -9438,8 +9320,6 @@ ___return (mappedmemoryrange);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -9528,8 +9408,6 @@ ___return (formatproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -9636,8 +9514,6 @@ ___return (imageformatproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -9722,8 +9598,6 @@ ___return (descriptorbufferinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -9822,8 +9696,6 @@ ___return (descriptorimageinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -10005,8 +9877,6 @@ ___return (writedescriptorset);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -10167,8 +10037,6 @@ ___return (copydescriptorset);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -10322,8 +10190,6 @@ ___return (buffercreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -10452,8 +10318,6 @@ ___return (bufferviewcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -10540,8 +10404,6 @@ ___return (imagesubresource);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -10641,8 +10503,6 @@ ___return (imagesubresourcelayers);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -10751,8 +10611,6 @@ ___return (imagesubresourcerange);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -10860,8 +10718,6 @@ ___return (memorybarrier);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -11033,8 +10889,6 @@ ___return (buffermemorybarrier);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -11228,8 +11082,6 @@ ___return (imagememorybarrier);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -11463,8 +11315,6 @@ ___return (imagecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -11581,8 +11431,6 @@ ___return (subresourcelayout);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -11728,8 +11576,6 @@ ___return (imageviewcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -11818,8 +11664,6 @@ ___return (buffercopy);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -11932,8 +11776,6 @@ ___return (sparsememorybind);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -12056,8 +11898,6 @@ ___return (sparseimagememorybind);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -12142,8 +11982,6 @@ ___return (sparsebuffermemorybindinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -12232,8 +12070,6 @@ ___return (sparseimageopaquememorybindinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -12336,8 +12172,6 @@ ___return (sparseimagememorybindinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -12535,8 +12369,6 @@ ___return (bindsparseinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -12645,8 +12477,6 @@ ___return (imagecopy);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -12748,8 +12578,6 @@ ___return (imageblit);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -12871,8 +12699,6 @@ ___return (bufferimagecopy);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -12983,8 +12809,6 @@ ___return (imageresolve);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -13095,8 +12919,6 @@ ___return (shadermodulecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -13207,8 +13029,6 @@ ___return (descriptorsetlayoutbinding);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -13317,8 +13137,6 @@ ___return (descriptorsetlayoutcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -13398,8 +13216,6 @@ ___return (descriptorpoolsize);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -13521,8 +13337,6 @@ ___return (descriptorpoolcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -13629,8 +13443,6 @@ ___return (descriptorsetallocateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -13717,8 +13529,6 @@ ___return (specializationmapentry);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -13822,8 +13632,6 @@ ___return (specializationinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -13969,8 +13777,6 @@ ___return (pipelineshaderstagecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -14104,8 +13910,6 @@ ___return (computepipelinecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -14196,8 +14000,6 @@ ___return (vertexinputbindingdescription);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -14305,8 +14107,6 @@ ___return (vertexinputattributedescription);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -14448,8 +14248,6 @@ ___return (pipelinevertexinputstatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -14564,8 +14362,6 @@ ___return (pipelineinputassemblystatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -14673,8 +14469,6 @@ ___return (pipelinetessellationstatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -14827,8 +14621,6 @@ ___return (pipelineviewportstatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -15052,8 +14844,6 @@ ___return (pipelinerasterizationstatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -15225,8 +15015,6 @@ ___return (pipelinemultisamplestatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -15387,8 +15175,6 @@ ___return (pipelinecolorblendattachmentstate);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -15542,8 +15328,6 @@ ___return (pipelinecolorblendstatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -15662,8 +15446,6 @@ ___return (pipelinedynamicstatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -15810,8 +15592,6 @@ ___return (stencilopstate);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -16041,8 +15821,6 @@ ___return (pipelinedepthstencilstatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -16324,8 +16102,6 @@ ___return (graphicspipelinecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -16432,8 +16208,6 @@ ___return (pipelinecachecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -16526,8 +16300,6 @@ ___return (pushconstantrange);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -16691,8 +16463,6 @@ ___return (pipelinelayoutcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -16960,8 +16730,6 @@ ___return (samplercreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -17061,8 +16829,6 @@ ___return (commandpoolcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -17179,8 +16945,6 @@ ___return (commandbufferallocateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -17332,8 +17096,6 @@ ___return (commandbufferinheritanceinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -17427,8 +17189,6 @@ ___return (commandbufferbegininfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -17505,8 +17265,6 @@ ___return (cleardepthstencilvalue);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -17603,8 +17361,6 @@ ___return (clearcolorvalue);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -17692,8 +17448,6 @@ ___return (clearvalue);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -17822,8 +17576,6 @@ ___return (renderpassbegininfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -17920,8 +17672,6 @@ ___return (clearattachment);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -18078,8 +17828,6 @@ ___return (attachmentdescription);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -18167,8 +17915,6 @@ ___return (attachmentreference);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -18347,8 +18093,6 @@ ___return (subpassdescription);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -18495,8 +18239,6 @@ ___return (subpassdependency);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -18654,8 +18396,6 @@ ___return (renderpasscreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -18740,8 +18480,6 @@ ___return (eventcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -18826,8 +18564,6 @@ ___return (fencecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -18918,8 +18654,6 @@ ___return (semaphorecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -19049,8 +18783,6 @@ ___return (querypoolcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -19210,8 +18942,6 @@ ___return (framebuffercreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -19311,8 +19041,6 @@ ___return (drawindirectcommand);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -19419,8 +19147,6 @@ ___return (drawindexedindirectcommand);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -19517,8 +19243,6 @@ ___return (dispatchindirectcommand);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -19680,8 +19404,6 @@ ___return (submitinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -19809,8 +19531,6 @@ ___return (displaypropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -19877,8 +19597,6 @@ ___return (displayplanepropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -19945,8 +19663,6 @@ ___return (displaymodeparameterskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -20017,8 +19733,6 @@ ___return (displaymodepropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -20121,8 +19835,6 @@ ___return (displaymodecreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -20290,8 +20002,6 @@ ___return (displayplanecapabilitieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -20460,8 +20170,6 @@ ___return (displaysurfacecreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -20577,8 +20285,6 @@ ___return (displaypresentinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -20742,8 +20448,6 @@ ___return (surfacecapabilitieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -20842,8 +20546,6 @@ ___return (surfaceformatkhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -21114,8 +20816,6 @@ ___return (swapchaincreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -21238,8 +20938,6 @@ ___return (presentinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -21279,8 +20977,6 @@ ___return (presentinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -21393,8 +21089,6 @@ ___return (debugreportcallbackcreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -21496,8 +21190,6 @@ ___return (validationflagsext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -21619,8 +21311,6 @@ ___return (validationfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -21715,8 +21405,6 @@ ___return (pipelinerasterizationstaterasterizationorderamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -21835,8 +21523,6 @@ ___return (debugmarkerobjectnameinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -21967,8 +21653,6 @@ ___return (debugmarkerobjecttaginfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22064,8 +21748,6 @@ ___return (debugmarkermarkerinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22156,8 +21838,6 @@ ___return (dedicatedallocationimagecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22250,8 +21930,6 @@ ___return (dedicatedallocationbuffercreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22355,8 +22033,6 @@ ___return (dedicatedallocationmemoryallocateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22459,8 +22135,6 @@ ___return (externalimageformatpropertiesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22549,8 +22223,6 @@ ___return (externalmemoryimagecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22635,8 +22307,6 @@ ___return (exportmemoryallocateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22733,8 +22403,6 @@ ___return (devicegeneratedcommandsfeaturesnvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22867,8 +22535,6 @@ ___return (devicegeneratedcommandslimitsnvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -22955,8 +22621,6 @@ ___return (indirectcommandstokennvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -23062,8 +22726,6 @@ ___return (indirectcommandslayouttokennvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -23207,8 +22869,6 @@ ___return (indirectcommandslayoutcreateinfonvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -23406,8 +23066,6 @@ ___return (cmdprocesscommandsinfonvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -23534,8 +23192,6 @@ ___return (cmdreservespaceforcommandsinfonvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -23715,8 +23371,6 @@ ___return (objecttablecreateinfonvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -23790,8 +23444,6 @@ ___return (objecttableentrynvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -23878,8 +23530,6 @@ ___return (objecttablepipelineentrynvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -23979,8 +23629,6 @@ ___return (objecttabledescriptorsetentrynvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24071,8 +23719,6 @@ ___return (objecttablevertexbufferentrynvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24174,8 +23820,6 @@ ___return (objecttableindexbufferentrynvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24278,8 +23922,6 @@ ___return (objecttablepushconstantentrynvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24358,8 +24000,6 @@ ___return (physicaldevicefeatures2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24396,8 +24036,6 @@ ___return (physicaldevicefeatures2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24476,8 +24114,6 @@ ___return (physicaldeviceproperties2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24518,8 +24154,6 @@ ___return (physicaldeviceproperties2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24598,8 +24232,6 @@ ___return (formatproperties2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24636,8 +24268,6 @@ ___return (formatproperties2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24716,8 +24346,6 @@ ___return (imageformatproperties2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24762,8 +24390,6 @@ ___return (imageformatproperties2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24890,8 +24516,6 @@ ___return (physicaldeviceimageformatinfo2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -24932,8 +24556,6 @@ ___return (physicaldeviceimageformatinfo2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25012,8 +24634,6 @@ ___return (queuefamilyproperties2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25050,8 +24670,6 @@ ___return (queuefamilyproperties2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25134,8 +24752,6 @@ ___return (physicaldevicememoryproperties2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25176,8 +24792,6 @@ ___return (physicaldevicememoryproperties2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25260,8 +24874,6 @@ ___return (sparseimageformatproperties2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25310,8 +24922,6 @@ ___return (sparseimageformatproperties2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25440,8 +25050,6 @@ ___return (physicaldevicesparseimageformatinfo2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25482,8 +25090,6 @@ ___return (physicaldevicesparseimageformatinfo2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25571,8 +25177,6 @@ ___return (physicaldevicepushdescriptorpropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25669,8 +25273,6 @@ ___return (conformanceversionkhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25787,8 +25389,6 @@ ___return (physicaldevicedriverpropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25866,8 +25466,6 @@ ___return (rectlayerkhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -25938,8 +25536,6 @@ ___return (presentregionkhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26032,8 +25628,6 @@ ___return (presentregionskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26129,8 +25723,6 @@ ___return (physicaldevicevariablepointersfeatures);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26165,8 +25757,6 @@ ___return (physicaldevicevariablepointersfeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26201,8 +25791,6 @@ ___return (physicaldevicevariablepointerfeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26243,8 +25831,6 @@ ___return (physicaldevicevariablepointerfeatures);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26325,8 +25911,6 @@ ___return (externalmemoryproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26363,8 +25947,6 @@ ___return (externalmemorypropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26449,8 +26031,6 @@ ___return (physicaldeviceexternalimageformatinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26491,8 +26071,6 @@ ___return (physicaldeviceexternalimageformatinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26575,8 +26153,6 @@ ___return (externalimageformatproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26621,8 +26197,6 @@ ___return (externalimageformatpropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26727,8 +26301,6 @@ ___return (physicaldeviceexternalbufferinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26769,8 +26341,6 @@ ___return (physicaldeviceexternalbufferinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26849,8 +26419,6 @@ ___return (externalbufferproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -26895,8 +26463,6 @@ ___return (externalbufferpropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27019,8 +26585,6 @@ ___return (physicaldeviceidproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27061,8 +26625,6 @@ ___return (physicaldeviceidpropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27145,8 +26707,6 @@ ___return (externalmemoryimagecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27187,8 +26747,6 @@ ___return (externalmemoryimagecreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27271,8 +26829,6 @@ ___return (externalmemorybuffercreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27313,8 +26869,6 @@ ___return (externalmemorybuffercreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27393,8 +26947,6 @@ ___return (exportmemoryallocateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27433,8 +26985,6 @@ ___return (exportmemoryallocateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27525,8 +27075,6 @@ ___return (importmemoryfdinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27608,8 +27156,6 @@ ___return (memoryfdpropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27700,8 +27246,6 @@ ___return (memorygetfdinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27784,8 +27328,6 @@ ___return (physicaldeviceexternalsemaphoreinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27830,8 +27372,6 @@ ___return (physicaldeviceexternalsemaphoreinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27935,8 +27475,6 @@ ___return (externalsemaphoreproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -27977,8 +27515,6 @@ ___return (externalsemaphorepropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28057,8 +27593,6 @@ ___return (exportsemaphorecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28105,8 +27639,6 @@ ___return (exportsemaphorecreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28221,8 +27753,6 @@ ___return (importsemaphorefdinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28313,8 +27843,6 @@ ___return (semaphoregetfdinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28397,8 +27925,6 @@ ___return (physicaldeviceexternalfenceinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28443,8 +27969,6 @@ ___return (physicaldeviceexternalfenceinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28548,8 +28072,6 @@ ___return (externalfenceproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28586,8 +28108,6 @@ ___return (externalfencepropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28666,8 +28186,6 @@ ___return (exportfencecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28710,8 +28228,6 @@ ___return (exportfencecreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28826,8 +28342,6 @@ ___return (importfencefdinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -28922,8 +28436,6 @@ ___return (fencegetfdinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29028,8 +28540,6 @@ ___return (physicaldevicemultiviewfeatures);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29072,8 +28582,6 @@ ___return (physicaldevicemultiviewfeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29167,8 +28675,6 @@ ___return (physicaldevicemultiviewproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29219,8 +28725,6 @@ ___return (physicaldevicemultiviewpropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29358,8 +28862,6 @@ ___return (renderpassmultiviewcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29420,8 +28922,6 @@ ___return (renderpassmultiviewcreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29627,8 +29127,6 @@ ___return (surfacecapabilities2ext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29713,8 +29211,6 @@ ___return (displaypowerinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29799,8 +29295,6 @@ ___return (deviceeventinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29885,8 +29379,6 @@ ___return (displayeventinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -29979,8 +29471,6 @@ ___return (swapchaincountercreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30085,8 +29575,6 @@ ___return (physicaldevicegroupproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30129,8 +29617,6 @@ ___return (physicaldevicegrouppropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30220,8 +29706,6 @@ ___return (memoryallocateflagsinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30262,8 +29746,6 @@ ___return (memoryallocateflagsinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30364,8 +29846,6 @@ ___return (bindbuffermemoryinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30404,8 +29884,6 @@ ___return (bindbuffermemoryinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30499,8 +29977,6 @@ ___return (bindbuffermemorydevicegroupinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30545,8 +30021,6 @@ ___return (bindbuffermemorydevicegroupinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30647,8 +30121,6 @@ ___return (bindimagememoryinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30691,8 +30163,6 @@ ___return (bindimagememoryinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30808,8 +30278,6 @@ ___return (bindimagememorydevicegroupinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30854,8 +30322,6 @@ ___return (bindimagememorydevicegroupinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -30960,8 +30426,6 @@ ___return (devicegrouprenderpassbegininfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31002,8 +30466,6 @@ ___return (devicegrouprenderpassbegininfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31086,8 +30548,6 @@ ___return (devicegroupcommandbufferbegininfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31138,8 +30598,6 @@ ___return (devicegroupcommandbufferbegininfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31273,8 +30731,6 @@ ___return (devicegroupsubmitinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31313,8 +30769,6 @@ ___return (devicegroupsubmitinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31404,8 +30858,6 @@ ___return (devicegroupbindsparseinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31448,8 +30900,6 @@ ___return (devicegroupbindsparseinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31544,8 +30994,6 @@ ___return (devicegrouppresentcapabilitieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31627,8 +31075,6 @@ ___return (imageswapchaincreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31731,8 +31177,6 @@ ___return (bindimagememoryswapchaininfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31860,8 +31304,6 @@ ___return (acquirenextimageinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -31965,8 +31407,6 @@ ___return (devicegrouppresentinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32056,8 +31496,6 @@ ___return (devicegroupdevicecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32098,8 +31536,6 @@ ___return (devicegroupdevicecreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32189,8 +31625,6 @@ ___return (devicegroupswapchaincreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32306,8 +31740,6 @@ ___return (descriptorupdatetemplateentry);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32362,8 +31794,6 @@ ___return (descriptorupdatetemplateentrykhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32531,8 +31961,6 @@ ___return (descriptorupdatetemplatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32571,8 +31999,6 @@ ___return (descriptorupdatetemplatecreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32644,8 +32070,6 @@ ___return (xycolorext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32807,8 +32231,6 @@ ___return (hdrmetadataext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32899,8 +32321,6 @@ ___return (displaynativehdrsurfacecapabilitiesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -32987,8 +32407,6 @@ ___return (swapchaindisplaynativehdrcreateinfoamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33055,8 +32473,6 @@ ___return (refreshcycledurationgoogle);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33165,8 +32581,6 @@ ___return (pastpresentationtiminggoogle);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33242,8 +32656,6 @@ ___return (presenttimegoogle);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33337,8 +32749,6 @@ ___return (presenttimesinfogoogle);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33416,8 +32826,6 @@ ___return (viewportwscalingnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33532,8 +32940,6 @@ ___return (pipelineviewportwscalingstatecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33636,8 +33042,6 @@ ___return (viewportswizzlenv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33750,8 +33154,6 @@ ___return (pipelineviewportswizzlestatecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33848,8 +33250,6 @@ ___return (physicaldevicediscardrectanglepropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -33977,8 +33377,6 @@ ___return (pipelinediscardrectanglestatecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34069,8 +33467,6 @@ ___return (physicaldevicemultiviewperviewattributespropertiesnvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34153,8 +33549,6 @@ ___return (inputattachmentaspectreference);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34197,8 +33591,6 @@ ___return (inputattachmentaspectreferencekhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34294,8 +33686,6 @@ ___return (renderpassinputattachmentaspectcreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34336,8 +33726,6 @@ ___return (renderpassinputattachmentaspectcreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34421,8 +33809,6 @@ ___return (physicaldevicesurfaceinfo2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34502,8 +33888,6 @@ ___return (surfacecapabilities2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34583,8 +33967,6 @@ ___return (surfaceformat2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34664,8 +34046,6 @@ ___return (displayproperties2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34745,8 +34125,6 @@ ___return (displayplaneproperties2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34828,8 +34206,6 @@ ___return (displaymodeproperties2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -34920,8 +34296,6 @@ ___return (displayplaneinfo2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35005,8 +34379,6 @@ ___return (displayplanecapabilities2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35096,8 +34468,6 @@ ___return (sharedpresentsurfacecapabilitieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35213,8 +34583,6 @@ ___return (physicaldevice16bitstoragefeatures);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35261,8 +34629,6 @@ ___return (physicaldevice16bitstoragefeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35384,8 +34750,6 @@ ___return (physicaldevicesubgroupproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35468,8 +34832,6 @@ ___return (buffermemoryrequirementsinfo2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35510,8 +34872,6 @@ ___return (buffermemoryrequirementsinfo2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35594,8 +34954,6 @@ ___return (imagememoryrequirementsinfo2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35636,8 +34994,6 @@ ___return (imagememoryrequirementsinfo2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35720,8 +35076,6 @@ ___return (imagesparsememoryrequirementsinfo2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35762,8 +35116,6 @@ ___return (imagesparsememoryrequirementsinfo2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35842,8 +35194,6 @@ ___return (memoryrequirements2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35880,8 +35230,6 @@ ___return (memoryrequirements2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -35964,8 +35312,6 @@ ___return (sparseimagememoryrequirements2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36006,8 +35352,6 @@ ___return (sparseimagememoryrequirements2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36092,8 +35436,6 @@ ___return (physicaldevicepointclippingproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36136,8 +35478,6 @@ ___return (physicaldevicepointclippingpropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36227,8 +35567,6 @@ ___return (memorydedicatedrequirements);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36271,8 +35609,6 @@ ___return (memorydedicatedrequirementskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36362,8 +35698,6 @@ ___return (memorydedicatedallocateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36404,8 +35738,6 @@ ___return (memorydedicatedallocateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36484,8 +35816,6 @@ ___return (imageviewusagecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36522,8 +35852,6 @@ ___return (imageviewusagecreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36608,8 +35936,6 @@ ___return (pipelinetessellationdomainoriginstatecreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36650,8 +35976,6 @@ ___return (pipelinetessellationdomainoriginstatecreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36730,8 +36054,6 @@ ___return (samplerycbcrconversioninfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36786,8 +36108,6 @@ ___return (samplerycbcrconversioninfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36955,8 +36275,6 @@ ___return (samplerycbcrconversioncreateinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -36997,8 +36315,6 @@ ___return (samplerycbcrconversioncreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37077,8 +36393,6 @@ ___return (bindimageplanememoryinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37115,8 +36429,6 @@ ___return (bindimageplanememoryinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37199,8 +36511,6 @@ ___return (imageplanememoryrequirementsinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37241,8 +36551,6 @@ ___return (imageplanememoryrequirementsinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37327,8 +36635,6 @@ ___return (physicaldevicesamplerycbcrconversionfeatures);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37369,8 +36675,6 @@ ___return (physicaldevicesamplerycbcrconversionfeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37455,8 +36759,6 @@ ___return (samplerycbcrconversionimageformatproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37497,8 +36799,6 @@ ___return (samplerycbcrconversionimageformatpropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37591,8 +36891,6 @@ ___return (texturelodgatherformatpropertiesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37703,8 +37001,6 @@ ___return (conditionalrenderingbegininfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37789,8 +37085,6 @@ ___return (protectedsubmitinfo);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37881,8 +37175,6 @@ ___return (physicaldeviceprotectedmemoryfeatures);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -37977,8 +37269,6 @@ ___return (physicaldeviceprotectedmemoryproperties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -38089,8 +37379,6 @@ ___return (devicequeueinfo2);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -38205,8 +37493,6 @@ ___return (pipelinecoveragetocolorstatecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -38306,8 +37592,6 @@ ___return (physicaldevicesamplerfilterminmaxpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -38387,8 +37671,6 @@ ___return (samplelocationext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -38504,8 +37786,6 @@ ___return (samplelocationsinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -38581,8 +37861,6 @@ ___return (attachmentsamplelocationsext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -38662,8 +37940,6 @@ ___return (subpasssamplelocationsext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -38793,8 +38069,6 @@ ___return (renderpasssamplelocationsbegininfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -38904,8 +38178,6 @@ ___return (pipelinesamplelocationsstatecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39040,8 +38312,6 @@ ___return (physicaldevicesamplelocationspropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39126,8 +38396,6 @@ ___return (multisamplepropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39216,8 +38484,6 @@ ___return (samplerreductionmodecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39318,8 +38584,6 @@ ___return (physicaldeviceblendoperationadvancedfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39469,8 +38733,6 @@ ___return (physicaldeviceblendoperationadvancedpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39585,8 +38847,6 @@ ___return (pipelinecolorblendadvancedstatecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39696,8 +38956,6 @@ ___return (physicaldeviceinlineuniformblockfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39834,8 +39092,6 @@ ___return (physicaldeviceinlineuniformblockpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -39937,8 +39193,6 @@ ___return (writedescriptorsetinlineuniformblockext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40037,8 +39291,6 @@ ___return (descriptorpoolinlineuniformblockcreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40180,8 +39432,6 @@ ___return (pipelinecoveragemodulationstatecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40280,8 +39530,6 @@ ___return (imageformatlistcreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40392,8 +39640,6 @@ ___return (validationcachecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40486,8 +39732,6 @@ ___return (shadermodulevalidationcachecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40583,8 +39827,6 @@ ___return (physicaldevicemaintenance3properties);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40625,8 +39867,6 @@ ___return (physicaldevicemaintenance3propertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40705,8 +39945,6 @@ ___return (descriptorsetlayoutsupport);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40747,8 +39985,6 @@ ___return (descriptorsetlayoutsupportkhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40833,8 +40069,6 @@ ___return (physicaldeviceshaderdrawparametersfeatures);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40877,8 +40111,6 @@ ___return (physicaldeviceshaderdrawparameterfeatures);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -40969,8 +40201,6 @@ ___return (physicaldeviceshaderfloat16int8featureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -41043,8 +40273,6 @@ ___return (physicaldevicefloat16int8featureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -41323,8 +40551,6 @@ ___return (physicaldevicefloatcontrolspropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -41419,8 +40645,6 @@ ___return (physicaldevicehostqueryresetfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -41535,8 +40759,6 @@ ___return (shaderresourceusageamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -41671,8 +40893,6 @@ ___return (shaderstatisticsinfoamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -41767,8 +40987,6 @@ ___return (devicequeueglobalprioritycreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -41883,8 +41101,6 @@ ___return (debugutilsobjectnameinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -42015,8 +41231,6 @@ ___return (debugutilsobjecttaginfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -42130,8 +41344,6 @@ ___return (debugutilslabelext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -42317,8 +41529,6 @@ ___return (debugutilsmessengercallbackdataext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -42360,8 +41570,6 @@ ___return (debugutilsmessengercallbackdataext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -42501,8 +41709,6 @@ ___return (debugutilsmessengercreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -42602,8 +41808,6 @@ ___return (importmemoryhostpointerinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -42692,8 +41896,6 @@ ___return (memoryhostpointerpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -42800,8 +42002,6 @@ ___return (physicaldeviceexternalmemoryhostpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -42980,8 +42180,6 @@ ___return (physicaldeviceconservativerasterizationpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -43092,8 +42290,6 @@ ___return (calibratedtimestampinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -43343,8 +42539,6 @@ ___return (physicaldeviceshadercorepropertiesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -43450,8 +42644,6 @@ ___return (physicaldeviceshadercoreproperties2amd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -43605,8 +42797,6 @@ ___return (pipelinerasterizationconservativestatecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -43970,8 +43160,6 @@ ___return (physicaldevicedescriptorindexingfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -44329,8 +43517,6 @@ ___return (physicaldevicedescriptorindexingpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -44434,8 +43620,6 @@ ___return (descriptorsetlayoutbindingflagscreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -44537,8 +43721,6 @@ ___return (descriptorsetvariabledescriptorcountallocateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -44645,8 +43827,6 @@ ___return (descriptorsetvariabledescriptorcountlayoutsupportext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -44827,8 +44007,6 @@ ___return (attachmentdescription2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -44950,8 +44128,6 @@ ___return (attachmentreference2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -45166,8 +44342,6 @@ ___return (subpassdescription2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -45348,8 +44522,6 @@ ___return (subpassdependency2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -45526,8 +44698,6 @@ ___return (renderpasscreateinfo2khr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -45605,8 +44775,6 @@ ___return (subpassbegininfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -45673,8 +44841,6 @@ ___return (subpassendinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -45756,8 +44922,6 @@ ___return (vertexinputbindingdivisordescriptionext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -45859,8 +45023,6 @@ ___return (pipelinevertexinputdivisorstatecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -45957,8 +45119,6 @@ ___return (physicaldevicevertexattributedivisorpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -46082,8 +45242,6 @@ ___return (physicaldevicepcibusinfopropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -46178,8 +45336,6 @@ ___return (commandbufferinheritanceconditionalrenderinginfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -46289,8 +45445,6 @@ ___return (physicaldevice8bitstoragefeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -46396,8 +45550,6 @@ ___return (physicaldeviceconditionalrenderingfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -46507,8 +45659,6 @@ ___return (physicaldevicevulkanmemorymodelfeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -46607,8 +45757,6 @@ ___return (physicaldeviceshaderatomicint64featureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -46710,8 +45858,6 @@ ___return (physicaldevicevertexattributedivisorfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -46802,8 +45948,6 @@ ___return (queuefamilycheckpointpropertiesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -46905,8 +46049,6 @@ ___return (checkpointdatanv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -47029,8 +46171,6 @@ ___return (physicaldevicedepthstencilresolvepropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -47138,8 +46278,6 @@ ___return (subpassdescriptiondepthstencilresolvekhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -47224,8 +46362,6 @@ ___return (imageviewastcdecodemodeext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -47316,8 +46452,6 @@ ___return (physicaldeviceastcdecodefeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -47437,8 +46571,6 @@ ___return (physicaldevicetransformfeedbackfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -47640,8 +46772,6 @@ ___return (physicaldevicetransformfeedbackpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -47743,8 +46873,6 @@ ___return (pipelinerasterizationstatestreamcreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -47835,8 +46963,6 @@ ___return (physicaldevicerepresentativefragmenttestfeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -47927,8 +47053,6 @@ ___return (pipelinerepresentativefragmentteststatecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48021,8 +47145,6 @@ ___return (physicaldeviceexclusivescissorfeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48124,8 +47246,6 @@ ___return (pipelineviewportexclusivescissorstatecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48218,8 +47338,6 @@ ___return (physicaldevicecornersampledimagefeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48321,8 +47439,6 @@ ___return (physicaldevicecomputeshaderderivativesfeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48413,8 +47529,6 @@ ___return (physicaldevicefragmentshaderbarycentricfeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48505,8 +47619,6 @@ ___return (physicaldeviceshaderimagefootprintfeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48595,8 +47707,6 @@ ___return (physicaldevicededicatedallocationimagealiasingfeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48674,8 +47784,6 @@ ___return (shadingratepalettenv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48790,8 +47898,6 @@ ___return (pipelineviewportshadingrateimagestatecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -48897,8 +48003,6 @@ ___return (physicaldeviceshadingrateimagefeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -49011,8 +48115,6 @@ ___return (physicaldeviceshadingrateimagepropertiesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -49099,8 +48201,6 @@ ___return (coarsesamplelocationnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -49200,8 +48300,6 @@ ___return (coarsesampleordercustomnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -49316,8 +48414,6 @@ ___return (pipelineviewportcoarsesampleorderstatecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -49441,8 +48537,6 @@ ___return (physicaldevicemeshshaderfeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -49676,8 +48770,6 @@ ___return (physicaldevicemeshshaderpropertiesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -49763,8 +48855,6 @@ ___return (drawmeshtasksindirectcommandnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -49913,8 +49003,6 @@ ___return (raytracingshadergroupcreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -50120,8 +49208,6 @@ ___return (raytracingpipelinecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -50333,8 +49419,6 @@ ___return (geometrytrianglesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -50450,8 +49534,6 @@ ___return (geometryaabbnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -50529,8 +49611,6 @@ ___return (geometrydatanv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -50641,8 +49721,6 @@ ___return (geometrynv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -50778,8 +49856,6 @@ ___return (accelerationstructureinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -50887,8 +49963,6 @@ ___return (accelerationstructurecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -51025,8 +50099,6 @@ ___return (bindaccelerationstructurememoryinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -51130,8 +50202,6 @@ ___return (writedescriptorsetaccelerationstructurenv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -51247,8 +50317,6 @@ ___return (accelerationstructurememoryrequirementsinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -51416,8 +50484,6 @@ ___return (physicaldeviceraytracingpropertiesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -51508,8 +50574,6 @@ ___return (drmformatmodifierpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -51615,8 +50679,6 @@ ___return (drmformatmodifierpropertieslistext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -51742,8 +50804,6 @@ ___return (physicaldeviceimagedrmformatmodifierinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -51849,8 +50909,6 @@ ___return (imagedrmformatmodifierlistcreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -51963,8 +51021,6 @@ ___return (imagedrmformatmodifierexplicitcreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52053,8 +51109,6 @@ ___return (imagedrmformatmodifierpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52143,8 +51197,6 @@ ___return (imagestencilusagecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52239,8 +51291,6 @@ ___return (devicememoryoverallocationcreateinfoamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52357,8 +51407,6 @@ ___return (physicaldevicefragmentdensitymapfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52471,8 +51519,6 @@ ___return (physicaldevicefragmentdensitymappropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52563,8 +51609,6 @@ ___return (renderpassfragmentdensitymapcreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52655,8 +51699,6 @@ ___return (physicaldevicescalarblocklayoutfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52740,8 +51782,6 @@ ___return (surfaceprotectedcapabilitieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52827,8 +51867,6 @@ ___return (physicaldeviceuniformbufferstandardlayoutfeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -52921,8 +51959,6 @@ ___return (physicaldevicedepthclipenablefeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53026,8 +52062,6 @@ ___return (pipelinerasterizationdepthclipstatecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53129,8 +52163,6 @@ ___return (physicaldevicememorybudgetpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53221,8 +52253,6 @@ ___return (physicaldevicememorypriorityfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53315,8 +52345,6 @@ ___return (memorypriorityallocateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53423,8 +52451,6 @@ ___return (physicaldevicebufferdeviceaddressfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53465,8 +52491,6 @@ ___return (physicaldevicebufferaddressfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53551,8 +52575,6 @@ ___return (bufferdeviceaddressinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53641,8 +52663,6 @@ ___return (bufferdeviceaddresscreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53735,8 +52755,6 @@ ___return (physicaldeviceimageviewimageformatinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53838,8 +52856,6 @@ ___return (filtercubicimageviewimageformatpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -53937,8 +52953,6 @@ ___return (physicaldeviceimagelessframebufferfeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -54097,8 +53111,6 @@ ___return (framebufferattachmentimageinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -54195,8 +53207,6 @@ ___return (framebufferattachmentscreateinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -54291,8 +53301,6 @@ ___return (renderpassattachmentbegininfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -54385,8 +53393,6 @@ ___return (physicaldevicetexturecompressionastchdrfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -54488,8 +53494,6 @@ ___return (physicaldevicecooperativematrixfeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -54594,8 +53598,6 @@ ___return (physicaldevicecooperativematrixpropertiesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -54769,8 +53771,6 @@ ___return (cooperativematrixpropertiesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -54865,8 +53865,6 @@ ___return (physicaldeviceycbcrimagearraysfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -54971,8 +53969,6 @@ ___return (imageviewhandleinfonvx);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55050,8 +54046,6 @@ ___return (pipelinecreationfeedbackext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55164,8 +54158,6 @@ ___return (pipelinecreationfeedbackcreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55254,8 +54246,6 @@ ___return (headlesssurfacecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55348,8 +54338,6 @@ ___return (physicaldevicecoveragereductionmodefeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55457,8 +54445,6 @@ ___return (pipelinecoveragereductionstatecreateinfonv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55586,8 +54572,6 @@ ___return (framebuffermixedsamplescombinationnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55687,8 +54671,6 @@ ___return (physicaldeviceshaderintegerfunctions2featuresintel);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55817,8 +54799,6 @@ ___return (performancevaluedataintel);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55892,8 +54872,6 @@ ___return (performancevalueintel);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -55982,8 +54960,6 @@ ___return (initializeperformanceapiinfointel);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56068,8 +55044,6 @@ ___return (querypoolcreateinfointel);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56154,8 +55128,6 @@ ___return (performancemarkerinfointel);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56248,8 +55220,6 @@ ___return (performancestreammarkerinfointel);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56360,8 +55330,6 @@ ___return (performanceoverrideinfointel);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56452,8 +55420,6 @@ ___return (performanceconfigurationacquireinfointel);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56546,8 +55512,6 @@ ___return (physicaldeviceindextypeuint8featuresext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56649,8 +55613,6 @@ ___return (physicaldeviceshadersmbuiltinspropertiesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56745,8 +55707,6 @@ ___return (physicaldeviceshadersmbuiltinsfeaturesnv);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56859,8 +55819,6 @@ ___return (physicaldevicefragmentshaderinterlockfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -56946,8 +55904,6 @@ ___return (physicaldevicepipelineexecutablepropertiesfeatureskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -57033,8 +55989,6 @@ ___return (pipelineinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -57153,8 +56107,6 @@ ___return (pipelineexecutablepropertieskhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -57251,8 +56203,6 @@ ___return (pipelineexecutableinfokhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -57376,8 +56326,6 @@ ___return (pipelineexecutablestatisticvaluekhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -57506,8 +56454,6 @@ ___return (pipelineexecutablestatistickhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -57637,8 +56583,6 @@ ___return (pipelineexecutableinternalrepresentationkhr);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -57729,8 +56673,6 @@ ___return (physicaldeviceshaderdemotetohelperinvocationfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -57827,8 +56769,6 @@ ___return (physicaldevicetexelbufferalignmentfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -57954,8 +56894,6 @@ ___return (physicaldevicetexelbufferalignmentpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -58063,8 +57001,6 @@ ___return (physicaldevicesubgroupsizecontrolfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -58188,8 +57124,6 @@ ___return (physicaldevicesubgroupsizecontrolpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -58290,8 +57224,6 @@ ___return (pipelineshaderstagerequiredsubgroupsizecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -58437,8 +57369,6 @@ ___return (physicaldevicelinerasterizationfeaturesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -58535,8 +57465,6 @@ ___return (physicaldevicelinerasterizationpropertiesext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -58660,8 +57588,6 @@ ___return (pipelinerasterizationlinestatecreateinfoext);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -58752,8 +57678,6 @@ ___return (pipelinecompilercontrolcreateinfoamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -58832,8 +57756,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -59010,8 +57932,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60028,8 +58948,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60041,8 +58959,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60054,8 +58970,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60067,8 +58981,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60080,8 +58992,6 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60099,8 +59009,6 @@ func(___arg1,___arg2,___arg3);
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60117,8 +59025,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60135,8 +59041,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60157,8 +59061,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60180,8 +59082,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60193,8 +59093,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60206,8 +59104,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60219,8 +59115,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60232,8 +59126,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60245,8 +59137,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60258,8 +59148,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60271,8 +59159,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60284,8 +59170,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60297,8 +59181,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60310,8 +59192,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60323,8 +59203,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60336,8 +59214,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60351,8 +59227,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60373,8 +59247,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60392,8 +59264,6 @@ func(___arg2,___arg3,___arg4);
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60410,8 +59280,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60428,8 +59296,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5,___arg6,___arg7));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60446,8 +59312,6 @@ ___return (func(___arg2,___arg3));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60464,8 +59328,6 @@ ___return (func(___arg2,___arg3));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60482,8 +59344,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60500,8 +59360,6 @@ ___return (func(___arg2,___arg3,___arg4,___arg5));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60519,8 +59377,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60532,8 +59388,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60545,8 +59399,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60558,8 +59410,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60571,8 +59421,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60584,8 +59432,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60597,8 +59443,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60610,8 +59454,6 @@ ___return (func(___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60628,8 +59470,6 @@ ___return (func(___arg2,___arg3));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60646,8 +59486,6 @@ ___return (func(___arg2,___arg3));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60665,8 +59503,6 @@ func(___arg2,___arg3);
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60684,8 +59520,6 @@ func(___arg2);
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60703,8 +59537,6 @@ func(___arg2,___arg3);
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60722,8 +59554,6 @@ func(___arg2,___arg3);
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60741,8 +59571,6 @@ func(___arg2);
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60760,8 +59588,6 @@ func(___arg2,___arg3);
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60781,8 +59607,6 @@ ___return (func(___arg1,___arg2,___arg3,___arg4));"))
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -60800,8 +59624,6 @@ func(___arg1,___arg2,___arg3);
    (c-declare
       "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>

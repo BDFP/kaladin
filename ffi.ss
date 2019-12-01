@@ -77,8 +77,6 @@
 	      '(begin-ffi ()
 		 (c-declare "   
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <vulkan/vulkan.h> 
 #include <vulkan/vulkan_core.h>
 #include <X11/Xlib.h>
@@ -506,7 +504,7 @@
 			(let (arg-type (string->symbol (arr->ptr-member-type-name (cdr m))))
 			  (cond
 			   ((equal? arg-type 'void) '(pointer void))
-			   ((and (equal? (car m) "sType")
+ 			   ((and (equal? (car m) "sType")
 			       (not (equal? (cdr m) "VkStructureType"))) #f)
 			   (else arg-type))))
 		      members))
