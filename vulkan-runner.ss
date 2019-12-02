@@ -12,7 +12,13 @@
    
    (else (cleanup-vulkan vs so))))
 
+;; (def instance (ptr->VkInstance (car (create-vulkan-instance-with-validation))))
 
+;; (def vs (initialize-vulkan-state instance "shaders/shader.vert" "shaders/shader.frag"))
+
+;; (def so (create-sync-objects (get-logical-device vs)))
+
+;; (cleanup-vulkan vs so)
 
 (define (main . args)
   (with-new-vulkan-instance

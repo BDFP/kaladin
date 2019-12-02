@@ -17,11 +17,11 @@
 (defstruct swapchain-info (swapchain images image-format extent))
 (defstruct swapchain-details (info image-views))
 
-(defstruct pipeline-details (renderpass pipelines))
+(defstruct pipeline-details (renderpass pipelines pipeline-layout))
 
 ;; command is cvector
 ;; frame is list of cptrs
-(defstruct buffers (frame command))
+(defstruct buffers (frame command command-pool))
 
 (defstruct devices (physical logical))
 (defstruct window-details (surface window))
@@ -85,7 +85,6 @@
 (define (make-surface vk-instance window)
   (let (surface (make-VkSurfaceKHR))
     (call-vk-cmd glfwCreateWindowSurface vk-instance window #f surface)
-    ;; (make-will surface (lambda (s) (vkDestroySurfaceKHR vk-instance surface #f)))
     surface))
 
 (define (create-window-details! vk-instance)
@@ -129,20 +128,24 @@
 
 ;; returns queue-indices of queue families supported by device which is valid
 ;; as checked by valid-lambda
-(define (get-queue-family-index vk-instance device* surface*)
-  (displayln "get queue index" device* surface*)
-  (let (families (cvector-transduce (compose (tenumerate))
-				    rcons
-				    (get-queue-family-props device*)
-				    ref-VkQueueFamilyProperties))
-    (make-queue-indices (caar (filter (lambda (i+fam) (graphics-support? (cdr i+fam)))
-				      families))
-			(caar (filter (lambda (i+fam)
-					(presentation-support? vk-instance
-							       (ptr->VkPhysicalDevice device*)
-							       (car i+fam)
-							       (ptr->VkSurfaceKHR surface*)))
-				      families)))))
+(define get-queue-family-index
+  (case-lambda
+    ((vk-instance device*) (get-queue-family-index device* #f))
+    ((vk-instance device* surface*)
+     (displayln "get queue index" device* surface*)
+     (let (families (cvector-transduce (compose (tenumerate))
+				       rcons
+				       (get-queue-family-props device*)
+				       ref-VkQueueFamilyProperties))
+       (make-queue-indices (caar (filter (lambda (i+fam) (graphics-support? (cdr i+fam)))
+					 families))
+			   (and surface*
+				(caar (filter (lambda (i+fam)
+						(presentation-support? vk-instance
+								       (ptr->VkPhysicalDevice device*)
+								       (car i+fam)
+								       (ptr->VkSurfaceKHR surface*)))
+					      families))))))))
 
 (define (select-physical-device vk-instance)
   (displayln "selecting physical device")
@@ -448,12 +451,13 @@ Cleanup todo:
   		      vertex-shader-filepath
   		      shaderc_vertex_shader
   		      (lambda (shader-module)
-			  (make-VkPipelineShaderStageCreateInfo #f
-								0
-								VK_SHADER_STAGE_VERTEX_BIT
-								(ptr->VkShaderModule shader-module)
-								"main"
-								#f))))
+			(cons (make-VkPipelineShaderStageCreateInfo #f
+								     0
+								     VK_SHADER_STAGE_VERTEX_BIT
+								     (ptr->VkShaderModule shader-module)
+								     "main"
+								     #f)
+			      shader-module))))
 
 
 (define (create-fragment-shader-stage-info logical-device fragment-shader-filepath)
@@ -461,29 +465,31 @@ Cleanup todo:
   		      fragment-shader-filepath
   		      shaderc_fragment_shader
   		      (lambda (shader-module)
-			(make-VkPipelineShaderStageCreateInfo #f
-							      0
-							      VK_SHADER_STAGE_FRAGMENT_BIT
-							      (ptr->VkShaderModule shader-module)
-							      "main"
-							      #f))))
+			(cons (make-VkPipelineShaderStageCreateInfo #f
+								     0
+								     VK_SHADER_STAGE_FRAGMENT_BIT
+								     (ptr->VkShaderModule shader-module)
+								     "main"
+								     #f)
+			      shader-module))))
 
+;; returns a cons pair with the tail containing a list of shader-modules to be freed up
 (define (create-shader-stages logical-device
 			      vertex-shader-filepath
 			      fragment-shader-filepath)
   (let ((shader-stages (make-VkPipelineShaderStageCreateInfo* 2))
-	(shader-stage-infos (list (create-vertex-shader-stage-info logical-device
-								   vertex-shader-filepath)
-				  (create-fragment-shader-stage-info logical-device
-								     fragment-shader-filepath))))
+	(shader-stage-infos-with-module (list (create-vertex-shader-stage-info logical-device
+									       vertex-shader-filepath)
+					      (create-fragment-shader-stage-info logical-device
+      										 fragment-shader-filepath))))
     (foldl (lambda (stage-info i)
 	     (set-VkPipelineShaderStageCreateInfo! shader-stages
 						   i
 						   stage-info)
 	     (1+ i))
 	   0
-	   shader-stage-infos)
-    shader-stages))
+	   (map car shader-stage-infos-with-module))
+    (cons shader-stages (map cdr shader-stage-infos-with-module))))
 
 #|
 
@@ -585,7 +591,7 @@ Cleanup todo:
 
 
 (define (create-pipeline-layout logical-device)
-    (displayln "creating pipeline layout")
+  (displayln "creating pipeline layout")
   (let ((pipeline-layout-info (make-VkPipelineLayoutCreateInfo #f
 								0
 								0
@@ -660,13 +666,15 @@ Cleanup todo:
 				  fragment-shader-filepath)
   (with* (((swapchain-info _ _ image-format extent) swapchain-info-obj)
 	  (render-pass (create-render-pass logical-device image-format))
+	  (pipeline-layout (create-pipeline-layout logical-device))
+	  ([shader-stages . shader-modules] (create-shader-stages logical-device
+								  vertex-shader-filepath
+								  fragment-shader-filepath))
 	  (pipeline-info (make-VkGraphicsPipelineCreateInfo
 			  #f
 			  0
 			  2
-			  (create-shader-stages logical-device
-						vertex-shader-filepath
-						fragment-shader-filepath)
+			  shader-stages
 			  (create-vertex-input-state)
 			  (create-pipeline-input-assembly)
 			  #f
@@ -676,7 +684,7 @@ Cleanup todo:
 			  #f
 			  (create-color-blending)
 			  #f
-			  (ptr->VkPipelineLayout (create-pipeline-layout logical-device))
+			  (ptr->VkPipelineLayout pipeline-layout)
 			  (ptr->VkRenderPass render-pass)
 			  0
 			  #f
@@ -685,7 +693,12 @@ Cleanup todo:
 	  (pipelines (make-VkPipeline* 1)))
     (set-VkGraphicsPipelineCreateInfo! infos 0 pipeline-info)
     (call-vk-cmd vkCreateGraphicsPipelines logical-device #f 1 infos #f pipelines)
-    (make-pipeline-details render-pass pipelines)))
+    
+    ;; cleanup shader modules
+    (map (lambda (m)
+	   (vkDestroyShaderModule logical-device (ptr->VkShaderModule m) #f)) shader-modules)
+    
+    (make-pipeline-details render-pass pipelines pipeline-layout)))
 
 
 ;;;;;;;;;;;;;;;;;;
@@ -712,6 +725,9 @@ Cleanup todo:
 	     framebuffer))
 	 image-views)))
 
+(define (destroy-frame-buffers logical-device frame-buffers)
+  (map (lambda (buf) (vkDestroyFramebuffer logical-device (ptr->VkFramebuffer buf) #f)) frame-buffers))
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Command buffers ;;
 ;;;;;;;;;;;;;;;;;;;;;
@@ -735,7 +751,7 @@ Cleanup todo:
 						       len))
 	 (command-buffers (make-VkCommandBuffer* len)))
     (call-vk-cmd vkAllocateCommandBuffers logical-device alloc-info command-buffers)
-    (make-buffers framebuffers (cons len command-buffers))))
+    (make-buffers framebuffers (cons len command-buffers) command-pool)))
 
 
 (define (perform-render-pass swapchain-info pipeline-detail framebuffer command-buffer*)
@@ -743,7 +759,7 @@ Cleanup todo:
 			(make-VkRect2D (ptr->VkOffset2D (make-VkOffset2D 0 0))
 				       (swapchain-info-extent swapchain-info))))
 	  (command-buffer (ptr->VkCommandBuffer command-buffer*))
-	  ((pipeline-details renderpass pipelines) pipeline-detail)
+	  ((pipeline-details renderpass pipelines _) pipeline-detail)
 	  (clear-value (make-VkClearValue-with-color
 			(ptr->VkClearColorValue (make-VkClearColorValue-with-float32
 						 (list->float-ptr (list 0.0 0.0 0.0 1.0))))))
@@ -775,6 +791,39 @@ Cleanup todo:
 		       (buffers-command buffers)
 		       ref-VkCommandBuffer)
     buffers))
+
+
+(define (free-command-buffers logical-device command-pool command-buffers)
+  (vkFreeCommandBuffers logical-device
+			command-pool
+			(cvector-length command-buffers)
+			(cvector-ptr command-buffers)))
+
+(define (cleanup-buffers logical-device buffers-data)
+  (with ((buffers frame command pool) buffers-data)
+    (destroy-frame-buffers logical-device frame)
+    (free-command-buffers logical-device (ptr->VkCommandPool pool) command)))
+
+
+(define (cleanup-swapchain vk-instance logical-device swapchain-details-data pipeline-details-data buffers)
+  (with (((pipeline-details renderpass pipelines pipeline-layout) pipeline-details-data)
+	 ((swapchain-details info image-views) swapchain-details-data))
+    ;; destroy buffers
+    (cleanup-buffers logical-device buffers)
+
+    ;; destroy pipeline
+    (vkDestroyPipeline logical-device (ptr->VkPipeline pipelines) #f)
+    (vkDestroyPipelineLayout logical-device (ptr->VkPipelineLayout pipeline-layout) #f)
+    (vkDestroyRenderPass logical-device (ptr->VkRenderPass renderpass) #f)
+
+    ;; destroy swapchain
+    (map (lambda (image-view)
+	   (vkDestroyImageView logical-device (ptr->VkImageView image-view) #f))
+	 image-views)
+    (vkDestroySwapchainKHR vk-instance
+			   logical-device
+			   (ptr->VkSwapchainKHR (swapchain-info-swapchain info))
+			   #f)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -866,12 +915,10 @@ Cleanup todo:
 (define (cleanup-sync-objects logical-device so)
   (with ((sync-objects _ image-available-semaphores render-finished-semaphores fences)
 	 so)
-    (map (lambda (i)
-	   (destroy-semaphore-ptr logical-device render-finished-semaphores)
-	   (destroy-semaphore-ptr logical-device image-available-semaphores)
-	   (fence-map (lambda (f) (vkDestroyFence logical-device (ptr->VkFence f) #f))
-		      fences))
-	 (iota +frames-in-flight+))))
+    (destroy-semaphore-ptr logical-device render-finished-semaphores)
+    (destroy-semaphore-ptr logical-device image-available-semaphores)
+    (fence-map (lambda (f) (vkDestroyFence logical-device (ptr->VkFence f) #f))
+	       fences)))
 
 (define +max-int+ UINT64_MAX)
 
@@ -921,9 +968,17 @@ Cleanup todo:
 ;;   )
 
 (define (cleanup-vulkan vs so)
-  (let (logical-device (get-logical-device vs))
+  (with ((logical-device (get-logical-device vs))
+	 ((vulkan-state vk-instance _ window-details _ swapchain-details pipeline-details buffers)
+	  vs))
     (vkDeviceWaitIdle logical-device)
-    (cleanup-sync-objects logical-device so)))
+    (cleanup-swapchain vk-instance logical-device swapchain-details pipeline-details buffers)
+    (cleanup-sync-objects logical-device so)
+    (vkDestroyCommandPool logical-device (ptr->VkCommandPool (buffers-command-pool buffers)) #f)
+    (vkDestroyDevice logical-device #f)
+    (vkDestroySurfaceKHR vk-instance (ptr->VkSurfaceKHR (window-details-surface window-details)) #f)
+    (glfw-destroy-window (window-details-window window-details))
+    (glfw-terminate)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; validation messenger  ;;
