@@ -3173,9 +3173,10 @@ ___return(debugutilsmessengerext);")
    (c-define-type VkDeviceAddress uint64_t)
    (c-define-type VkDeviceAddress* (pointer VkDeviceAddress)))
 (begin-ffi
-   (char* char** UINT64_MAX_F VK_SUBPASS_EXTERNAL_F)
+   (char* char** UINT64_MAX_F VK_SUBPASS_EXTERNAL_F UINT32_MAX)
    (c-define-type char* char-string)
    (c-define-type char** (pointer char-string))
+   (define-const UINT32_MAX)
    (define-c-lambda UINT64_MAX_F () int "___return (UINT64_MAX);")
    (define-c-lambda VK_SUBPASS_EXTERNAL_F () int "___return (VK_SUBPASS_EXTERNAL);"))
 (begin-ffi

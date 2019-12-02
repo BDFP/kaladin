@@ -4,13 +4,14 @@
 
 (export #t)
 
-(define (draw vs so)
-  (cond
-   ((fxzero? (glfw-window-should-close (get-window vs)))
-    (begin  (glfw-poll-events)
-	    (draw vs (draw-frame vs so))))
-   
-   (else (cleanup-vulkan vs so))))
+(define (draw vs+so)
+  (with ([vs . so] vs+so)
+    (cond
+     ((fxzero? (glfw-window-should-close (get-window vs)))
+      (begin  (glfw-poll-events)
+	      (draw (draw-frame vs so))))
+     
+     (else (cleanup-vulkan vs so)))))
 
 ;; (def instance (ptr->VkInstance (car (create-vulkan-instance-with-validation))))
 
@@ -26,4 +27,4 @@
      (let (vs (initialize-vulkan-state vk-instance
 				       "shaders/shader.vert"
 				       "shaders/shader.frag"))
-       (draw vs (create-sync-objects (get-logical-device vs)))))))
+       (draw (cons vs (create-sync-objects (get-logical-device vs))))))))

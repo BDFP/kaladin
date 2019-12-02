@@ -20,7 +20,9 @@
 	    glfw-destroy-window
 	    glfw-terminate
 	    window*
-	    glfwCreateWindowSurface)
+	    glfwCreateWindowSurface
+	    glfwGetFramebufferSize
+	    glfwWaitEvents)
   
   (c-declare "#define GLFW_INCLUDE_NONE
               #include <GLFW/glfw3.h>")
@@ -56,15 +58,16 @@
     "glfwWindowShouldClose")
 
   (define-c-lambda glfw-poll-events () void "glfwPollEvents")
+  (define-c-lambda glfwWaitEvents () void)
 
   (c-define-type VkInstance (pointer (struct "VkInstance_T")))
   (c-define-type VkAllocationCallbacks* (pointer (struct "VkAllocationCallbacks")))
   (c-define-type VkSurfaceKHR* (pointer (pointer (struct "VkSurfaceKHR_T"))))
-  
 
   (define-c-lambda glfwCreateWindowSurface
-    (VkInstance window* VkAllocationCallbacks* VkSurfaceKHR*) int
-    "glfwCreateWindowSurface"))
+    (VkInstance window* VkAllocationCallbacks* VkSurfaceKHR*) int)
+
+  (define-c-lambda glfwGetFramebufferSize (window* (pointer unsigned-int32) (pointer unsigned-int32)) void))
 
 
 ;; https://www.glfw.org/docs/latest/group__init.html#ga317aac130a235ab08c6db0834907d85e
@@ -85,4 +88,10 @@
 (define (destroy-glfw window)
   (glfw-destroy-window window)
   (glfw-terminate))
+
+(define (glfw-get-framebuffer-size window)
+  (let ((width (make-int32))
+	(height (make-int32)))
+    (glfwGetFramebufferSize window width height)
+    (cons width height)))
 

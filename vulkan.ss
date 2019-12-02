@@ -28,8 +28,10 @@
 
 (defstruct queue-details (queues indices))
 
+(defstruct shaders (vertex fragment))
+
 (defstruct vulkan-state (instance devices window-details queue-details swapchain-details
-				  pipeline-details buffers))
+				  pipeline-details buffers shaders))
 
 (define (get-logical-device vs)
   (ptr->VkDevice (devices-logical (vulkan-state-devices vs))))
@@ -60,7 +62,7 @@
     (cond
      ((void? res) #t)
      ((fxzero? res) #t)
-     (else (raise (string-append "vulkan error: " res))))))
+     (else (error "vulkan error: " res)))))
 
 (define (call-vk-array-cmd malloc-fn f)
   (let ((count (make-int-ptr)))
@@ -68,6 +70,12 @@
     (let ((ptr (malloc-fn (read-int-ptr count))))
       (call-vk-cmd f count ptr)
       (cons (read-int-ptr count) ptr))))
+
+(define (swapchain-outdated? vulkan-result)
+  (cond
+   ((memq vulkan-result (list VK_ERROR_OUT_OF_DATE_KHR VK_SUBOPTIMAL_KHR)) #t)
+   ((equal? vulkan-result VK_SUCCESS) #f)
+   (else (error "failed to acquire swapchain image! error code: " vulkan-result))))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Window Surface ;;
@@ -287,8 +295,15 @@ Cleanup todo:
   VK_PRESENT_MODE_FIFO_KHR)
 
 
-(define (choose-swap-extent capabilities)
-  (VkSurfaceCapabilitiesKHRcurrentExtent capabilities))
+(define (choose-swap-extent window capabilities)
+  (let (extent (VkSurfaceCapabilitiesKHRcurrentExtent capabilities))
+    (cond
+     ((not (= (val-VkExtent2Dwidth extent) UINT32_MAX)) extent)
+     (else 
+      (with ([width . height] (glfw-get-framebuffer-size window))
+	(displayln "resized to " (read-int32-ptr width) (read-int32-ptr height))
+	(make-VkExtent2D width height))))))
+
 
 (define (get-swapchain-image-count capabilities)
   (let (max (VkSurfaceCapabilitiesKHRmaxImageCount capabilities))
@@ -310,32 +325,34 @@ Cleanup todo:
 			   0
 			   (list graphics presentation)))))))))
 
-(define (create-swapchain-info vk-instance physical-device surface queue-indices)
-  (let ((surface-formats (supported-surface-formats vk-instance physical-device surface))
-	(presentation-modes (supported-presentation-modes vk-instance physical-device surface))
-	(capabilities (get-device-capabilities vk-instance physical-device surface)))
-    (if (check-swapchain-support? surface-formats presentation-modes)
-      (with ((surface-format (choose-surface-format surface-formats))
-	     (present-mode (choose-present-mode presentation-modes))
-	     ([sharing-mode index-count indices] (image-sharing-info queue-indices)))
-	(make-VkSwapchainCreateInfoKHR #f
-				       0
-				       surface
-				       (get-swapchain-image-count capabilities)
-				       (VkSurfaceFormatKHRformat surface-format)
-				       (VkSurfaceFormatKHRcolorSpace surface-format)
-				       (choose-swap-extent capabilities)
-				       1
-				       VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT
-				       sharing-mode
-				       index-count
-				       indices
-				       (VkSurfaceCapabilitiesKHRcurrentTransform capabilities)
-				       VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR
-				       present-mode
-				       VK_TRUE
-				       #f))
-      (error 'swapchain-not-supported))))
+(define (create-swapchain-info vk-instance physical-device window-details-obj queue-indices)
+  (let (surface (ptr->VkSurfaceKHR (window-details-surface window-details-obj)))
+    (let ((surface-formats (supported-surface-formats vk-instance physical-device surface))
+	  (presentation-modes (supported-presentation-modes vk-instance physical-device surface))
+	  (capabilities (get-device-capabilities vk-instance physical-device surface)))
+      (if (check-swapchain-support? surface-formats presentation-modes)
+	(with ((surface-format (choose-surface-format surface-formats))
+	       (present-mode (choose-present-mode presentation-modes))
+	       ([sharing-mode index-count indices] (image-sharing-info queue-indices)))
+	  (make-VkSwapchainCreateInfoKHR #f
+					 0
+					 surface
+					 (get-swapchain-image-count capabilities)
+					 (VkSurfaceFormatKHRformat surface-format)
+					 (VkSurfaceFormatKHRcolorSpace surface-format)
+					 (choose-swap-extent (window-details-window window-details-obj)
+							     capabilities)
+					 1
+					 VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT
+					 sharing-mode
+					 index-count
+					 indices
+					 (VkSurfaceCapabilitiesKHRcurrentTransform capabilities)
+					 VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR
+					 present-mode
+					 VK_TRUE
+					 #f))
+	(error 'swapchain-not-supported)))))
 
 
 (define (get-swapchain-images instance logical-device swapchain*)
@@ -348,13 +365,13 @@ Cleanup todo:
 						ptr))))
 
 
-(define (create-swapchain vk-instance devices-obj surface queue-indices)
+(define (create-swapchain vk-instance devices-obj window-details queue-indices)
   (displayln "creating swapchain")
   (with* ((swapchain (make-VkSwapchainKHR))
 	  ((devices physical logical) devices-obj)
 	  (swapchain-info (create-swapchain-info vk-instance
 						 (ptr->VkPhysicalDevice physical)
-						 (ptr->VkSurfaceKHR surface)
+						 window-details
 						 queue-indices)))
     (call-vk-cmd vkCreateSwapchainKHR vk-instance (ptr->VkDevice logical) swapchain-info
 		 #f swapchain)
@@ -391,9 +408,9 @@ Cleanup todo:
 		       images
 		       ref-VkImage)))
 
-(define (create-swapchain-details vk-instance devices surface queue-indices)
+(define (create-swapchain-details vk-instance devices window-details queue-indices)
   (let* ((logical-device (ptr->VkDevice (devices-logical devices)))
-	 (swapchain-detail (create-swapchain vk-instance devices surface queue-indices))
+	 (swapchain-detail (create-swapchain vk-instance devices window-details queue-indices))
 	 (image-view-infos (create-swapchain-image-view-infos swapchain-detail))
 	 (num-images (length image-view-infos))
 	 (image-views-cvector (cons num-images (make-VkImageView* num-images)))
@@ -741,10 +758,10 @@ Cleanup todo:
     command-pool))
 
 
-(define (create-buffers logical-device pipeline-details swapchain-details queue-indices)
+(def (create-buffers logical-device pipeline-details swapchain-details queue-indices (cmd-pool #f))
   (let* ((framebuffers (create-frame-buffers logical-device pipeline-details swapchain-details))
 	 (len (length framebuffers))
-	 (command-pool (create-command-pool logical-device queue-indices))
+	 (command-pool (or cmd-pool (create-command-pool logical-device queue-indices)))
 	 (alloc-info (make-VkCommandBufferAllocateInfo #f
 						       (ptr->VkCommandPool command-pool)
 						       VK_COMMAND_BUFFER_LEVEL_PRIMARY
@@ -777,8 +794,12 @@ Cleanup todo:
     (call-vk-cmd vkEndCommandBuffer command-buffer)))
 
 
-(define (record-buffers logical-device pipeline-details swapchain-details queue-indices)
-  (let (buffers (create-buffers logical-device pipeline-details swapchain-details queue-indices))
+(def (record-buffers logical-device pipeline-details swapchain-details queue-indices (cmd-pool #f))
+  (let (buffers (create-buffers logical-device
+				pipeline-details
+				swapchain-details
+				queue-indices
+				cmd-pool))
     (cvector-transduce (compose (tenumerate)
 				(tmap (lambda (index+command-buffer)
 					(with ([i . command-buffer] index+command-buffer)
@@ -805,7 +826,8 @@ Cleanup todo:
     (free-command-buffers logical-device (ptr->VkCommandPool pool) command)))
 
 
-(define (cleanup-swapchain vk-instance logical-device swapchain-details-data pipeline-details-data buffers)
+(define (cleanup-swapchain vk-instance logical-device swapchain-details-data pipeline-details-data
+			   buffers)
   (with (((pipeline-details renderpass pipelines pipeline-layout) pipeline-details-data)
 	 ((swapchain-details info image-views) swapchain-details-data))
     ;; destroy buffers
@@ -875,8 +897,9 @@ Cleanup todo:
 					    (swapchain-info-swapchain swapchain-info)
 					    image-index
 					    #f))
-    (call-vk-cmd vkQueuePresentKHR vk-instance (ptr->VkQueue (queues-presentation queues))
-		 present-info)))
+    (vkQueuePresentKHR vk-instance
+		       (ptr->VkQueue (queues-presentation queues))
+		       present-info)))
 
 (define +frames-in-flight+ 2)
 
@@ -922,6 +945,55 @@ Cleanup todo:
 
 (define +max-int+ UINT64_MAX)
 
+#|
+todo
+
+- It is possible to create a new swap chain while drawing commands on an image from the old swap 
+  chain are still in-flight. You need to pass the previous swap chain to the oldSwapChain field in 
+  the VkSwapchainCreateInfoKHR struct and destroy the old swap chain as soon as you've finished 
+  using it.
+
+- Handling resizes explicitly => add callback using glfwSetFramebufferSizeCallback
+|#
+
+(define (reset-swapchain vs)
+  (with* ((device (get-logical-device vs))
+	  ((vulkan-state vk-instance devices window-details queue-details swapchain-details
+			 pipeline-details buffers shaders-obj) vs))
+    (define recreate-swapchain
+      (lambda ()
+	(let* ((swapchain-details (create-swapchain-details vk-instance
+							    devices
+							    window-details
+							    (queue-details-indices queue-details)))
+	       (pipeline-details (create-graphics-pipeline device
+							   (swapchain-details-info swapchain-details)
+							   (shaders-vertex shaders-obj)
+							   (shaders-fragment shaders-obj)))
+	       (buffers (record-buffers device
+					pipeline-details
+					swapchain-details
+					(queue-details-indices queue-details)
+					(buffers-command-pool buffers))))
+	  (make-vulkan-state vk-instance devices window-details queue-details swapchain-details
+			     pipeline-details buffers shaders-obj))))
+
+    ;; todo can be optimized by using same vars for width & height
+    (define (wait-on-minimize dimension)
+      (cond
+       ((or (= 0 (read-int32-ptr (car dimension)))
+	    (= 0 (read-int32-ptr (cdr dimension))))
+	(with ([width . height] (glfw-get-framebuffer-size (window-details-window window-details)))
+	  (glfwWaitEvents)
+	  (wait-on-minimize (cons width height))))
+       (else #t)))
+    
+    (wait-on-minimize (glfw-get-framebuffer-size (window-details-window window-details)))
+    
+    (vkDeviceWaitIdle device)
+    (cleanup-swapchain vk-instance device swapchain-details pipeline-details buffers)
+    (recreate-swapchain)))
+
 (define (draw-frame vs sync-obj)
   (with* (((vulkan-state instance devices window-details queue-details swapchain-details
 			 pipeline-details buffers) vs)
@@ -935,37 +1007,47 @@ Cleanup todo:
 	  (render-finished-semaphores (cvector-ptr render-finished-cvector))
 	  (frame-fence (ref-VkFence (cvector-ptr in-flight-fences) current-frame)))
 
+    (define (acquire-next-image)
+      (let (res (vkAcquireNextImageKHR instance
+				       logical-device
+				       (ptr->VkSwapchainKHR
+					(swapchain-info-swapchain (swapchain-details-info
+								   swapchain-details)))
+				       +max-int+
+				       (ptr->VkSemaphore
+					(ref-VkSemaphore image-available-semaphores current-frame))
+				       #f
+				       image-index))
+	(cond
+	 ((swapchain-outdated? res) (reset-swapchain vs))
+	 (else vs))))
+
+    (define (present-buffer vs)
+      (let* ((queue-details (vulkan-state-queue-details vs))
+	     (s (submit-command-buffer (buffers-command (vulkan-state-buffers vs))
+				       (queue-details-queues queue-details)
+				       image-index
+				       (ref-VkSemaphore image-available-semaphores current-frame)
+				       (ref-VkSemaphore render-finished-semaphores current-frame)
+				       frame-fence)))
+	(cond
+	 ((swapchain-outdated? (present-to-swapchain instance
+						     (queue-details-queues queue-details)
+						     (swapchain-details-info
+						      (vulkan-state-swapchain-details vs))
+						     image-index
+						     s))
+	  (reset-swapchain vs))
+	 (else vs))))
+    
     (call-vk-cmd vkWaitForFences logical-device 1 frame-fence VK_TRUE +max-int+)
     (call-vk-cmd vkResetFences logical-device 1 frame-fence)
-   
-    (call-vk-cmd vkAcquireNextImageKHR instance
-			   logical-device
-			   (ptr->VkSwapchainKHR (swapchain-info-swapchain
-						 (swapchain-details-info swapchain-details)))
-			   +max-int+
-			   (ptr->VkSemaphore
-			    (ref-VkSemaphore image-available-semaphores current-frame))
-			   #f
-			   image-index)
-    
-    (let (s (submit-command-buffer (buffers-command buffers)
-				   (queue-details-queues queue-details)
-				   image-index
-				   (ref-VkSemaphore image-available-semaphores current-frame)
-				   (ref-VkSemaphore render-finished-semaphores current-frame)
-				   frame-fence))
-      (present-to-swapchain instance
-			    (queue-details-queues queue-details)
-			    (swapchain-details-info swapchain-details)
-			    image-index
-			    s)
-      (make-sync-objects (modulo (1+ current-frame) +frames-in-flight+)
-			 image-available-cvector
-			 render-finished-cvector
-			 in-flight-fences))))
 
-;; (define (destoy-vulkan-objects logical-device vs)
-;;   )
+    (cons (present-buffer (acquire-next-image))
+	  (make-sync-objects (modulo (1+ current-frame) +frames-in-flight+)
+			     image-available-cvector
+			     render-finished-cvector
+			     in-flight-fences))))
 
 (define (cleanup-vulkan vs so)
   (with ((logical-device (get-logical-device vs))
@@ -1115,7 +1197,7 @@ Cleanup todo:
 	  (logical-device (ptr->VkDevice (devices-logical devices)))
 	  (swapchain-details (create-swapchain-details vk-instance
 						       devices
-						       surface
+						       window-details
 						       (queue-details-indices queue-details)))
 	  (pipeline-details (create-graphics-pipeline logical-device
 						      (swapchain-details-info swapchain-details)
@@ -1126,7 +1208,7 @@ Cleanup todo:
 				    swapchain-details
 				    (queue-details-indices queue-details))))
     (make-vulkan-state vk-instance devices window-details queue-details swapchain-details
-		       pipeline-details buffers)))
+		       pipeline-details buffers (make-shaders v-shader f-shader))))
 
 
 #|
