@@ -132,14 +132,15 @@
 	   (define-c-lambda read-bool-ptr (bool*) bool
 	     "___return (*___arg1);")
 
-	   (define-c-lambda make-void-ptr () (pointer void)
-	     "void *a = malloc(sizeof(void*));
+	   (define-c-lambda make-void-ptr () (pointer (pointer void))
+	     "void **a = malloc(sizeof(void**));
+             *a=malloc(sizeof(void*));
               ___return (a);")
 
-	   (define-c-lambda u8vector-size (scheme-object) int "___return (U8_LEN(___arg1));")
+	   (define-c-lambda u8vector-size (scheme-object) int "___return(U8_LEN(___arg1));")
 
-	   (define-c-lambda memcpy ((pointer void #f) scheme-object ) (pointer void #f)
-	     "___return (memcpy(___arg1, U8_DATA(___arg2), U8_LEN(___arg2)));")
+	   (define-c-lambda memcpy ((pointer (pointer void)) scheme-object ) (pointer void #f)
+	     "___return (memcpy(*___arg1, U8_DATA(___arg2), U8_LEN(___arg2)));")
 	   
 	   ;; (define-c-lambda first-c ((pointer type)) type
 	   ;;   "___return *___arg1;")

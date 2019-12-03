@@ -58066,7 +58066,7 @@ ___return (physicaldevicecoherentmemoryfeaturesamd);"))
       "vkFreeMemory")
    (define-c-lambda
       vkMapMemory
-      (VkDevice VkDeviceMemory VkDeviceSize VkDeviceSize VkMemoryMapFlags (pointer void))
+      (VkDevice VkDeviceMemory VkDeviceSize VkDeviceSize VkMemoryMapFlags (pointer (pointer void)))
       VkResult
       "vkMapMemory")
    (define-c-lambda vkUnmapMemory (VkDevice VkDeviceMemory) void "vkUnmapMemory")

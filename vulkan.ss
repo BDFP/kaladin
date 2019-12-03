@@ -570,7 +570,7 @@
 (define (create-vertex-buffer logical-device)
   (let ((buffer-info (make-VkBufferCreateInfo #f
 					       0
-					       (u8vector-size buffer-data)
+					       (* 20 3)
 					       VK_BUFFER_USAGE_VERTEX_BUFFER_BIT
 					       VK_SHARING_MODE_EXCLUSIVE
 					       0
@@ -589,11 +589,11 @@
 	(cond
 	 ((null? i) (error "could not find apt memory type"))
 	 ((and (bitwise-and type (arithmetic-shift 1 (car i)))
-	     (equal? (bitwise-and (VkMemoryTypepropertyFlags
-				   (ref-VkMemoryType (VkPhysicalDeviceMemoryPropertiesmemoryTypes properties)
-						     (car i)))
-				  property-flags)
-		     property-flags))
+	       (equal? (bitwise-and (VkMemoryTypepropertyFlags
+				     (ref-VkMemoryType (VkPhysicalDeviceMemoryPropertiesmemoryTypes properties)
+						       (car i)))
+				    property-flags)
+		       property-flags))
 	  (car i))
 	 (else
 	  (lp (cdr i))))))
