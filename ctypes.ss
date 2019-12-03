@@ -4,6 +4,7 @@
 (export #t)
 
 (begin-ffi (make-int32
+	    make-int64
 	    void*
 	    float*
 	    read-int32-ptr
@@ -12,6 +13,8 @@
 	    read-int-ptr
 	    make-bool-ptr
 	    read-bool-ptr
+	    make-void-ptr
+	    memcpy
 	    
 	    malloc-integer-list
 	    ref-integer-list
@@ -19,7 +22,12 @@
 
 	    malloc-float-list
 	    ref-float-list
-	    set-float-list!)
+	    set-float-list!
+
+	    malloc-int64-list
+	    ref-int64-list
+	    set-int64-list!
+	    u8vector-size)
   
 	   (c-declare "#include <stdint.h>
               #include <stdlib.h>")
@@ -28,6 +36,16 @@
 	     () (pointer unsigned-int32)
 	     "
  uint32_t* res = malloc (sizeof (uint32_t));
+ if (res)
+ {
+  *res = 0;
+ }
+ ___return (res);")
+
+	   	   (define-c-lambda make-int64
+	     () (pointer unsigned-int64)
+	     "
+ uint32_t* res = malloc (sizeof (uint64_t));
  if (res)
  {
   *res = 0;
@@ -53,6 +71,7 @@
 	   (define-c-lambda malloc-integer-list
 	     (int)  (pointer int)
 	     "int *a = (malloc(sizeof(int) * ___arg1));
+              memset(a, 0, sizeof(int) * ___arg1);
               ___return (a);")
 
 	   (define-c-lambda ref-integer-list ((pointer int) int) (pointer int)
@@ -61,6 +80,20 @@
 	   (define-c-lambda set-integer-list! ((pointer int) int int) void
 	     "*(___arg1 + ___arg2) = ___arg3;
               ___return;")
+
+	   	   (define-c-lambda malloc-int64-list
+	     (int)  (pointer unsigned-int64)
+	     "uint64_t *a = (malloc(sizeof(uint64_t) * ___arg1));
+              memset(a, 0, sizeof(uint64_t) * ___arg1);
+              ___return (a);")
+
+	   (define-c-lambda ref-int64-list ((pointer unsigned-int64) int) (pointer unsigned-int64)
+	     "___return (___arg1 + ___arg2);")
+
+	   (define-c-lambda set-int64-list! ((pointer unsigned-int64) int unsigned-int64) void
+	     "*(___arg1 + ___arg2) = ___arg3;
+              ___return;")
+
 
 	   (c-define-type void* (pointer "void"))
 
@@ -98,6 +131,15 @@
 
 	   (define-c-lambda read-bool-ptr (bool*) bool
 	     "___return (*___arg1);")
+
+	   (define-c-lambda make-void-ptr () (pointer void)
+	     "void *a = malloc(sizeof(void*));
+              ___return (a);")
+
+	   (define-c-lambda u8vector-size (scheme-object) int "___return (U8_LEN(___arg1));")
+
+	   (define-c-lambda memcpy ((pointer void #f) scheme-object ) (pointer void #f)
+	     "___return (memcpy(___arg1, U8_DATA(___arg2), U8_LEN(___arg2)));")
 	   
 	   ;; (define-c-lambda first-c ((pointer type)) type
 	   ;;   "___return *___arg1;")

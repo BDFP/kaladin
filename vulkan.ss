@@ -1,5 +1,7 @@
 (import :gerbil/gambit
+	:gerbil/gambit/hvectors
 	:std/srfi/1
+	:std/misc/bytes
 	:srfi/171
 	:kaladin/ctypes
 	:kaladin/cstrings
@@ -21,7 +23,7 @@
 
 ;; command is cvector
 ;; frame is list of cptrs
-(defstruct buffers (frame command command-pool))
+(defstruct buffers (frame command command-pool vertex))
 
 (defstruct devices (physical logical))
 (defstruct window-details (surface window))
@@ -220,17 +222,6 @@
 	 (logical-device* (create-device physical-device* queue-indices)))
     (cons (make-devices physical-device* logical-device*)
 	  (get-queue-details vk-instance logical-device* queue-indices))))
-
-
-#|
-
-Cleanup todo:
-+ device
-+ surface
-+ swapchain
-+ image views
-
-|#
 
 ;;;;;;;;;;;;;;;
 ;; swapchain ;;
@@ -532,12 +523,142 @@ Cleanup todo:
 
 ;; (create-shader-stages (get-logical-device vs) "shaders/shader.vert" "shaders/shader.frag")
 
+
+;;;;;;;;;;;;;;;;;;;;
+;; Vertex Buffers ;;
+;;;;;;;;;;;;;;;;;;;;
+
+(define vertex-data '(((0.0 . -0.5) (1.0 0.0 0.0))
+		      ((0.5 .  0.5) (0.0 1.0 0.0))
+		      ((-0.5 . 0.5) (0.0 0.0 1.0))))
+
+
+(define buffer-size 15)
+
+
+(define data (list 0.0 -0.5 1.0 0.0 0.0
+		   0.5  0.5 0.0 1.0 0.0
+		   -0.5  0.5 0.0 0.0 1.0))
+
+(define buffer-data (let (v (make-u8vector (* 15 4)))
+		      (let lp ((rest data) (i 0))
+			(match rest
+			  ([x . rest]
+			   (u8vector-float-set! v i x native)
+			   (lp rest (+ i 4)))
+			  (else v)))))
+
+
+(define (make-vertex-binding-description)
+  (make-VkVertexInputBindingDescription 0 (* 4 5) VK_VERTEX_INPUT_RATE_VERTEX))
+
+(define (make-vertex-attr-description)
+  (let ((description (make-VkVertexInputAttributeDescription* 2))
+	;; todo set these dynamically
+	(position-attr (make-VkVertexInputAttributeDescription 0
+							       0
+							       VK_FORMAT_R32G32_SFLOAT
+							       0))
+	(color-attr (make-VkVertexInputAttributeDescription 1
+							    0
+							    VK_FORMAT_R32G32B32_SFLOAT
+							    (* 4 2))))
+    (set-VkVertexInputAttributeDescription! description 0 position-attr)
+    (set-VkVertexInputAttributeDescription! description 1 color-attr)
+    description))
+
+(define (create-vertex-buffer logical-device)
+  (let ((buffer-info (make-VkBufferCreateInfo #f
+					       0
+					       (u8vector-size buffer-data)
+					       VK_BUFFER_USAGE_VERTEX_BUFFER_BIT
+					       VK_SHARING_MODE_EXCLUSIVE
+					       0
+					       #f))
+	(vertex-buffer (make-VkBuffer)))
+    (call-vk-cmd vkCreateBuffer logical-device buffer-info #f vertex-buffer)
+    vertex-buffer))
+
+(define (allocate-memory-for-buffer devices vertex-buffer)
+  (let ((requirements (make-VkMemoryRequirements* 1))
+	(properties (make-VkPhysicalDeviceMemoryProperties* 1))
+	(logical-device (ptr->VkDevice (devices-logical devices))))
+
+    (define (find-memory-type type property-flags)
+      (let lp ((i (iota (VkPhysicalDeviceMemoryPropertiesmemoryTypeCount properties))))
+	(cond
+	 ((null? i) (error "could not find apt memory type"))
+	 ((and (bitwise-and type (arithmetic-shift 1 (car i)))
+	     (equal? (bitwise-and (VkMemoryTypepropertyFlags
+				   (ref-VkMemoryType (VkPhysicalDeviceMemoryPropertiesmemoryTypes properties)
+						     (car i)))
+				  property-flags)
+		     property-flags))
+	  (car i))
+	 (else
+	  (lp (cdr i))))))
+    
+    (define (allocate-memory)
+      (let* ((memory-type-index (find-memory-type (VkMemoryRequirementsmemoryTypeBits requirements)
+						  (bitwise-ior VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT
+							       VK_MEMORY_PROPERTY_HOST_COHERENT_BIT)))
+	     (alloc-info (make-VkMemoryAllocateInfo #f						   
+						    (VkMemoryRequirementssize requirements)
+						    memory-type-index))
+	     (vertex-buffer-memory (make-VkDeviceMemory)))
+	(displayln "allocating " (VkMemoryRequirementssize requirements) " memory")
+	(call-vk-cmd vkAllocateMemory logical-device alloc-info #f vertex-buffer-memory)
+	vertex-buffer-memory))
+
+    (define (copy-data memory)
+      (let ((data (make-void-ptr))
+	    (memory (ptr->VkDeviceMemory memory)))
+	(vkBindBufferMemory logical-device
+			    (ptr->VkBuffer vertex-buffer)
+			    memory
+			    0)
+	(vkMapMemory logical-device memory 0 (u8vector-size buffer-data) 0 data)
+	(memcpy data buffer-data)
+	(vkUnmapMemory logical-device memory))
+      memory)
+    
+    (vkGetBufferMemoryRequirements logical-device (ptr->VkBuffer vertex-buffer) requirements)
+    (vkGetPhysicalDeviceMemoryProperties (ptr->VkPhysicalDevice (devices-physical devices))
+					 properties)
+    (displayln "requirement: " (VkMemoryRequirementsalignment requirements))
+    (copy-data (allocate-memory))))
+
+#|
+
+(define logical-device (ptr->VkDevice (devices-logical devices)))
+(define physical-device (ptr->VkPhysicalDevice (devices-physical devices)))
+
+(define vertex-buf (create-vertex-buffer logical-device))
+
+(def req (make-VkMemoryRequirements* 1))
+(vkGetBufferMemoryRequirements logical-device (ptr->VkBuffer vertex-buf) req)
+
+(def properties (make-VkPhysicalDeviceMemoryProperties* 1))
+(vkGetPhysicalDeviceMemoryProperties physical-device properties)
+
+(VkPhysicalDeviceMemoryPropertiesmemoryTypeCount properties)
+(VkMemoryTypepropertyFlags (ref-VkMemoryType (VkPhysicalDeviceMemoryPropertiesmemoryTypes properties)
+4))
+
+(allocate-memory-for-buffer logical-device vertex-buf)
+|#
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Fixed functions ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
 (define (create-vertex-input-state)
-  (make-VkPipelineVertexInputStateCreateInfo #f 0 0 #f 0 #f))
+  (make-VkPipelineVertexInputStateCreateInfo #f
+					     0
+					     1
+					     (make-vertex-binding-description)
+					     2
+					     (make-vertex-attr-description)))
 
 (define (create-pipeline-input-assembly)
   (make-VkPipelineInputAssemblyStateCreateInfo #f
@@ -758,20 +879,27 @@ Cleanup todo:
     command-pool))
 
 
-(def (create-buffers logical-device pipeline-details swapchain-details queue-indices (cmd-pool #f))
-  (let* ((framebuffers (create-frame-buffers logical-device pipeline-details swapchain-details))
+(def (create-buffers devices pipeline-details swapchain-details queue-indices (cmd-pool #f))
+  (let* ((logical-device (ptr->VkDevice (devices-logical devices)))
+	 (framebuffers (create-frame-buffers logical-device  pipeline-details swapchain-details))
 	 (len (length framebuffers))
 	 (command-pool (or cmd-pool (create-command-pool logical-device queue-indices)))
 	 (alloc-info (make-VkCommandBufferAllocateInfo #f
 						       (ptr->VkCommandPool command-pool)
 						       VK_COMMAND_BUFFER_LEVEL_PRIMARY
 						       len))
-	 (command-buffers (make-VkCommandBuffer* len)))
+	 (command-buffers (make-VkCommandBuffer* len))
+	 (vertex-buffer (create-vertex-buffer logical-device))
+	 (vertex-buffer-memory (allocate-memory-for-buffer devices vertex-buffer)))
     (call-vk-cmd vkAllocateCommandBuffers logical-device alloc-info command-buffers)
-    (make-buffers framebuffers (cons len command-buffers) command-pool)))
+    (make-buffers framebuffers
+		  (cons len command-buffers)
+		  command-pool
+		  (cons vertex-buffer vertex-buffer-memory))))
 
 
-(define (perform-render-pass swapchain-info pipeline-detail framebuffer command-buffer*)
+(define (perform-render-pass swapchain-info pipeline-detail framebuffer command-buffer*
+			     vertex-buffer)
   (with* ((render-area (ptr->VkRect2D
 			(make-VkRect2D (ptr->VkOffset2D (make-VkOffset2D 0 0))
 				       (swapchain-info-extent swapchain-info))))
@@ -786,16 +914,27 @@ Cleanup todo:
 						  render-area
 						  1
 						  clear-value)))
+
+
+    ;; (define (bind-vertex-buffer)
+    ;;   )
+    
     (call-vk-cmd vkBeginCommandBuffer command-buffer (make-VkCommandBufferBeginInfo #f 0 #f))
     (vkCmdBeginRenderPass command-buffer begin-info VK_SUBPASS_CONTENTS_INLINE)
     (vkCmdBindPipeline command-buffer VK_PIPELINE_BIND_POINT_GRAPHICS (ptr->VkPipeline pipelines))
+    ;; (bind-vertex-buffer)
+    (let ((vertex-buffers (make-VkBuffer* 1))
+	  (offsets (malloc-int64-list 1)))
+      (set-VkBuffer! vertex-buffers 0 vertex-buffer)
+      (set-int64-list! offsets 0 0)
+	(vkCmdBindVertexBuffers command-buffer 0 1 vertex-buffers offsets))
     (vkCmdDraw command-buffer 3 1 0 0)
     (vkCmdEndRenderPass command-buffer)
     (call-vk-cmd vkEndCommandBuffer command-buffer)))
 
 
-(def (record-buffers logical-device pipeline-details swapchain-details queue-indices (cmd-pool #f))
-  (let (buffers (create-buffers logical-device
+(def (record-buffers devices pipeline-details swapchain-details queue-indices (cmd-pool #f))
+  (let (buffers (create-buffers devices
 				pipeline-details
 				swapchain-details
 				queue-indices
@@ -807,7 +946,8 @@ Cleanup todo:
 								swapchain-details)
 							       pipeline-details
 							       (list-ref (buffers-frame buffers) i)
-							       command-buffer)))))
+							       command-buffer
+							       (car (buffers-vertex buffers)))))))
 		       rcons
 		       (buffers-command buffers)
 		       ref-VkCommandBuffer)
@@ -821,7 +961,7 @@ Cleanup todo:
 			(cvector-ptr command-buffers)))
 
 (define (cleanup-buffers logical-device buffers-data)
-  (with ((buffers frame command pool) buffers-data)
+  (with ((buffers frame command pool _) buffers-data)
     (destroy-frame-buffers logical-device frame)
     (free-command-buffers logical-device (ptr->VkCommandPool pool) command)))
 
@@ -970,7 +1110,7 @@ todo
 							   (swapchain-details-info swapchain-details)
 							   (shaders-vertex shaders-obj)
 							   (shaders-fragment shaders-obj)))
-	       (buffers (record-buffers device
+	       (buffers (record-buffers devices
 					pipeline-details
 					swapchain-details
 					(queue-details-indices queue-details)
@@ -1057,6 +1197,8 @@ todo
     (cleanup-swapchain vk-instance logical-device swapchain-details pipeline-details buffers)
     (cleanup-sync-objects logical-device so)
     (vkDestroyCommandPool logical-device (ptr->VkCommandPool (buffers-command-pool buffers)) #f)
+    (vkDestroyBuffer logical-device (ptr->VkBuffer (car (buffers-vertex buffers))) #f)
+    (vkFreeMemory logical-device (ptr->VkDeviceMemory (cdr (buffers-vertex buffers))) #f)
     (vkDestroyDevice logical-device #f)
     (vkDestroySurfaceKHR vk-instance (ptr->VkSurfaceKHR (window-details-surface window-details)) #f)
     (glfw-destroy-window (window-details-window window-details))
@@ -1203,7 +1345,7 @@ todo
 						      (swapchain-details-info swapchain-details)
 						      v-shader
 						      f-shader))
-	  (buffers  (record-buffers logical-device
+	  (buffers  (record-buffers devices
 				    pipeline-details
 				    swapchain-details
 				    (queue-details-indices queue-details))))
@@ -1218,24 +1360,19 @@ Dev:
         :kaladin/glfw
         :kaladin/vulkan)
 
-(begin 
+(define vk-instance (ptr->VkInstance (car (create-vulkan-instance-with-validation))))
 
- (define vk-instance (ptr->VkInstance (car (create-vulkan-instance-with-validation))))
+(define window-details (create-window-details! vk-instance))
 
- (define window-details (create-window-details vk-instance))
+(define surface (window-details-surface window-details))
 
- (define vs (get-device+queue vk-instance window))
- (define vs2 (create-swapchain-image-views vs)))
+(define devices+queue-details (get-devices-and-queue-details vk-instance surface))
 
+(define devices (car devices+queue-details))
 
+(define vs (initialize-vulkan-state "shaders/"))
 
-(define vs3  (create-graphics-pipeline vs2 "shaders/shader.vert" "shaders/shader.frag"))
+(define so  (create-sync-objects vs4))
 
-  (define vs3 (create-graphics-pipeline vs2 "shaders/shader.vert" "shaders/shader.frag"))
-
-  (define vs4 (record-command-buffers vs3))
-
-  (define so  (create-sync-objects vs4))
-
-  (draw vs4 window so)
+(draw vs4 window so)
 |#
