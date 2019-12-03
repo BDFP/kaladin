@@ -260,7 +260,7 @@
 
 (define (check-swapchain-support? formats modes)
   (and (< 0 (car formats))
-     (< 0 (car modes))))
+       (< 0 (car modes))))
 
 ;; choose right settings for swap chain
 
@@ -536,7 +536,7 @@
 (define buffer-size 15)
 
 
-(define data (list 0.0 -0.5 1.0 0.0 0.0
+(define data (list 0.0 -0.5 1.0 1.0 1.0
 		   0.5  0.5 0.0 1.0 0.0
 		   -0.5  0.5 0.0 0.0 1.0))
 
@@ -567,22 +567,24 @@
     (set-VkVertexInputAttributeDescription! description 1 color-attr)
     description))
 
-(define (create-vertex-buffer logical-device)
+(define (create-buffer logical-device buffer-size usage-flag)
   (let ((buffer-info (make-VkBufferCreateInfo #f
 					       0
-					       (* 20 3)
-					       VK_BUFFER_USAGE_VERTEX_BUFFER_BIT
+					       buffer-size
+					       usage-flag
 					       VK_SHARING_MODE_EXCLUSIVE
 					       0
 					       #f))
-	(vertex-buffer (make-VkBuffer)))
-    (call-vk-cmd vkCreateBuffer logical-device buffer-info #f vertex-buffer)
-    vertex-buffer))
+	(buffer (make-VkBuffer)))
+    (call-vk-cmd vkCreateBuffer logical-device buffer-info #f buffer)
+    buffer))
 
-(define (allocate-memory-for-buffer devices vertex-buffer)
+(define (allocate-memory-for-buffer devices buffer property-flags)
   (let ((requirements (make-VkMemoryRequirements* 1))
 	(properties (make-VkPhysicalDeviceMemoryProperties* 1))
 	(logical-device (ptr->VkDevice (devices-logical devices))))
+
+    (displayln "hmmm " devices buffer property-flags requirements)
 
     (define (find-memory-type type property-flags)
       (let lp ((i (iota (VkPhysicalDeviceMemoryPropertiesmemoryTypeCount properties))))
@@ -600,34 +602,88 @@
     
     (define (allocate-memory)
       (let* ((memory-type-index (find-memory-type (VkMemoryRequirementsmemoryTypeBits requirements)
-						  (bitwise-ior VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT
-							       VK_MEMORY_PROPERTY_HOST_COHERENT_BIT)))
+						  property-flags))
 	     (alloc-info (make-VkMemoryAllocateInfo #f						   
 						    (VkMemoryRequirementssize requirements)
 						    memory-type-index))
 	     (vertex-buffer-memory (make-VkDeviceMemory)))
-	(displayln "allocating " (VkMemoryRequirementssize requirements) " memory")
 	(call-vk-cmd vkAllocateMemory logical-device alloc-info #f vertex-buffer-memory)
 	vertex-buffer-memory))
 
     (define (copy-data memory)
-      (let ((data (make-void-ptr))
-	    (memory (ptr->VkDeviceMemory memory)))
-	(vkBindBufferMemory logical-device
-			    (ptr->VkBuffer vertex-buffer)
-			    memory
-			    0)
-	(vkMapMemory logical-device memory 0 (u8vector-size buffer-data) 0 data)
-	(memcpy data buffer-data)
-	(vkUnmapMemory logical-device memory))
+      (vkBindBufferMemory logical-device
+			  (ptr->VkBuffer buffer)
+			  (ptr->VkDeviceMemory memory)
+			  0)
+      (displayln "data copied for a buffer")
       memory)
     
-    (vkGetBufferMemoryRequirements logical-device (ptr->VkBuffer vertex-buffer) requirements)
+    (vkGetBufferMemoryRequirements logical-device (ptr->VkBuffer buffer) requirements)
     (vkGetPhysicalDeviceMemoryProperties (ptr->VkPhysicalDevice (devices-physical devices))
 					 properties)
-    (displayln "requirement: " (VkMemoryRequirementsalignment requirements))
+
     (copy-data (allocate-memory))))
 
+(define (make-buffer devices buffer-size usage-flag property-flags)
+  (let (buffer (create-buffer (ptr->VkDevice (devices-logical devices)) buffer-size usage-flag))
+    (cons buffer
+	  (ptr->VkDeviceMemory (allocate-memory-for-buffer devices buffer property-flags)))))
+
+(define (copy-buffer logical-device command-pool graphics-queue src-buffer dest-buffer size)
+  (let* ((command-buffer* (create-command-buffer logical-device command-pool))
+	 (command-buffer (ptr->VkCommandBuffer command-buffer*))
+	 (graphics-queue (ptr->VkQueue graphics-queue))
+	 (buffer-begin-info (make-VkCommandBufferBeginInfo #f
+							   VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT
+							   #f))
+	 (copy-region (make-VkBufferCopy 0 0 size))
+	 (submit-info (make-VkSubmitInfo #f 0 #f #f 1 command-buffer* 0 #f)))
+    (vkBeginCommandBuffer command-buffer buffer-begin-info)
+    (vkCmdCopyBuffer command-buffer src-buffer dest-buffer 1 copy-region)
+    (vkEndCommandBuffer command-buffer)
+
+    (vkQueueSubmit graphics-queue 1 submit-info #f)
+    ;; todo use fences
+    ;; A fence would allow you to schedule multiple transfers simultaneously and wait for all of
+    ;; them complete, instead of executing one at a time.
+    ;; That may give the driver more opportunities to optimize.
+    (vkQueueWaitIdle graphics-queue)
+    (vkFreeCommandBuffers logical-device (ptr->VkCommandPool command-pool) 1 command-buffer*)))
+
+(define (create-vertex-buffer devices command-pool graphics-queue)
+  (with* ((logical-device (ptr->VkDevice (devices-logical devices)))
+	 (buffer-size (u8vector-size buffer-data)) ;; <- global variable
+	 ([staging-buffer . staging-buffer-memory]
+	  (make-buffer devices
+		       buffer-size
+		       VK_BUFFER_USAGE_TRANSFER_SRC_BIT
+		       (bitwise-ior VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT
+				    VK_MEMORY_PROPERTY_HOST_COHERENT_BIT)))
+	 ([vertex-buffer . vertex-buffer-memory]
+	  (make-buffer devices
+		       buffer-size
+		       (bitwise-ior VK_BUFFER_USAGE_TRANSFER_DST_BIT
+				    VK_BUFFER_USAGE_VERTEX_BUFFER_BIT)
+		       VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT))
+	 (data (make-void-ptr)))
+
+    ;; load from cpu
+    (vkMapMemory logical-device staging-buffer-memory 0 buffer-size 0 data)
+    (memcpy data buffer-data)
+    (vkUnmapMemory logical-device staging-buffer-memory)
+
+    ;; copy to high perforamance gpu
+    (copy-buffer logical-device
+		 command-pool
+		 graphics-queue
+		 (ptr->VkBuffer staging-buffer)
+		 (ptr->VkBuffer vertex-buffer)
+		 buffer-size)
+    
+    (vkDestroyBuffer logical-device (ptr->VkBuffer staging-buffer) #f)
+    (vkFreeMemory logical-device staging-buffer-memory #f)
+   
+    (cons vertex-buffer vertex-buffer-memory)))
 #|
 
 (define logical-device (ptr->VkDevice (devices-logical devices)))
@@ -878,20 +934,27 @@
     (call-vk-cmd vkCreateCommandPool logical-device pool-info #f command-pool)
     command-pool))
 
-
-(def (create-buffers devices pipeline-details swapchain-details queue-indices (cmd-pool #f))
-  (let* ((logical-device (ptr->VkDevice (devices-logical devices)))
-	 (framebuffers (create-frame-buffers logical-device  pipeline-details swapchain-details))
-	 (len (length framebuffers))
-	 (command-pool (or cmd-pool (create-command-pool logical-device queue-indices)))
-	 (alloc-info (make-VkCommandBufferAllocateInfo #f
-						       (ptr->VkCommandPool command-pool)
-						       VK_COMMAND_BUFFER_LEVEL_PRIMARY
-						       len))
-	 (command-buffers (make-VkCommandBuffer* len))
-	 (vertex-buffer (create-vertex-buffer logical-device))
-	 (vertex-buffer-memory (allocate-memory-for-buffer devices vertex-buffer)))
+(def (create-command-buffer logical-device command-pool (num 1))
+  (displayln "num of command buffer " num command-pool)
+  (let ((alloc-info (make-VkCommandBufferAllocateInfo #f
+						      (ptr->VkCommandPool command-pool)
+						      VK_COMMAND_BUFFER_LEVEL_PRIMARY
+						      num))
+	(command-buffers (make-VkCommandBuffer* num)))
     (call-vk-cmd vkAllocateCommandBuffers logical-device alloc-info command-buffers)
+    command-buffers))
+
+
+(def (create-buffers devices pipeline-details swapchain-details queue-details-obj (cmd-pool #f))
+  (with* ((logical-device (ptr->VkDevice (devices-logical devices)))
+	  ((queue-details queues queue-indices) queue-details-obj)
+	  (framebuffers (create-frame-buffers logical-device  pipeline-details swapchain-details))
+	  (len (length framebuffers))
+	  (command-pool (or cmd-pool (create-command-pool logical-device queue-indices)))
+	  (command-buffers (create-command-buffer logical-device command-pool len))
+	  ([vertex-buffer . vertex-buffer-memory] (create-vertex-buffer devices
+									command-pool
+									(queues-graphics queues))))
     (make-buffers framebuffers
 		  (cons len command-buffers)
 		  command-pool
@@ -916,28 +979,27 @@
 						  clear-value)))
 
 
-    ;; (define (bind-vertex-buffer)
-    ;;   )
+    (define (bind-vertex-buffer)
+      (let ((vertex-buffers (make-VkBuffer* 1))
+	  (offsets (malloc-int64-list 1)))
+      (set-VkBuffer! vertex-buffers 0 vertex-buffer)
+      (set-int64-list! offsets 0 0)
+	(vkCmdBindVertexBuffers command-buffer 0 1 vertex-buffers offsets)))
     
     (call-vk-cmd vkBeginCommandBuffer command-buffer (make-VkCommandBufferBeginInfo #f 0 #f))
     (vkCmdBeginRenderPass command-buffer begin-info VK_SUBPASS_CONTENTS_INLINE)
     (vkCmdBindPipeline command-buffer VK_PIPELINE_BIND_POINT_GRAPHICS (ptr->VkPipeline pipelines))
-    ;; (bind-vertex-buffer)
-    (let ((vertex-buffers (make-VkBuffer* 1))
-	  (offsets (malloc-int64-list 1)))
-      (set-VkBuffer! vertex-buffers 0 vertex-buffer)
-      (set-int64-list! offsets 0 0)
-	(vkCmdBindVertexBuffers command-buffer 0 1 vertex-buffers offsets))
+    (bind-vertex-buffer)
     (vkCmdDraw command-buffer 3 1 0 0)
     (vkCmdEndRenderPass command-buffer)
     (call-vk-cmd vkEndCommandBuffer command-buffer)))
 
 
-(def (record-buffers devices pipeline-details swapchain-details queue-indices (cmd-pool #f))
+(def (record-buffers devices pipeline-details swapchain-details queue-details (cmd-pool #f))
   (let (buffers (create-buffers devices
 				pipeline-details
 				swapchain-details
-				queue-indices
+				queue-details
 				cmd-pool))
     (cvector-transduce (compose (tenumerate)
 				(tmap (lambda (index+command-buffer)
@@ -1113,7 +1175,7 @@ todo
 	       (buffers (record-buffers devices
 					pipeline-details
 					swapchain-details
-					(queue-details-indices queue-details)
+					queue-details
 					(buffers-command-pool buffers))))
 	  (make-vulkan-state vk-instance devices window-details queue-details swapchain-details
 			     pipeline-details buffers shaders-obj))))
@@ -1198,7 +1260,7 @@ todo
     (cleanup-sync-objects logical-device so)
     (vkDestroyCommandPool logical-device (ptr->VkCommandPool (buffers-command-pool buffers)) #f)
     (vkDestroyBuffer logical-device (ptr->VkBuffer (car (buffers-vertex buffers))) #f)
-    (vkFreeMemory logical-device (ptr->VkDeviceMemory (cdr (buffers-vertex buffers))) #f)
+    (vkFreeMemory logical-device (cdr (buffers-vertex buffers)) #f)
     (vkDestroyDevice logical-device #f)
     (vkDestroySurfaceKHR vk-instance (ptr->VkSurfaceKHR (window-details-surface window-details)) #f)
     (glfw-destroy-window (window-details-window window-details))
@@ -1348,7 +1410,7 @@ todo
 	  (buffers  (record-buffers devices
 				    pipeline-details
 				    swapchain-details
-				    (queue-details-indices queue-details))))
+				    queue-details)))
     (make-vulkan-state vk-instance devices window-details queue-details swapchain-details
 		       pipeline-details buffers (make-shaders v-shader f-shader))))
 
